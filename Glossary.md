@@ -10,3 +10,7 @@
 6. Preview: Enunciado de un problema sin vista de la solución.
 7. Comentario: Opinión de un profesor respecto a un problema de otro usuario.
 8. Tag: Palabra descriptiva que cumple el proposito de identificación o dar información
+9. Problema: Ejercicio en la base de datos previamente enviado por un usuario profesor.
+10. Comentario: Opinión de un profesor respecto a un problema de otro usuario.
+11. Actualizar: Modificar informacion antigua por una mas reciente.
+
