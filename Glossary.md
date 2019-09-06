@@ -8,4 +8,5 @@
 4. Loguearme: Digitar datos de usuario y contraseña e ingresar al sistemas.
 5. 3x1: Modo de intercambio de problemas, mandas un problemas y recibes tres.
 6. Preview: Enunciado de un problema sin vista de la solución.
-7. Tag: Palabra descriptiva que cumple el proposito de identificación o dar información
+7. Comentario: Opinión de un profesor respecto a un problema de otro usuario.
+8. Tag: Palabra descriptiva que cumple el proposito de identificación o dar información
