@@ -1,12 +1,3 @@
-# easy-exam-grupo-ii
-
-<<<<<<< HEAD
-Sistema: Plataforma de EasyExam
-Login: Ingreso del usuario al sistema
-Problemas: Ejercicios de distintas áreas académicas
-Tag: Palabra descriptiva que cumple el proposito de identificación o dar información.
-User: persona que ingresa al sistema
-=======
 ## Words Dictionaries
 
 1. Reportes: Documentos generados a partir de estadisticas de los problemas.
@@ -20,5 +11,3 @@ User: persona que ingresa al sistema
 9. Problema: Ejercicio en la base de datos previamente enviado por un usuario profesor.
 10. Comentario: Opinión de un profesor respecto a un problema de otro usuario.
 11. Actualizar: Modificar informacion antigua por una mas reciente.
-
->>>>>>> master
