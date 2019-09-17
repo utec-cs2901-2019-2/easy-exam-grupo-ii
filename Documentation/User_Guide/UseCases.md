@@ -1,7 +1,7 @@
-Software: EasyExam
-Actor: User
-Requirement: None
-Use Case: UC01 - Account creation
+## Software: EasyExam
+## Actor: User
+## Requirement: None
+## Use Case: UC01 - Account creation
 
 1. User enters EasyExam´s web page
 2. User clicks on start
