@@ -1,7 +1,7 @@
-## Software: EasyExam
-## Actor: User
-## Requirement: None
-## Use Case: UC01 - Account creation
+### Software: EasyExam
+### Actor: User
+### Requirement: None
+### Use Case: UC01 - Account creation
 
 1. User enters EasyExam´s web page
 2. User clicks on start
@@ -29,10 +29,10 @@ USE CASE ENDS
 
 -----------------------------------------------------------------------------------
 
-Software: EasyExam
-Actor: User
-Requirement: User is logged
-Use Case: UC02 - Registering a new question/answer
+### Software: EasyExam
+### Actor: User
+### Requirement: User is logged
+### Use Case: UC02 - Registering a new question/answer
 
 1. Logged user clicks on Submit a question
 2. User fills the fields for the question
@@ -54,10 +54,10 @@ USE CASE ENDS
 
 -----------------------------------------------------------------------------------
 
-Software: EasyExam
-Actor: User
-Requirement: User is logged, user added problems (UC04)
-Use Case: UC03 - User downloads the exam
+### Software: EasyExam
+### Actor: User
+### Requirement: User is logged, user added problems (UC04)
+### Use Case: UC03 - User downloads the exam
 
 1. User clicks generate
 2. System redirects user to the exam generation page
@@ -72,10 +72,10 @@ USE CASE ENDS
 
 -----------------------------------------------------------------------------------
 
-Software: EasyExam
-Actor: User
-Requirement: User is logged
-Use case: UC04 - User adds a question to the exam
+### Software: EasyExam
+### Actor: User
+### Requirement: User is logged
+### Use case: UC04 - User adds a question to the exam
 
 1. User selects a problem from the dashboard
 2. System pops up the problem's window
@@ -90,10 +90,10 @@ USE CASE ENDS
 
 -----------------------------------------------------------------------------------
 
-Software: EasyExam
-Actor: User
-Requirement: User is logged
-Use case: UC05 - Report a problem
+### Software: EasyExam
+### Actor: User
+### Requirement: User is logged
+### Use case: UC05 - Report a problem
 
 1. User selects a problem from the dashboard
 2. System pops up the problem's window
@@ -115,10 +115,10 @@ USE CASE ENDS
 
 -----------------------------------------------------------------------------------
 
-Software: EasyExam
-Actor: User
-Requirement: None
-Use case: UC06 - Account recovery
+### Software: EasyExam
+### Actor: User
+### Requirement: None
+### Use case: UC06 - Account recovery
 
 1. User enters EasyExam's web page
 2. User clicks on start
