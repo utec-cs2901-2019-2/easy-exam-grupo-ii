@@ -13,18 +13,18 @@
 8. System creates the account and redirects the user to home
 USE CASE ENDS.
 
-Extentions:
-7a. System detects unfilled fields on the registration form
-7a1.  System asks the user to fulfill the unfilled fileds
-7a2. User fills the fields
-Repeat until user creates an account successfully 
+### Extentions:
+- 7a. System detects unfilled fields on the registration form
+- 7a1.  System asks the user to fulfill the unfilled fileds
+- 7a2. User fills the fields
+- Repeat until user creates an account successfully 
 
-6a. System detects that there is already a user registered with that information
-6a1. Redirects back to the registration form and tells the user there is someone already registered with that information
-Repeat until user inputs different info
+- 6a. System detects that there is already a user registered with that information
+- 6a1. Redirects back to the registration form and tells the user there is someone already registered with that information
+- Repeat until user inputs different info
 
-*a User cancels registration
-*a1. System redirects user back to the home page
+- *a User cancels registration
+- *a1. System redirects user back to the home page
 USE CASE ENDS
 
 -----------------------------------------------------------------------------------
@@ -42,14 +42,14 @@ USE CASE ENDS
 6. User gets redirected to the dashboard
 USE CASE ENDS
 
-Extentions: 
-5a. System detects unfilled fields on the form
-5a1.  System asks the user to fulfill the unfilled fileds
-5a2. User fills the fields
-Repeat until user submits a question successfully
+### Extentions: 
+- 5a. System detects unfilled fields on the form
+- 5a1.  System asks the user to fulfill the unfilled fileds
+- 5a2. User fills the fields
+- Repeat until user submits a question successfully
 
-*a User cancels Submition
-*a1. System redirects user back to the dashboard
+- *a User cancels Submition
+- *a1. System redirects user back to the dashboard
 USE CASE ENDS
 
 -----------------------------------------------------------------------------------
@@ -65,9 +65,9 @@ USE CASE ENDS
 4. System downloads the exam into the user's PC
 USE CASE ENDS
 
-Extentions: 
-*a User cancels Submition
-*a1. System redirects user back to the dashboard
+### Extentions: 
+- *a User cancels Submition
+- *a1. System redirects user back to the dashboard
 USE CASE ENDS
 
 -----------------------------------------------------------------------------------
@@ -83,9 +83,9 @@ USE CASE ENDS
 4. System adds the problem to the exam the user is generating
 USE CASE ENDS
 
-Extenitions:
-*a User Cancels Submition
-*a1. System redirects user back to the dashboard
+### Extenitions:
+- *a User Cancels Submition
+- *a1. System redirects user back to the dashboard
 USE CASE ENDS
 
 -----------------------------------------------------------------------------------
@@ -103,14 +103,14 @@ USE CASE ENDS
 6. User clicks on submit report
 USE CASE ENDS
 
-Extenitions:
-5a. System detects unfilled fields on the form
-5a1.  System asks the user to fulfill the unfilled fields
-5a2. User fills the fields
-Repeat until user creates a report successfully
+### Extenitions:
+- 5a. System detects unfilled fields on the form
+- 5a1.  System asks the user to fulfill the unfilled fields
+- 5a2. User fills the fields
+- Repeat until user creates a report successfully
 
-*a User Cancels Submition
-*a1. System redirects user back to the dashboard
+- *a User Cancels Submition
+- *a1. System redirects user back to the dashboard
 USE CASE ENDS
 
 -----------------------------------------------------------------------------------
@@ -130,12 +130,12 @@ USE CASE ENDS
 8. System sends an account recovery email to the user
 USE CASE ENDS
 
-Extenitions:
-7a. System detects unfilled fields on the form
-7a1.  System asks the user to fulfill the unfilled fields
-7a2. User fills the fields
-Repeat until user sends  
+### Extenitions:
+- 7a. System detects unfilled fields on the form
+- 7a1.  System asks the user to fulfill the unfilled fields
+- 7a2. User fills the fields
+- Repeat until user sends  
 
-*a User Cancels Submition
-*a1. System redirects user back to the dashboard
+- *a User Cancels Submition
+- *a1. System redirects user back to the dashboard
 USE CASE ENDS
