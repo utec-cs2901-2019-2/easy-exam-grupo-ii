@@ -6,6 +6,7 @@
 
 ## Glossary
 
+- **3x1 rule:** upload a problem and get access to three ones
 - **Platform:** all the system of EasyExam
 - **User:** a person who uses the platform
 - **Administrator user:** a user who can handle accounts and publications
@@ -16,6 +17,9 @@
 - **Activation email:** email that allows to activate an account
 - **Dashboard:** control panel of the platform
 - **Problem:** a question to be answered
+- **Public problems:** problems with solution that are accessible by all
+- **Private problems:** problems with solution, on specific topics, that are only accessible to teachers
+- **Preview:** problem statement without solution
 - **Solution:** answer to a problem with detailed procedure or rationale
 - **Answer key:** quick answer to a problem, without procedure
 - **Submit:** action of uploading a problem to the platform
