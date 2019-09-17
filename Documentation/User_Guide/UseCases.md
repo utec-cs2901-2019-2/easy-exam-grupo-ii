@@ -11,6 +11,7 @@
 6. User fills the registration form
 7. User clicks Create Account
 8. System creates the account and redirects the user to home
+
 USE CASE ENDS.
 
 ### Extentions:
@@ -19,12 +20,15 @@ USE CASE ENDS.
 - 7a2. User fills the fields
 - Repeat until user creates an account successfully 
 
+
 - 6a. System detects that there is already a user registered with that information
 - 6a1. Redirects back to the registration form and tells the user there is someone already registered with that information
 - Repeat until user inputs different info
 
+
 - *a User cancels registration
 - *a1. System redirects user back to the home page
+
 USE CASE ENDS
 
 -----------------------------------------------------------------------------------
