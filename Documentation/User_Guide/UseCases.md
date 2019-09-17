@@ -44,6 +44,7 @@ USE CASE ENDS
 4. User fills the fields for the answer
 5. User clicks Submit
 6. User gets redirected to the dashboard
+
 USE CASE ENDS
 
 ### Extentions: 
@@ -54,6 +55,7 @@ USE CASE ENDS
 
 - *a User cancels Submition
 - *a1. System redirects user back to the dashboard
+
 USE CASE ENDS
 
 -----------------------------------------------------------------------------------
@@ -67,11 +69,13 @@ USE CASE ENDS
 2. System redirects user to the exam generation page
 3. User clicks on the format he wants to download the exam in 
 4. System downloads the exam into the user's PC
+
 USE CASE ENDS
 
 ### Extentions: 
 - *a User cancels Submition
 - *a1. System redirects user back to the dashboard
+
 USE CASE ENDS
 
 -----------------------------------------------------------------------------------
@@ -85,11 +89,13 @@ USE CASE ENDS
 2. System pops up the problem's window
 3. User Clicks on get problem 
 4. System adds the problem to the exam the user is generating
+
 USE CASE ENDS
 
 ### Extenitions:
 - *a User Cancels Submition
 - *a1. System redirects user back to the dashboard
+
 USE CASE ENDS
 
 -----------------------------------------------------------------------------------
@@ -105,6 +111,7 @@ USE CASE ENDS
 4. System pops up a report window
 5. User fills on the fields to report the problem
 6. User clicks on submit report
+
 USE CASE ENDS
 
 ### Extenitions:
@@ -115,6 +122,7 @@ USE CASE ENDS
 
 - *a User Cancels Submition
 - *a1. System redirects user back to the dashboard
+
 USE CASE ENDS
 
 -----------------------------------------------------------------------------------
@@ -132,6 +140,7 @@ USE CASE ENDS
 6. User fills the fields 
 7. User clicks on submit
 8. System sends an account recovery email to the user
+
 USE CASE ENDS
 
 ### Extenitions:
@@ -142,4 +151,5 @@ USE CASE ENDS
 
 - *a User Cancels Submition
 - *a1. System redirects user back to the dashboard
+
 USE CASE ENDS
