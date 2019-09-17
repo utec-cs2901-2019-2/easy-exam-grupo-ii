@@ -2,7 +2,7 @@
 
 ## Introduction
 
-EasyExam is an online platform aiming to help teachers to generate relevant question for the exams they wish to take their students.
+EasyExam is an online platform aiming to help teachers to generate relevant question for the exams they wish to take their students. EasyExam works on a 3-1 system in which the user sends one question for every 3 he will recieve in order to encourage coolaboration within the platform. The users can also download the generated exams in various formats like latex, doc or pdf. 
 
 ***
 ## Requirements
