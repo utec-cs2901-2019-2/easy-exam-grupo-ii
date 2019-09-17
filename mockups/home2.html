@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Home</title>
+  </head>
+  <body>
+    <!-- Image and text -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd; font-size: 1.3rem">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="#">
+                <img src="static/img/icon" width="30" height="30" class="d-inline-block align-top" alt="">
+                EasyExam
+        </a>
+        
+        <ul class="navbar-nav nav-pills mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+            <a class="nav-link" href="home.html">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="generate.html">Generate</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="submit.html">Submit</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="feedback.html">Feedback</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="problems_selected.html">Problems Selected</a>
+            </li>
+        </ul>
+    
+        <img src="static/img/user.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        <a class="navbar-brand" href="#">User</a>
+        </div>
+    </nav>
+
+    <!--Modal Problem-->
+
+    <div class="modal fade bd-example-modal-xl" id="ModalProblem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalProblemLabel">Title Problem</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                <div class="form-group">
+                    <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-success" disabled>Subject</button>
+                                <button type="button" class="btn btn-success" disabled>Date</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Problem:</label>
+                    <div class="card" style="overflow-y: auto; width: 100%; height: 500px ; margin:auto;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <form>
+                        <div class="form-row">
+                            <p style="margin-right: 30px">Difficulty:</p>
+                            <button type="button" class="btn btn-success" style="margin-right: 20px">Easy</button>
+                            <button type="button" class="btn btn-success" style="margin-right: 20px">Medium</button>
+                            <button type="button" class="btn btn-success" style="margin-right: 20px">Difficult</button>
+                            <button type="button" class="btn btn-success" style="margin-right: 20px">Very Difficult</button>
+                        </div>
+                    </form>
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="display: block">
+                <form>
+                    <div class="form-row">
+                        <button type="button" class="btn btn-outline-info" style="margin:auto">Get Problem</button>
+                        <button type="button" class="btn btn-outline-info" style="margin:auto">Get Solution</button>
+                        <button type="button" class="btn btn-outline-danger" style="margin:auto">Report</button>
+                        <button type="button" class="btn btn-outline-danger" style="margin:auto">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!--End Modal-->
+
+    <div class="container">
+        <br/>
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-10">
+                <form class="card card-sm" style="background: #e3f2fd">
+                    <div class="card-body row no-gutters align-items-center">
+                        <div class="col-auto">
+                            <i class="fas fa-search h4 text-body"></i>
+                        </div>
+                        <!--end of col-->
+                        <div class="col">
+                            <input class="form-control form-control-lg form-control-borderless" id="formulario" type="search" placeholder="Search topics or keywords">
+                        </div>
+                        <!--end of col-->
+                        <div class="col-auto">
+                            <button class="btn btn-lg btn-success" type="submit" id="boton">Search</button>
+                        </div>
+                        <!--end of col-->
+                    </div>
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner" id="resultado">
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" style="width: 5%">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next" style="width: 5%">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script>
+        const data = [
+            {nombre: 'Divide and Conquer', description: '---', fecha: '01/01/2019', dif:'Hard',
+            tags: ['','divide and conquer','c++','ada','algorithms']},
+            {nombre: 'Knapsack', description: '---', fecha: '01/01/2019', dif:'Easy',
+            tags: ['','knapsack','divide and conquer','c++','ada','algorithms']},
+            {nombre: 'Master Theorem', description: '---', fecha: '01/01/2019', dif:'Medium',
+            tags: ['','master theorem','ada','algorithms','maths']},
+            {nombre: 'c++', description: '---', fecha: '01/01/2019', dif:'Hard',
+            tags: ['','c++']}
+        ]
+
+        const formulario = document.querySelector('#formulario');
+        const boton = document.querySelector('#boton');
+        const resultado = document.querySelector('#resultado');
+
+        const filtrar = () =>{
+            //console.log(formulario.value);
+            resultado.innerHTML = '';
+            const texto = formulario.value.toLowerCase();
+            ind = 0;
+            start = true;
+            empty = true;
+            carrusel = '';
+            i = 0;
+            for(let dat of data){
+                let tags = dat.tags;
+                if(tags.indexOf(texto) !== -1){
+                    empty = false;
+                    card = `
+                        <div class="col-sm-12 col-lg-4">
+                            <div class="card" style="width: 200px; margin:auto;">
+                                <a type ="button" data-toggle="modal" data-target="#ModalProblem" data-id="@${i}">
+                                    <div class="card-header">${dat.nombre}</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">${dat.dif} Problem</h5>
+                                        <p class="card-text">${dat.description}</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">Date: ${dat.fecha}</small>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        `;
+                    carrusel += card;
+                    if(ind === 2){
+                        if(start){
+                            resultado.innerHTML += (`
+                            <div class="carousel-item active">
+                                <div class="container">
+                                    <div class="row">
+                            ` + carrusel + `</div>
+                                </div>
+                            </div>`)
+                            start = false;
+                        }
+                        else{
+                            resultado.innerHTML += (`
+                            <div class="carousel-item">
+                                <div class="container">
+                                    <div class="row">
+                            ` + carrusel + `</div>
+                                </div>
+                            </div>`)
+                        }
+                        carrusel = '';                        
+                    }
+                    ind++;
+                    if(ind === 3){
+                        ind = 0;
+                    }
+
+                }
+                i++;
+            }
+            if(ind !== 0){
+                if(!empty){
+                    if(start){
+                        resultado.innerHTML += (`
+                        <div class="carousel-item active">
+                            <div class="container">
+                                <div class="row">
+                        ` + carrusel + `</div>
+                            </div>
+                        </div>`)
+                        start = false;
+                    }
+                    else{
+                        resultado.innerHTML += (`
+                        <div class="carousel-item">
+                            <div class="container">
+                                <div class="row">
+                        ` + carrusel + `</div>
+                            </div>
+                        </div>`)
+                    }
+                }
+            }
+            if (resultado.innerHTML === ''){
+                resultado.innerHTML += `
+                    <li>Not Found...</li>
+                `
+            }
+        }
+
+        boton.addEventListener('click', filtrar)
+        formulario.addEventListener('keyup', filtrar)
+
+        filtrar();
+
+    </script>
+
+    <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('id') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        //var modal = $(this)
+        //modal.find('.modal-title').text('New message to ' + recipient)
+        //modal.find('.modal-body input').val(recipient)
+        })
+    </script>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
