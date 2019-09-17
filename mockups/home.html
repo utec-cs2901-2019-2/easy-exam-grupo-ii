@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en">
   <head>
+
+    <link rel="stylesheet" type="text/css" href="static/css/styles.css" media="screen" />
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,7 +21,7 @@
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <a class="navbar-brand" href="#">
-                <img src="img/icon" width="30" height="30" class="d-inline-block align-top" alt="">
+                <img src="static/img/icon" width="30" height="30" class="d-inline-block align-top" alt="">
                 EasyExam
         </a>
         
@@ -41,7 +43,7 @@
             </li>
         </ul>
     
-        <img src="img/user.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        <img src="static/img/user.png" width="30" height="30" class="d-inline-block align-top" alt="">
         <a class="navbar-brand" href="#">User</a>
         </div>
     </nav>
@@ -99,10 +101,174 @@
 
     <!--End Modal-->
 
-    <div class="container">
+    <div class="container" style="max-width: 70%">
         <br/>
         <div class="row justify-content-center">
-            <div class="col-12 col-md-10 col-lg-10">
+            <div class="col-2" style="margin: auto">
+                            <div id="container" style="width:100%">
+                            <div id="accordion" style="width:100%;">
+                            
+                            <!--END HEAD-->
+                            
+                            <!--BEGIN FIRST CARD
+                            <div class="card border-success mb-3 text-center">
+                              <div class="card-header">
+                                <a class="collapsed card-link text-center" data-toggle="collapse" href="#collapseFIRST">
+                                    <h5 class="card-title text-dark">Subject</h5>
+                                </a>
+                              </div>
+                              <div id="collapseFIRST" class="collapse" data-parent="#accordion">
+                                <div class="card-body text-left">
+                                  <table class="table table-hover group table-striped">
+                                      <tbody>   
+                                        <tr>
+                                          <td>Maths</td>
+                                       </tr>
+                                          <tr>
+                                          <td>Lettes</td>
+                                       </tr>
+                                          <tr>
+                                          <td>Algorithms</td>
+                                       </tr>
+                                      </tbody>
+                                      </table>
+                                </div>
+                                
+                               </div>
+                            </div>-->
+                            <!--END FIRST CARD-->
+                            
+                            <!--BEGIN SECOND CARD-->
+                            
+                            <div class="card border-info mb-3 text-center">
+                              <div class="card-header">
+                                <a class="card-link" data-toggle="collapse" href="#collapseSECOND">
+                                <h5 class="card-title text-dark">Difficult</h5>
+                                </a>
+                              </div>
+                              <div id="collapseSECOND" class="collapse" data-parent="#accordion">
+                                <div class="card-body">
+                                    <table class="table table-hover group table-striped">
+                                        <table class="table table-hover group table-striped">
+                                            <tbody>   
+                                              <tr>
+                                                <td>Easy</td>
+                                             </tr>
+                                                <tr>
+                                                <td>Normal</td>
+                                             </tr>
+                                                <tr>
+                                                <td>Hard</td>
+                                             </tr>
+                                                <tr>
+                                                <td>Very Hard</td>
+                                            </tbody>
+                                            </table>         
+                                              
+                                     <div class="card-footer text-muted">
+                                         
+                                     </div>
+                                 </div>
+                              </div>
+                            </div>
+                            <!--END SECOND CARD-->
+                            
+                            <!--BEGIN THIRD (TABBED) CARD-->
+                            <div class="card border-primary mb-3">
+                              <div class="card-header">
+                                <a class="collapsed card-link text-dark text-center" data-toggle="collapse" href="#collapseTHIRD">
+                                <h5 class="card-title text-dark">Subject</h5>
+                              </div>
+                              <div id="collapseTHIRD" class="collapse" data-parent="#accordion">
+                                <div class="card-body">
+                                  
+                                  <div class="card border-primary mb-3">
+                                    <div class="card-header">
+                                      <div class="nav nav-tabs card-header-tabs" id="nav-tab" role="tablist">
+                                      
+                                      <a class="nav-item nav-link active text-dark" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" name="nav-home-tab">Main Tab</a> 
+                                        
+                                        <a class="nav-item nav-link text-dark" id="nav-one-tab" data-toggle="tab" href="#nav-one" role="tab" aria-controls="nav-one" aria-selected="false" name="nav-one-tab">2nd Tab</a> 
+                                        
+                                        <a class="nav-item nav-link text-dark" id="nav-two-tab" data-toggle="tab" href="#nav-two" role="tab" aria-controls="nav-two" aria-selected="false" name="nav-two-tab">3rd Tab</a> 
+                                        
+                                        <a class="nav-item nav-link text-dark" id="nav-three-tab" data-toggle="tab" href="#nav-three" role="tab" aria-controls="nav-three" aria-selected="false" name="nav-three-tab">4th Tab</a> 
+                                        
+                                        <a class="nav-item nav-link text-dark" id="nav-four-tab" data-toggle="tab" href="#nav-four" role="tab" aria-controls="nav-four" aria-selected="false" name="nav-four-tab">Last Tab</a>
+                                        
+                                      </div>
+                                    </div>
+                                    <div class="tab-content" id="nav-tabContent">
+                                      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                        <table class="table table-hover group table-striped">
+                                         <tbody> 
+                                                 <tr>
+                                                 <td>Title:</td>
+                                                 <td>Value</td>
+                                              </tr>
+                                             </tbody>
+                                             </table>         
+                                          </div>
+                                      <div class="tab-pane fade" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
+                                        <table class="table table-hover group">
+                                          <tbody>
+                                            <tr>
+                                              <td>TAB TITLE 1</td>
+                                            </tr>
+                                            <tr>
+                                              <td>Value</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                      <div class="tab-pane fade" id="nav-two" role="tabpanel" aria-labelledby="nav-two-tab">
+                                        <table class="table table-hover group">
+                                          <tbody>
+                                            <tr>
+                                              <td>TAB TITLE 2 </td>
+                                            </tr>
+                                            <tr>
+                                              <td>Value</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                      <div class="tab-pane fade" id="nav-three" role="tabpanel" aria-labelledby="nav-three-tab">
+                                        <table class="table table-hover group">
+                                          <tbody>
+                                            <tr>
+                                              <td>TAB TITLE 3 </td>
+                                            </tr>
+                                            <tr>
+                                              <td>Value</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                      <div class="tab-pane fade" id="nav-four" role="tabpanel" aria-labelledby="nav-four-tab">
+                                        <table class="table table-hover group">
+                                          <tbody>
+                                            <tr>
+                                              <td>TAB TITLE 4</td>
+                                            </tr>
+                                            <tr>
+                                              <td>Value</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="card-footer text-muted"></div>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <!--END THIRD (TABBED) CARD-->
+                            
+                            </div></div>
+            </div>
+            <div class="col-10 col-md-10 col-lg-10">
                 <form class="card card-sm" style="background: #e3f2fd">
                     <div class="card-body row no-gutters align-items-center">
                         <div class="col-auto">
@@ -149,6 +315,7 @@
 
 
 
+    <script src="static/js/acordionmenu.js"></script>
     <script>
         const data = [
             {nombre: 'Divide and Conquer', description: '---', fecha: '01/01/2019', dif:'Hard',
