@@ -1,8 +1,8 @@
 # User Guide: EasyExam - Group 2
 
 ## Introduction
+EasyExam is an online platform aiming to help teachers to generate relevant questions for the exams that they wish to take their students. EasyExam works on a 3-1 system in which each the user(teacher) sends one question for every 3 they will recieve in order to encourage the collaboration within the platform. The users can also download the generated exams in PDF-Latex format.
 
-EasyExam is an online platform aiming to help teachers to generate relevant question for the exams they wish to take their students. EasyExam works on a 3-1 system in which the user sends one question for every 3 he will recieve in order to encourage coolaboration within the platform. The users can also download the generated exams in pdf-latex format.
 
 ***
 ## Requirements
@@ -11,30 +11,30 @@ The basic requirements for the platform are divided into:
 
 ### Functional:
 
-- The platform must allow for registration, login and recovery of user accounts
-- The platform will allow to submit of new problems and answers from active users
-- The platform will allow the user to generate exams from a set of problems
-- The platform will have the ability to export the generated exams into pdf-latex format
-- The platform should be safe for the users to browse and respect their privacy
+- The platform must allows register, login and recovery of user accounts.
+- The platform will allow to submit of new problems and answers from users.
+- The platform will allow to users generate exams from a set of problems.
+- The platform will have the ability to export the generated exams into PDF-Latex format.
+- The platform should be safe for users. That means that teachers cannot view the authorship of each uploaded problem. Moreover, students cannot view problems freely within the platform.
 
 ### Non-functional:
 
-- The platform will allow the user to rate questions accordingly to its difficulty and relevance
-- Access to the platform should be intuitive and easy to find and use
-- The platform should work for low-spec computer hardware/software
-- The platform should register questions/answers in a short time
-- Features should be written in java language
-- The platform should have the problems divided by difficulty, acceptance rating and subject it belongs to
+- The platform will allow the user to rate questions according to its difficulty and relevance.
+- Access to the platform should be intuitive. Users must be able to find and use problems easily.
+- The platform should work with low-spec computers (both in hardware and software).
+- The platform should register questions and answers in a short time.
+- Features should be written in the java language.
+- The platform should sort the problems according to difficulty, acceptance rating and subject.
 
 ***
 ## Features
 
-- Account management (login, register and recovery)
-- Problem and answer submission
-- Exam generation of selected problems
-- Export exams to pdf-latex format
-- Searching engine and keyword indexation of problems
-- Dashboard for managing problems or exams
+- Account management (login, register and recovery).
+- Problem and answer submission.
+- Generation of an exam with selected problems.
+- Export exams to pdf-latex format.
+- Search engine and keyword indexation of problems.
+- Dashboard for managing problems or exams.
 
 ***
 ## Glossary
@@ -58,6 +58,6 @@ The basic requirements for the platform are divided into:
 - **Submit:** action of uploading a problem to the platform
 - **Report:** action of sending a written observation to a problem that is not well posed, with writing errors or wrong solution
 - **Tags:** problem indexing system
-- **pdf-latex**
+- **pdf-latex:** pdf version of a document generated in Latex
 
 ***
