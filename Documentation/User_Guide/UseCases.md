@@ -41,7 +41,9 @@ USE CASE ENDS
 3. User clicks Next
 4. User fills the fields for the answer
 5. User clicks Submit
-6. User gets redirected to the dashboard
+6. User redirects to confirmation page
+7. User clicks on finish button
+8. User gets redirected to the dashboard
 
 USE CASE ENDS
 
