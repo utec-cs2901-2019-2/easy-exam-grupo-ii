@@ -5,6 +5,16 @@ EasyExam is an online platform aiming to help teachers to generate relevant ques
 
 
 ***
+## Target User Profile
+
+The system has three types of users: Administrator, Teacher and Student; but we focus on the last two since the function of the first is to manage the database. The project will initially focus only on universities so that the sample is delimited.The teacher users are those who seek questions for the creation of their exams or who want to raise private or public problems. As for student users, the proposal will focus on those who want problems that allow them to reinforce their knowledge or who want to challenge themselves. I know that the administrator is considered to be a person with knowledge in computer science and database
+
+## Value Proposition
+
+For the teacher users, a platform will be offered that will allow them to obtain a set of three problems and exam solutions, in return they have the obligation to upload a problem and their respective solution. In addition, the possibility of uploading public problems with the students tag.
+For student users, a platform will be offered on which to find problems with the student tag, separated by topics, that allow them to practice and prepare for their exams.
+For administrator users, a platform will be offered 
+
 ## Requirements
 
 The basic requirements for the platform are divided into:
