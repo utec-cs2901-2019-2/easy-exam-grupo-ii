@@ -58,6 +58,6 @@ The basic requirements for the platform are divided into:
 - **Submit:** action of uploading a problem to the platform
 - **Report:** action of sending a written observation to a problem that is not well posed, with writing errors or wrong solution
 - **Tags:** problem indexing system
-- **pdf-latex:** pdf version of a document generated in Latex
+- **PDF-latex:** pdf version of a document generated in Latex
 
 ***
