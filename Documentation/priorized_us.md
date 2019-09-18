@@ -6,7 +6,6 @@
 
 * As a user, I can login to the system
 * As a user, I can recover my password
-* As an administrator, I can create, read, update and delete problems from the database
 * As a teacher, I can comment and report badly raised problems
 * As a teacher, I can upload my problems to the system
 * As a teacher, I can generate a PDF and Latex file from created exams.
