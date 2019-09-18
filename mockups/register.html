@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <link rel="stylesheet" href="static/css/login2.css">
+    <link rel="stylesheet" href="static/css/register.css">
     <title>Home</title>
   </head>
   <body>
@@ -18,53 +19,54 @@
     <section class="login-block">
         <div class="container">
         <div class="row">
-            <div class="col-md-4 login-sec">
-                <h2 class="text-center">Login Now</h2>
-                        <div class="login-html">
-                            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
-                            <input id="tab-2" type="radio" name="tab" class="for-pwd"><label for="tab-2" class="tab">Forgot Password</label>
-                            <div class="login-form">
-                                <div class="sign-in-htm">
-                                    <br>
-                                    <div class="group">
-                                        <label for="user" class="text-uppercase">Username or Email</label>
-                                        <input id="user" type="text" class="form-control">
+            <div class="col-md-5 banner-sec">
+
+            </div>
+            <div class="col-md-7 login-sec">
+                <h2 class="text-center">Register Now</h2>
+                <div class="login-form">
+                        <div class="sign-in-htm">
+                            <br>
+                            <div class="group">
+                                <label for="user" class="text-uppercase">Name</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name"/>
                                     </div>
-                                    <br>
-                                    <div class="group">
-                                        <label for="pass" class="text-uppercase">Password</label>
-                                        <input id="pass" type="password" class="form-control" data-type="password">
-                                    </div>
-                                    <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input">
-                                        <small>Remember Me</small>
-                                    </label>
-                                    </div>
-                                    <br>
-                                    <div class="group d-flex justify-content-between">
-                                        <input type="submit" class="btn btn-login float-right" value="Register">
-                                        <input type="submit" class="btn btn-login float-right" value="Sign In" >
-                                    </div>
-                                    <div class="hr"></div>
-                                </div>
-                                <div class="for-pwd-htm">
-                                    <br>
-                                    <div class="group">
-                                        <label for="user" class="text-uppercase">Username or Email</label>
-                                        <input id="user" type="text" class="form-control">
-                                    </div>
-                                    <br>
-                                    <div class="group">
-                                        <input type="submit" class="btn btn-login float-right" value="Reset Password">
-                                    </div>
-                                    <div class="hr"></div>
                                 </div>
                             </div>
+                            <div class="group">
+                                <label for="user" class="text-uppercase">Email</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <input type="email" class="form-control" name="email" id="email" data-type="email" placeholder="Enter your Email">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="group">
+                                <label for="pass" class="text-uppercase">Password</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <input id="pass" type="password" class="form-control" data-type="password" placeholder="Enter your Password">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="group">
+                                <label for="pass" class="text-uppercase">Confirm Password</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <input id="pass" type="password" class="form-control" data-type="password" placeholder="Confirm your Password">
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="group d-flex justify-content-between">
+                                <a role="button" href="home.html" type="submit" class="btn btn-login float-right"> Register</a>
+                                <a role="button" href="login2.html" type="submit" class="btn btn-login float-right">Log in</a>
+                            </div>
+                            <div class="hr"></div>
                         </div>
-            </div>
-            <div class="col-md-8 banner-sec">
-
+                    </div>                        
             </div>
         </div>
     </section>

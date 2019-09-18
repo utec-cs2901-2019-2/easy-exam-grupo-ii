@@ -20,7 +20,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="home">
                 <img src="static/img/icon" width="30" height="30" class="d-inline-block align-top" alt="">
                 EasyExam
         </a>
@@ -44,13 +44,13 @@
         </ul>
     
         <img src="static/img/user.png" width="30" height="30" class="d-inline-block align-top" alt="">
-        <a class="navbar-brand" href="#">User</a>
+        <a class="navbar-brand" href="home">User</a>
         </div>
     </nav>
 
     <!--Modal Problem-->
 
-    <div class="modal fade bd-example-modal-xl" id="ModalProblem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-xl" id="mproblem" tabindex="-1" role="dialog" aria-labelledby="ModalProblemLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
             <div class="modal-header">
@@ -62,10 +62,16 @@
             <div class="modal-body">
                 <form>
                 <div class="form-group">
-                    <div class="d-flex justify-content-between">
-                                <button type="button" class="btn btn-success" disabled>Subject</button>
-                                <button type="button" class="btn btn-success" disabled>Date</button>
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="d-flex flex-wrap" id="modaltags">
+                        <label for="recipient-name" style="margin-right: 10px">Subjects:</label>
+                      </div>
                     </div>
+                    <div class="col-6 d-flex flex-row-reverse bd-highlight">
+                      <button type="button" id="modaldate" class="btn btn-success" disabled>Date</button>
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">Problem:</label>
@@ -88,10 +94,10 @@
             <div class="modal-footer" style="display: block">
                 <form>
                     <div class="form-row">
-                        <button type="button" class="btn btn-outline-info" style="margin:auto">Get Problem</button>
-                        <button type="button" class="btn btn-outline-info" style="margin:auto">Get Solution</button>
+                        <button type="button" class="btn btn-outline-info" data-dismiss="modal" style="margin:auto">Get Problem</button>
+                        <button type="button" class="btn btn-outline-info" data-dismiss="modal" style="margin:auto">Get Solution</button>
                         <button type="button" class="btn btn-outline-danger" style="margin:auto">Report</button>
-                        <button type="button" class="btn btn-outline-danger" style="margin:auto">Cancel</button>
+                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal" style="margin:auto">Cancel</button>
                     </div>
                 </form>
             </div>
@@ -309,10 +315,16 @@
         </div>
     </div>
 
+    
 
 
 
 
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 
     <script src="static/js/acordionmenu.js"></script>
@@ -348,7 +360,7 @@
                     card = `
                         <div class="col-sm-12 col-lg-4">
                             <div class="card" style="width: 200px; margin:auto;">
-                                <a type ="button" data-toggle="modal" data-target="#ModalProblem" data-id="@${i}">
+                                <a type ="button" data-toggle="modal" data-target="#mproblem" data-id="${i}">
                                     <div class="card-header">${dat.nombre}</div>
                                     <div class="card-body">
                                         <h5 class="card-title">${dat.dif} Problem</h5>
@@ -430,22 +442,29 @@
     </script>
 
     <script>
-        $('#exampleModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var recipient = button.data('id') // Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        //var modal = $(this)
-        //modal.find('.modal-title').text('New message to ' + recipient)
-        //modal.find('.modal-body input').val(recipient)
+      $(document).ready(function(){
+        $('#mproblem').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget) // Button that triggered the modal
+          var id = button.data('id') // Extract info from data-* attributes
+          // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+          // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+          var obj = data[id]
+          var modal = $(this)
+          modal.find('.modal-title').text('Problem: ' + obj.nombre)
+          modal.find('#modaltags').empty()
+          modal.find('#modaltags').append("<label for=\"recipient-name\" style=\"margin-right: 10px\">Subjects:</label>")
+          for(i = 0; i < obj.tags.length; i++){
+            if(obj.tags[i] !== ""){
+              newb = "<button type=\"button\" class=\"btn btn-outline-secondary\" style=\"border-radius: 0px\" disabled>"+ obj.tags[i] + "</button>"
+              modal.find('#modaltags').append(newb)
+            }
+          }
+          modal.find('#modaldate').text('Date: ' + obj.fecha)
         })
+      });
     </script>
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
   </body>
 </html>
