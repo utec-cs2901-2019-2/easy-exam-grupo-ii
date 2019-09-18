@@ -8,46 +8,92 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="static/css/loginstyle.css">
+    <link rel="stylesheet" href="static/css/login2.css">
     <title>Home</title>
   </head>
   <body>
 
-        <div class="login-wrap align-middle">
-                <div class="login-html">
-                    <br>
-                    <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
-                    <input id="tab-2" type="radio" name="tab" class="for-pwd"><label for="tab-2" class="tab">Forgot Password</label>
-                    <div class="login-form">
-                        <div class="sign-in-htm">
-                            <br>
-                            <div class="group">
-                                <label for="user" class="label">Username or Email</label>
-                                <input id="user" type="text" class="input">
+
+
+    <section class="login-block">
+        <div class="container">
+        <div class="row">
+            <div class="col-md-4 login-sec">
+                <h2 class="text-center">Welcome!</h2>
+                        <div class="login-html">
+                          <input id="tab-1" type="radio" name="tab" class="sign-in"><label for="tab-1" class="tab">Sign In</label>
+                          <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Register</label>
+                          <input id="tab-3" type="radio" name="tab" class="for-pwd"><label for="tab-3" class="tab">Forgot Password</label>
+                            <div class="login-form">
+
+                                <div class="sign-in-htm">
+                                    <br>
+                                    <div class="group">
+                                        <label for="user" class="text-uppercase">Username or Email</label>
+                                        <input id="user" type="text" class="form-control">
+                                    </div>
+                                    <div class="group">
+                                        <label for="pass" class="text-uppercase">Password</label>
+                                        <input id="pass" type="password" class="form-control" data-type="password">
+                                    </div>
+                                    <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input">
+                                        <small>Remember Me</small>
+                                    </label>
+                                    </div>
+                                    <br>
+                                    <div class="group d-flex justify-content-between">
+                                        <a href="home.html"><input type="submit" class="btn btn-login float-right" value="Login"></a>
+                                </div>
+                                    <div class="hr"></div>
+                                </div>
+                                <div class="sign-up-htm">
+                                    <br>
+                                    <div class="group">
+                                        <label for="user" class="text-uppercase">Username or Email</label>
+                                        <input id="user" type="text" class="form-control">
+                                    </div>
+                                    <div class="group">
+                                        <label for="pass" class="text-uppercase">Password</label>
+                                        <input id="pass" type="password" class="form-control" data-type="password">
+                                    </div>
+                                    <div class="group">
+                                        <label for="pass" class="text-uppercase">Retype Password</label>
+                                        <input id="pass" type="password" class="form-control" data-type="password">
+                                    </div>
+                                    <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input">
+                                        <small>Did you aggre to our <a href="#">Terms of service</a> and <a href="#">Privacy Statement</a>?</small>
+                                    </label>
+                                    </div>
+                                    <br>
+                                    <div class="group d-flex justify-content-between">
+                                        <a href="home.html"><input type="submit" class="btn btn-login float-right" value="Register"></a>
+                                    </div>
+                                    <div class="hr"></div>
+                                </div>
+                                <div class="for-pwd-htm">
+                                    <br>
+                                    <div class="group">
+                                        <label for="user" class="text-uppercase">Username or Email</label>
+                                        <input id="user" type="text" class="form-control">
+                                    </div>
+                                    <br>
+                                    <div class="group">
+                                        <input type="submit" class="btn btn-login float-right" value="Reset Password">
+                                    </div>
+                                    <div class="hr"></div>
+                                </div>
                             </div>
-                            <div class="group">
-                                <label for="pass" class="label">Password</label>
-                                <input id="pass" type="password" class="input" data-type="password">
-                            </div>
-                            <div class="group">
-                                <input type="submit" class="button" value="Sign In">
-                            </div>
-                            <div class="hr"></div>
                         </div>
-                        <div class="for-pwd-htm">
-                            <br>
-                            <div class="group">
-                                <label for="user" class="label">Username or Email</label>
-                                <input id="user" type="text" class="input">
-                            </div>
-                            <div class="group">
-                                <input type="submit" class="button" value="Reset Password">
-                            </div>
-                            <div class="hr"></div>
-                        </div>
-                    </div>
-                </div>
             </div>
+            <div class="col-md-8 banner-sec">
+            <img src="https://ichef.bbci.co.uk/news/660/cpsprodpb/4FB9/production/_99790402_istock-685520538.jpg" width="100%" height="100%">
+            </div>
+        </div>
+    </section>
 
 
     <!-- Optional JavaScript -->
