@@ -32,7 +32,6 @@ The basic requirements for the platform are divided into:
 - Account recovery
 - Problem/answer registration
 - Exam generation
-- Export exams into different formats
 - Dashboard for managing problems/exams
 
 ***
