@@ -80,7 +80,7 @@
                 </div>
                 <div class="form-group">
                     <form>
-                        <div class="form-row">
+                        <div class="form-row" id="difp">
                             <p style="margin-right: 30px">Difficulty:</p>
                             <button type="button" class="btn btn-success" style="margin-right: 20px">Easy</button>
                             <button type="button" class="btn btn-success" style="margin-right: 20px">Medium</button>
@@ -91,14 +91,48 @@
                 </div>
                 </form>
             </div>
-            <div class="modal-footer" style="display: block">
+            </div>
+        </div>
+    </div>
+
+    <!--End Modal-->
+
+    <!--Modal Exam-->
+
+    <div class="modal fade bd-example-modal-xl" id="mexam" tabindex="-1" role="dialog" aria-labelledby="ModalExamLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalExamLabel">Title Exam</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
                 <form>
-                    <div class="form-row">
-                        <button type="button" class="btn btn-outline-info" data-dismiss="modal" style="margin:auto">Get Problem</button>
-                        <button type="button" class="btn btn-outline-info" data-dismiss="modal" style="margin:auto">Get Solution</button>
-                        <button type="button" class="btn btn-outline-danger" style="margin:auto">Report</button>
-                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal" style="margin:auto">Cancel</button>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-6 bd-highlight">
+                      <button type="button" id="examdate" class="btn btn-success" disabled>Date</button>
                     </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Problem:</label>
+                    <div class="card" style="overflow-y: auto; width: 100%; height: 500px ; margin:auto;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <form>
+                        <div class="form-row" id="dife">
+                            <p style="margin-right: 30px">Difficulty:</p>
+                            <button type="button" class="btn btn-success" style="margin-right: 20px">Easy</button>
+                            <button type="button" class="btn btn-success" style="margin-right: 20px">Medium</button>
+                            <button type="button" class="btn btn-success" style="margin-right: 20px">Difficult</button>
+                            <button type="button" class="btn btn-success" style="margin-right: 20px">Very Difficult</button>
+                        </div>
+                    </form>
+                </div>
                 </form>
             </div>
             </div>
@@ -110,185 +144,66 @@
     <div class="container" style="max-width: 70%">
         <br/>
         <div class="row justify-content-center">
-            <div class="col-2" style="margin: auto">
-                            <div id="container" style="width:100%">
-                            <div id="accordion" style="width:100%;">
-                            
-                            <!--END HEAD-->
-                            
-                            <!--BEGIN FIRST CARD
-                            <div class="card border-success mb-3 text-center">
-                              <div class="card-header">
-                                <a class="collapsed card-link text-center" data-toggle="collapse" href="#collapseFIRST">
-                                    <h5 class="card-title text-dark">Subject</h5>
-                                </a>
-                              </div>
-                              <div id="collapseFIRST" class="collapse" data-parent="#accordion">
-                                <div class="card-body text-left">
-                                  <table class="table table-hover group table-striped">
-                                      <tbody>   
-                                        <tr>
-                                          <td>Maths</td>
-                                       </tr>
-                                          <tr>
-                                          <td>Lettes</td>
-                                       </tr>
-                                          <tr>
-                                          <td>Algorithms</td>
-                                       </tr>
-                                      </tbody>
-                                      </table>
-                                </div>
-                                
-                               </div>
-                            </div>-->
-                            <!--END FIRST CARD-->
-                            
-                            <!--BEGIN SECOND CARD-->
-                            
-                            <div class="card border-info mb-3 text-center">
-                              <div class="card-header">
-                                <a class="card-link" data-toggle="collapse" href="#collapseSECOND">
-                                <h5 class="card-title text-dark">Difficult</h5>
-                                </a>
-                              </div>
-                              <div id="collapseSECOND" class="collapse" data-parent="#accordion">
-                                <div class="card-body">
-                                    <table class="table table-hover group table-striped">
-                                        <table class="table table-hover group table-striped">
-                                            <tbody>   
-                                              <tr>
-                                                <td>Easy</td>
-                                             </tr>
-                                                <tr>
-                                                <td>Normal</td>
-                                             </tr>
-                                                <tr>
-                                                <td>Hard</td>
-                                             </tr>
-                                                <tr>
-                                                <td>Very Hard</td>
-                                            </tbody>
-                                            </table>         
-                                              
-                                     <div class="card-footer text-muted">
-                                         
-                                     </div>
-                                 </div>
-                              </div>
-                            </div>
-                            <!--END SECOND CARD-->
-                            
-                            <!--BEGIN THIRD (TABBED) CARD-->
-                            <div class="card border-primary mb-3">
-                              <div class="card-header">
-                                <a class="collapsed card-link text-dark text-center" data-toggle="collapse" href="#collapseTHIRD">
-                                <h5 class="card-title text-dark">Subject</h5>
-                              </div>
-                              <div id="collapseTHIRD" class="collapse" data-parent="#accordion">
-                                <div class="card-body">
-                                  
-                                  <div class="card border-primary mb-3">
-                                    <div class="card-header">
-                                      <div class="nav nav-tabs card-header-tabs" id="nav-tab" role="tablist">
-                                      
-                                      <a class="nav-item nav-link active text-dark" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" name="nav-home-tab">Main Tab</a> 
-                                        
-                                        <a class="nav-item nav-link text-dark" id="nav-one-tab" data-toggle="tab" href="#nav-one" role="tab" aria-controls="nav-one" aria-selected="false" name="nav-one-tab">2nd Tab</a> 
-                                        
-                                        <a class="nav-item nav-link text-dark" id="nav-two-tab" data-toggle="tab" href="#nav-two" role="tab" aria-controls="nav-two" aria-selected="false" name="nav-two-tab">3rd Tab</a> 
-                                        
-                                        <a class="nav-item nav-link text-dark" id="nav-three-tab" data-toggle="tab" href="#nav-three" role="tab" aria-controls="nav-three" aria-selected="false" name="nav-three-tab">4th Tab</a> 
-                                        
-                                        <a class="nav-item nav-link text-dark" id="nav-four-tab" data-toggle="tab" href="#nav-four" role="tab" aria-controls="nav-four" aria-selected="false" name="nav-four-tab">Last Tab</a>
-                                        
-                                      </div>
-                                    </div>
-                                    <div class="tab-content" id="nav-tabContent">
-                                      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                        <table class="table table-hover group table-striped">
-                                         <tbody> 
-                                                 <tr>
-                                                 <td>Title:</td>
-                                                 <td>Value</td>
-                                              </tr>
-                                             </tbody>
-                                             </table>         
-                                          </div>
-                                      <div class="tab-pane fade" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
-                                        <table class="table table-hover group">
-                                          <tbody>
-                                            <tr>
-                                              <td>TAB TITLE 1</td>
-                                            </tr>
-                                            <tr>
-                                              <td>Value</td>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </div>
-                                      <div class="tab-pane fade" id="nav-two" role="tabpanel" aria-labelledby="nav-two-tab">
-                                        <table class="table table-hover group">
-                                          <tbody>
-                                            <tr>
-                                              <td>TAB TITLE 2 </td>
-                                            </tr>
-                                            <tr>
-                                              <td>Value</td>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </div>
-                                      <div class="tab-pane fade" id="nav-three" role="tabpanel" aria-labelledby="nav-three-tab">
-                                        <table class="table table-hover group">
-                                          <tbody>
-                                            <tr>
-                                              <td>TAB TITLE 3 </td>
-                                            </tr>
-                                            <tr>
-                                              <td>Value</td>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </div>
-                                      <div class="tab-pane fade" id="nav-four" role="tabpanel" aria-labelledby="nav-four-tab">
-                                        <table class="table table-hover group">
-                                          <tbody>
-                                            <tr>
-                                              <td>TAB TITLE 4</td>
-                                            </tr>
-                                            <tr>
-                                              <td>Value</td>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="card-footer text-muted"></div>
-                                </div>
-                              </div>
-                            </div>
-                            
-                            <!--END THIRD (TABBED) CARD-->
-                            
-                            </div></div>
-            </div>
-            <div class="col-10 col-md-10 col-lg-10">
+            <div class="col-12 col-md-10 col-lg-10">
                 <form class="card card-sm" style="background: #e3f2fd">
+                    <div class="card-header">
+                      <h3>Exams</h3>
+                    </div>
                     <div class="card-body row no-gutters align-items-center">
                         <div class="col-auto">
                             <i class="fas fa-search h4 text-body"></i>
                         </div>
-                        <!--end of col-->
+                        <div class="col">
+                            <input class="form-control form-control-lg form-control-borderless" id="formexams" type="search" placeholder="Search topics or keywords">
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-lg btn-success" type="submit" id="botonexam">Search</button>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div id="carouselExampleControlse" class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner" id="resultadoexams">
+
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleControlse" role="button" data-slide="prev" style="width: 5%">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleControlse" role="button" data-slide="next" style="width: 5%">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container" style="max-width: 70%">
+        <br/>
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-10">
+                <form class="card card-sm" style="background: #e3f2fd">
+                    <div class="card-header">
+                      <h3>Problems</h3>
+                    </div>
+                    <div class="card-body row no-gutters align-items-center">
+                        <div class="col-auto">
+                            <i class="fas fa-search h4 text-body"></i>
+                        </div>
                         <div class="col">
                             <input class="form-control form-control-lg form-control-borderless" id="formulario" type="search" placeholder="Search topics or keywords">
                         </div>
-                        <!--end of col-->
                         <div class="col-auto">
                             <button class="btn btn-lg btn-success" type="submit" id="boton">Search</button>
                         </div>
-                        <!--end of col-->
                     </div>
 
                     <div class="container-fluid">
@@ -441,6 +356,115 @@
 
     </script>
 
+<script>
+    const exams = [
+        {nombre: 'History Exam', description: '---', fecha: '01/01/2019', dif:'Hard'},
+        {nombre: 'Algorithm Exam', description: '---', fecha: '03/04/2019', dif:'Easy'},
+        {nombre: 'Second Maths exam', description: '---', fecha: '01/09/2019', dif:'Medium'},
+        {nombre: 'Final ICC exam', description: '---', fecha: '11/01/2018', dif:'Hard'}
+    ]
+
+    const formularioe = document.querySelector('#formexams');
+    const botone = document.querySelector('#botonexam');
+    const resultadoe = document.querySelector('#resultadoexams');
+
+    const filtrarE = () =>{
+        //console.log(formulario.value);
+        resultadoe.innerHTML = '';
+        const textoe = formularioe.value.toLowerCase();
+        inde = 0;
+        starte = true;
+        emptye = true;
+        carrusele = '';
+        ie = 0;
+        for(let exam of exams){
+            let tit = exam.nombre
+            if(tit.indexOf(textoe) !== -1){
+                emptye = false;
+                carde = `
+                    <div class="col-sm-12 col-lg-4">
+                        <div class="card" style="width: 200px; margin:auto;">
+                            <a type ="button" data-toggle="modal" data-target="#mexam" data-id="${ie}">
+                                <div class="card-header">${exam.nombre}</div>
+                                <div class="card-body">
+                                    <h5 class="card-title">${exam.dif} Exam</h5>
+                                    <p class="card-text">${exam.description}</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Date: ${exam.fecha}</small>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    `;
+                carrusele += carde;
+                if(inde === 2){
+                    if(starte){
+                        resultadoe.innerHTML += (`
+                        <div class="carousel-item active">
+                            <div class="container">
+                                <div class="row">
+                        ` + carrusele + `</div>
+                            </div>
+                        </div>`)
+                        starte = false;
+                    }
+                    else{
+                        resultadoe.innerHTML += (`
+                        <div class="carousel-item">
+                            <div class="container">
+                                <div class="row">
+                        ` + carrusele + `</div>
+                            </div>
+                        </div>`)
+                    }
+                    carrusele = '';                        
+                }
+                inde++;
+                if(inde === 3){
+                    inde = 0;
+                }
+
+            }
+            ie++;
+        }
+        if(inde !== 0){
+            if(!emptye){
+                if(starte){
+                    resultadoe.innerHTML += (`
+                    <div class="carousel-item active">
+                        <div class="container">
+                            <div class="row">
+                    ` + carrusele + `</div>
+                        </div>
+                    </div>`)
+                    starte = false;
+                }
+                else{
+                    resultadoe.innerHTML += (`
+                    <div class="carousel-item">
+                        <div class="container">
+                            <div class="row">
+                    ` + carrusele + `</div>
+                        </div>
+                    </div>`)
+                }
+            }
+        }
+        if (resultadoe.innerHTML === ''){
+            resultadoe.innerHTML += `
+                <li>Not Found...</li>
+            `
+        }
+    }
+
+    botone.addEventListener('click', filtrarE)
+    formularioe.addEventListener('keyup', filtrarE)
+
+    filtrarE();
+
+</script>
+
     <script>
       $(document).ready(function(){
         $('#mproblem').on('show.bs.modal', function (event) {
@@ -460,9 +484,28 @@
             }
           }
           modal.find('#modaldate').text('Date: ' + obj.fecha)
+          modal.find('#difp').empty()
+          modal.find('#difp').append("<p style=\"margin-right: 30px\">Difficulty:</p>")
+          modal.find('#difp').append("<button type=\"button\" class=\"btn btn-success\" style=\"margin-right: 20px\">" +obj.dif+ "</button>")
         })
       });
     </script>
+
+<script>
+    $(document).ready(function(){
+      $('#mexam').on('show.bs.modal', function (event) {
+        var ebutton = $(event.relatedTarget) 
+        var eid = ebutton.data('id') 
+        var eobj = exams[eid]
+        var emodal = $(this)
+        emodal.find('.modal-title').text('Exam: ' + eobj.nombre)
+        emodal.find('#examdate').text('Date: ' + eobj.fecha)
+        emodal.find('#dife').empty()
+        emodal.find('#dife').append("<p style=\"margin-right: 30px\">Difficulty:</p>")
+        emodal.find('#dife').append("<button type=\"button\" class=\"btn btn-success\" style=\"margin-right: 20px\">" +eobj.dif+ "</button>")
+      })
+    });
+  </script>
 
 
 
