@@ -7,12 +7,11 @@ EasyExam is an online platform aiming to help teachers to generate relevant ques
 ***
 ## Target User Profile
 
-The system has three types of users: Administrator, Teacher and Student; but we focus on the last two since the function of the first is to manage the database. The project will initially focus only on universities so that the sample is delimited.The teacher users are those who seek questions for the creation of their exams or who want to raise private or public problems. As for student users, the proposal will focus on those who want problems that allow them to reinforce their knowledge or who want to challenge themselves. I know that the administrator is considered to be a person with knowledge in computer science and database
+The system has two types of users: Administrator and Common user; but we focus on the last two since the function of the first is to manage the database. The project will initially focus only on universities so that the sample is delimited.The teacher users are those who seek questions for the creation of their exams or who want to raise private or public problems. I know that the administrator is considered to be a person with knowledge in computer science and database
 
 ## Value Proposition
 
-For the teacher users, a platform will be offered that will allow them to obtain a set of three problems and exam solutions, in return they have the obligation to upload a problem and their respective solution. In addition, the possibility of uploading public problems with the students tag.
-For student users, a platform will be offered on which to find problems with the student tag, separated by topics, that allow them to practice and prepare for their exams.
+For the common users, a platform will be offered that will allow them to obtain a set of three problems and exam solutions, in return they have the obligation to upload a problem and their respective solution. In addition, the possibility of uploading public problems with the students tag.
 For administrator users, a platform will be offered 
 
 ## Requirements
@@ -25,16 +24,16 @@ The basic requirements for the platform are divided into:
 - The platform will allow to submit of new problems and answers from users.
 - The platform will allow to users generate exams from a set of problems.
 - The platform will have the ability to export the generated exams into PDF-Latex format.
-- The platform should be safe for users. That means that teachers cannot view the authorship of each uploaded problem. Moreover, students cannot view problems freely within the platform.
+- The platform will allow the user to rate questions.
 
 ### Non-functional:
 
-- The platform will allow the user to rate questions according to its difficulty and relevance.
 - Access to the platform should be intuitive. Users must be able to find and use problems easily.
 - The platform should work with low-spec computers (both in hardware and software).
 - The platform should register questions and answers in a short time.
 - Features should be written in the java language.
 - The platform should sort the problems according to difficulty, acceptance rating and subject.
+- The platform should allow users to freely and safely navigate the platform. 
 
 ***
 ## Features
@@ -50,18 +49,13 @@ The basic requirements for the platform are divided into:
 ## Glossary
 
 - **3x1 rule:** upload a problem and get access to three ones
-- **Platform:** all the system of EasyExam
 - **User:** a person who uses the platform
-- **Administrator user:** a user who can handle accounts and publications
-- **Professor user:** a user who can upload and get public and private problems
-- **Student user:** a user who can access to public problems
+- **Common user:** a user who can upload and get public and private problems
 - **Account:** unique credential that allows a user to access the platform
 - **Login:** a credential validation procedure to access the platform
 - **Activation email:** email that allows to activate an account
 - **Dashboard:** control panel of the platform
 - **Problem:** a question to be answered
-- **Public problems:** problems with solution that are accessible by all
-- **Private problems:** problems with solution, on specific topics, that are only accessible to teachers
 - **Preview:** problem statement without solution
 - **Solution:** answer to a problem with detailed procedure or rationale
 - **Answer key:** quick answer to a problem, without procedure
