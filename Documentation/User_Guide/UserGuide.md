@@ -1,7 +1,7 @@
 # User Guide: EasyExam - Group 2
 
 ## Introduction
-EasyExam is an online platform aiming to help teachers to generate relevant questions for the exams that they wish to take their students. EasyExam works on a 3-1 system in which each the user(teacher) sends one question for every 3 they will recieve in order to encourage the collaboration within the platform. The users can also download the generated exams in PDF-Latex format.
+EasyExam is an online platform aiming to help teachers to generate relevant questions for the exams that they wish to take their students. EasyExam works on a 3-1 system in which each the user sends one question for every 3 they will recieve in order to encourage the collaboration within the platform. The users can also download the generated exams in PDF-Latex format.
 
 
 ***
