@@ -34,6 +34,9 @@ EasyExam's will use Java,  Javascript and Spring Boot for the back-end; Vue.js a
 ### Class Diagram
 ![class diagram](classDiagram.png)
 
+### Class Diagram for Submission Problem
+![class diagram](SubmissionProblem.png)
+
 ### Interaction between components
 ![sequence diagram 1](createProblem.vpd.jpg)
 ![sequence diagram 2]()
