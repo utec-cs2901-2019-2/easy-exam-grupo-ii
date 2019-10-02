@@ -29,7 +29,7 @@ EasyExam's will use Java,  Javascript and Spring Boot for the back-end; Vue.js a
 ## Design
 
 ### Architecture Diagram
-![comp diagram]()
+![comp diagram](ArchitectureDiagram.png)
 
 ### Class Diagram
 ![class diagram](classDiagram.png)
