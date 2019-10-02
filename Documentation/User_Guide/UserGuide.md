@@ -29,7 +29,7 @@ The basic requirements for the platform are divided into:
 ## Features
 
 - Account management (login, register and recovery).
-- Problem and answer submission.
+- Problem and answer sending.
 - Generation of an exam with selected problems.
 - Export exams to pdf-latex format.
 - Search engine and keyword indexation of problems.
@@ -84,7 +84,7 @@ For administrator users, a platform will be offered.
 ### Extentions:
 
 - 5a. System detects unfilled fields on the registration form
-- 5a1.  System asks the user to fulfill the unfilled fileds
+- 5a1.  System asks the user to fulfill the unfilled fields
 - 5a2. User fills the fields
 - Repeat until user creates an account successfully 
 
@@ -95,6 +95,7 @@ For administrator users, a platform will be offered.
 - *a User cancels registration
 - *a1. System redirects user back to the home page
 
+![](uc01.png)
 
 ### Software: EasyExam
 ### Actor: User
@@ -117,8 +118,10 @@ For administrator users, a platform will be offered.
 - 5a2. User fills the fields
 - Repeat until user submits a question successfully
 
-- *a User cancels Submition
+- *a User cancels request
 - *a1. System redirects user back to the dashboard
+
+![](uc02.png)
 
 ### Software: EasyExam
 ### Actor: User
@@ -132,8 +135,10 @@ For administrator users, a platform will be offered.
 
 ### Extentions: 
 
-- *a User cancels Submition
+- *a User cancels request
 - *a1. System redirects user back to the dashboard
+
+![](uc03.png)
 
 ### Software: EasyExam
 ### Actor: User
@@ -143,13 +148,13 @@ For administrator users, a platform will be offered.
 1. User selects a problem from the dashboard
 2. System pops up the problem's window
 3. User Clicks on get problem 
-4. System adds the problem to the exam the user is generating
+4. System adds the problem to the exam that user is generating
 
 ### Extentions:
-- *a User Cancels Submition
+- *a User Cancels request
 - *a1. System redirects user back to the dashboard
 
-USE CASE ENDS
+![](uc04.png)
 
 ### Software: EasyExam
 ### Actor: User
@@ -170,8 +175,10 @@ USE CASE ENDS
 - 5a2. User fills the fields
 - Repeat until user creates a report successfully
 
-- *a User Cancels Submition
+- *a User Cancels request
 - *a1. System redirects user back to the dashboard
+
+![](uc05.png)
 
 ### Software: EasyExam
 ### Actor: User
@@ -184,6 +191,10 @@ USE CASE ENDS
 4. User fills the fields 
 5. User clicks on submit
 6. System sends an account recovery email to the user
+7. User opens link
+8. System redirects it to a screen to recover password
+9. User fills the fields 
+10. User clicks on submit
 
 ### Extentions:
 
@@ -191,9 +202,13 @@ USE CASE ENDS
 - 5a1.  System asks the user to fulfill the unfilled fields
 - 5a2. User fills the fields
 - Repeat until user sends
-
-- *a User Cancels Submition
+- 10a. System detects unfilled fields on the form
+- 10a1. System asks the user to fulfill the unfilled fields
+- 10a2. User fills the fields
+- *a User cancels request
 - *a1. System redirects user back to the dashboard
+
+![](uc06.png)
 
 ***
 ## Glossary
