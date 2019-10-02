@@ -1,16 +1,28 @@
 # Developer Guide - Easy Exam Group2
 
 ## Introduction
-EasyExam is an online platform aiming to help teachers to generate relevant questions for the exams that they wish to take their students. EasyExam will allow the user to submit questions with their respective answer and store them on a database for other users to be able to search and recover them. The platfor encourages colaboration with the user by implementing a 3x1 system in which the user is requiered to send a question in order to recieve 3 in exchange. EasyExam's will use Java,  Javascript and Spring Boot for the back-end. For the front-end, it will use vue.js and 
+EasyExam is an online platform aiming to help teachers to generate relevant questions for the exams that they wish to take their students. EasyExam will allow the user to submit questions with their respective answer and store them on a database for other users to be able to search and recover them. The platfor encourages colaboration with the user by implementing a 3x1 system in which the user is requiered to send a question in order to recieve 3 in exchange. EasyExam's will use Java,  Javascript and Spring Boot for the back-end. For the front-end, it will use vue.js and also use PostgreSQL as its database management system. Finally, we will use Hibernate to comunicate with said database.
 
 ## Features
 
 - Account management (login, register and recovery).
+
+
 - Problem and answer submission.
+
+
 - Generation of an exam with selected problems.
+
+
 - Export exams to pdf-latex format.
+
+
 - Search engine and keyword indexation of problems.
+
+
 - Dashboard for managing problems or exams.
+
+
 
 ## Design
 
@@ -18,7 +30,7 @@ EasyExam is an online platform aiming to help teachers to generate relevant ques
 ![comp diagram]()
 
 ### Class Diagram
-![class diagram]()
+![class diagram](classDiagram.png)
 
 ### Interaction between components
 ![sequence diagram 1](createProblem.jpeg)
