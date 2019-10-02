@@ -27,17 +27,14 @@
             <li class="nav-item">
             <a class="nav-link" href="home.html">Home</a>
             </li>
-            <li class="nav-item">
-            <a class="nav-link" href="generate.html">Generate</a>
+            <li class="nav-item active">
+            <a class="nav-link" href="problems_selected.html">Generate<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
             <a class="nav-link" href="submit.html">Submit</a>
             </li>
             <li class="nav-item">
             <a class="nav-link" href="feedback.html">Feedback</a>
-            </li>
-            <li class="nav-item active">
-            <a class="nav-link" href="problems_selected.html">Problems Selected<span class="sr-only">(current)</span></a>
             </li>
         </ul>
     
@@ -47,67 +44,48 @@
     </nav>
 
 
-    <div class="container">
-        <br/>
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-10 col-lg-10">
-                <h5 style="text-align: center">Problems Selected</h5>
-                <div class="card card-sm" style="background: #e3f2fd">
-                    <div class="card-body row no-gutters align-items-center">
-                        <div class="col">
-                                <h5 class="card-title">Problem Title</h5>
-                                <p class="card-text">Problem description</p>
-                                <br/>
+    <div class="container" style="max-width: 70%">
+            <br/>
+            <div class="row justify-content-center">
+                <div class="col-10 col-md-10 col-lg-10">
+                    <form class="card card-sm" style="background: #e3f2fd">
+                        <div class="card-body row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <i class="fas fa-search h4 text-body"></i>
+                            </div>
+                            <!--end of col-->
+                            <div class="col">
+                                <input class="form-control form-control-lg form-control-borderless" id="formulario" type="search" placeholder="Search topics or keywords">
+                            </div>
+                            <!--end of col-->
+                            <div class="col-auto">
+                                <button class="btn btn-lg btn-success" type="submit" id="boton">Search</button>
+                            </div>
+                            <!--end of col-->
                         </div>
-                        <div class="col-auto">
-                            <input class="form-control form-control-lg form-control-borderless" style="width: 50px">
+    
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12" style="height: 700px">
+                                  <div class="card" style="overflow-y: scroll; height: 100%;">
+                                    <div class="card-body" id="resultado">
+                                            <div class="card" style="width: 100%; margin-top: 20px">
+                                            </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                            <br/>
                         </div>
-                    </div>
+                    </form>
                 </div>
-                <br>
-                <div class="card card-sm" style="background: #e3f2fd">
-                    <div class="card-body row no-gutters align-items-center">
-                        <div class="col">
-                                <h5 class="card-title">Problem Title</h5>
-                                <p class="card-text">Problem description</p>
-                                <br/>
-                        </div>
-                        <div class="col-auto">
-                            <input class="form-control form-control-lg form-control-borderless" style="width: 50px">
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <div class="card card-sm" style="background: #e3f2fd">
-                    <div class="card-body row no-gutters align-items-center">
-                        <div class="col">
-                                <h5 class="card-title">Problem Title</h5>
-                                <p class="card-text">Problem description</p>
-                                <br/>
-                        </div>
-                        <div class="col-auto">
-                            <input class="form-control form-control-lg form-control-borderless" style="width: 50px">
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <div class="card card-sm" style="background: #e3f2fd">
-                    <div class="card-body row no-gutters align-items-center">
-                        <div class="col">
-                                <h5 class="card-title">Problem Title</h5>
-                                <p class="card-text">Problem description</p>
-                                <br/>
-                        </div>
-                        <div class="col-auto">
-                            <input class="form-control form-control-lg form-control-borderless" style="width: 50px">
-                        </div>
-                    </div>
-                </div>
-                <br>
-                    
+            </div>
+            <br>
+            <div class="d-flex justify-content-end">
+                <a type="button" class="btn btn-lg btn-success" href="generate.html">Next</a>
             </div>
         </div>
-    </div>
+
 
 
 
@@ -116,5 +94,74 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
+    <script>
+        const data = [
+            {nombre: 'Divide and Conquer', description: '---', fecha: '01/01/2019', dif:'Hard',
+            tags: ['','divide and conquer','c++','ada','algorithms']},
+            {nombre: 'Knapsack', description: '---', fecha: '01/01/2019', dif:'Easy',
+            tags: ['','knapsack','divide and conquer','c++','ada','algorithms']},
+            {nombre: 'Master Theorem', description: '---', fecha: '01/01/2019', dif:'Medium',
+            tags: ['','master theorem','ada','algorithms','maths']},
+            {nombre: 'c++', description: '---', fecha: '01/01/2019', dif:'Hard',
+            tags: ['','c++']}
+        ]
+
+        const formulario = document.querySelector('#formulario');
+        const boton = document.querySelector('#boton');
+        const resultado = document.querySelector('#resultado');
+
+        const filtrar = () =>{
+            //console.log(formulario.value);
+            resultado.innerHTML = '';
+            const texto = formulario.value.toLowerCase();
+            ind = 0;
+            start = true;
+            empty = true;
+            carrusel = '';
+            i = 0;
+            for(let dat of data){
+                let tags = dat.tags;
+                if(tags.indexOf(texto) !== -1){
+                    card = `
+                    <div class="card" style="width: 100%; margin-top: 20px; flex-direction:row">
+                            <div class="card-body">
+                                <h5 class="card-title">${dat.nombre} Problem</h5>
+                                <p class="card-text">${dat.description}</p>
+                                <div class="d-flex flex-wrap">
+                                `;
+
+                    for (t of tags){
+                    if(t!='')
+                        card += `<button class="btn btn-primary " style="margin:5px" id = "search" disabled>${t}</button>`;
+                    }
+
+                    card += `
+                                </div>
+                            </div>
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                <input type="radio" aria-label="Radio button for following text input">
+                                </div>
+                            </div>
+                    </div>
+                    `;
+
+                    resultado.innerHTML += card;
+                }
+                i++;
+            }
+            if (resultado.innerHTML === ''){
+                resultado.innerHTML += `
+                    <li>Not Found...</li>
+                `
+            }
+        }
+
+        boton.addEventListener('click', filtrar)
+        formulario.addEventListener('keyup', filtrar)
+
+        filtrar();
+    
+    </script>
+</body>
 </html>
