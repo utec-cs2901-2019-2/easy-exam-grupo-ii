@@ -138,6 +138,8 @@ For administrator users, a platform will be offered.
 - *a User cancels Submition
 - *a1. System redirects user back to the dashboard
 
+![](uc03.png)
+
 ### Software: EasyExam
 ### Actor: User
 ### Requirement: User is logged
@@ -146,7 +148,7 @@ For administrator users, a platform will be offered.
 1. User selects a problem from the dashboard
 2. System pops up the problem's window
 3. User Clicks on get problem 
-4. System adds the problem to the exam the user is generating
+4. System adds the problem to the exam that user is generating
 
 ### Extentions:
 - *a User Cancels Submition
