@@ -35,9 +35,6 @@
             <li class="nav-item">
             <a class="nav-link" href="submit.html">Submit</a>
             </li>
-            <li class="nav-item">
-            <a class="nav-link" href="feedback.html">Feedback</a>
-            </li>
         </ul>
     
         <img src="static/img/user.png" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -91,9 +88,6 @@
                         <label for="recipient-name" style="margin-right: 10px">Subjects:</label>
                       </div>
                     </div>
-                    <div class="col-6 d-flex flex-row-reverse bd-highlight">
-                      <button type="button" id="modaldate" class="btn btn-success" disabled>Date</button>
-                    </div>
                   </div>
                 </div>
                 <div class="form-group">
@@ -101,24 +95,17 @@
                     <div class="card" id="modaldescription" style="overflow-y: auto; width: 100%; min-height: 100px ; margin:auto; padding: 10px">
                     </div>
                 </div>
-                <div class="form-group">
-                    <form>
-                        <div class="form-row">
-                            <p style="margin-right: 30px">Difficulty:</p>
-                            <button type="button" class="btn btn-success" style="margin-right: 20px">Easy</button>
-                            <button type="button" class="btn btn-success" style="margin-right: 20px">Medium</button>
-                            <button type="button" class="btn btn-success" style="margin-right: 20px">Difficult</button>
-                            <button type="button" class="btn btn-success" style="margin-right: 20px">Very Difficult</button>
-                        </div>
-                    </form>
+                <div class="form-group" id="getsolution">
+                    
                 </div>
                 </form>
             </div>
             <div class="modal-footer" style="display: block">
                 <form>
                     <div class="form-row">
-                        <button type="button" class="btn btn-outline-info" data-dismiss="modal" style="margin:auto">Get Solution</button>
-                        <button type="button" class="btn btn-outline-danger" style="margin:auto">Report</button>
+                        <button type="button" class="btn btn-outline-info" style="margin:auto" id="labsolution">Get Solution</button>
+                        <button type="button" class="btn btn-outline-info" data-dismiss="modal" style="margin:auto">Comments</button>
+                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal" style="margin:auto">Report</button>
                         <button type="button" class="btn btn-outline-danger" data-dismiss="modal" style="margin:auto">Cancel</button>
                     </div>
                 </form>
@@ -157,35 +144,6 @@
                             </div>
                             <!--END FIRST CARD-->
                             
-                            <!--BEGIN SECOND CARD-->
-                            
-                            <div class="card border-info mb-3 text-center">
-                              <div class="card-header">
-                                <a class="card-link" data-toggle="collapse" href="#collapseSECOND">
-                                <h5 class="card-title text-dark">Difficult</h5>
-                                </a>
-                              </div>
-                              <div id="collapseSECOND" class="collapse" data-parent="#accordion">
-                                <div class="card-body" style="padding: 0px" >
-                                        <table class="table table-hover group table-striped">
-                                            <tbody>   
-                                              <tr>
-                                                <td>Easy</td>
-                                             </tr>
-                                                <tr>
-                                                <td>Normal</td>
-                                             </tr>
-                                                <tr>
-                                                <td>Hard</td>
-                                             </tr>
-                                                <tr>
-                                                <td>Very Hard</td>
-                                            </tbody>
-                                        </table>
-                                 </div>
-                              </div>
-                            </div>
-                            <!--END SECOND CARD-->
                             
                             </div></div>
             </div>
@@ -389,15 +347,14 @@
           var modal = $(this)
           modal.find('.modal-title').text(obj.nombre)
           modal.find('#modaltags').empty()
-          modal.find('#modaltags').append("<label for=\"recipient-name\" style=\"margin-right: 10px\">Subjects:</label>")
           for(i = 0; i < obj.tags.length; i++){
             if(obj.tags[i] !== ""){
-              newb = "<button type=\"button\" class=\"btn btn-outline-secondary\" style=\"border-radius: 0px\" disabled>"+ obj.tags[i] + "</button>"
+              newb = "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin:5px\" disabled>"+ obj.tags[i] + "</button>"
               modal.find('#modaltags').append(newb)
             }
           }
           modal.find('#modaldescription').text(obj.description)
-          modal.find('#modaldate').text('Date: ' + obj.fecha)
+          modal.find('#getsolution').empty()
         })
       });
     </script>
@@ -412,7 +369,21 @@
             modal.find('#ButtonProblem').data("id",id)
           })
         });
-      </script>
+    </script>
+
+    <script>
+      const bot = document.getElementById("labsolution");
+      const funcsolution = () =>{
+        const sol = document.getElementById("getsolution");
+        sol.innerHTML += 
+          "<label for=\"recipient-name\" class=\"col-form-label\">Solution:</label>"+
+        "<div class=\"card\" style=\"overflow-y: auto; width: 100%; min-height: 100px ; margin:auto; padding: 10px\">"+
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."+
+        "</div>";
+      }
+      bot.addEventListener('click', funcsolution);
+
+    </script>
 
 
   </body>
