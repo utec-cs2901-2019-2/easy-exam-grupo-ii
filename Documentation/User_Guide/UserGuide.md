@@ -121,6 +121,8 @@ For administrator users, a platform will be offered.
 - *a User cancels Submition
 - *a1. System redirects user back to the dashboard
 
+![](uc02.png)
+
 ### Software: EasyExam
 ### Actor: User
 ### Requirement: User is logged, user added problems (UC04)
