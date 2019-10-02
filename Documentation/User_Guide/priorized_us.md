@@ -8,7 +8,7 @@
 * As a user, I can recover my password
 * As a teacher, I can comment and report badly raised problems
 * As a teacher, I can upload my problems to the system
-* As a teacher, I can generate a PDF and Latex file from created exams.
+* As a teacher, I can generate a PDF and Latex file from created exams
 
 ### Nice-to-have
 
@@ -19,5 +19,4 @@
 
 ### Unlikely-to-have
 
-* As a user, I can register and the system recognizes if I am a teacher or student
 * As a teacher I can export my exams in different formats

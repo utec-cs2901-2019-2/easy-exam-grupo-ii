@@ -3,7 +3,7 @@
 ### Requirement: None
 ### Use Case: UC01 - Account creation
 
-1. User enters EasyExam´s web page
+1. User enters EasyExam's web page
 2. User clicks on register
 3. System redirects to Register page
 4. User fills the registration form
@@ -145,7 +145,7 @@ USE CASE ENDS
 - 5a. System detects unfilled fields on the form
 - 5a1.  System asks the user to fulfill the unfilled fields
 - 5a2. User fills the fields
-- Repeat until user sends  
+- Repeat until user sends
 
 - *a User Cancels Submition
 - *a1. System redirects user back to the dashboard
