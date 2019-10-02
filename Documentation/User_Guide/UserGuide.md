@@ -29,7 +29,7 @@ The basic requirements for the platform are divided into:
 ## Features
 
 - Account management (login, register and recovery).
-- Problem and answer submission.
+- Problem and answer sending.
 - Generation of an exam with selected problems.
 - Export exams to pdf-latex format.
 - Search engine and keyword indexation of problems.
@@ -83,17 +83,15 @@ For administrator users, a platform will be offered.
 
 ### Extentions:
 
-- 5a. System detects unfilled fields on the registration form
-- 5a1.  System asks the user to fulfill the unfilled fields
-- 5a2. User fills the fields
+- System detects unfilled fields on the registration form
+- System asks the user to fulfill the unfilled fields
+- User fills the fields
 - Repeat until user creates an account successfully 
-
-- 5a. System detects that there is already a user registered with that information
-- 5a1. Redirects back to the registration form and tells the user there is someone already registered with that information
+- System detects that there is already a user registered with that information
+- Redirects back to the registration form and tells the user there is someone already registered with that information
 - Repeat until user inputs different info
-
-- *a User cancels registration
-- *a1. System redirects user back to the home page
+- User cancels registration
+- System redirects user back to the home page
 
 ![](uc01.png)
 
@@ -113,13 +111,13 @@ For administrator users, a platform will be offered.
 
 ### Extentions: 
 
-- 5a. System detects unfilled fields on the form
-- 5a1.  System asks the user to fulfill the unfilled fileds
-- 5a2. User fills the fields
+- System detects unfilled fields on the form
+- System asks the user to fulfill the unfilled fileds
+- User fills the fields
 - Repeat until user submits a question successfully
 
-- *a User cancels Submition
-- *a1. System redirects user back to the dashboard
+- User cancels request
+- System redirects user back to the dashboard
 
 ![](uc02.png)
 
@@ -135,8 +133,8 @@ For administrator users, a platform will be offered.
 
 ### Extentions: 
 
-- *a User cancels Submition
-- *a1. System redirects user back to the dashboard
+- User cancels request
+- System redirects user back to the dashboard
 
 ![](uc03.png)
 
@@ -151,8 +149,8 @@ For administrator users, a platform will be offered.
 4. System adds the problem to the exam that user is generating
 
 ### Extentions:
-- *a User Cancels Submition
-- *a1. System redirects user back to the dashboard
+- User Cancels request
+- System redirects user back to the dashboard
 
 ![](uc04.png)
 
@@ -170,13 +168,13 @@ For administrator users, a platform will be offered.
 
 ### Extentions:
 
-- 5a. System detects unfilled fields on the form
-- 5a1.  System asks the user to fulfill the unfilled fields
-- 5a2. User fills the fields
+- System detects unfilled fields on the form
+- System asks the user to fulfill the unfilled fields
+- User fills the fields
 - Repeat until user creates a report successfully
 
-- *a User Cancels Submition
-- *a1. System redirects user back to the dashboard
+- User Cancels request
+- System redirects user back to the dashboard
 
 ![](uc05.png)
 
@@ -191,16 +189,22 @@ For administrator users, a platform will be offered.
 4. User fills the fields 
 5. User clicks on submit
 6. System sends an account recovery email to the user
+7. User opens link
+8. System redirects it to a screen to recover password 
 
 ### Extentions:
 
-- 5a. System detects unfilled fields on the form
-- 5a1.  System asks the user to fulfill the unfilled fields
-- 5a2. User fills the fields
+- System detects unfilled fields on the form
+- System asks the user to fulfill the unfilled fields
+- User fills the fields
 - Repeat until user sends
+- Unfilled Password field
+- Unfilled Repeat Password field
+- Password do not match
+- User cancels request
+- System redirects user back to the dashboard
 
-- *a User Cancels Submition
-- *a1. System redirects user back to the dashboard
+![](uc06.png)
 
 ***
 ## Glossary
