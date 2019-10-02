@@ -84,7 +84,7 @@ For administrator users, a platform will be offered.
 ### Extentions:
 
 - 5a. System detects unfilled fields on the registration form
-- 5a1.  System asks the user to fulfill the unfilled fileds
+- 5a1.  System asks the user to fulfill the unfilled fields
 - 5a2. User fills the fields
 - Repeat until user creates an account successfully 
 
@@ -95,6 +95,7 @@ For administrator users, a platform will be offered.
 - *a User cancels registration
 - *a1. System redirects user back to the home page
 
+![](uc01.png)
 
 ### Software: EasyExam
 ### Actor: User
@@ -148,8 +149,6 @@ For administrator users, a platform will be offered.
 ### Extentions:
 - *a User Cancels Submition
 - *a1. System redirects user back to the dashboard
-
-USE CASE ENDS
 
 ### Software: EasyExam
 ### Actor: User
