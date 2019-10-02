@@ -11,7 +11,7 @@ The system has two types of users: Administrator and Common user; but we focus o
 
 ## Value Proposition
 
-For the common users, a platform will be offered that will allow them to obtain a set of three problems and exam solutions, in return they have the obligation to upload a private o prublic problem and their respective solution. 
+For the common users, a platform will be offered that will allow them to obtain a set of three problems and exam solutions, in return they have the obligation to upload a problem and their respective solution. 
 For administrator users, a platform will be offered.
 
 ## Requirements
@@ -50,7 +50,7 @@ The basic requirements for the platform are divided into:
 
 - **3x1 rule:** upload a problem and get access to three ones
 - **User:** a person who uses the platform
-- **Common user:** a user who can upload and get public and private problems
+- **Common user:** a user who can upload and get problems
 - **Account:** unique credential that allows a user to access the platform
 - **Login:** a credential validation procedure to access the platform
 - **Activation email:** email that allows to activate an account
