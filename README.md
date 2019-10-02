@@ -14,6 +14,4 @@ EasyExam is an online platform aiming to help teachers to generate relevant ques
 
 - [User Guide](Documentation/User_Guide/UserGuide.md)
 - [Developer Guide](Documentation/Developer_Guide/DeveloperGuide.md)
-- [Use Cases](Documentation/User_Guide/UseCases.md)
-- [User Stories](Documentation/priorized_us.md)
 - [Features Plan](Documentation/Features_Plan/FeaturesPlan.pdf)
