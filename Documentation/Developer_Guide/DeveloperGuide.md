@@ -21,7 +21,7 @@ EasyExam's will use Java,  Javascript and Spring Boot for the back-end; Vue.js a
 
 ### Interaction between components
 ![sequence diagram 1](createProblem.vpd.jpg)
-![sequence diagram 2]()
+![sequence diagram 2](ProblemSumissionSequenceDiagram.png)
 ![sequence diagram 3]()
 
 ## Glosary
