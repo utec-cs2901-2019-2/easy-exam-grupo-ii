@@ -16,6 +16,9 @@ EasyExam's will use Java,  Javascript and Spring Boot for the back-end; Vue.js a
 ### Class Diagram
 ![class diagram](classDiagram.png)
 
+### Login Class Diagram
+![login class diagram](loginClass.png)
+
 ### Class Diagram for Problem Submition
 ![class diagram](SubmissionProblem.png)
 
@@ -28,7 +31,7 @@ EasyExam's will use Java,  Javascript and Spring Boot for the back-end; Vue.js a
 ![sequence diagram 2](ProblemSumissionSequenceDiagram.png)
 
 - asd
-![sequence diagram 3]()
+![sequence diagram 3](loginSeq.png)
 
 ## Glosary
 
