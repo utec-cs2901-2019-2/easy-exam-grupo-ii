@@ -6,25 +6,7 @@ EasyExam is an online platform aiming to help teachers to generate relevant ques
 EasyExam's will use Java,  Javascript and Spring Boot for the back-end; Vue.js and Vuex for the front-end; and PostgreSQL for the database.
 
 ## Features
-
-- Account management (login, register and recovery).
-
-
-- Problem and answer submission.
-
-
-- Generation of an exam with selected problems.
-
-
-- Export exams to pdf-latex format.
-
-
-- Search engine and keyword indexation of problems.
-
-
-- Dashboard for managing problems or exams.
-
-
+![features](FeaturesPlan-1.png)
 
 ## Design
 
@@ -34,9 +16,18 @@ EasyExam's will use Java,  Javascript and Spring Boot for the back-end; Vue.js a
 ### Class Diagram
 ![class diagram](classDiagram.png)
 
+### Class Diagram for Problem Submition
+![class diagram](SubmissionProblem.png)
+
 ### Interaction between components
-![sequence diagram 1](createProblem.vpd.jpg)
-![sequence diagram 2]()
+
+- Generate Exam
+![sequence diagram 1](generateExam.vpd.png)
+
+- Problem Submition
+![sequence diagram 2](ProblemSumissionSequenceDiagram.png)
+
+- asd
 ![sequence diagram 3]()
 
 ## Glosary
