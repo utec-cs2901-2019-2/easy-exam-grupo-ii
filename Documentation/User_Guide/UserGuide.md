@@ -49,8 +49,8 @@ For administrator users, a platform will be offered.
 
 ### Must-to-have
 
-* As a user, I can login to the system
-* As a user, I can recover my password
+* As a registered user, I can login to the system
+* As a registered user, I can recover my password
 * As a teacher, I can comment and report badly raised problems
 * As a teacher, I can upload my problems to the system
 * As a teacher, I can generate a PDF and Latex file from created exams
@@ -74,24 +74,31 @@ For administrator users, a platform will be offered.
 **Software:** EasyExam
 **Actor:** User
 **Requirement:** None
+**Guarantees:** 
+  - User will be registered in the system.
+  - All fields filled by the user will be save for the system
 **Use Case:** UC01 - Account creation
   1. User enters EasyExam's web page
-  2. User clicks on register
+  2. User selects option 'Register'
   3. System redirects to Register page
   4. User fills the registration form
-  5. User clicks Create Account
+  5. User selects option 'Create Account'
   6. System creates the account and redirects the user to home
 
 - **Extensions:**
 
-    - 5a. System detects unfilled fields on the registration form
-    - 5a1.  System asks the user to fulfill the unfilled fields
-    - 5a2. User fills the fields
-    - Repeat until user creates an account successfully
+    - 5a. System detects unfilled fields on the registration form.
+    - 5a1.  System asks the user to fulfill the unfilled fields.
+    - 5a2. User fills the fields.
+    - Repeat until user creates an account successfully.
 
-    - 5a. System detects that there is already a user registered with that information
-    - 5a1. Redirects back to the registration form and tells the user there is someone already registered with that information
-    - Repeat until user inputs different info
+    - 5a. System detects that there is already a user registered with that information.
+    - 5a1. Redirects back to the registration form and tells the user there is someone already registered with that information.
+    - Repeat until user inputs different info.
+
+      *a At any time, User chooses to cancel the register
+        *a1 System requests to confirm the cancellation.
+        *a2 System returns to "Login Page".
 
 
   USE CASE ENDS.
@@ -105,15 +112,18 @@ For administrator users, a platform will be offered.
 **Software:** EasyExam
 **Actor:** User
 **Requirement:** User is logged
-**Use Case:** UC02 - Registering a new question/answer
-1. Logged user clicks on Submit a question
+**Guarantees:** 
+  - All question and answer's fields filled by the user will be save for the system
+**Use Case:** UC02 - Registering a new question and answer
+1. User selects option "Create question"
 2. User fills the fields for the question
-3. User clicks Next
+3. User selects option "Next"
 4. User fills the fields for the answer
-5. User clicks Submit
-6. User redirects to confirmation page
-7. User clicks on finish button
-8. User gets redirected to the dashboard
+5. User selects option "Submit"
+6. System requests to confirm action
+7. User selects option "Finish" 
+8. System saves question and answer
+9. User gets redirected to the dashboard
 
 - **Extensions:**
 
