@@ -138,7 +138,7 @@ As a standard user, I can see if my problem is copied.
 
 **Diagram**
 
-  ![](images/uc01.png)
+  ![](images/UC01.png)
 ---
 
 **Software:** EasyExam
