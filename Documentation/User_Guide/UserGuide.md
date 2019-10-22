@@ -120,30 +120,23 @@ As a standard user, I can see if my problem is copied.
 1. User enters EasyExam's web page
 2. User chooses between login, register or recovery account
 3. System redirects to selected page
-4. User fills the registration form
-5. User selects option 'Create Account'
-6. System creates the account and redirects the user to home
+4. User fills the form
+5. System check the information
+6. Use Case ends
 
 **Extensions:**
+- 5a. System detects unfilled fields on the form.
+  - 5a1.  System asks the user to fulfill the unfilled fields.
+  - 5a2. User fills the fields.
+  - Repeat until user creates an account successfully.
+- 5b. System detects that there is already a user registered with that information.
+  - 5b1. Redirects back to the registration form and tells the user there is someone already registered with that information.
+  - Repeat until user inputs different info.
+- a. At any time, User chooses to cancel the register
+  - a1 System requests to confirm the cancellation.
+  - a2 System returns to "Login Page".
 
-- 5a. System detects unfilled fields on the registration form.
-- 5a1.  System asks the user to fulfill the unfilled fields.
-- 5a2. User fills the fields.
-- Repeat until user creates an account successfully.
-
-- 5a. System detects that there is already a user registered with that information.
-- 5a1. Redirects back to the registration form and tells the user there is someone already registered with that information.
-- Repeat until user inputs different info.
-
-      *a At any time, User chooses to cancel the register
-        *a1 System requests to confirm the cancellation.
-        *a2 System returns to "Login Page".
-
-
-  USE CASE ENDS.
-
-
-  **Diagram**
+**Diagram**
 
   ![](images/uc01.png)
 ---
