@@ -280,14 +280,29 @@ As a standard user, I can see if my problem is copied.
 
 ## Glossary
 
-- **4x1 rule:** upload a problem and get access to three ones
+- **Problem:** a question to be answered.
+- **Exam** a formal test created in based of a group of problems.
+- **Integrated Web Service** ...
+- **System**
+- **Service**
+- **Platform**
+- **Bank of problems** a set of different problems.
+- **Selected problems** problems that an standard user have received or created, he can use they to generate an exam.
+- **Community** group of users. 
+- **User registered** user who have an account in EasyExam web.
+- **Modify problems** edit and correct some little mistakes on problems.
+- **Block users** make a standard user can't use the system.
+- **Rate problems** give an qualification to a problem, it can be a bad problem, a good problem or an very good problem.
+- **Criterio** 
+- **Queries**
+- **Response time**
+- **4x1 rule:** upload a problem and get access to four new problems.
 - **User:** a person who uses the platform
 - **Standard user:** a user who can upload and get public and private problems
 - **Account:** unique credential that allows a user to access the platform
 - **Login:** a credential validation procedure to access the platform
 - **Activation email:** email that allows to activate an account
 - **Dashboard:** control panel of the platform
-- **Problem:** a question to be answered
 - **Preview:** problem statement without solution
 - **Solution:** answer to a problem with detailed procedure or rationale
 - **Answer key:** quick answer to a problem, without procedure
