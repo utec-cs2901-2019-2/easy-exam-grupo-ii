@@ -248,20 +248,21 @@ As a standard user, I can see if my problem is copied.
 1. User enters the account recovery page
 2. User fills the fields
 3. User submit the information
-6. System sends an account recovery email to the user
-7. When user opens link, system redirects it to a screen to recover password
-9. User fills the fields
-10. User clicks on submit
+4. System sends an account recovery email to the user
+5. When user opens link, system redirects it to a screen to recover password
+6. User fills the fields
+7. User submit the new password
+8. Use Case ends
 
 **Extensions:**
 
-- 5a. System detects unfilled fields on the form
-  - 5a1.  System asks the user to fulfill the unfilled fields
-  - 5a2. User fills the fields
+- 3a. System detects unfilled fields on the form
+  - 3a1.  System asks the user to fulfill the unfilled fields
+  - 3a2. User fills the fields
   - Repeat until user sends
-- 10a. System detects unfilled fields on the form
-  - 10a1. System asks the user to fulfill the unfilled fields
-  - 10a2. User fills the fields
+- 7a. System detects unfilled fields on the form
+  - 7a1. System asks the user to fulfill the unfilled fields
+  - 7a2. User fills the fields
 - *a User cancels request
   - *a1. System redirects user back to the dashboard
 
