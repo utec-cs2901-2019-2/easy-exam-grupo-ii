@@ -41,7 +41,7 @@ The basic requirements for the platform are divided into:
 - The system should have a response time of under five seconds.
 - The system should be able to handle 10 000 users without affecting its performance
 #### Security Requirements
-- The system should be able to keep a registry of the blocks and bans given to standard users.
+- The system should be able to keep a registry of the alerts and blocks given to standard users.
 #### Portability Requirements
 - The system web should be responsive and can be managed both in mobile and desktop devices.
 
