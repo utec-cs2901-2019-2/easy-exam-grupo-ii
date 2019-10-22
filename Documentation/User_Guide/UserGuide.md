@@ -201,23 +201,19 @@ USE CASE ENDS.
 
 **Use Case:** UC04 - User downloads the exam
 
-1. User clicks generate
-2. System redirects user to the exam generation page
-3. User clicks on the format he wants to download the exam in
-4. System downloads the exam into the user's PC
+1. User enters to the exam generation page
+2. User downloads the exam
+3. System downloads the exam on the user's PC
+4. Use Case ends
 
-- **Extensions:**
+**Extensions:**
 
-  - *a User cancels request
+- *a User cancels request
   - *a1. System redirects user back to the dashboard
 
-USE CASE ENDS.
+**Diagram**
 
-
-  **Diagram**
-  ![](images/uc04.png)
-
-
+  ![](images/UC04.png)
 
 **Software:** EasyExam
 **Actor:** User
