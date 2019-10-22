@@ -66,40 +66,40 @@ The basic requirements for the platform are divided into:
 
 ### Must-to-have
 
-1. [Epic] As a standard  user, I can manage my account.
-- As a standard user, I can activate my account
-- As a standard user, I can register
-- As a standard user, I can login
-- As a standard user, I can change my password
-- As a standard user, I can recover my account
-2. As a standard user, I can comment problems
-3. As a standard user, I can report poorly formulated problems
-4. As a standard user, I can create a new problems with their respective solution
-5. As a standard user, I can generate an exam so that I can download it as a PDF file.
-6. As a standard user, I can rate the difficulty of problems so that other standard users can see the average score of any problem.
-7. As a standard user, I can comment problems so that other standard users can see my comments.
-8. [Epic] As an administrator, I can manage standard users’ account.
-- As an administrator, I can suspend a standard users account.
-- As an administrator, I can delete a standard users account.
+- [Epic] As a standard  user, I can manage my account.
+  - As a standard user, I can activate my account
+  - As a standard user, I can register
+  - As a standard user, I can login
+  - As a standard user, I can change my password
+  - As a standard user, I can recover my account
+- As a standard user, I can comment problems
+- As a standard user, I can report poorly formulated problems
+- As a standard user, I can create a new problems with their respective solution
+- As a standard user, I can generate an exam so that I can download it as a PDF file.
+- As a standard user, I can rate the difficulty of problems so that other standard users can see the average score of any problem.
+- As a standard user, I can comment problems so that other standard users can see my comments.
+- [Epic] As an administrator, I can manage standard users’ account.
+  - As an administrator, I can suspend a standard users account.
+  - As an administrator, I can delete a standard users account.
 
 ### Nice-to-have
 
-1. As a standard user, I can choose my topics of interest so that problems related to this topic will appear first.
-2. As a standard user, I can suggest modifications to a problem so that the problem owner can see my suggestick and correct it later.
-3. As a standard user, I can update my profile
-4. As a standard user, I can know the difficulty of the problem based on the qualifications of other standard users
-5. As a standard user, I can get notified when someone reports or comment my problem
-6. As a standard user, I can see how many people have rated a problem
-7. As a standard user, I can generate an exam with random problems from the database
-8. As a standard user, I can save problems I have recently tried.
-9. As a standard user, I can send feedback of EasyExam.
-10. As a standard user, I can get a new problem if I my report is accepted. 
-11. As an administrator user, I can make a standard user an administrator user
+- As a standard user, I can choose my topics of interest so that problems related to this topic will appear first.
+- As a standard user, I can suggest modifications to a problem so that the problem owner can see my suggestick and correct it later.
+- As a standard user, I can update my profile
+- As a standard user, I can know the difficulty of the problem based on the qualifications of other standard users
+- As a standard user, I can get notified when someone reports or comment my problem
+- As a standard user, I can see how many people have rated a problem
+- As a standard user, I can generate an exam with random problems from the database
+- As a standard user, I can save problems I have recently tried.
+- As a standard user, I can send feedback of EasyExam.
+- As a standard user, I can get a new problem if I my report is accepted. 
+- As an administrator user, I can make a standard user an administrator user
 
 ### Unlikely-to-have
 
-1. As a standard user, I can export my exams in different formats
-2. As a standard user, I can see if my problem is written correctly.
+- As a standard user, I can export my exams in different formats
+- As a standard user, I can see if my problem is written correctly.
 As a standard user, I can see if my problem is copied.
 
 ***
@@ -132,7 +132,7 @@ As a standard user, I can see if my problem is copied.
 - 5b. System detects that there is already a user registered with that information.
   - 5b1. Redirects back to the registration form and tells the user there is someone already registered with that information.
   - Repeat until user inputs different info.
-- a. At any time, User chooses to cancel the register
+- a. At any time, user chooses to cancel the register
   - a1 System requests to confirm the cancellation.
   - a2 System returns to "Login Page".
 
@@ -142,33 +142,30 @@ As a standard user, I can see if my problem is copied.
 ---
 
 **Software:** EasyExam
+
 **Actor:** User
+
 **Requirement:** User is logged
+
 **Guarantees:** 
-  - All problems and answer's fields filled by the user will be save for the system
-**Use Case:** UC02 - Registering a new question and answer
-1. User selects option "Create question"
-2. User fills the fields for the question
-3. User selects option "Next"
-4. User fills the fields for the answer
-5. User selects option "Submit"
-6. System requests to confirm action
-7. User selects option "Finish" 
-8. System saves question and answer
-9. User gets redirected to the dashboard
+- All problems and answer's fields filled by the user will be save for the system
 
-- **Extensions:**
+**Use Case:** UC02 - Register a new problem and answer
+1. User enters the problems and answers registration page
+2. User fills the problem and answer fields
+3. System verifies the information
+4. System saves problem and answer
+5. User is redirected to the dashboard
+6. Use Case ends
 
-  - 5a. System detects unfilled fields on the form
-  - 5a1.  System asks the user to fulfill the unfilled fileds
-  - 5a2. User fills the fields
-  - Repeat until user submits a question successfully
+**Extensions:**
 
-  - *a User cancels request
-  - *a1. System redirects user back to the dashboard
-
-
-USE CASE ENDS.
+- 3a. System detects unfilled fields on the form
+  - 3a1.  System asks the user to fulfill the unfilled fileds
+  - 3a2. User fills the fields
+  - Repeat until user submits a problem and answer successfully
+- a. User cancels request
+  - a1. System redirects user back to the dashboard
 
   **Diagram**
 
