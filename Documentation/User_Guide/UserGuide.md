@@ -133,8 +133,10 @@ As a standard user, I can see if my problem is copied.
   - *a1 System requests to confirm the cancellation.
   - *a2 System returns to "Login Page".
 
-**Diagram**
+**Diagram** 
   ![](images/UC01.png)
+  
+***  
 
 **Software:** EasyExam
 
@@ -162,8 +164,10 @@ As a standard user, I can see if my problem is copied.
 - *a. User cancels request
   - *a1. System redirects user back to the dashboard
 
-**Diagram**
+**Diagram** 
   ![](images/UC02.png)
+  
+ ***
 
 **Software:** EasyExam
 
@@ -182,8 +186,10 @@ As a standard user, I can see if my problem is copied.
 - *a. User cancels request
   - *a1. System redirects user back to the dashboard
 
-**Diagram**
+**Diagram** 
   ![](images/UC03.png)
+  
+ ***
 
 **Software:** EasyExam
 
@@ -203,8 +209,10 @@ As a standard user, I can see if my problem is copied.
 - *a User cancels request
   - *a1. System redirects user back to the dashboard
 
-**Diagram**
+**Diagram** 
   ![](images/UC04.png)
+  
+ ***
 
 **Software:** EasyExam
 
@@ -231,8 +239,10 @@ As a standard user, I can see if my problem is copied.
 - *a User Cancels request
   - *a1. System redirects user back to the dashboard
 
-**Diagram**
+**Diagram** 
   ![](images/uc05.png)
+  
+ ***
 
 **Software:** EasyExam
 
@@ -263,7 +273,7 @@ As a standard user, I can see if my problem is copied.
 - *a User cancels request
   - *a1. System redirects user back to the dashboard
 
-**Diagram**
+**Diagram** 
   ![](images/uc06.png)
 
 ***
