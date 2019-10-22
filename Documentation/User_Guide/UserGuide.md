@@ -235,7 +235,7 @@ As a standard user, I can see if my problem is copied.
   - *a1. System redirects user back to the dashboard
 
 **Diagram**
-  ![](images/UC05.png)
+  ![](images/uc05.png)
 
 **Software:** EasyExam
 
