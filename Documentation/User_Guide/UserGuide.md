@@ -1,100 +1,139 @@
 # User Guide: EasyExam - Group 2
 
 ## Introduction
-EasyExam is an online platform aiming to help teachers to generate relevant questions for the exams that they wish to take their students. EasyExam works on a 3-1 system in which each the user sends one question for every 3 they will recieve in order to encourage the collaboration within the platform. The users can also download the generated exams in PDF-Latex format.
+EasyExam is an online platform aiming to help teachers to generate problems for the exams that they wish to take their students. EasyExam works on a 3x1 system in which each the user sends 1 problem for every 3 they will recieve, it is in order to encourage the collaboration within the platform. The users can download the generated exams in PDF format.
 
 ***
+
+## Target User Profile
+
+The system has two types of users: Administrator and Standard user.
+- Standard user: Any user registered to Easy Exam
+- Administrator user: Administrates the service. Has the ability to modify problems and block/delete users. It is considered to be a person with knowledge in computer science and database.
+
+## Value Proposition
+
+It is an integrated web service for exams generation aimed at university teachers. gh This includes access to a limited bank of problems proposed by the community of standard users. To guarantee the quality and growth of this bank, standard user must collaborate using the 3x1 system.  In addition, it has a tool that facilitates the generation of their exams in a pre-established format based on certain selected problems.
+
+*** 
+
 ## Requirements
 
 The basic requirements for the platform are divided into:
 
 ### Functional:
 
-- The platform must allows register, login and recovery of user accounts.
-- The platform will allow to submit of new problems and answers from users.
-- The platform will allow to users generate exams from a set of problems.
-- The platform will have the ability to export the generated exams into PDF-Latex format.
-- The platform will allow the user to rate questions.
+- The system must allow the account management.
+- The system must allow the standard users to submit new problems with their respective solutions.
+- The system must allow the standard users generate exams
+- The system must allow the standard users to download the generated exam.
+- The system must allow the standard users to rate problems.
+- The system must display the problems according to a criteria.
+- The system must allow the user to search for problems based on topics tags.
+- The system must allow the admin users to block standard users.
+
 
 ### Non-functional:
 
-- Access to the platform should be intuitive. Users must be able to find and use problems easily.
-- The platform should work with low-spec computers (both in hardware and software).
-- The platform should register questions and answers in a short time.
-- Features should be written in the java language.
-- The platform should sort the problems according to difficulty, acceptance rating and subject.
-- The platform should allow users to freely and safely navigate the platform.
+#### Operational Requirements
+- At least 95% of Easy Exam users will not need to read the user manual to be able to use the system.
+
+#### Performance Requirements
+- System startup first time should be less than 3 seconds, then with the use of cache the startup should be less than 1 seconds.
+- The database will be able to hold information of thousands of users and tens of thousands of problems. Queries on this database should take no more than 1 second.
+- The system should have a response time of under five seconds.
+- The web platform should be capable enough to handle 10 thousands users with affecting its performance
+#### Security Requirements
+- A record of the administrator and the standard user that are related to one of the following operations performed by the administrator must be maintained: warnings and / or user locks.
+#### Portability Requirements
+- The Easy Exam web should be responsive and can be managed both in mobile and desktop devices.
 
 ***
+
 ## Features
 
-- Account management (login, register and recovery).
-- Problem and answer sending.
-- Generation of an exam with selected problems.
-- Export exams to pdf-latex format.
+- Account management (register, activation, login and recovery account).
+- Problem and answer submission.
+- Generation of exams with selected problems.
+- Export exams to PDF format.
 - Search engine and keyword indexation of problems.
 - Dashboard for managing problems or exams.
+- Problem feedback (suggest changes and report a problem).
 
 ***
-## Target User Profile
-
-The system has two types of users: Administrator and Common user; but we focus on the last user since the function of the first is to manage the database. The project will initially focus only on universities so that the sample is delimited.The common users are those who seek questions for the creation of their exams or who want to raise problems. Administrator user is considered to be a person with knowledge in computer science and database.
-
-## Value Proposition
-
-For the common users, a platform will be offered that will allow them to obtain a set of three problems and exam solutions, in return they have the obligation to upload a private o prublic problem and their respective solution.
-For administrator users, a platform will be offered.
 
 ## User Stories
 
 ### Must-to-have
 
-* As a registered user, I can login to the system
-* As a registered user, I can recover my password
-* As a teacher, I can comment and report badly raised problems
-* As a teacher, I can upload my problems to the system
-* As a teacher, I can generate a PDF and Latex file from created exams
+1. [Epic] As a standard  user, I can manage my account.
+- As a standard user, I can activate my account
+- As a standard user, I can register
+- As a standard user, I can login
+- As a standard user, I can change my password
+- As a standard user, I can recover my account
+2. As a standard user, I can comment problems
+3. As a standard user, I can report poorly formulated problems
+4. As a standard user, I can create a new problems with their respective solution
+5. As a standard user, I can generate an exam so that I can download it as a PDF file.
+6. As a standard user, I can rate the difficulty of problems so that other standard users can see the average score of any problem.
+7. As a standard user, I can comment problems so that other standard users can see my comments.
+8. [Epic] As an administrator, I can manage standard users’ account.
+- As an administrator, I can suspend a standard users account.
+- As an administrator, I can delete a standard users account.
 
 ### Nice-to-have
 
-* As a user, I can update my profile
-* As a teacher, I can know the difficulty of the problem based on the qualifications of other teachers
-* As a teacher I can see how many people have rated a problem
-* As a teacher I can rate the difficult of questions and comment on them
+1. As a standard user, I can choose my topics of interest so that problems related to this topic will appear first.
+2. As a standard user, I can suggest modifications to a problem so that the problem owner can see my suggestick and correct it later.
+3. As a standard user, I can update my profile
+4. As a standard user, I can know the difficulty of the problem based on the qualifications of other standard users
+5. As a standard user, I can get notified when someone reports or comment my problem
+6. As a standard user, I can see how many people have rated a problem
+7. As a standard user, I can generate an exam with random problems from the database
+8. As a standard user, I can save problems I have recently tried.
+9. As a standard user, I can send feedback of EasyExam.
+10. As a standard user, I can get a new problem if I my report is accepted. 
+11. As an administrator user, I can make a standard user an administrator user
 
 ### Unlikely-to-have
 
-* As a teacher I can export my exams in different formats
+1. As a standard user, I can export my exams in different formats
+2. As a standard user, I can see if my problem is written correctly.
+As a standard user, I can see if my problem is copied.
 
 ***
 
 ## Use Cases
 
-
 **Software:** EasyExam
+
 **Actor:** User
+
 **Requirement:** None
+
 **Guarantees:** 
-  - User will be registered in the system.
-  - All fields filled by the user will be save for the system
-**Use Case:** UC01 - Account creation
-  1. User enters EasyExam's web page
-  2. User selects option 'Register'
-  3. System redirects to Register page
-  4. User fills the registration form
-  5. User selects option 'Create Account'
-  6. System creates the account and redirects the user to home
+- User will be registered in the system.
+- All fields filled by the user will be save for the system
 
-- **Extensions:**
+**Use Case:** UC01 - Account management
+1. User enters EasyExam's web page
+2. User chooses between login, register or recovery account
+3. System redirects to selected page
+4. User fills the registration form
+5. User selects option 'Create Account'
+6. System creates the account and redirects the user to home
 
-    - 5a. System detects unfilled fields on the registration form.
-    - 5a1.  System asks the user to fulfill the unfilled fields.
-    - 5a2. User fills the fields.
-    - Repeat until user creates an account successfully.
+**Extensions:**
 
-    - 5a. System detects that there is already a user registered with that information.
-    - 5a1. Redirects back to the registration form and tells the user there is someone already registered with that information.
-    - Repeat until user inputs different info.
+- 5a. System detects unfilled fields on the registration form.
+- 5a1.  System asks the user to fulfill the unfilled fields.
+- 5a2. User fills the fields.
+- Repeat until user creates an account successfully.
+
+- 5a. System detects that there is already a user registered with that information.
+- 5a1. Redirects back to the registration form and tells the user there is someone already registered with that information.
+- Repeat until user inputs different info.
 
       *a At any time, User chooses to cancel the register
         *a1 System requests to confirm the cancellation.
@@ -106,14 +145,14 @@ For administrator users, a platform will be offered.
 
   **Diagram**
 
-  ![](uc01.png)
+  ![](images/uc01.png)
 ---
 
 **Software:** EasyExam
 **Actor:** User
 **Requirement:** User is logged
 **Guarantees:** 
-  - All question and answer's fields filled by the user will be save for the system
+  - All problems and answer's fields filled by the user will be save for the system
 **Use Case:** UC02 - Registering a new question and answer
 1. User selects option "Create question"
 2. User fills the fields for the question
@@ -140,7 +179,7 @@ USE CASE ENDS.
 
   **Diagram**
 
-  ![](uc02.png)
+  ![](images/uc02.png)
 
 **Software:** EasyExam
 **Actor:** User
@@ -161,7 +200,7 @@ USE CASE ENDS.
 
 
   **Diagram**
-  ![](uc03.png)
+  ![](images/uc03.png)
 
 **Software:** EasyExam
 **Actor:** User
@@ -181,7 +220,7 @@ USE CASE ENDS.
 
 
   **Diagram**
-![](uc04.png)
+![](images/uc04.png)
 
 **Software:** EasyExam
 **Actor:** User
@@ -209,7 +248,7 @@ USE CASE ENDS.
 
 
   **Diagram**
-  ![](uc05.png)
+  ![](images/uc05.png)
 
 **Software:** EasyExam
 **Actor:** User
@@ -243,14 +282,14 @@ USE CASE ENDS.
 
 
   **Diagram**
-  ![](uc06.png)
+  ![](images/uc06.png)
 
 ***
 ## Glossary
 
 - **3x1 rule:** upload a problem and get access to three ones
 - **User:** a person who uses the platform
-- **Common user:** a user who can upload and get public and private problems
+- **Standard user:** a user who can upload and get public and private problems
 - **Account:** unique credential that allows a user to access the platform
 - **Login:** a credential validation procedure to access the platform
 - **Activation email:** email that allows to activate an account
