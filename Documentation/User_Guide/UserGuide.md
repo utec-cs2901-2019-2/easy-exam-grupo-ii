@@ -1,7 +1,7 @@
 # User Guide: EasyExam - Group 2
 
 ## Introduction
-EasyExam is an online platform aiming to help teachers to generate problems for the exams that they wish to take their students. EasyExam works on a 3x1 system in which each the user sends 1 problem for every 3 they will recieve, it is in order to encourage the collaboration within the platform. The users can download the generated exams in PDF format.
+Easy Exam is an integrated web service for exams generation aimed at university teachers. This includes access to a limited bank of problems proposed by the community of standard users. To guarantee the quality and growth of this bank, standard user must collaborate using the 4x1 system.  In addition, it has a tool that facilitates the generation of their exams in a pre-established format based on certain selected problems.
 
 ***
 
@@ -10,10 +10,6 @@ EasyExam is an online platform aiming to help teachers to generate problems for 
 The system has two types of users: Administrator and Standard user.
 - Standard user: Any user registered to Easy Exam
 - Administrator user: Administrates the service. Has the ability to modify problems and block/delete users. It is considered to be a person with knowledge in computer science and database.
-
-## Value Proposition
-
-It is an integrated web service for exams generation aimed at university teachers. This includes access to a limited bank of problems proposed by the community of standard users. To guarantee the quality and growth of this bank, standard user must collaborate using the 4x1 system.  In addition, it has a tool that facilitates the generation of their exams in a pre-established format based on certain selected problems.
 
 *** 
 
@@ -36,17 +32,18 @@ The basic requirements for the platform are divided into:
 ### Non-functional:
 
 #### Operational Requirements
-- At least 95% of Easy Exam users will not need to read the user manual to be able to use the system.
+- The system should be intuitive to use. At least 95% of Easy Exam users should not need to read the user guide to be able to use the system.
 
 #### Performance Requirements
-- System startup first time should be less than 3 seconds, then with the use of cache the startup should be less than 1 seconds.
-- The database will be able to hold information of thousands of users and tens of thousands of problems. Queries on this database should take no more than 1 second.
+- The system’s first startup should take less than 3 seconds. Then, with the use of the cache, it should take less than 1 second.
+- The system’s database should be able to support and handle thousands of users and questions.
+- Queries on the database shouldn’t take more than 1 second
 - The system should have a response time of under five seconds.
-- The web platform should be capable enough to handle 10 thousands users with affecting its performance
+- The system should be able to handle 10 000 users without affecting its performance
 #### Security Requirements
-- A record of the administrator and the standard user that are related to one of the following operations performed by the administrator must be maintained: warnings and / or user locks.
+- The system should be able to keep a registry of the blocks and bans given to standard users.
 #### Portability Requirements
-- The Easy Exam web should be responsive and can be managed both in mobile and desktop devices.
+- The system web should be responsive and can be managed both in mobile and desktop devices.
 
 ***
 
