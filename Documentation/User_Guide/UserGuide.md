@@ -148,9 +148,9 @@ As a standard user, I can see if my problem is copied.
 **Guarantees:** 
 - All problems and answer's fields filled by the user will be save for the system
 
-**Use Case:** UC02 - Register a new problem and answer
+**Use Case:** UC02 - Register a new problem and solution
 1. User enters the problems and answers registration page
-2. User fills the problem and answer fields
+2. User fills the problem and solution fields
 3. System verifies the information
 4. System saves problem and answer
 5. User is redirected to the dashboard
