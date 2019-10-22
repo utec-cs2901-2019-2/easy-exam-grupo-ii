@@ -13,7 +13,7 @@ The system has two types of users: Administrator and Standard user.
 
 ## Value Proposition
 
-It is an integrated web service for exams generation aimed at university teachers. gh This includes access to a limited bank of problems proposed by the community of standard users. To guarantee the quality and growth of this bank, standard user must collaborate using the 3x1 system.  In addition, it has a tool that facilitates the generation of their exams in a pre-established format based on certain selected problems.
+It is an integrated web service for exams generation aimed at university teachers. This includes access to a limited bank of problems proposed by the community of standard users. To guarantee the quality and growth of this bank, standard user must collaborate using the 4x1 system.  In addition, it has a tool that facilitates the generation of their exams in a pre-established format based on certain selected problems.
 
 *** 
 
@@ -273,7 +273,7 @@ As a standard user, I can see if my problem is copied.
 
 ## Glossary
 
-- **3x1 rule:** upload a problem and get access to three ones
+- **4x1 rule:** upload a problem and get access to three ones
 - **User:** a person who uses the platform
 - **Standard user:** a user who can upload and get public and private problems
 - **Account:** unique credential that allows a user to access the platform
