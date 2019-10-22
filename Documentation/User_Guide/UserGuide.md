@@ -132,9 +132,9 @@ As a standard user, I can see if my problem is copied.
 - 5b. System detects that there is already a user registered with that information.
   - 5b1. Redirects back to the registration form and tells the user there is someone already registered with that information.
   - Repeat until user inputs different info.
-- a. At any time, user chooses to cancel the register
-  - a1 System requests to confirm the cancellation.
-  - a2 System returns to "Login Page".
+- *a. User cancel request
+  - *a1 System requests to confirm the cancellation.
+  - *a2 System returns to "Login Page".
 
 **Diagram**
 
@@ -144,7 +144,7 @@ As a standard user, I can see if my problem is copied.
 
 **Actor:** User
 
-**Requirement:** User is logged and logged in.
+**Requirement:** User is logged and logged in
 
 **Guarantees:** 
 - All problems and answer's fields filled by the user will be save for the system
@@ -160,20 +160,46 @@ As a standard user, I can see if my problem is copied.
 **Extensions:**
 
 - 3a. System detects unfilled fields on the form
-  - 3a1.  System asks the user to fulfill the unfilled fileds
+  - 3a1.  System asks the user to fulfill the unfilled fields
   - 3a2. User fills the fields
   - Repeat until user submits a problem and answer successfully
-- a. User cancels request
-  - a1. System redirects user back to the dashboard
+- *a. User cancels request
+  - *a1. System redirects user back to the dashboard
 
 **Diagram**
 
   ![](images/UC02.png)
 
 **Software:** EasyExam
+
 **Actor:** User
-**Requirement:** User is logged, user added problems (UC04)
-**Use Case:** UC03 - User downloads the exam
+
+**Requirement:** User is logged and logged in
+
+**Use Case:** UC03 - User adds a problem to the exam
+
+1. User enters the dashboard
+2. User selects the problems
+3. System adds the problem to the exam that user is generating
+4. Use Case ends
+
+**Extensions:**
+- *a. User cancels request
+  - *a1. System redirects user back to the dashboard
+
+USE CASE ENDS.
+
+
+  **Diagram**
+![](images/UC03.png)
+
+**Software:** EasyExam
+
+**Actor:** User
+
+**Requirement:** User is logged, user added problems (UC03)
+
+**Use Case:** UC04 - User downloads the exam
 
 1. User clicks generate
 2. System redirects user to the exam generation page
@@ -189,27 +215,9 @@ USE CASE ENDS.
 
 
   **Diagram**
-  ![](images/uc03.png)
-
-**Software:** EasyExam
-**Actor:** User
-**Requirement:** User is logged
-**Use Case:** UC04 - User adds a question to the exam
-
-1. User selects a problem from the dashboard
-2. System pops up the problem's window
-3. User Clicks on get problem
-4. System adds the problem to the exam that user is generating
-
-- **Extensions:**
-  - *a User Cancels request
-  - *a1. System redirects user back to the dashboard
-
-USE CASE ENDS.
+  ![](images/uc04.png)
 
 
-  **Diagram**
-![](images/uc04.png)
 
 **Software:** EasyExam
 **Actor:** User
