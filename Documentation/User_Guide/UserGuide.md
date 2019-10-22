@@ -139,13 +139,12 @@ As a standard user, I can see if my problem is copied.
 **Diagram**
 
   ![](images/UC01.png)
----
 
 **Software:** EasyExam
 
 **Actor:** User
 
-**Requirement:** User is logged
+**Requirement:** User is logged and logged in.
 
 **Guarantees:** 
 - All problems and answer's fields filled by the user will be save for the system
@@ -167,9 +166,9 @@ As a standard user, I can see if my problem is copied.
 - a. User cancels request
   - a1. System redirects user back to the dashboard
 
-  **Diagram**
+**Diagram**
 
-  ![](images/uc02.png)
+  ![](images/UC02.png)
 
 **Software:** EasyExam
 **Actor:** User
