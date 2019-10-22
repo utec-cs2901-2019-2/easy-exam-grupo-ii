@@ -137,7 +137,6 @@ As a standard user, I can see if my problem is copied.
   - *a2 System returns to "Login Page".
 
 **Diagram**
-
   ![](images/UC01.png)
 
 **Software:** EasyExam
@@ -167,7 +166,6 @@ As a standard user, I can see if my problem is copied.
   - *a1. System redirects user back to the dashboard
 
 **Diagram**
-
   ![](images/UC02.png)
 
 **Software:** EasyExam
@@ -187,17 +185,14 @@ As a standard user, I can see if my problem is copied.
 - *a. User cancels request
   - *a1. System redirects user back to the dashboard
 
-USE CASE ENDS.
-
-
-  **Diagram**
-![](images/UC03.png)
+**Diagram**
+  ![](images/UC03.png)
 
 **Software:** EasyExam
 
 **Actor:** User
 
-**Requirement:** User is logged, user added problems (UC03)
+**Requirement:** User is logged and logged in. User added problems (UC03)
 
 **Use Case:** UC04 - User downloads the exam
 
@@ -212,72 +207,69 @@ USE CASE ENDS.
   - *a1. System redirects user back to the dashboard
 
 **Diagram**
-
   ![](images/UC04.png)
 
 **Software:** EasyExam
+
 **Actor:** User
-**Requirement:** User is logged
+
+**Requirement:** User is logged and logged in
+
 **Use Case:** UC05 - Report a problem
 
 1. User selects a problem from the dashboard
 2. System pops up the problem's window
-3. User Clicks on report
+3. User report the problem
 4. System pops up a report window
 5. User fills on the fields to report the problem
-6. User clicks on submit report
+6. System check the information
+7. Use Case ends
 
-- **Extensions:**
+**Extensions:**
 
-  - 5a. System detects unfilled fields on the form
-  - 5a1.  System asks the user to fulfill the unfilled fields
-  - 5a2. User fills the fields
+- 6a. System detects unfilled fields on the form
+  - 6a1.  System asks the user to fulfill the unfilled fields
+  - 6a2. User fills the fields
   - Repeat until user creates a report successfully
-
-  - *a User Cancels request
+- *a User Cancels request
   - *a1. System redirects user back to the dashboard
 
-USE CASE ENDS.
-
-
-  **Diagram**
-  ![](images/uc05.png)
+**Diagram**
+  ![](images/UC05.png)
 
 **Software:** EasyExam
+
 **Actor:** User
-**Requirement:** None
+
+**Requirement:** User is logged
+
 **Use Case:** UC06 - Account recovery
 
-1. User enters EasyExam's web page
-2. User selects forgot password
-3. System redirects to recovery page
-4. User fills the fields
-5. User clicks on submit
+1. User enters the account recovery page
+2. User fills the fields
+3. User submit the information
 6. System sends an account recovery email to the user
-7. User opens link
-8. System redirects it to a screen to recover password
+7. When user opens link, system redirects it to a screen to recover password
 9. User fills the fields
 10. User clicks on submit
 
-- **Extensions:**
+**Extensions:**
 
-  - 5a. System detects unfilled fields on the form
+- 5a. System detects unfilled fields on the form
   - 5a1.  System asks the user to fulfill the unfilled fields
   - 5a2. User fills the fields
   - Repeat until user sends
-  - 10a. System detects unfilled fields on the form
+- 10a. System detects unfilled fields on the form
   - 10a1. System asks the user to fulfill the unfilled fields
   - 10a2. User fills the fields
-  - *a User cancels request
+- *a User cancels request
   - *a1. System redirects user back to the dashboard
 
-USE CASE ENDS.
-
-
-  **Diagram**
+**Diagram**
   ![](images/uc06.png)
 
 ***
+
 ## Glossary
 
 - **3x1 rule:** upload a problem and get access to three ones
