@@ -9,7 +9,7 @@ EasyExam is an online platform aiming to help teachers to generate problems for 
 
 The system has two types of users: Administrator and Standard user.
 - Standard user: Any user registered to Easy Exam
-- Administrator user: Administrates the service. Has the ability to modify problems and block/delete users. It is considered to be a person with knowledge in computer science and database.
+- Administrator user: Manage the service. Has the ability to modify problems and block/delete users. It is considered to be a person with knowledge in computer science and database.
 
 ## Value Proposition
 
@@ -110,7 +110,7 @@ As a standard user, I can see if my problem is copied.
 
 **Actor:** User
 
-**Requirement:** None
+**Preconditions:** None
 
 **Guarantees:** 
 - User will be registered in the system.
@@ -118,7 +118,7 @@ As a standard user, I can see if my problem is copied.
 
 **Use Case:** UC01 - Account management
 1. User enters EasyExam's web page
-2. User chooses between login, register or recovery account
+2. User chooses between login or register
 3. System redirects to selected page
 4. User fills the form
 5. System check the information
@@ -126,7 +126,7 @@ As a standard user, I can see if my problem is copied.
 
 **Extensions:**
 - 5a. System detects unfilled fields on the form.
-  - 5a1.  System asks the user to fulfill the unfilled fields.
+  - 5a1. System asks the user to fulfill the unfilled fields.
   - 5a2. User fills the fields.
   - Repeat until user creates an account successfully.
 - 5b. System detects that there is already a user registered with that information.
@@ -137,13 +137,13 @@ As a standard user, I can see if my problem is copied.
   - *a2 System returns to "Login Page".
 
 **Diagram**
-  ![](images/UC01.png)
+  ![](images/uc01.png)
 
 **Software:** EasyExam
 
-**Actor:** User
+**Actor:** Standard User
 
-**Requirement:** User is logged and logged in
+**Preconditions:** User is logged and logged in
 
 **Guarantees:** 
 - All problems and answer's fields filled by the user will be save for the system
@@ -159,91 +159,81 @@ As a standard user, I can see if my problem is copied.
 **Extensions:**
 
 - 3a. System detects unfilled fields on the form
-  - 3a1.  System asks the user to fulfill the unfilled fields
+  - 3a1. System asks the user to fulfill the unfilled fields
   - 3a2. User fills the fields
   - Repeat until user submits a problem and answer successfully
 - *a. User cancels request
   - *a1. System redirects user back to the dashboard
 
 **Diagram**
-  ![](images/UC02.png)
+  ![](images/uc02.png)
 
 **Software:** EasyExam
 
-**Actor:** User
+**Actor:** Standard User
 
-**Requirement:** User is logged and logged in
+**Preconditions:** User is logged and logged in
 
-**Use Case:** UC03 - User adds a problem to the exam
+**Use Case:** UC03 - Generate and download an exam
 
 1. User enters the dashboard
 2. User selects the problems
 3. System adds the problem to the exam that user is generating
-4. Use Case ends
+4. User enters to the exam generation page
+5. User fill the fields (course name, date, etc)
+6. System check the information
+7. User download the exam
+8. System downloads the exam on the user's PC
+9. Use Case ends
 
 **Extensions:**
+- 6. System detects unfilled fields on the form
+  - 6a1. System asks the user to fulfill the unfilled fields
+  - 6a2. User fills the fields
+  - Repeat until user submits a problem and answer successfully
 - *a. User cancels request
   - *a1. System redirects user back to the dashboard
 
 **Diagram**
-  ![](images/UC03.png)
+  ![](images/uc03.png)
 
 **Software:** EasyExam
 
-**Actor:** User
-
-**Requirement:** User is logged and logged in. User added problems (UC03)
-
-**Use Case:** UC04 - User downloads the exam
-
-1. User enters to the exam generation page
-2. User downloads the exam
-3. System downloads the exam on the user's PC
-4. Use Case ends
-
-**Extensions:**
-
-- *a User cancels request
-  - *a1. System redirects user back to the dashboard
-
-**Diagram**
-  ![](images/UC04.png)
-
-**Software:** EasyExam
-
-**Actor:** User
+**Actor:** Standard User, Administrator user
 
 **Requirement:** User is logged and logged in
 
-**Use Case:** UC05 - Report a problem
+**Use Case:** UC04 - Report a problem
 
-1. User selects a problem from the dashboard
+1. Standard user select the problem in the dashboard
 2. System pops up the problem's window
-3. User report the problem
+3. Standard user report the problem
 4. System pops up a report window
-5. User fills on the fields to report the problem
+5. Standard user fills on the fields to report the problem
 6. System check the information
-7. Use Case ends
+7. Administrator user check the report
+8. Administrator user blocks/deletes standard user
+9. Use Case ends
 
 **Extensions:**
 
 - 6a. System detects unfilled fields on the form
-  - 6a1.  System asks the user to fulfill the unfilled fields
-  - 6a2. User fills the fields
+  - 6a1. System asks the standard user to fulfill the unfilled fields
+  - 6a2. Standard user fills the fields
   - Repeat until user creates a report successfully
 - *a User Cancels request
   - *a1. System redirects user back to the dashboard
 
 **Diagram**
-  ![](images/uc05.png)
+  ![](images/uc04.png)
 
 **Software:** EasyExam
 
-**Actor:** User
+**Actor:** Standard User
 
 **Requirement:** User is logged
 
-**Use Case:** UC06 - Account recovery
+**Use Case:** UC05 - Account recovery
 
 1. User enters the account recovery page
 2. User fills the fields
@@ -267,7 +257,7 @@ As a standard user, I can see if my problem is copied.
   - *a1. System redirects user back to the dashboard
 
 **Diagram**
-  ![](images/uc06.png)
+  ![](images/uc05.png)
 
 ***
 
@@ -276,6 +266,7 @@ As a standard user, I can see if my problem is copied.
 - **3x1 rule:** upload a problem and get access to three ones
 - **User:** a person who uses the platform
 - **Standard user:** a user who can upload and get public and private problems
+- **Administrator user:** a user who has the ability to modify problems and block/delete users.
 - **Account:** unique credential that allows a user to access the platform
 - **Login:** a credential validation procedure to access the platform
 - **Activation email:** email that allows to activate an account
