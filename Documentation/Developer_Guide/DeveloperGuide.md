@@ -25,7 +25,7 @@ EasyExam's will use Java,  Javascript and Spring Boot for the back-end; Vue.js a
 ![sequence diagram 2](LoginSeqDiagram.png)
 
 ### Generate Exam
-![sequence diagram 3](examGenSeqDiagram.vpd.png)
+![sequence diagram 3](examGenSeqDiagram.png)
 
 ### Problem Submition
 ![sequence diagram 4](SubmitProblem.png)
