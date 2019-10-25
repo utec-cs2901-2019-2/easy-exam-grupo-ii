@@ -14,30 +14,21 @@ EasyExam's will use Java,  Javascript and Spring Boot for the back-end; Vue.js a
 ![comp diagram](ArchitectureDiagram.png)
 
 ### Class Diagram
-![class diagram](classDiagram.png)
+![class diagram](ClassDiagram.png)
 
-### Login Class Diagram
-![login class diagram](loginClass.png)
+## Interaction between components
 
-### Register Class Diagram
-![register class diagram](register.vpd.png)
+### Register
+![sequence diagram 1](RegisterSeqDiagram.png)
 
-### Class Diagram for Problem Submition
-![class diagram](SubmissionProblem.png)
+### Login
+![sequence diagram 2](LoginSeqDiagram.png)
 
-### Interaction between components
+### Generate Exam
+![sequence diagram 3](examGenSeqDiagram.vpd.png)
 
-- Register
-![sequence diagram 1](registerSeq.png)
-
-- Login
-![sequence diagram 2](loginSeq.png)
-
-- Generate Exam
-![sequence diagram 3](generateExam.vpd.png)
-
-- Problem Submition
-![sequence diagram 4](ProblemSumissionSequenceDiagram.png)
+### Problem Submition
+![sequence diagram 4](SubmitProblem.png)
 
 
 
