@@ -2,7 +2,7 @@
 
 ## Introduction
 
-EasyExam is an online platform aiming to help teachers to generate relevant questions for the exams that they wish to take their students. EasyExam will allow the user to submit questions with their respective answer and store them on a database for other users to be able to search and recover them. The platform encourages collaboration with the user by implementing a 3x1 system in which the user is required to send a question in order to receive 3 in exchange.
+EasyExam is an online platform aiming to help professors to generate questions for the exams that they wish to take their students. EasyExam will allow the user to submit questions with their respective answer and store them on a database for other users to be able to search and recover them. The platform encourages collaboration with the user by implementing a 3x1 system in which the user is required to send a question in order to receive 3 in exchange.
 EasyExam's will use Java,  Javascript and Spring Boot for the back-end; Vue.js and Vuex for the front-end; and PostgreSQL for the database.
 
 ## Features
