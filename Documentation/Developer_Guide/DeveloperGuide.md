@@ -6,7 +6,7 @@ EasyExam is an online platform aiming to help professors to generate questions f
 EasyExam's will use Java,  Javascript and Spring Boot for the back-end; Vue.js and Vuex for the front-end; and PostgreSQL for the database.
 
 ## Features
-![features](FeaturesPlan-1.png)
+![features](features.png)
 
 ## Design
 
