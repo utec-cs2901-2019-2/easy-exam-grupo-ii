@@ -1,19 +1,19 @@
 # User Guide: EasyExam - Group 2
 
 ## Introduction
-EasyExam is an online platform aiming to help teachers to generate problems for the exams that they wish to take their students. EasyExam works on a 3x1 system in which each the user sends 1 problem for every 3 they will recieve, it is in order to encourage the collaboration within the platform. The users can download the generated exams in PDF format.
+EasyExam is an online platform aiming to help professors to generate problems for the exams that they wish to take their students. EasyExam works on a 3x1 system in which each the user sends 1 problem for every 3 they will recieve, it is in order to encourage the collaboration within the platform. The users can download the generated exams in PDF-Latex format.
 
 ***
 
 ## Target User Profile
 
 The system has two types of users: Administrator and Standard user.
-- Standard user: Any user registered to Easy Exam
+- Standard user: Any user registered to Easy Exam. Has the ability to submit and get problems from EasyExam based on the 3x1 system, rate the selected problems, generate exams and export it into PDF-Latex format. It is considered to be a professor of a university or institute.
 - Administrator user: Manage the service. Has the ability to modify problems and block/delete users. It is considered to be a person with knowledge in computer science and database.
 
 ## Value Proposition
 
-It is an integrated web service for exams generation aimed at university teachers. This includes access to a limited bank of problems proposed by the community of standard users. To guarantee the quality and growth of this bank, standard users must collaborate using the 3x1 system.  In addition, it has a tool that facilitates the generation of their exams in a pre-established format based on certain selected problems.
+It is an integrated web service for exams generation aimed at professors. This includes access to a limited bank of problems proposed by the community of standard users. To guarantee the quality and growth of this bank, standard users must collaborate using the 3x1 system.  In addition, it has a tool that facilitates the generation of their exams in a pre-established format based on certain selected problems.
 
 *** 
 
@@ -55,7 +55,7 @@ The basic requirements for the platform are divided into:
 - Account management (register, activation, login and recovery account).
 - Problem and answer submission.
 - Generation of exams with selected problems.
-- Export exams to PDF format.
+- Export exams to PDF-Latex format.
 - Search engine and keyword indexation of problems.
 - Dashboard for managing problems or exams.
 - Problem feedback (suggest changes and report a problem).
@@ -75,7 +75,7 @@ The basic requirements for the platform are divided into:
 - As a standard user, I can comment problems
 - As a standard user, I can report poorly formulated problems
 - As a standard user, I can create a new problems with their respective solution
-- As a standard user, I can generate an exam so that I can download it as a PDF file.
+- As a standard user, I can generate an exam so that I can download it as a PDF-Latex file.
 - As a standard user, I can rate the difficulty of problems so that other standard users can see the average score of any problem.
 - As a standard user, I can comment problems so that other standard users can see my comments.
 - [Epic] As an administrator, I can manage standard users’ account.
@@ -264,20 +264,20 @@ As a standard user, I can see if my problem is copied.
 ## Glossary
 
 - **3x1 rule:** upload a problem and get access to three ones
-- **User:** a person who uses the platform
-- **Standard user:** a user who can upload and get public and private problems
+- **User:** a person who uses EasyExam. It can be a standard or administrator user.
+- **Standard user:** a user who can submit and get problems from EasyExam, generate exams of selected problems and export it to PDF-Latex format.
 - **Administrator user:** a user who has the ability to modify problems and block/delete users.
-- **Account:** unique credential that allows a user to access the platform
-- **Login:** a credential validation procedure to access the platform
+- **Account:** unique credential that allows a user to access EasyExam
+- **Login:** a credential validation procedure to access EasyExam
 - **Activation email:** email that allows to activate an account
 - **Dashboard:** control panel of the platform
 - **Problem:** a question to be answered
 - **Preview:** problem statement without solution
 - **Solution:** answer to a problem with detailed procedure or rationale
-- **Answer key:** quick answer to a problem, without procedure
 - **Submit:** action of uploading a problem to the platform
 - **Report:** action of sending a written observation to a problem that is not well posed, with writing errors or wrong solution
 - **Tags:** problem indexing system
-- **PDF-latex:** pdf version of a document generated in Latex
+- **PDF-Latex:** pdf version of a document generated in Latex
+- **Latex:** is a high-quality typesetting system; it includes features designed for the production of technical and scientific documentation.
 
 ***
