@@ -16,4 +16,4 @@ EasyExam is an online platform aiming to help teachers to generate problems for 
 - [Developer Guide](Documentation/Developer_Guide/DeveloperGuide.md)
 - [Features Plan](Documentation/Features_Plan/FeaturesPlan.pdf)
 - [Mock-up](https://ninjamock.com/s/Q8QL8Dx)
-- [Surveys Results](https://docs.google.com/spreadsheets/d/1M9t4QFzLDb6WAnaMETt-9kRsrldYYMR9U1dL4XnkqJU/edit?usp=sharing)
+- [Interviews Results](https://docs.google.com/spreadsheets/d/1M9t4QFzLDb6WAnaMETt-9kRsrldYYMR9U1dL4XnkqJU/edit?usp=sharing)
