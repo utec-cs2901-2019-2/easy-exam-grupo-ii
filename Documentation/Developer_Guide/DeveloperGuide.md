@@ -2,11 +2,11 @@
 
 ## Introduction
 
-EasyExam is an online platform aiming to help teachers to generate relevant questions for the exams that they wish to take their students. EasyExam will allow the user to submit questions with their respective answer and store them on a database for other users to be able to search and recover them. The platform encourages collaboration with the user by implementing a 3x1 system in which the user is required to send a question in order to receive 3 in exchange.
+EasyExam is an online platform aiming to help professors to generate questions for the exams that they wish to take their students. EasyExam will allow the user to submit questions with their respective answer and store them on a database for other users to be able to search and recover them. The platform encourages collaboration with the user by implementing a 3x1 system in which the user is required to send a question in order to receive 3 in exchange.
 EasyExam's will use Java,  Javascript and Spring Boot for the back-end; Vue.js and Vuex for the front-end; and PostgreSQL for the database.
 
 ## Features
-![features](FeaturesPlan-1.png)
+![features](features.png)
 
 ## Design
 
@@ -14,30 +14,21 @@ EasyExam's will use Java,  Javascript and Spring Boot for the back-end; Vue.js a
 ![comp diagram](ArchitectureDiagram.png)
 
 ### Class Diagram
-![class diagram](classDiagram.png)
+![class diagram](ClassDiagram.png)
 
-### Login Class Diagram
-![login class diagram](loginClass.png)
+## Interaction between components
 
-### Register Class Diagram
-![register class diagram](register.vpd.png)
+### Register
+![sequence diagram 1](RegisterSeqDiagram.png)
 
-### Class Diagram for Problem Submition
-![class diagram](SubmissionProblem.png)
+### Login
+![sequence diagram 2](LoginSeqDiagram.png)
 
-### Interaction between components
+### Generate Exam
+![sequence diagram 3](examGenSeqDiagram.png)
 
-- Register
-![sequence diagram 1](registerSeq.png)
-
-- Login
-![sequence diagram 2](loginSeq.png)
-
-- Generate Exam
-![sequence diagram 3](generateExam.vpd.png)
-
-- Problem Submition
-![sequence diagram 4](ProblemSumissionSequenceDiagram.png)
+### Problem Submition
+![sequence diagram 4](SubmitProblem.png)
 
 
 
