@@ -1,0 +1,95 @@
+Table user{
+  id int [pk, increment]
+  email varchar
+  password varchar
+  activate boolean
+}
+
+Table teacher {
+  id int [ref: > user.id]
+  institution varchar
+  first_name varchar
+  last_name varchar
+  date_birth datetime
+  gender int
+  bonus int
+  defaultTemplate int
+  status boolean
+  alerts int
+}
+
+Table admin {
+  id int [ref: > user.id]
+  fullname varchar
+  phone varchar
+  address varchar
+}
+
+Table exam_teacher {
+  id_teacher int [ref: > teacher.id]
+  id_exam int [ref: > exam.id]
+}
+
+Table exam {
+  id int [pk, increment]
+  title varchar
+  creation_Date datetime
+}
+
+Table topics {
+  id int [pk,increment]
+  description varchar
+  idTopicDad int [ref: > topics.id]
+}
+
+Table problem {
+  id int [pk, increment]
+  title varchar
+  description varchar
+  image varchar
+  score double
+  qualifiers int
+  topics_id int [ref: > topics.id]
+}
+
+Table problem_submitted {
+  id_user int [ref: > user.id]
+  id_problem int [ref: > problem.id]
+  dateCreated datetime
+}
+
+Table exam_problem {
+  id_problem int [ref: > problem.id]
+  id_exam int [ref: > exam.id]
+  score int
+}
+
+Table solution_problem {
+  id int [pk, increment]
+  id_problem int [ref: > problem.id,not null,unique]
+  description varchar
+  image varchar
+  alternatives varchar //Debe ser un array corregir en postgresql con varchar[]
+}
+
+Table audit{
+  id int [pk, increment]
+  id_admin int [ref: > admin.id]
+  id_teacher varchar [ref: > teacher.id]
+  date_action datetime
+  action varchar
+  comments varchar
+}
+  
+Table comments{
+  id_problem int [ref: > problem.id]
+  id_user_comment int [ref: > user.id] //user que comenta
+  description varchar
+}
+
+Table suggests{
+  id_problem int [ref: > problem.id]
+  id_user_suggest int [ref: > user.id]
+  description varchar
+}
+
