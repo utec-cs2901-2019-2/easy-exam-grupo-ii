@@ -19,6 +19,11 @@ const routes = [
     name: 'register',
     component: () => import('../views/Register.vue')
   },
+  {
+    path: '/recover',
+    name: 'recover',
+    component: () => import('../views/Recover.vue')
+  },
 ]
 
 const router = new VueRouter({
