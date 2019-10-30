@@ -34,6 +34,9 @@ public class UserController {
     }
 
     @PostMapping("/user")
+    public User createUser(@Valid @RequestBody User user) {
+        return userRepo.save(user);
+    }
     
 
 
