@@ -37,11 +37,10 @@
                                 <button type="submit" class="btn btn-primary">
                                     Login
                                 </button>
-                                <a href="/register">
-                                <button type="" class="btn btn-primary ml-4">
-                                    Register
+
+                                <button type="" >
+                                    <a href="/register" class="btn btn-primary ml-4">Register</a>
                                 </button>
-                                </a>
                             </div>
                     </form>
                 </div>
