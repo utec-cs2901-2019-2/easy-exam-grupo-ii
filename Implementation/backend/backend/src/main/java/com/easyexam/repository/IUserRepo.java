@@ -1,9 +1,8 @@
 package com.easyexam.repository;
 
-import org.springframework.data.repository.CrudRepository;
-
 import com.easyexam.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IUserRepo extends CrudRepository<User, Long>{
+public interface IUserRepo extends JpaRepository<User, Long>{
     
 }

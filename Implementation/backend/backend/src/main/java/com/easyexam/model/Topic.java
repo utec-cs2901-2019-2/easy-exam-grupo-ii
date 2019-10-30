@@ -1,15 +1,13 @@
 package com.easyexam.model;
 
-import javax.annotation.processing.Generated;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-@Table (name = "Table")
+@Table (name = "topic")
 @SequenceGenerator(name="seq_topic", sequenceName="seq_topic")
 public class Topic {
 
-    //TODO implementation
+    //TODO implementation topci relation
     @Id
     @GeneratedValue(generator="seq_topic")
     private int id;

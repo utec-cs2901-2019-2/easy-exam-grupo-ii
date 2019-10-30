@@ -1,14 +1,13 @@
 package com.easyexam.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "Problem")
+@Table(name = "problem")
 @SequenceGenerator(name="seq_prob", sequenceName="seq_prob")
 public class Problem {
 
-    //TODO implementation
+    //TODO implementation of topic relation
     @Id
     @GeneratedValue(generator="seq_prob")
     private int id;
@@ -25,7 +24,6 @@ public class Problem {
     @Column(name="activate")
     private int qualifiers;
 
-    @Column(name="topic")
     private Topic topic;
 
     public Problem() { }
