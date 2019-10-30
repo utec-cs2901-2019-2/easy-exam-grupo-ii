@@ -31,7 +31,7 @@ public class CommentController{
 
     @GetMapping("/comment")
     public List<Comment> getAllComments(){
-        return 
+        return commentRepo.findAll(); 
     }
 
 

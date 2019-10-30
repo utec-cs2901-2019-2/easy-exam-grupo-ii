@@ -37,11 +37,11 @@ public class UserController {
     public User createUser(@Valid @RequestBody User user) {
         return userRepo.save(user);
     }
-    
-    @PostMapping("/user")
-    public boolean user validateUser(@Valid @RequestBody User user){
-        User temp = userRepo.find;
-        returnRepo.save(user);
+
+    @PostMapping("/users")
+    public Boolean validateUser(@Valid @RequestBody User user) {
+        User temp = userRepo.findAllByEmail(user.getEmail());
+        return temp.getPassword() == user.getPassword();
     }
 
 }
