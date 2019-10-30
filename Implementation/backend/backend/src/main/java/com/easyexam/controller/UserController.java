@@ -1,8 +1,6 @@
 package com.easyexam.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.crypto.interfaces.PBEKey;
 import javax.validation.Valid;
@@ -43,6 +41,4 @@ public class UserController {
         User temp = userRepo.findAllByEmail(user.getEmail());
         return temp.getPassword() == user.getPassword();
     }
-
-
 }

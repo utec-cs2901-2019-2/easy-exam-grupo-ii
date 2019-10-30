@@ -4,12 +4,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "problem")
-@SequenceGenerator(name="seq_prob", sequenceName="seq_prob")
+@SequenceGenerator(name="seq_usu", sequenceName="seq_usu")
 public class Problem {
 
     //TODO implementation of topic relation
     @Id
-    @GeneratedValue(generator="seq_prob")
+    @GeneratedValue(generator="seq_usu")
     private int id;
 
     @Column(name="title")
@@ -24,17 +24,19 @@ public class Problem {
     @Column(name="activate")
     private int qualifiers;
 
+    /*
     private Topic topic;
-
+    */
+    
     public Problem() { }
 
-    public Problem(int id, String title, String description, float score, int qualifiers, Topic topic) {
+    public Problem(int id, String title, String description, float score, int qualifiers/*, Topic topic*/) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.score = score;
         this.qualifiers = qualifiers;
-        this.topic = topic;
+        //this.topic = topic;
     }
 
     public int getId() {
@@ -73,6 +75,8 @@ public class Problem {
         this.qualifiers = qualifiers;
     }
 
+    /*
+
     public Topic getTopic() {
         return topic;
     }
@@ -80,5 +84,6 @@ public class Problem {
     public void setTopic(Topic topic) {
         this.topic = topic;
     }
+    */
 
 }

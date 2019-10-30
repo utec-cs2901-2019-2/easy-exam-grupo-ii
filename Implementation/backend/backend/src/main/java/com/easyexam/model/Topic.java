@@ -4,27 +4,26 @@ import javax.persistence.*;
 
 @Entity
 @Table (name = "topic")
-@SequenceGenerator(name="seq_topic", sequenceName="seq_topic")
+@SequenceGenerator(name="seq_usu", sequenceName="seq_usu")
 public class Topic {
 
-    //TODO implementation topci relation
+    //TODO implementation topic relation
     @Id
-    @GeneratedValue(generator="seq_topic")
+    @GeneratedValue(generator="seq_usu")
     private int id;
 
     @Column(name="description")
     private String description;
 
-    @Column(name="topicDad") 
-    private Topic topicDad;
+    //private Topic topicDad;
 
 
     public Topic() { }
 
-    public Topic(int id, String description, Topic topicDad) {
+    public Topic(int id, String description /*, Topic topicDad*/) {
         this.id = id;
         this.description = description;
-        this.topicDad = topicDad;
+        //this.topicDad = topicDad;
     }
 
     public int getId() {
@@ -39,6 +38,8 @@ public class Topic {
         this.description = description;
     }
 
+    /*
+
     public Topic getTopicDad() {
         return topicDad;
     }
@@ -46,4 +47,5 @@ public class Topic {
     public void setTopicDad(Topic topicDad) {
         this.topicDad = topicDad;
     }
+    */
 }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user_role")
 @SequenceGenerator(name="seq_usu", sequenceName="seq_usu")  
 public class User {
 
