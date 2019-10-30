@@ -1,6 +1,7 @@
 package com.easyexam.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 @Entity
 @Table(name = "user")
@@ -11,6 +12,7 @@ public class User {
     @GeneratedValue(generator="seq_usu")
     private int id;
 
+    @Email
     @Column(name="email")
     private String email;
 
