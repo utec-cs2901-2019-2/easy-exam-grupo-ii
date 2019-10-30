@@ -1,5 +1,5 @@
 package com.easyexam.controller;
-
+  
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,24 +24,16 @@ import com.easyexam.repository.IUserRepo;
 
 @RestController
 @RequestMapping("/api/v1")
-public class UserController {
+
+public class CommentController{
     @Autowired
-    private IUserRepo userRepo;
+    private ICommentRepo commentRepo;
 
-    @GetMapping("/user")
-    public List<User> getAllEmployees() {
-        return userRepo.findAll();
+    @GetMapping("/comment")
+    public List<Comment> getAllComments(){
+        return 
     }
 
-    @PostMapping("/user")
-    public User createUser(@Valid @RequestBody User user) {
-        return userRepo.save(user);
-    }
-    
-    @PostMapping("/user")
-    public boolean user validateUser(@Valid @RequestBody User user){
-        User temp = userRepo.find;
-        returnRepo.save(user);
-    }
+
 
 }
