@@ -1,24 +1,28 @@
 package com.easyexam.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "user")
+@SequenceGenerator(name="seq_usu", sequenceName="seq_usu")  
 public class User {
 
     @Id
+    @GeneratedValue(generator="seq_usu")
     private int id;
 
+    @Column(name="email")
     private String email;
 
+    @Column(name="password")
     private String password;
 
+    @Column(name="activate")
     private Boolean activate;
 
     public User() { }
 
-    public User(int id, String email, String password, Boolean activate) {
-        this.id = id;
+    public User(String email, String password, Boolean activate) {
         this.email = email;
         this.password = password;
         this.activate = activate;
