@@ -4,19 +4,28 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
+@Table(name = "Problem")
+@SequenceGenerator(name="seq_prob", sequenceName="seq_prob")
 public class Problem {
 
+    //TODO implementation
     @Id
+    @GeneratedValue(generator="seq_prob")
     private int id;
 
+    @Column(name="title")
     private String title;
-
+    
+    @Column(name="description")
     private String description;
 
+    @Column(name="score")
     private float score;
 
+    @Column(name="activate")
     private int qualifiers;
 
+    @Column(name="topic")
     private Topic topic;
 
     public Problem() { }
