@@ -36,7 +36,9 @@ public class UserController {
 
     @PostMapping("/signup")
     public User createUser(@Valid @RequestBody User user) {
-        return userRepo.save(user);
+        User userDetail = userRepo.save(user);
+        userService.updatePassword(userDetail.getId());
+        return userDetail;
     }
 
     @DeleteMapping("/user/{id}")

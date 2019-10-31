@@ -35,13 +35,4 @@ public class AuthenticationController {
         final String token = jwtTokenUtil.generateToken(user);
         return new ApiResponse<>(200, "success",new AuthToken(token, user.getEmail()));
     }
-
-    /*
-    @GetMapping("/update-password")
-    public String updatePasswordUser(){
-        User user = usuarioService.findOneByEmail("jbellido@uc.cl");
-        userService.updatePassword(user.getId());
-        return "OK";
-    }
-    */
 }
