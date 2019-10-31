@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>{{nombre}}</h1>
+        Hola Juan
 
     </div>
 </template>

@@ -68,7 +68,7 @@
                     </form>
                 </article> <!-- card-body end .// -->
                 
-                <div class="border-top card-body text-center">Have an account? <a href="/register">Log In</a></div>
+                <div class="border-top card-body text-center">Have an account? <a href="/login">Log In</a></div>
                 </div> <!-- card.// -->
                 
             </div> <!-- col.//-->

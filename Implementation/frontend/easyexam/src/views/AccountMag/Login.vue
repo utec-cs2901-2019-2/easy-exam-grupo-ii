@@ -3,7 +3,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Register</div>
+                    <header class="card-header">
+                        <a href="/login" class="float-right btn btn-outline-primary mt-1">Register</a>
+                        <h4 class="card-title mt-2">Sign up</h4>
+                    </header>
                     <div class="card-body">
                         <form action="" method="">
                             <div class="form-group row">
