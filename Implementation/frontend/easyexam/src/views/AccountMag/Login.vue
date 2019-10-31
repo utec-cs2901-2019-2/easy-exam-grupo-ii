@@ -35,7 +35,7 @@
 
                             <div class="col-md-3 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Login
+                                    <a href="/home" class="text-white">Log in</a>
                                 </button>
 
                                 <button type="" class="btn btn-primary ml-4">

@@ -16,9 +16,10 @@
   </head>
   <body>
   <!-- Navegation Bar -->
-  <nav class="navbar navbar-expand-sm bg-light justify-content-center sticky-top">
+  <nav class="navbar navbar-expand-sm bg-light sticky-top">
         <!-- Links -->
-    <ul class="navbar-nav">
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
       <!-- Logo -->
       <a class="navbar-brand" href="/">Logo</a>
 
@@ -34,18 +35,18 @@
       <li class="nav-item">
         <a class="nav-link text-dark" href="#">Feedback</a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="40" height="40" class="rounded-circle">
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Dashboard</a>
-          <a class="dropdown-item" href="#">Edit Profile</a>
-          <a class="dropdown-item" href="#">Log Out</a>
-        </div>
-      </li>
     </ul>
-
+    <div class="dropdown dropleft">
+      <a class="dropdown-toggle" href="#" id="DropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="40" height="40" class="rounded-circle">
+      </a>
+      <div class="dropdown-menu" aria-labelledby="DropdownMenuLink">
+        <a class="dropdown-item" href="#">Dashboard</a>
+        <a class="dropdown-item" href="#">Edit Profile</a>
+        <a class="dropdown-item" href="#">Log Out</a>
+      </div>
+    </div>
+</div>
   </nav>
     <noscript>
       <strong>We're sorry but EasyExam doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
