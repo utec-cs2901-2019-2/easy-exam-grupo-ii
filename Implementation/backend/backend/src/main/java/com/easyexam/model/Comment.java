@@ -3,7 +3,7 @@ package com.easyexam.model;
 import javax.persistence.*;
 
 @Entity
-@Table (name = "topic")
+@Table (name = "comment")
 @SequenceGenerator(name="seq_usu", sequenceName="seq_usu")
 public class Comment {
 
