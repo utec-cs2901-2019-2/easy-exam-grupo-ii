@@ -4,7 +4,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <header class="card-header">
-                        <a href="/login" class="float-right btn btn-outline-primary mt-1">Register</a>
+                        <a href="/register" class="float-right btn btn-outline-primary mt-1">Register</a>
                         <h4 class="card-title mt-2">Sign up</h4>
                     </header>
                     <div class="card-body">
@@ -40,10 +40,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     Login
                                 </button>
-
-                                <button type="" class="btn btn-primary ml-4">
-                                    <a href="/register" class="text-white">Register</a>
-                                </button>
+                                <a href="/register" class="float-right btn btn-primary ml-4 text-white">Register</a>
                             </div>
                     </form>
                 </div>

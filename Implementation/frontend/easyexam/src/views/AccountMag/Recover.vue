@@ -1,7 +1,5 @@
 <template>
     <div>
-        Hola Juan
-
         <div class="container">
     <br>
     <div class="row justify-content-center">
