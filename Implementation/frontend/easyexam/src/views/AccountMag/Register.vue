@@ -1,7 +1,6 @@
 <template>
 
 <div class="container">
-    <br>
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
@@ -11,33 +10,43 @@
                 </header>
                 <article class="card-body">
                     <form>
-                        <label>Name</label>
                         <div class="form-row">
                             <div class="col form-group">
-                                <input type="text" class="form-control" placeholder="First Name">
+                                <label>First name </label>   
+                                <input type="text" class="form-control" placeholder="">
                             </div>
                             
                             <div class="col form-group">
-                                <input type="text" class="form-control" placeholder="Last Name">
+                                <label>Last name</label>
+                                <input type="text" class="form-control" placeholder=" ">
                             </div> 
                         </div> 
 
                         <div class="form-group">
                             <label>Email address</label>
-                            <input type="email" class="form-control" placeholder="University / job email address, e.g.name@utec.edu">
-                            <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            <input type="email" class="form-control" placeholder="">
+                            <small class="form-text text-muted">We'll never share your Email Address with anyone else.</small>
                         </div> 
                         
+                        <div class="form-group">
+                            <label class="form-check form-check-inline" >
+                                <input class="form-check-input" type="radio" name="gender" value="option1">
+                                <span class="form-check-label"> Male </span>
+                            </label>
+                            <label class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" value="option2">
+                                <span class="form-check-label"> Female</span>
+                            </label>
+                        </div> 
                         
                         <div class="form-row">
-
-                            <div class = "form-group col-md-6">
-                                <label> Institution </label>
-                                <input type="text" class = "form-control" placeholder="University / job name">
-                            </div>
+                            <div class="form-group col-md-6">
+                                <label>City</label>
+                                <input type="text" class="form-control">
+                            </div> 
 
                             <div class="form-group col-md-6">
-                                <label>Country / region</label>
+                                <label>Country</label>
                                 <select id="inputState" class="form-control">
                                     <option> Choose...</option>
                                 </select>
@@ -46,14 +55,14 @@
                         </div> 
                         
                         <div class="form-group">
-                            <label>Password</label>
-                            <input class="form-control" type="password" placeholder="New Password">
-                        </div> 
+                            <label>Create password</label>
+                            <input class="form-control" type="password">
+                        </div>
 
                         <div class="form-group">
-                            <label>Confirm Password</label>
-                            <input class="form-control" type="password" placeholder="Retype your password">
-                        </div> <!-- form-group end.// -->  
+                            <label>Repeat password</label>
+                            <input class="form-control" type="password">
+                        </div>
                         
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-block"> Register  </button>
@@ -62,12 +71,12 @@
                         <small class="text-muted">By clicking the 'Sign Up' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>                                          
                         
                     </form>
-                </article> <!-- card-body end .// -->
+                </article>
                 
                 <div class="border-top card-body text-center">Have an account? <a href="/login">Log In</a></div>
-                </div> <!-- card.// -->
+                </div>
                 
-            </div> <!-- col.//-->
+            </div>
     </div> 
 </div> 
 </template>
