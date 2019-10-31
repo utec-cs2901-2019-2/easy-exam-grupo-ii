@@ -30,7 +30,7 @@
                                     Forgot Your Password?
                                 </a>
                                     </div>
-                                </div>
+                                </div>hh
                             </div>
 
                             <div class="col-md-3 offset-md-4">
@@ -38,8 +38,8 @@
                                     Login
                                 </button>
 
-                                <button type="" >
-                                    <a href="/register" class="btn btn-primary ml-4">Register</a>
+                                <button type="" class="btn btn-primary ml-4">
+                                    <a href="/register" class="text-white">Register</a>
                                 </button>
                             </div>
                     </form>

@@ -4,19 +4,18 @@
 
       <div class="site-wrapper-inner">
 
-        <div class="container">
-          <div class="masthead clearfix">
+
+          <div class="inner cover text-center">
             <div class="container inner">
-              <h3 class="masthead-brand">Welcome To EasyExam</h3>
+              <h1 class="cover-heading">Welcome To EasyExam!</h1>
+              <p class="lead"> <small>Your smartest exam generation tool!</small></p>
             </div>
-          </div>
 
           <div class="inner cover text-center">
             <img src="@/static/img/exam.jpg" alt="..." class="img-thumbnail w-25">
-            <h1 class="cover-heading">Easy Exam</h1>
-            <p class="lead">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis provident placeat atque doloribus, molestiae natus eaque in vitae illo officia, modi laboriosam fugiat soluta iure consectetur voluptatem eligendi doloremque ratione?</p>
+            <p class="lead">EasyExam is an online platform aiming to help teachers to generate problems for the exams that they wish to take their students. EasyExam works on a 3x1 system in which each the user sends 1 problem for every 3 they will recieve, it is in order to encourage the collaboration within the platform. The users can download the generated exams in PDF-Latex format.</p>
             <p class="lead text-center">
-              <a href="/login" class="btn btn-lg btn-default">Get Started</a>
+              <a href="/login" class="btn btn-lg btn-light text-dark">Get Started</a>
             </p>
           </div>
 
@@ -62,7 +61,7 @@ a:hover {
 .btn-default,
 .btn-default:hover,
 .btn-default:focus {
-  color: #333;
+  color: #46dbff;
   text-shadow: none; /* Prevent inheritence from `body` */
   background-color: #fff;
   border: 1px solid #fff;
@@ -76,7 +75,8 @@ a:hover {
 html,
 body {
   height: 100%;
-  background-color: #fff;
+  background-image: url("/src/static/img/bg.jpg");
+  background: #3070ff;
 }
 body {
   color: #fff;
@@ -89,7 +89,7 @@ body {
   display: table;
   width: 100%;
   height: 600px;
-  background-color: rgb(49, 160, 132);
+  background-color: rgba(49, 160, 132, 0.03);
   /*height: 100%; */
   /*min-height: 100%;*/
 }
@@ -104,35 +104,8 @@ body {
 
 /* Padding for spacing */
 .inner {
-  padding: 30px;
+  padding: 10px;
 }
-
-
-/*
- * Header
- */
-.masthead-brand {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.masthead-nav > li {
-  display: inline-block;
-}
-.masthead-nav > li + li {
-  margin-left: 20px;
-}
-
-
-@media (min-width: 768px) {
-  .masthead-brand {
-    float: left;
-  }
-  .masthead-nav {
-    float: right;
-  }
-}
-
 
 /*
  * Cover
@@ -151,23 +124,6 @@ body {
   transition: 0.5s;
   margin: 10px;
   color: #fff;
-  background: #18d26e;
-}
-
-/*
- * Affix and center
- */
-
-@media (min-width: 768px) {
-  /* Pull out the header and footer */
-  .masthead {
-    position: fixed;
-    top: 0;
-  }
-  /* Start the vertical centering */
-  .site-wrapper-inner {
-    vertical-align: middle;
-  }
-
+  background: rgba(24, 210, 110, 0);
 }
 </style>
