@@ -26,11 +26,11 @@
                                         <label>
                                             <input type="checkbox" name="remember"> Remember Me
                                         </label>
-                                <a href="#" class="btn btn-link">
+                                <a href="/recover" class="btn btn-link">
                                     Forgot Your Password?
                                 </a>
                                     </div>
-                                </div>hh
+                                </div>
                             </div>
 
                             <div class="col-md-3 offset-md-4">
