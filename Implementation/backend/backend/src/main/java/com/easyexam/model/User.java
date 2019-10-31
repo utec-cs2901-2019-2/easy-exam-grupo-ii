@@ -5,6 +5,8 @@ package com.easyexam.model;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 @Entity
 @Table(name = "user_role")
@@ -105,7 +107,7 @@ public class User {
         return birthday;
     }
 
-    public void LocalDateTime setBirtday(LocalDateTime birthday){
+    public void setBirtday(LocalDateTime birthday){
         this.birthday = birthday;
     }
 
