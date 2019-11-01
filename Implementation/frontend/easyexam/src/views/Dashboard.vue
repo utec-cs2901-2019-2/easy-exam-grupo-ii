@@ -1,0 +1,380 @@
+<template>
+    <body>
+
+    <script async src="https://cse.google.com/cse.js?cx=009921139933610339644:wmugnsmjazr"></script>
+<div class="gcse-search"></div>
+
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd; font-size: 1.3rem">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="home.html">
+                <img src="static/img/icon" width="30" height="30" class="d-inline-block align-top" alt="">
+                EasyExam
+        </a>
+        
+        <ul class="navbar-nav nav-pills mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+            <a class="nav-link" href="home.html">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="problems_selected.html">Generate</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="submit.html">Submit</a>
+            </li>
+        </ul>
+    
+        <img src="static/img/user.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        <a class="navbar-brand" href="perfil.html">User</a>
+        </div>
+    </nav>
+
+    <!--Prev Modal-->
+
+    <div class="modal" tabindex="-1" role="dialog" id = "prevproblem">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Do you want to get this problem?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <a type="button" data-dismiss="modal" data-toggle="modal" data-target="#mproblem" id="ButtonProblem" class="btn btn-primary">
+              Get Problem
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--End Prev Modal-->
+
+    <!--Modal Problem-->
+
+    <div class="modal fade bd-example-modal-xl" id="mproblem" tabindex="-1" role="dialog" aria-labelledby="ModalProblemLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalProblemLabel">Title Problem</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="d-flex flex-wrap" id="modaltags">
+                        <label for="recipient-name" style="margin-right: 10px">Subjects:</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Problem:</label>
+                    <div class="card" id="modaldescription" style="overflow-y: auto; width: 100%; min-height: 100px ; margin:auto; padding: 10px">
+                    </div>
+                </div>
+                <div class="form-group" id="getsolution">
+                    
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="display: block">
+                <form>
+                    <div class="form-row">
+                        <button type="button" class="btn btn-outline-info" style="margin:auto" id="labsolution">Get Solution</button>
+                        <button type="button" class="btn btn-outline-info" data-dismiss="modal" style="margin:auto">Comments</button>
+                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal" style="margin:auto">Report</button>
+                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal" style="margin:auto">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!--End Modal-->
+
+    <div class="container" style="max-width: 70%">
+        <br/>
+        <div class="row justify-content-center">
+            <div class="col-2" style="margin: auto; margin-top: 0px">
+                            <div id="container" style="width:100%">
+                            <div id="accordion" style="width:100%;">
+                            
+                            <!--END HEAD-->
+                            
+                            <!--BEGIN FIRST CARD-->
+                            <div class="card border-dark mb-3 text-center">
+                              <div class="card-header">
+                                <a class="collapsed card-link text-center" data-toggle="collapse" href="#collapseFIRST">
+                                    <h5 class="card-title text-dark">Subject</h5>
+                                </a>
+                              </div>
+                              <div id="collapseFIRST" class="collapse" data-parent="#accordion">
+                                <div class="btn-group-vertical" style="width: 100%">
+                                    <button class="btn btn-outline-secondary" style="border-radius: 0px" id = "SuperTag1" onclick = "filtrar_key(this.id)">SuperTag1</button>
+                                    <button class="btn btn-outline-secondary" style="border-radius: 0px" id = "SuperTag2" onclick = "filtrar_key(this.id)">SuperTag2</button>
+                                    <button class="btn btn-outline-secondary" style="border-radius: 0px" id = "SuperTag3" onclick = "filtrar_key(this.id)">SuperTag3</button>
+                                    <button class="btn btn-outline-secondary" style="border-radius: 0px" id = "SuperTag4" onclick = "filtrar_key(this.id)">SuperTag4</button>
+                                </div>
+                                
+                              </div>
+                            </div>
+                            <!--END FIRST CARD-->
+                            
+                            
+                            </div></div>
+            </div>
+            <div class="col-10 col-md-10 col-lg-10">
+                <form class="card card-sm" style="background: #e3f2fd">
+                    <div class="card-body row no-gutters align-items-center">
+                        <div class="col-auto">
+                            <i class="fas fa-search h4 text-body"></i>
+                        </div>
+                        <!--end of col-->
+                        <div class="col">
+                            <input class="form-control form-control-lg form-control-borderless" id="formulario" type="search" placeholder="Search topics or keywords">
+                        </div>
+                        <!--end of col-->
+                        <div class="col-auto">
+                            <button class="btn btn-lg btn-success" type="submit" id="boton">Search</button>
+                        </div>
+                        <!--end of col-->
+                    </div>
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12" style="height: 750px"><!--
+                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner" id="resultado">
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" style="width: 5%">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next" style="width: 5%">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                              -->
+                              <div class="card" style="overflow-y: scroll; height: 100%;">
+                                <div class="card-body" id="resultado">
+                                        <div class="card" style="width: 100%; margin-top: 20px">
+                                            <a type ="button" data-toggle="modal" data-target="#mproblem" data-id="i">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${dat.dif} Problem</h5>
+                                                    <p class="card-text">${dat.description}</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <br/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+    <script src="static/js/acordionmenu.js"></script>
+    <script>
+        const data = [
+            {nombre: 'Divide and Conquer', description: '---', fecha: '01/01/2019', dif:'Hard',
+            tags: ['', 'supertag1', 'divide and conquer','c++','ada','algorithms']},
+            {nombre: 'Knapsack', description: '---', fecha: '02/01/2019', dif:'Easy',
+            tags: ['', 'supertag1', 'knapsack','divide and conquer','c++','ada','algorithms']},
+            {nombre: 'Master Theorem', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", fecha: '01/01/2019', dif:'Medium',
+            tags: ['', 'supertag1', 'master theorem','ada','algorithms','maths']},
+            {nombre: 'c++', description: '---', fecha: '01/01/2019', dif:'Hard',
+            tags: ['', 'supertag1', 'c++']},
+            {nombre: 'Problem a', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", fecha: '01/01/2019', dif:'Hard',
+            tags: ['', 'supertag2', 'divide and conquer','tag1', 'tag2']},
+            {nombre: 'Problem b', description: '---', fecha: '01/01/2019', dif:'Easy',
+            tags: ['', 'supertag2', 'knapsack','tag3']},
+            {nombre: 'Problem c', description: '---', fecha: '01/01/2019', dif:'Medium',
+            tags: ['', 'supertag3', 'tag2', 'tag1', 'tag3']},
+            {nombre: 'Problem d', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", fecha: '01/01/2019', dif:'Hard',
+            tags: ['', 'supertag3', 'tag2', 'tag3']},
+            {nombre: 'Problem e', description: '---', fecha: '01/01/2019', dif:'Hard',
+            tags: ['', 'supertag4', 'tag1', 'tag3']}
+        ]
+
+        const formulario = document.querySelector('#formulario');
+        const boton = document.querySelector('#boton');
+        const resultado = document.querySelector('#resultado');
+
+        const filtrar = () =>{
+            //console.log(formulario.value);
+            resultado.innerHTML = '';
+            const texto = formulario.value.toLowerCase();
+            ind = 0;
+            start = true;
+            empty = true;
+            carrusel = '';
+            i = 0;
+            for(let dat of data){
+                let tags = dat.tags;
+                if(tags.indexOf(texto) !== -1){
+                  card = `
+                  <div class="card" style="width: 100%; margin-top: 20px">
+                          <div class="card-body">
+                              <a type ="button" data-toggle="modal" style="-webkit-appearance:none" data-target="#prevproblem" data-id="${i}">
+                              <h5 class="card-title">${dat.nombre} Problem</h5>
+                              <p class="card-text">${dat.description}</p>
+                              </a>
+                              <br>
+                              <div class="d-flex flex-wrap">
+                              `;
+
+                  for (t of tags){
+                    if(t!='')
+                      card += `<button class="btn btn-primary" aria-pressed = "false" style="margin:5px"  id = "${t}" onClick = "filtrar_key(this.id)">${t}</button>`;
+                  }
+
+                  card += `
+                              </div>
+                          </div>
+                  </div>
+                  `;
+
+                  resultado.innerHTML += card;
+                }
+                i++;
+            }
+            if (resultado.innerHTML === ''){
+                resultado.innerHTML += `
+                    <li>Not Found...</li>
+                `
+            }
+        }
+
+        const filtrar_key = (key) => {
+          resultado.innerHTML = '';
+            const texto = key.toLowerCase();
+            ind = 0;
+            start = true;
+            empty = true;
+            carrusel = '';
+            i = 0;
+            for(let dat of data){
+                let tags = dat.tags;
+                if(tags.indexOf(texto) !== -1){
+                  card = `
+                  <div class="card" style="width: 100%; margin-top: 20px">
+                          <div class="card-body">
+                              <a type ="button" data-toggle="modal" style="-webkit-appearance:none" data-target="#prevproblem" data-id="${i}">
+                              <h5 class="card-title">${dat.nombre} Problem</h5>
+                              <p class="card-text">${dat.description}</p>
+                              </a>
+                              <br>
+                              <div class="d-flex flex-wrap">
+                              `;
+
+                  for (t of tags){
+                    if(t!='')
+                      card += `<button class="btn btn-primary" aria-pressed = "false" style="margin:5px"  id = "${t}" onClick = "filtrar_key(this.id)">${t}</button>`;
+                  }
+
+                  card += `
+                              </div>
+                          </div>
+                  </div>
+                  `;
+
+                  resultado.innerHTML += card;
+                }
+                i++;
+            }
+            if (resultado.innerHTML === ''){
+                resultado.innerHTML += `
+                    <li>Not Found...</li>
+                `
+            }
+        }
+
+        boton.addEventListener('click', filtrar)
+        formulario.addEventListener('keyup', filtrar)
+
+        filtrar();
+
+    </script>
+
+    <script>
+      $(document).ready(function(){
+        $('#mproblem').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget) // Button that triggered the modal
+          var id = button.data("id") // Extract info from data-* attributes
+          // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+          // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+          var obj = data[id]
+          var modal = $(this)
+          modal.find('.modal-title').text(obj.nombre)
+          modal.find('#modaltags').empty()
+          for(i = 0; i < obj.tags.length; i++){
+            if(obj.tags[i] !== ""){
+              newb = "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin:5px\" disabled>"+ obj.tags[i] + "</button>"
+              modal.find('#modaltags').append(newb)
+            }
+          }
+          modal.find('#modaldescription').text(obj.description)
+          modal.find('#getsolution').empty()
+        })
+      });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+          $('#prevproblem').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var modal = $(this)
+            modal.find('.modal-title').text(data[id].nombre)
+            modal.find('#ButtonProblem').data("id",id)
+          })
+        });
+    </script>
+
+    <script>
+      const bot = document.getElementById("labsolution");
+      const funcsolution = () =>{
+        const sol = document.getElementById("getsolution");
+        sol.innerHTML += 
+          "<label for=\"recipient-name\" class=\"col-form-label\">Solution:</label>"+
+        "<div class=\"card\" style=\"overflow-y: auto; width: 100%; min-height: 100px ; margin:auto; padding: 10px\">"+
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."+
+        "</div>";
+      }
+      bot.addEventListener('click', funcsolution);
+
+    </script>
+
+
+  </body>
+</template>
