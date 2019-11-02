@@ -10,16 +10,25 @@
               <h1 class="cover-heading">Welcome To EasyExam!</h1>
               <p class="lead"> <small>Your smartest exam generation tool!</small></p>
             </div>
-
-          <div class="inner cover text-center">
-            <img src="@/static/img/exam.jpg" alt="..." class="img-thumbnail w-25">
-            <p class="lead">EasyExam is an online platform aiming to help teachers to generate problems for the exams that they wish to take their students. EasyExam works on a 3x1 system in which each the user sends 1 problem for every 3 they will recieve, it is in order to encourage the collaboration within the platform. The users can download the generated exams in PDF-Latex format.</p>
-            <p class="lead text-center">
-              <a href="/login" class="btn btn-lg btn-light text-dark">Get Started</a>
-            </p>
-          </div>
-
+              <HomeCarrousel/>
+              <b-card class="text-center">
+              <div class="inner cover text-center">
+                <p class="lead">EasyExam is an online platform aiming to help teachers to generate problems for the exams that they wish to take their students. EasyExam works on a 3x1 system in which each the user sends 1 problem for every 3 they will recieve, it is in order to encourage the collaboration within the platform. The users can download the generated exams in PDF-Latex format.</p>
+                <p class="lead text-center">
+                    <b-button variant="primary" href="/login">Get Started</b-button>
+                    <b-button class="m-2" variant="outline-primary" href="#Learn-More">Learn More</b-button>
+                </p>
+              </div>
+              </b-card>
         </div>
+          <div id="Learn-More">
+              <b-embed
+                      type="iframe"
+                      aspect="16by9"
+                      src="https://www.youtube.com/embed/fL308_-Kbt0?rel=0"
+                      allowfullscreen
+              ></b-embed>
+          </div>
 
       </div>
 
@@ -30,21 +39,12 @@
 <script>
 
 // @ is an alias to /src
-//import HelloWorld from '@/components/HelloWorld.vue'
-import {mapMutations,mapState} from "vuex";
+import HomeCarrousel from "../components/HomeCarrousel";
 
 export default {
   name: 'home',
   components: {
-  },
-  data(){
-    return{
-    nombre:'HolaMundo'
-    }
-  },
-  computed:{
-    ...mapState['nombre'],
-    ...mapMutations['changeNombre'],
+      HomeCarrousel
   }
 }
 </script>
@@ -57,16 +57,6 @@ a:hover {
   color: #fff;
 }
 
-/* Custom default button */
-.btn-default,
-.btn-default:hover,
-.btn-default:focus {
-  color: #46dbff;
-  text-shadow: none; /* Prevent inheritence from `body` */
-  background-color: #fff;
-  border: 1px solid #fff;
-}
-
 
 /*
  * Base structure
@@ -74,14 +64,11 @@ a:hover {
 
 html,
 body {
-  height: 100%;
-  background-image: url("/src/static/img/bg.jpg");
-  background: #3070ff;
-}
-body {
-  color: #fff;
-  text-align: center;
-  text-shadow: 0 1px 3px rgba(241, 233, 233, 0.884);
+    height: 100%;
+    background: #3070ff;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(241, 233, 233, 0.884);
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
