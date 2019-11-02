@@ -29,14 +29,14 @@
                             </b-form-group>
 
                             <b-form-group id="input-group-2" label="Problem Body" label-for="input-2">
-                                <b-form-textarea
-                                        id="input-2"
+                                <vue-editor
                                         v-model="problem.body"
+                                        placeholder="Please enter your problem body here"
                                         type="text"
                                         required
-                                        placeholder="Please enter your problem body here"
                                 >
-                                </b-form-textarea>
+
+                                </vue-editor>
                             </b-form-group>
 
                             <b-button type="submit" variant="primary" class="m-2">Submit</b-button>
@@ -57,6 +57,7 @@
 </template>
 
 <script>
+    import { VueEditor } from "vue2-editor"
     export default {
         data() {
             return {
@@ -86,6 +87,9 @@
                     this.show = true
                 })
             }
+        },
+        components: {
+            VueEditor
         }
     }
 </script>
