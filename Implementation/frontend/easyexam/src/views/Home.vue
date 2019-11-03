@@ -7,7 +7,7 @@
         <div class="container">
           <div class="masthead clearfix">
             <div class="container inner">
-              <h3 class="masthead-brand">Welcome to...</h3>
+              <h3 class="masthead-brand">Welcome To EasyExam</h3>
             </div>
           </div>
 
