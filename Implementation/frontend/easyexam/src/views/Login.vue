@@ -38,9 +38,7 @@
                                     Login
                                 </button>
 
-                                <button type="" >
                                     <a href="/register" class="btn btn-primary ml-4">Register</a>
-                                </button>
                             </div>
                     </form>
                 </div>
@@ -57,8 +55,6 @@
 export default {
   name: 'login',
   components: {
-  },
-  data(){
   },
   computed:{
   }
