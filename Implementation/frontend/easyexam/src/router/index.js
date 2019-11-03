@@ -24,11 +24,6 @@ const routes = [
     name: 'recover',
     component: () => import('../views/Recover.vue')
   },
-  {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: () => import('../views/Dashboard.vue')
-  },
 ]
 
 const router = new VueRouter({
