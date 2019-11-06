@@ -1,6 +1,6 @@
 package com.easyexam.service;
 
-import com.easyexam.model.aux.PasswordResetToken;
+import com.easyexam.model.PasswordResetToken;
 import com.easyexam.repository.IPasswordResetRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class PasswordResetService {
+public class PasswordTokenService {
 
     @Autowired
     private IPasswordResetRepo tokenRepository;
@@ -27,6 +27,10 @@ public class PasswordResetService {
 
     public void delete(String token){
         tokenRepository.delete(findOne(token));
+    }
+
+    public void delete(PasswordResetToken passwordResetToken){
+        tokenRepository.delete(passwordResetToken);
     }
 
     public PasswordResetToken findOne(String token){

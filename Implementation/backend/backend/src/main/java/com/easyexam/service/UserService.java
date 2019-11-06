@@ -3,7 +3,6 @@ package com.easyexam.service;
 import com.easyexam.model.User;
 import com.easyexam.repository.IUserRepo;
 import com.easyexam.service.UserService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -44,13 +43,8 @@ public class UserService implements UserDetailsService {
         userRepo.deleteById(id);
     }
 
-    public User update(User userDto) {
-        User user = findById(userDto.getId());
-        if(user != null) {
-            BeanUtils.copyProperties(userDto, user, "password");
-            userRepo.save(user);
-        }
-        return userDto;
+    public User update(User user) {
+        return userRepo.save(user);
     }
 
     public User save(User user) {
@@ -58,7 +52,6 @@ public class UserService implements UserDetailsService {
         newUser.setEmail(user.getEmail());
         newUser.setPassword(user.getPassword());
         newUser.setActivate(user.getActivate());
-        newUser.setTeacher(user.getTeacher());
         return userRepo.save(newUser);
     }
 

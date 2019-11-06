@@ -22,6 +22,7 @@ public class TeacherService {
         newTeacher.setLastName(teacher.getLastName());
         newTeacher.setCountry(teacher.getCountry());
         newTeacher.setBirtday(teacher.getBirthday());
+        newTeacher.setUser(teacher.getUser());
         return teacherRepo.save(newTeacher);
     }
 

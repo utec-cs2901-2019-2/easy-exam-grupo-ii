@@ -38,14 +38,6 @@ public class Teacher {
         this.birthday = birthday;
     }
 
-    public Teacher(String email, String password, String firstName, String lastName, String country, Date birthday) {
-        user = new User(email, password);
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.country = country;
-        this.birthday = birthday;
-    }
-
     public String getFirstName(){
         return firstName;
     }
