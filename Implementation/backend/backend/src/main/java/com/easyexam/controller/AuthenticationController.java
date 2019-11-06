@@ -1,6 +1,6 @@
 package com.easyexam.controller;
 
-import com.easyexam.service.UsuarioService;
+import com.easyexam.service.UserService;
 import com.easyexam.config.JwtTokenUtil;
 import com.easyexam.model.aux.ApiResponse;
 import com.easyexam.model.aux.AuthToken;
@@ -24,14 +24,14 @@ public class AuthenticationController {
     private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    private UsuarioService usuarioService;
+    private UserService userService;
 
     @PostMapping("/login")
     public ApiResponse<AuthToken> register(@RequestBody Login loginUser) throws AuthenticationException {
 
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword()));
 
-        final User user = usuarioService.findOneByEmail(loginUser.getUsername());
+        final User user = userService.findByEmail(loginUser.getUsername());
         final String token = jwtTokenUtil.generateToken(user);
         return new ApiResponse<>(200, "success",new AuthToken(token, user.getEmail()));
     }

@@ -35,36 +35,13 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), getAuthority());
     }
 
+    /* Revisar */ 
     private List<SimpleGrantedAuthority> getAuthority() {
         return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
     }
 
-    public List<User> findAll() {
-        List<User> list = new ArrayList<>();
-        userRepo.findAll().iterator().forEachRemaining(list::add);
-        return list;
-    }
-
     public void delete(int id) {
         userRepo.deleteById(id);
-    }
-
-    public User findOne(String username) {
-        return userRepo.findUserByEmail(username);
-    }
-
-    public User findById(int id) {
-        Optional<User> optionalUser = userRepo.findById(id);
-        return optionalUser.isPresent() ? optionalUser.get() : null;
-    }
-
-    public User updatePassword(int id) {
-        User user = findById(id);
-        if(user != null) {
-            user.setPassword(bcryptEncoder.encode(user.getPassword()));
-            userRepo.save(user);
-        }
-        return user;
     }
 
     public User update(User userDto) {
@@ -81,6 +58,35 @@ public class UserService implements UserDetailsService {
         newUser.setEmail(user.getEmail());
         newUser.setPassword(user.getPassword());
         newUser.setActivate(user.getActivate());
+        newUser.setTeacher(user.getTeacher());
         return userRepo.save(newUser);
+    }
+
+    public List<User> findAll() {
+        List<User> list = new ArrayList<>();
+        userRepo.findAll().iterator().forEachRemaining(list::add);
+        return list;
+    }
+
+    public User findByEmail(String username) {
+        return userRepo.findUserByEmail(username);
+    }
+
+    public User findById(int id) {
+        Optional<User> optionalUser = userRepo.findById(id);
+        return optionalUser.isPresent() ? optionalUser.get() : null;
+    }
+
+    public User findUser(String email, String passwd){
+        return userRepo.findUserByEmailAndPassword(email, passwd);
+    }
+
+    public User updatePassword(int id) {
+        User user = findById(id);
+        if(user != null) {
+            user.setPassword(bcryptEncoder.encode(user.getPassword()));
+            userRepo.save(user);
+        }
+        return user;
     }
 }

@@ -1,16 +1,12 @@
 package com.easyexam.model;
 
-
-
-import java.time.LocalDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 
 @Entity
-@Table(name = "user_role")
-@SequenceGenerator(name="seq_usu", sequenceName="seq_usu")  
+@Inheritance
+@Table(name = "user_base", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@SequenceGenerator(name="seq_usu", sequenceName="seq_usu")
 public class User {
 
     @Id
@@ -27,37 +23,25 @@ public class User {
     @Column(name="activate")
     private Boolean activate;
 
-    @Column(name="FirstName")
-    private String firstName;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Teacher teacher;
 
-    @Column(name="LastName")
-    private String lastName;
-
-    @Column(name="Country")
-    private String country;
-
-    @Column(name="BirthDate")
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private LocalDateTime birthday;
-
+    
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Admin admin;
+    
 
     public User() { }
 
-    public User(String email, String password, Boolean activate, String
-    firstName, String lastName, String country, LocalDateTime birthday) {
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
-        this.activate = activate;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.country = country;
-        this.birthday = birthday;
+        this.activate = true;
     }
 
     public int getId() {
         return id;
     }
-
 
     public String getEmail() {
         return email;
@@ -79,39 +63,25 @@ public class User {
         return activate;
     }
 
-    public String getFirstName(){
-        return firstName;
-    }
-
-    public void setFirstName(String firstName){
-        this.firstName = firstName;
-    }
-
-    public String getLastName(){
-        return lastName;
-    }
-
-    public void setlastName(String lastName){
-        this.lastName = lastName;
-    }
-
-    public String getCountry(){
-        return country;
-    }
-
-    public void setCountry(String country){
-        this.country = country;
-    }
-
-    public LocalDateTime getBirthday(){
-        return birthday;
-    }
-
-    public void setBirtday(LocalDateTime birthday){
-        this.birthday = birthday;
-    }
-
     public void setActivate(Boolean activate) {
         this.activate = activate;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        teacher.setUser(this);
+        this.teacher = teacher;
+    }
+
+    public Teacher getTeacher() {
+        return this.teacher;
+    }
+    
+    public void setAdmin(Admin admin) {
+        admin.setUser(this);
+        this.admin = admin;
+    }
+
+    public Admin getAdmin() {
+        return this.admin;
     }
 }
