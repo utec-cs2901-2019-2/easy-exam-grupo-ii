@@ -1,8 +1,14 @@
+Table role{
+  id int [pk, increment]
+  description varchar
+}
+
 Table user{
   id int [pk, increment]
   email varchar
   password varchar
   activate boolean
+  role int [ref: > role.id]
 }
 
 Table teacher {
@@ -38,18 +44,22 @@ Table exam {
 
 Table topics {
   id int [pk,increment]
-  description varchar
+  name varchar
   idTopicDad int [ref: > topics.id]
 }
 
 Table problem {
   id int [pk, increment]
   title varchar
-  description varchar
+  body varchar
   image varchar
   score double
   qualifiers int
-  topics_id int [ref: > topics.id]
+}
+
+Table problem_topic{
+  idproblem int[ref: > problem.id]
+  idtopic int[ref: > topics.id]
 }
 
 Table problem_submitted {

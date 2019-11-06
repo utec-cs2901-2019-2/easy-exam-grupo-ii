@@ -1,8 +1,14 @@
+CREATE TABLE "role" (
+  "id" SERIAL PRIMARY KEY,
+  "description" varchar
+);
+
 CREATE TABLE "user" (
   "id" SERIAL PRIMARY KEY,
   "email" varchar,
   "password" varchar,
-  "activate" boolean
+  "activate" boolean,
+  "role" int
 );
 
 CREATE TABLE "teacher" (
@@ -38,18 +44,22 @@ CREATE TABLE "exam" (
 
 CREATE TABLE "topics" (
   "id" SERIAL PRIMARY KEY,
-  "description" varchar,
+  "name" varchar,
   "idTopicDad" int
 );
 
 CREATE TABLE "problem" (
   "id" SERIAL PRIMARY KEY,
   "title" varchar,
-  "description" varchar,
+  "body" varchar,
   "image" varchar,
   "score" double,
-  "qualifiers" int,
-  "topics_id" int
+  "qualifiers" int
+);
+
+CREATE TABLE "problem_topic" (
+  "idproblem" int,
+  "idtopic" int
 );
 
 CREATE TABLE "problem_submitted" (
@@ -93,6 +103,8 @@ CREATE TABLE "suggests" (
   "description" varchar
 );
 
+ALTER TABLE "user" ADD FOREIGN KEY ("role") REFERENCES "role" ("id");
+
 ALTER TABLE "teacher" ADD FOREIGN KEY ("id") REFERENCES "user" ("id");
 
 ALTER TABLE "admin" ADD FOREIGN KEY ("id") REFERENCES "user" ("id");
@@ -103,7 +115,9 @@ ALTER TABLE "exam_teacher" ADD FOREIGN KEY ("id_exam") REFERENCES "exam" ("id");
 
 ALTER TABLE "topics" ADD FOREIGN KEY ("idTopicDad") REFERENCES "topics" ("id");
 
-ALTER TABLE "problem" ADD FOREIGN KEY ("topics_id") REFERENCES "topics" ("id");
+ALTER TABLE "problem_topic" ADD FOREIGN KEY ("idproblem") REFERENCES "problem" ("id");
+
+ALTER TABLE "problem_topic" ADD FOREIGN KEY ("idtopic") REFERENCES "topics" ("id");
 
 ALTER TABLE "problem_submitted" ADD FOREIGN KEY ("id_user") REFERENCES "user" ("id");
 
