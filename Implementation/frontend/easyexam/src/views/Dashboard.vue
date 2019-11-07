@@ -137,11 +137,11 @@
                     <b-card-body style="position:relative; height:700px; overflow-y:scroll;">
                         <div role="tablist">
                             <b-card style = "margin:20px; background: #d4d4d4" class="mb-1" v-for="(problem, index) of filtrar" v-bind:key = "index">
-                                <b-card-title><b>{{problem.name}}</b></b-card-title>
+                                <b-card-title><b>{{problem.title}}</b></b-card-title>
                                 <b-row>
                                     <b-col cols = "10">
                                         <b-card-text style="height : 50px; position:relative; overflow-y:hidden">
-                                    {{problem.description}}
+                                    {{problem.body}}
                                 </b-card-text>
                                 <div style="margin-top : 10px">
                                     <b-button variant="info" style = "margin:5px" v-for="(tag, index) of problem.tags" v-bind:key="index">{{tag}}</b-button>
@@ -154,6 +154,8 @@
                                             {{problem.score}}
                                         </b-button>
                                         </li>
+                                        <!-- TODO: retrieve table "problem_topic" and
+                                        relate it to each problem -->
                                         <br>
                                         <li>
                                         <b-button disabled variant = "light" style="font-size : small; width : 50%"><b>
@@ -180,7 +182,8 @@
 
 
 <script>
-import json from '/home/juan/Documentos/Software/easy-exam-grupo-ii/Implementation/frontend/easyexam/src/views/information.json'
+import json from
+'../../../../backend/backend/src/main/java/com/easyexam/JsonConnector/problems.json'
 export default {
     data :  () => ({
 
@@ -215,14 +218,15 @@ export default {
     methods: {
         imprimir : function() {
             for (let problem of this.infoproblems){
-                let stringToSearch = problem.tags.toString().concat (" ", problem.description, " ", problem.name).toLowerCase()
+                let stringToSearch = problem.tags.toString().concat (" ",
+                problem.description, " ", problem.title).toLowerCase()
                 console.log (stringToSearch)
             }
         },
 
         showModalProblem(index) {
-            this.modal_titleProblem = this.infoproblems [index].name
-            this.modal_desProblem = this.infoproblems [index].description
+            this.modal_titleProblem = this.infoproblems [index].title
+            this.modal_desProblem = this.infoproblems [index].body
             this.modal_tagsProblem = this.infoproblems [index].tags
             this.modal_selectProblem = this.infoproblems [index]
             
@@ -266,7 +270,8 @@ export default {
                         for (let problem of this.infoproblems) {
                             problem["id"] = id
                             id = id + 1
-                            let stringToSearch = problem.tags.toString().concat (" ", problem.description, " ", problem.name).toLowerCase()
+                            let stringToSearch = problem.tags.toString().concat
+                            (" ", problem.body, " ", problem.title).toLowerCase()
                             if (stringToSearch.includes (this.keyToSearch.toLowerCase())) {
                                 res.push (problem)
                             }
