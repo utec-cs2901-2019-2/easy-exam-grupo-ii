@@ -6,7 +6,7 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 @Embeddable
-class CommentId implements Serializable {
+public class CommentId implements Serializable {
 
     //No son foraneas, pero deberian
     int idTeacher;
