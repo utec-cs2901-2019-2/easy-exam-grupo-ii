@@ -10,7 +10,7 @@
                     <h4 class="card-title mt-2">Recover my account</h4>
                 </header>
                 <article class="card-body">
-                    <form>
+                    <form action="" @submit="loadRecover">
                         <div class="form-group">
                             <label>Email</label>
                             <input type="email" class="form-control" placeholder="University / job email address, e.g.name@utec.edu">
@@ -22,19 +22,41 @@
 
                     </form>
                 </article> <!-- card-body end .// -->
-                
+
             </div> <!-- card.// -->
-                
+
         </div> <!-- col.//-->
-    </div> 
-</div> 
+    </div>
+</div>
 
     </div>
 </template>
 
 <script>
+    import axios from 'axios'
     export default {
-        name: "Recover.vue"
+        name: 'recover',
+        components: {
+        },
+        data(){
+            return {
+                email: ''
+            }
+        },
+        computed:{
+        },
+        methods:{
+            loadRecover: function () {
+                axios.post('http://localhost:9898/api/v1/recover', {
+                    email: this.email,
+                })
+                    .then((response) => {
+                        console.log(response);
+                    }, (error) => {
+                        console.log(error);
+                    })
+            }
+        },
     }
 
 

@@ -10,7 +10,7 @@
                             <h4 class="card-title mt-2">Recover my account</h4>
                         </header>
                         <article class="card-body">
-                            <form>
+                            <form action="" @submit="loadNewPass">
                                 <div class="form-group">
                                     <label>Password</label>
                                     <input type="password" class="form-control" placeholder="Introduce password">
@@ -38,9 +38,33 @@
 </template>
 
 <script>
+    import axios from 'axios'
     export default {
-        name: "NewPass"
+        name: 'newpass',
+        components: {
+        },
+        data(){
+            return {
+                password: ''
+            }
+        },
+        computed:{
+        },
+        methods:{
+            loadNewPass: function () {
+                axios.post('http://localhost:9898/api/v1/newpass', {
+                    password: this.password,
+                })
+                    .then((response) => {
+                        console.log(response);
+                    }, (error) => {
+                        console.log(error);
+                    })
+            }
+        },
     }
+
+
 </script>
 
 <style scoped>

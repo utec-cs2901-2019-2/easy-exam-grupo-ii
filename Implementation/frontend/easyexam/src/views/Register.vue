@@ -9,7 +9,7 @@
                         <h4 class="card-title mt-2">Sign up</h4>
                     </header>
                     <article class="card-body">
-                        <form>
+                        <form action="" @submit="loadpost">
                             <label>Name</label>
                             <div class="form-row">
                                 <div class="col form-group">
@@ -73,32 +73,42 @@
 
 <script>
     import axios from 'axios'
-    axios.post('/htttp://localhost:9898/api/v1/register',{
-        data: {
-            firstName: '',
-            lastName: '',
-            user : {
-                email: '',
-                password: ''
-            },
-            institution: '',
-            gender:'';
-
-
-        }})
-        .then((response) => {
-            console.log(response);
-        }, (error) => {
-            console.log(error);
-        });
-
 export default {
   name: 'register',
   components: {
   },
   data(){
+      return{
+          firstName: '',
+          lastName: '',
+          user : {
+              email: '',
+              password: ''
+          },
+          institution: '',
+          gender:''
+      }
   },
   computed:{
-  }
+  },
+    methods:{
+        loadpost: function () {
+            axios.post('http://localhost:9898/api/v1/register', {
+                firstName:this.firstName,
+                lastName: this.lastName,
+                user : {
+                    email: this.email,
+                    password: this.password
+                },
+                institution: this.institution,
+                gender: this.gender
+            })
+                .then((response) => {
+                    console.log(response);
+                }, (error) => {
+                    console.log(error);
+                })
+        }
+    },
 }
 </script>

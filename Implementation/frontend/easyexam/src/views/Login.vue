@@ -67,7 +67,7 @@ export default {
   },
     methods:{
       sendpost: function () {
-          axios.post('/htttp://localhost:9898/api/v1/login', {
+          axios.post('http://localhost:9898/api/v1/login', {
               email: this.email,
               password: this.password
           })
