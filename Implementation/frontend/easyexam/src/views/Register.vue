@@ -13,17 +13,17 @@
                             <label>Name</label>
                             <div class="form-row">
                                 <div class="col form-group">
-                                    <input type="text" class="form-control" placeholder="First Name">
+                                    <input v-model="firstName" type="text" class="form-control" placeholder="First Name">
                                 </div>
 
                                 <div class="col form-group">
-                                    <input type="text" class="form-control" placeholder="Last Name">
+                                    <input v-model="lastName" type="text" class="form-control" placeholder="Last Name">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label>Email address</label>
-                                <input type="email" class="form-control" placeholder="University / job email address, e.g.name@utec.edu">
+                                <input v-model="user.email" type="email" class="form-control" placeholder="University / job email address, e.g.name@utec.edu">
                                 <small class="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
 
@@ -32,7 +32,7 @@
 
                                 <div class = "form-group col-md-6">
                                     <label> Institution </label>
-                                    <input type="text" class = "form-control" placeholder="University / job name">
+                                    <input v-model="institution" type="text" class = "form-control" placeholder="University / job name">
                                 </div>
 
                                 <div class="form-group col-md-6">
@@ -46,7 +46,7 @@
 
                             <div class="form-group">
                                 <label>Password</label>
-                                <input class="form-control" type="password" placeholder="New Password">
+                                <input v-model="password" class="form-control" type="password" placeholder="New Password">
                             </div>
 
                             <div class="form-group">
@@ -72,6 +72,23 @@
 </template>
 
 <script>
+    import axios from 'axios'
+    axios.post('/htttp://localhost:9898/api/v1/register',{
+        data: {
+            firstName: '',
+            lastName: '',
+            user : {
+                email: '',
+                password: ''
+            },
+            institution: '',
+
+        }})
+        .then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        });
 
 export default {
   name: 'register',

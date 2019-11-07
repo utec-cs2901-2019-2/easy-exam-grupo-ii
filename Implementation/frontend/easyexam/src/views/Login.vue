@@ -1,23 +1,24 @@
 <template>
+    <div id="login">
     <div class="cotainer m-4">
         <div class="row justify-content-center">
             <div class="col-md-5">
                 <div class="card">
                     <header class="card-header">
-                        <a href="/register" class="float-right btn btn-outline-primary mt-1">Sign up</a>
+                        <a href="/register" class="float-right btn btn-outline-primary mt-1">Sign Up</a>
                         <h4 class="card-title mt-2">Login</h4>
                     </header>
                     <article class="card-body">
                         <form action="" method="">
                             <div class="form-group">
                                 <label>Email address</label>
-                                <input type="email" class="form-control" placeholder="">
+                                <input v-model="email" type="email" class="form-control" placeholder="">
                                 <small class="form-text text-muted">We'll never share your Email Address with anyone else.</small>
                             </div>
 
                             <div class="form-group">
                                 <label>Password</label>
-                                <input type="email" class="form-control" placeholder="">
+                                <input v-model="password" type="password" class="form-control" placeholder="">
 
                             </div>
 
@@ -28,7 +29,7 @@
                                 </label>
                             </div>
                             <div class="form-row justify-content-center">
-                                <a href="#" class="btn btn-link"> Forgot Your Password?</a>
+                                <a href="/recover" class="btn btn-link"> Forgot Your Password?</a>
                             </div>
                             <p></p>
 
@@ -44,11 +45,22 @@
             </div>
         </div>
     </div>
-
+    </div>
 </template>
 
 
 <script>
+    import axios from 'axios'
+axios.post('/htttp://localhost:9898/api/v1/login',{
+    data: {
+        email: '',
+        password: ''
+    }})
+    .then((response) => {
+    console.log(response);
+}, (error) => {
+    console.log(error);
+});
 
 export default {
   name: 'login',
