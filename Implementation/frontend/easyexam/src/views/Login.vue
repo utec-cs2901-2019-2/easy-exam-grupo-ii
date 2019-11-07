@@ -9,7 +9,7 @@
                         <h4 class="card-title mt-2">Login</h4>
                     </header>
                     <article class="card-body">
-                        <form action="" method="">
+                        <form action="" @submit="sendpost">
                             <div class="form-group">
                                 <label>Email address</label>
                                 <input v-model="email" type="email" class="form-control" placeholder="">
@@ -51,25 +51,33 @@
 
 <script>
     import axios from 'axios'
-axios.post('/htttp://localhost:9898/api/v1/login',{
-    data: {
-        email: '',
-        password: ''
-    }})
-    .then((response) => {
-    console.log(response);
-}, (error) => {
-    console.log(error);
-});
+
 
 export default {
   name: 'login',
   components: {
   },
   data(){
+      return {
+          email:'',
+          password: ''
+      }
   },
   computed:{
-  }
+  },
+    methods:{
+      sendpost: function () {
+          axios.post('/htttp://localhost:9898/api/v1/login', {
+              email: this.email,
+              password: this.password
+          })
+              .then((response) => {
+                  console.log(response);
+              }, (error) => {
+                  console.log(error);
+              })
+      }
+    },
 }
 </script>
 
