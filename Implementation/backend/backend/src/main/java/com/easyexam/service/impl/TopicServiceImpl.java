@@ -1,4 +1,8 @@
 package com.easyexam.service.impl;
 
-public class TopicServiceImpl {
+import com.easyexam.service.ITopicService;
+import org.springframework.stereotype.Service;
+
+@Service
+public class TopicServiceImpl implements ITopicService {
 }

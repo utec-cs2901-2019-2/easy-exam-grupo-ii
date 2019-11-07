@@ -1,44 +1,41 @@
 package com.easyexam.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name="topics")
+@SequenceGenerator(sequenceName = "seqTopic",name="seq_topic")
 public class Topic {
 
     @Id
+    @GeneratedValue(generator = "seq_topic")
     private int id;
 
-    private String description;
+    @Column(name="name")
+    private String name;
 
-    private Topic topicDad;
-
+    //@Column(name="")
+    //private Topic topicDad;
 
     public Topic() { }
 
-    public Topic(int id, String description, Topic topicDad) {
-        this.id = id;
-        this.description = description;
-        this.topicDad = topicDad;
+    public Topic(String name) {
+        this.name = name;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getDescription() {
-        return description;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public String getName() {
+        return name;
     }
 
-    public Topic getTopicDad() {
-        return topicDad;
-    }
-
-    public void setTopicDad(Topic topicDad) {
-        this.topicDad = topicDad;
+    public void setName(String name) {
+        this.name = name;
     }
 }
