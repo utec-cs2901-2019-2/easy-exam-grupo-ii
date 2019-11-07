@@ -20,8 +20,9 @@ public class User {
     @Column(name = "active")
     private Boolean active;
 
-    @Column(name = "role")
-    private int role;
+    @ManyToOne
+    @JoinColumn(name = "role_id",nullable = false)
+    private Role role;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Teacher teacher;
@@ -32,18 +33,18 @@ public class User {
 
     public User() { }
 
-    public User(String email, String password, Boolean active, int role) {
+    public User(String email, String password, Boolean active, Role role) {
         this.email = email;
         this.password = password;
         this.active = active;
         this.role = role;
     }
 
-    public int getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
