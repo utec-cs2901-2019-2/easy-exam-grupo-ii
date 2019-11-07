@@ -12,14 +12,24 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('../views/Login.vue')
+    component: () => import('../views/AccountMag/Login.vue')
   },
   {
     path: '/register',
     name: 'register',
-    component: () => import('../views/Register.vue')
+    component: () => import('../views/AccountMag/Register.vue')
   },
-]
+  {
+    path: '/recover',
+    name: 'recover',
+    component: () => import('../views/AccountMag/Recover.vue')
+  },
+  {
+    path: '/submit',
+    name: 'submit',
+    component: () => import('../views/Submit.vue')
+  },
+];
 
 const router = new VueRouter({
   mode: 'history',
