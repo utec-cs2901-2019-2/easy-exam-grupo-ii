@@ -85,10 +85,8 @@ export default {
       return{
           firstName: '',
           lastName: '',
-          user : {
-              email: '',
-              password: ''
-          },
+          email: '',
+          password: '',
           institution: '',
           gender:'',
           birthdate: ''

@@ -10,11 +10,7 @@
                             <h4 class="card-title mt-2">Recover my account</h4>
                         </header>
                         <article class="card-body">
-<<<<<<< HEAD:Implementation/frontend/easyexam/src/views/ResetPassword.vue
                             <form action="" @submit="loadNewPass" @submit.prevent="">
-=======
-                            <form action="" @submit="loadNewPass" @submit.prevent="loadNewPass">
->>>>>>> 52a022c0669d63270a23ce0f8f8f2fac3204bdea:Implementation/frontend/easyexam/src/views/NewPass.vue
                                 <div class="form-group">
                                     <label>Password</label>
                                     <input type="password" name="pass" id="pass1" @keyup="checkPass" class="form-control" placeholder="Introduce password">
@@ -69,9 +65,6 @@
                     }, (error) => {
                         console.log(error);
                     })
-<<<<<<< HEAD:Implementation/frontend/easyexam/src/views/ResetPassword.vue
-
-=======
             },
             checkPass: function () {
                 var pass = document.getElementById('pass1');
@@ -88,7 +81,6 @@
                     message.style.color = fail;
 
                 }
->>>>>>> 52a022c0669d63270a23ce0f8f8f2fac3204bdea:Implementation/frontend/easyexam/src/views/NewPass.vue
             }
         },
     }

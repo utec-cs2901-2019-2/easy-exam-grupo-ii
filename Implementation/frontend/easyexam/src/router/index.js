@@ -25,7 +25,6 @@ const routes = [
     component: () => import('../views/ForgotPassword.vue')
   },
   {
-<<<<<<< HEAD
     path: '/reset-password',
     name: 'reset-password',
     component: () => import('../views/ResetPassword.vue')
@@ -34,21 +33,6 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: () => import('../views/Dashboard.vue')
-=======
-    path: '/submit',
-    name: 'submit',
-    component: () => import('../views/Submit.vue')
-  },
-  {
-    path: '/generate',
-    name: 'generate',
-    component: () => import('../views/Generate.vue')
-  },
-  {
-    path: '/newpass',
-    name: 'newpass',
-    component: () => import('../views/NewPass.vue')
->>>>>>> 52a022c0669d63270a23ce0f8f8f2fac3204bdea
   },
 ];
 
