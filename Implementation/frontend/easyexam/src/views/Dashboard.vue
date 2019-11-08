@@ -91,9 +91,13 @@
                         <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
                             <b-card-body>
                                 <b-list-group>
-                                    <b-list-group-item button v-for="(sub, index) of subjects" v-bind:key="index">
-                                        <b-button @click="selectSubject(sub)">
-                                        {{sub}}
+                                    <b-list-group-item v-for="(sub, index) of getSubjects" v-bind:key="index" style="padding:0px" > 
+                                        <b-button :pressed.sync=sub.state v-if="sub.state== true" @click="selectSubject(sub.name)" variant="light" style="border:0px; width:100%; heigth: 100%">
+                                        {{sub.name}}
+                                        </b-button>
+                                        <b-button :pressed.sync=sub.state v-else @click="selectSubject(sub.name)" variant="light" style="border:0px; width:100%; heigth: 100%">
+                                        {{sub.name}}
+                                        <b-badge variant="primary" pill>X</b-badge>
                                         </b-button>
                                     </b-list-group-item>
                                 </b-list-group>
@@ -108,15 +112,7 @@
                         <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
                             <b-card-body>
                             <b-list-group>
-                                <b-list-group-item class="d-flex justify-content-between align-items-center" href="#">Default list group item<b-badge variant="primary" pill>14</b-badge></b-list-group-item>
-                                <b-list-group-item href="#" variant="primary">Primary list group item</b-list-group-item>
-                                <b-list-group-item href="#" variant="secondary">Secondary list group item</b-list-group-item>
-                                <b-list-group-item href="#" variant="success">Success list group item</b-list-group-item>
-                                <b-list-group-item href="#" variant="danger">Danger list group item</b-list-group-item>
-                                <b-list-group-item href="#" variant="warning">Warning list group item</b-list-group-item>
-                                <b-list-group-item href="#" variant="info">Info list group item</b-list-group-item>
-                                <b-list-group-item href="#" variant="light">Light list group item</b-list-group-item>
-                                <b-list-group-item href="#" variant="dark">Dark list group item</b-list-group-item>
+                                <b-list-group-item v-for="(ty, index) of types" v-bind:key = "index" href="#" variant="info">{{ty}}</b-list-group-item>
                             </b-list-group>
                             </b-card-body>
                         </b-collapse>
@@ -137,11 +133,11 @@
                     <b-card-body style="position:relative; height:700px; overflow-y:scroll;">
                         <div role="tablist">
                             <b-card style = "margin:20px; background: #d4d4d4" class="mb-1" v-for="(problem, index) of filtrar" v-bind:key = "index">
-                                <b-card-title><b>{{problem.title}}</b></b-card-title>
+                                <b-card-title><b>{{problem.name}}</b></b-card-title>
                                 <b-row>
                                     <b-col cols = "10">
                                         <b-card-text style="height : 50px; position:relative; overflow-y:hidden">
-                                    {{problem.body}}
+                                    {{problem.description}}
                                 </b-card-text>
                                 <div style="margin-top : 10px">
                                     <b-button variant="info" style = "margin:5px" v-for="(tag, index) of problem.tags" v-bind:key="index">{{tag}}</b-button>
@@ -154,8 +150,6 @@
                                             {{problem.score}}
                                         </b-button>
                                         </li>
-                                        <!-- TODO: retrieve table "problem_topic" and
-                                        relate it to each problem -->
                                         <br>
                                         <li>
                                         <b-button disabled variant = "light" style="font-size : small; width : 50%"><b>
@@ -182,8 +176,7 @@
 
 
 <script>
-import json from
-'../../../../backend/backend/src/main/java/com/easyexam/JsonConnector/problems.json'
+import json from '/home/juan/Documentos/Software/easy-exam-grupo-ii/Implementation/frontend/easyexam/src/views/information.json'
 export default {
     data :  () => ({
 
@@ -209,7 +202,11 @@ export default {
 
             modal_selectProblem : {},
 
-            subjects : ['Divide and conquer', 'Algorithms', 'Maths'],
+            selectedSubjects : [],
+
+            subjects : [{'name' : 'Divide and conquer', 'state' : true}, 
+                        {'name' : 'Algorithms', 'state' : true},
+                        {'name' : 'Maths', 'state' :true}],
 
             types : {'SA' : 'Short Answer', 'LA' : 'Long Answer', 'MC' : 'Multiple Choice', 'TF': 'True or False'}
         
@@ -218,15 +215,14 @@ export default {
     methods: {
         imprimir : function() {
             for (let problem of this.infoproblems){
-                let stringToSearch = problem.tags.toString().concat (" ",
-                problem.description, " ", problem.title).toLowerCase()
+                let stringToSearch = problem.tags.toString().concat (" ", problem.description, " ", problem.name).toLowerCase()
                 console.log (stringToSearch)
             }
         },
 
         showModalProblem(index) {
-            this.modal_titleProblem = this.infoproblems [index].title
-            this.modal_desProblem = this.infoproblems [index].body
+            this.modal_titleProblem = this.infoproblems [index].name
+            this.modal_desProblem = this.infoproblems [index].description
             this.modal_tagsProblem = this.infoproblems [index].tags
             this.modal_selectProblem = this.infoproblems [index]
             
@@ -235,18 +231,25 @@ export default {
       },
 
         selectSubject (Subject) {
-            this.filtrarAvailable = false
-            this.subjectToSearch = Subject
-            /*let s = Subject.toLowerCase()
-            let tempproblems = this.totalproblems
-            for( var i = 0; i < this.totalproblems.length; i++){ 
-                if (!this.totalproblems[i]['tags'].includes(s)) {
-                    tempproblems.splice(i, 1)
-                }
-
+            let intFind = this.selectedSubjects.indexOf(Subject.toLowerCase())
+            if (intFind >= 0){
+                this.selectedSubjects.splice(intFind, 1)
             }
-            this.infoproblems = tempproblems*/
-
+            else{
+                this.selectedSubjects.push (Subject.toLowerCase())
+                console.log(Subject.toLowerCase())
+            }
+            console.log("start")
+            for (let ip in this.selectedSubjects){
+                console.log(this.selectedSubjects[ip])
+            }
+            /*
+            if (this.subjectToSearch === ''){
+                this.subjectToSearch = Subject
+            }
+            else{
+                this.subjectToSearch = ''
+            }*/
         }
 
     },
@@ -254,45 +257,78 @@ export default {
     computed : {
         filtrar : function () {
             let res = []
-
-            if (this.filtrarAvailable)
-            {
-                if (this.keyToSearch === '') {
-                    let id = 0
-                    for (let problem of this.infoproblems) {
-                        problem["id"] = id
-                        id = id + 1
-                        res.push (problem)
-                    }
-                }
-                else {
-                        let id = 0
-                        for (let problem of this.infoproblems) {
-                            problem["id"] = id
-                            id = id + 1
-                            let stringToSearch = problem.tags.toString().concat
-                            (" ", problem.body, " ", problem.title).toLowerCase()
-                            if (stringToSearch.includes (this.keyToSearch.toLowerCase())) {
-                                res.push (problem)
-                            }
-                        }
-                }
-
-                return res
-            }
-            else
-            {
+            
                 let id = 0
                 for (let problem of this.infoproblems) {
                     problem["id"] = id
                     id = id + 1
-                    let stringToSearch = problem.tags.toString().toLowerCase()
-                    if (stringToSearch.includes (this.subjectToSearch.toLowerCase())) {
-                        res.push (problem)
+                    if (this.selectedSubjects.length === 0)
+                    {
+                        if (this.keyToSearch === '')
+                            {
+                                res.push (problem)
+                            }
+                            else
+                            {
+                                let stringToSearch = problem.tags.toString().concat (" ", problem.description, " ", problem.name).toLowerCase ()
+                                if (stringToSearch.includes (this.keyToSearch.toLowerCase()))
+                                {
+                                    res.push (problem)
+                                }
+                            }
                     }
+                    else
+                    {
+                        if (problem.tags.filter(value => this.selectedSubjects.includes (value)).length)
+                        {
+                            if (this.keyToSearch === '')
+                            {
+                                res.push (problem)
+                            }
+                            else
+                            {
+                                let stringToSearch = problem.tags.toString().concat (" ", problem.description, " ", problem.name).toLowerCase ()
+                                if (stringToSearch.includes (this.keyToSearch.toLowerCase()))
+                                {
+                                    res.push (problem)
+                                }
+                            }
+                        }
+                    }
+                    /*
+                    if (problem.tags.toString().toLowerCase().includes(this.subjectToSearch.toLowerCase()) ) {
+                        res.push (problem)
+                    }*/
                 }
-                return res
+            /*
+            else {
+                    let id = 0
+                    for (let problem of this.infoproblems) {
+                        problem["id"] = id
+                        id = id + 1
+                        let stringToSearch = problem.tags.toString().concat (" ", problem.description, " ", problem.name).toLowerCase()
+                        if (stringToSearch.includes (this.keyToSearch.toLowerCase()) && stringToSearch.includes(this.subjectToSearch.toLowerCase()) ) {
+                            res.push (problem)
+                        }
+                    }
+            }*/
+
+            return res
+        },
+
+        getSubjects : function () {
+            let finalSubjects = []
+            let tempTags = []
+            for (let problem of this.infoproblems)
+            {
+                tempTags = tempTags.concat(problem.tags)
             }
+            tempTags = [...new Set(tempTags)]
+            for (let tTag of tempTags)
+            {
+                finalSubjects.push ({'name' : tTag.charAt(0).toUpperCase() + tTag.slice(1), 'state' : true})
+            }
+            return finalSubjects
         }
     }
 
