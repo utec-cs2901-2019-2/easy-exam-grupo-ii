@@ -1,4 +1,4 @@
-package com.easyexam.service;
+package com.easyexam.service.implOthers;
 
 import com.easyexam.model.PasswordResetToken;
 import com.easyexam.repository.IPasswordResetRepo;

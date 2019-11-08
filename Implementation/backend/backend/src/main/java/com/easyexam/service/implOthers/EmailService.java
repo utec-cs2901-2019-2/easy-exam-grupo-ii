@@ -1,4 +1,4 @@
-package com.easyexam.service;
+package com.easyexam.service.implOthers;
 
 import com.easyexam.model.aux.Mail;
 import org.springframework.beans.factory.annotation.Autowired;
