@@ -9,9 +9,6 @@ import java.util.List;
 @Repository
 public interface IUserRepo extends JpaRepository<User,Integer> {
 
-    @Override
-    List<User> findAll();
-
     User findUserByEmail(String email);
     User findUserByEmailAndPassword(String email, String passwd);
 }
