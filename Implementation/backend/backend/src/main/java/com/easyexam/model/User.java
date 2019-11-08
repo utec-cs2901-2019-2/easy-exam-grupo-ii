@@ -1,33 +1,52 @@
 package com.easyexam.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name="users")
+@SequenceGenerator(sequenceName = "seqUsu",name="seq_usu")
 public class User {
 
     @Id
+    @GeneratedValue(generator = "seq_usu")
     private int id;
 
+    @Column(name = "email")
     private String email;
 
+    @Column(name = "password")
     private String password;
 
-    private Boolean activate;
+    @Column(name = "active")
+    private Boolean active;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id",nullable = false)
+    private Role role;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Teacher teacher;
+
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Admin admin;
 
     public User() { }
 
-    public User(int id, String email, String password, Boolean activate) {
-        this.id = id;
+    public User(String email, String password, Boolean active, Role role) {
         this.email = email;
         this.password = password;
-        this.activate = activate;
+        this.active = active;
+        this.role = role;
     }
 
-    public int getId() {
-        return id;
+    public Role getRole() {
+        return role;
     }
 
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public String getEmail() {
         return email;
@@ -45,11 +64,11 @@ public class User {
         this.password = password;
     }
 
-    public Boolean getActivate() {
-        return activate;
+    public Boolean getActive() {
+        return active;
     }
 
-    public void setActivate(Boolean activate) {
-        this.activate = activate;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

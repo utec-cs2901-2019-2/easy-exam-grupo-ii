@@ -1,38 +1,41 @@
 package com.easyexam.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name="problem")
+@SequenceGenerator(sequenceName = "seqProb",name="seq_problem")
 public class Problem {
 
     @Id
+    @GeneratedValue(generator = "seq_problem")
     private int id;
 
+    @Column(name = "title")
     private String title;
 
-    private String description;
+    @Column(name="body")
+    private String body;
 
+    @Column(name="rutaImage")
+    private String rutaImage;
+
+    @Column(name = "score")
     private float score;
 
+    @Column(name="qualifiers")
     private int qualifiers;
-
-    private Topic topic;
 
     public Problem() { }
 
-    public Problem(int id, String title, String description, float score, int qualifiers, Topic topic) {
-        this.id = id;
+    public Problem(String title, String body, String rutaImage, float score, int qualifiers) {
         this.title = title;
-        this.description = description;
+        this.body = body;
+        this.rutaImage = rutaImage;
         this.score = score;
         this.qualifiers = qualifiers;
-        this.topic = topic;
     }
 
-    public int getId() {
-        return id;
-    }
 
     public String getTitle() {
         return title;
@@ -40,14 +43,6 @@ public class Problem {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public float getScore() {
@@ -66,12 +61,19 @@ public class Problem {
         this.qualifiers = qualifiers;
     }
 
-    public Topic getTopic() {
-        return topic;
+    public String getBody() {
+        return body;
     }
 
-    public void setTopic(Topic topic) {
-        this.topic = topic;
+    public void setBody(String body) {
+        this.body = body;
     }
 
+    public String getRutaImage() {
+        return rutaImage;
+    }
+
+    public void setRutaImage(String rutaImage) {
+        this.rutaImage = rutaImage;
+    }
 }

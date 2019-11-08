@@ -3,24 +3,18 @@ package com.easyexam.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="topics")
-@SequenceGenerator(sequenceName = "seqTopic",name="seq_topic")
-public class Topic {
+@Table(name="role")
+@SequenceGenerator(name = "seq_role",sequenceName = "seqRole")
+public class Role {
 
     @Id
-    @GeneratedValue(generator = "seq_topic")
+    @GeneratedValue(generator = "seq_role")
     private int id;
 
     @Column(name="name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "topicDad_id",nullable = false)
-    private Topic topicDad;
-
-    public Topic() { }
-
-    public Topic(String name) {
+    public Role(String name) {
         this.name = name;
     }
 

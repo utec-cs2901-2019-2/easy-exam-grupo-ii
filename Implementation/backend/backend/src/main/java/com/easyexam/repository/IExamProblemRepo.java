@@ -1,15 +1,16 @@
 package com.easyexam.repository;
 
-import com.easyexam.model.Comment;
-import com.easyexam.model.CommentId;
+import com.easyexam.model.ExamProblem;
+import com.easyexam.model.ExamProblemId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface ICommentRepo extends JpaRepository<Comment, CommentId> {
+public interface IExamProblemRepo extends JpaRepository<ExamProblem, ExamProblemId> {
 
     @Override
-    List<Comment> findAll();
+    List<ExamProblem> findAll();
+
 }
