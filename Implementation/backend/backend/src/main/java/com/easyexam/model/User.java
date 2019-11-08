@@ -21,7 +21,7 @@ public class User {
     private Boolean active;
 
     @ManyToOne
-    @JoinColumn(name = "role_id",nullable = false)
+    @JoinColumn(name = "role_id",nullable = true) // false
     private Role role;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)

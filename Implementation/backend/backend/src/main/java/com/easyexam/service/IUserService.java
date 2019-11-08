@@ -2,7 +2,6 @@ package com.easyexam.service;
 
 import com.easyexam.model.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 

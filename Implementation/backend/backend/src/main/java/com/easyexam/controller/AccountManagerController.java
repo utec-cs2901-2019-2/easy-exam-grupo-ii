@@ -21,6 +21,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.BindingResult;
 
 import com.easyexam.service.IUserService;
+import com.easyexam.service.IRoleService;
+import com.easyexam.service.impl.RoleServiceImpl;
 import com.easyexam.config.JwtTokenUtil;
 import com.easyexam.model.aux.ApiResponse;
 import com.easyexam.model.aux.AuthToken;
@@ -57,6 +59,9 @@ public class AccountManagerController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private IRoleService roleService;
+
     @PostMapping("/login")
     public ApiResponse<AuthToken> login(@RequestBody User loginUser) throws AuthenticationException {
 
@@ -76,6 +81,7 @@ public class AccountManagerController {
         }
 
         userDetail.setActive(true);
+        //userDetail.setRole(roleService.findById(1)); // Teacher 1 - Admin 0
 
         User user = userService.save(userDetail);
         teacherDetail.setUser(user);
