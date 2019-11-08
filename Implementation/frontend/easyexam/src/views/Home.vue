@@ -4,23 +4,31 @@
 
       <div class="site-wrapper-inner">
 
-        <div class="container">
-          <div class="masthead clearfix">
-            <div class="container inner">
-              <h3 class="masthead-brand">Welcome To EasyExam</h3>
-            </div>
-          </div>
 
           <div class="inner cover text-center">
-            <img src="@/static/img/exam.jpg" alt="..." class="img-thumbnail w-25">
-            <h1 class="cover-heading">Easy Exam</h1>
-            <p class="lead">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis provident placeat atque doloribus, molestiae natus eaque in vitae illo officia, modi laboriosam fugiat soluta iure consectetur voluptatem eligendi doloremque ratione?</p>
-            <p class="lead text-center">
-              <a href="/login" class="btn btn-lg btn-default">Get Started</a>
-            </p>
-          </div>
-
+            <div class="container inner">
+              <h1 class="cover-heading">Welcome To EasyExam!</h1>
+              <p class="lead"> <small>Your smartest exam generation tool!</small></p>
+            </div>
+              <HomeCarrousel/>
+              <b-card class="text-center">
+              <div class="inner cover text-center">
+                <p class="lead">EasyExam is an online platform aiming to help teachers to generate problems for the exams that they wish to take their students. EasyExam works on a 3x1 system in which each the user sends 1 problem for every 3 they will recieve, it is in order to encourage the collaboration within the platform. The users can download the generated exams in PDF-Latex format.</p>
+                <p class="lead text-center">
+                    <b-button variant="primary" href="/login">Get Started</b-button>
+                    <b-button class="m-2" variant="outline-primary" href="#Learn-More">Learn More</b-button>
+                </p>
+              </div>
+              </b-card>
         </div>
+          <div id="Learn-More">
+              <b-embed
+                      type="iframe"
+                      aspect="16by9"
+                      src="https://www.youtube.com/embed/fL308_-Kbt0?rel=0"
+                      allowfullscreen
+              ></b-embed>
+          </div>
 
       </div>
 
@@ -31,21 +39,12 @@
 <script>
 
 // @ is an alias to /src
-//import HelloWorld from '@/components/HelloWorld.vue'
-import {mapMutations,mapState} from "vuex";
+import HomeCarrousel from "../components/HomeCarrousel";
 
 export default {
   name: 'home',
   components: {
-  },
-  data(){
-    return{
-    nombre:'HolaMundo'
-    }
-  },
-  computed:{
-    ...mapState['nombre'],
-    ...mapMutations['changeNombre'],
+      HomeCarrousel
   }
 }
 </script>
@@ -58,16 +57,6 @@ a:hover {
   color: #fff;
 }
 
-/* Custom default button */
-.btn-default,
-.btn-default:hover,
-.btn-default:focus {
-  color: #333;
-  text-shadow: none; /* Prevent inheritence from `body` */
-  background-color: #fff;
-  border: 1px solid #fff;
-}
-
 
 /*
  * Base structure
@@ -75,13 +64,11 @@ a:hover {
 
 html,
 body {
-  height: 100%;
-  background-color: #fff;
-}
-body {
-  color: #fff;
-  text-align: center;
-  text-shadow: 0 1px 3px rgba(241, 233, 233, 0.884);
+    height: 100%;
+    background: #3070ff;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(241, 233, 233, 0.884);
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
@@ -89,7 +76,7 @@ body {
   display: table;
   width: 100%;
   height: 600px;
-  background-color: rgb(49, 160, 132);
+  background-color: rgba(49, 160, 132, 0.03);
   /*height: 100%; */
   /*min-height: 100%;*/
 }
@@ -104,35 +91,8 @@ body {
 
 /* Padding for spacing */
 .inner {
-  padding: 30px;
+  padding: 10px;
 }
-
-
-/*
- * Header
- */
-.masthead-brand {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.masthead-nav > li {
-  display: inline-block;
-}
-.masthead-nav > li + li {
-  margin-left: 20px;
-}
-
-
-@media (min-width: 768px) {
-  .masthead-brand {
-    float: left;
-  }
-  .masthead-nav {
-    float: right;
-  }
-}
-
 
 /*
  * Cover
@@ -151,23 +111,6 @@ body {
   transition: 0.5s;
   margin: 10px;
   color: #fff;
-  background: #18d26e;
-}
-
-/*
- * Affix and center
- */
-
-@media (min-width: 768px) {
-  /* Pull out the header and footer */
-  .masthead {
-    position: fixed;
-    top: 0;
-  }
-  /* Start the vertical centering */
-  .site-wrapper-inner {
-    vertical-align: middle;
-  }
-
+  background: rgba(24, 210, 110, 0);
 }
 </style>

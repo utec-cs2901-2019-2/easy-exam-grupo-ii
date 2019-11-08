@@ -25,6 +25,16 @@ const routes = [
     component: () => import('../views/Recover.vue')
   },
   {
+    path: '/submit',
+    name: 'submit',
+    component: () => import('../views/Submit.vue')
+  },
+  {
+    path: '/generate',
+    name: 'generate',
+    component: () => import('../views/Generate.vue')
+  },
+  {
     path: '/newpass',
     name: 'newpass',
     component: () => import('../views/NewPass.vue')

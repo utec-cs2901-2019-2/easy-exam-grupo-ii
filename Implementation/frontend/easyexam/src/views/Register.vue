@@ -43,7 +43,11 @@
 
                                 </div>
                             </div>
-
+                            
+                            <div class="form-group">
+                                <label>Birthdate</label>
+                                <b-form-input v-model = 'birthdate' type="date"></b-form-input>
+                            </div>
                             <div class="form-group">
                                 <label>Password</label>
                                 <input v-model="password" class="form-control" type="password" placeholder="New Password">
@@ -86,7 +90,8 @@ export default {
               password: ''
           },
           institution: '',
-          gender:''
+          gender:'',
+          birthdate: ''
       }
   },
   computed:{
