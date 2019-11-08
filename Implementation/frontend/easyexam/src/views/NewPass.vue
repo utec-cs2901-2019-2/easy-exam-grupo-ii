@@ -10,15 +10,16 @@
                             <h4 class="card-title mt-2">Recover my account</h4>
                         </header>
                         <article class="card-body">
-                            <form action="" @submit="loadNewPass">
+                            <form action="" @submit="loadNewPass" @submit.prevent="loadNewPass">
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input type="password" class="form-control" placeholder="Introduce password">
+                                    <input type="password" name="pass" id="pass1" @keyup="checkPass" class="form-control" placeholder="Introduce password">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Repeat Password</label>
-                                    <input type="password" class="form-control" placeholder="Repeat password">
+                                    <input type="password" name="repass" id="repass1" @keyup="checkPass" class="form-control" placeholder="Repeat password">
+                                    <span id="confirm-message2" class="confirm-message"> hola</span>
                                 </div>
 
                                 <div class="form-group">
@@ -39,6 +40,8 @@
 
 <script>
     import axios from 'axios'
+
+
     export default {
         name: 'newpass',
         components: {
@@ -60,10 +63,25 @@
                     }, (error) => {
                         console.log(error);
                     })
+            },
+            checkPass: function () {
+                var pass = document.getElementById('pass1');
+                var repass = document.getElementById('repass1');
+                var message = document.getElementById('confirm-message2');
+                var accept = "#66cc66";
+                var fail = "#F74B00";
+                if(pass.value === repass.value){
+                    repass.style.backgroundColor = accept;
+                    message.style.color =accept;
+                }
+                else{
+                    repass.style.backgroundColor = fail;
+                    message.style.color = fail;
+
+                }
             }
         },
     }
-
 
 </script>
 
