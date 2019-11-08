@@ -20,14 +20,19 @@ const routes = [
     component: () => import('../views/Register.vue')
   },
   {
-    path: '/recover',
-    name: 'recover',
-    component: () => import('../views/Recover.vue')
+    path: '/forgot-password',
+    name: 'forgot-password',
+    component: () => import('../views/ForgotPassword.vue')
   },
   {
-    path: '/newpass',
-    name: 'newpass',
-    component: () => import('../views/NewPass.vue')
+    path: '/reset-password',
+    name: 'reset-password',
+    component: () => import('../views/ResetPassword.vue')
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: () => import('../views/Dashboard.vue')
   },
 ];
 

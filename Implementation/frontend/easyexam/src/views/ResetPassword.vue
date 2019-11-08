@@ -10,7 +10,7 @@
                             <h4 class="card-title mt-2">Recover my account</h4>
                         </header>
                         <article class="card-body">
-                            <form action="" @submit="loadNewPass">
+                            <form action="" @submit="loadNewPass" @submit.prevent="">
                                 <div class="form-group">
                                     <label>Password</label>
                                     <input type="password" class="form-control" placeholder="Introduce password">
@@ -45,21 +45,24 @@
         },
         data(){
             return {
-                password: ''
+                password: '',
+                token: ''
             }
         },
         computed:{
         },
         methods:{
             loadNewPass: function () {
-                axios.post('http://localhost:9898/api/v1/newpass', {
+                axios.post('http://localhost:9898/api/v1/reset-password', {
                     password: this.password,
+                    token: this.$route.query.token
                 })
                     .then((response) => {
                         console.log(response);
                     }, (error) => {
                         console.log(error);
                     })
+
             }
         },
     }

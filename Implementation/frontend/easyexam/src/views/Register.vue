@@ -23,7 +23,7 @@
 
                             <div class="form-group">
                                 <label>Email address</label>
-                                <input v-model="user.email" type="email" class="form-control" placeholder="University / job email address, e.g.name@utec.edu">
+                                <input v-model="email" type="email" class="form-control" placeholder="University / job email address, e.g.name@utec.edu">
                                 <small class="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
 
@@ -72,7 +72,7 @@
 </template>
 
 <script>
-    import axios from 'axios'
+import axios from 'axios'
 export default {
   name: 'register',
   components: {

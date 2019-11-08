@@ -10,10 +10,10 @@
                     <h4 class="card-title mt-2">Recover my account</h4>
                 </header>
                 <article class="card-body">
-                    <form action="" @submit="loadRecover">
+                    <form action="" @submit="loadRecover" @submit.prevent="">
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" class="form-control" placeholder="University / job email address, e.g.name@utec.edu">
+                            <input v-model="email" type="email" class="form-control" placeholder="University / job email address, e.g.name@utec.edu">
                         </div>
 
                         <div class="form-group">
@@ -47,14 +47,14 @@
         },
         methods:{
             loadRecover: function () {
-                axios.post('http://localhost:9898/api/v1/recover', {
+                axios.post('http://localhost:9898/api/v1/forgot-password', {
                     email: this.email,
                 })
                     .then((response) => {
                         console.log(response);
                     }, (error) => {
                         console.log(error);
-                    })
+                    })  
             }
         },
     }

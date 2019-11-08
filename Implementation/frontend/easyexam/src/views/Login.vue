@@ -9,7 +9,7 @@
                         <h4 class="card-title mt-2">Login</h4>
                     </header>
                     <article class="card-body">
-                        <form action="" @submit="sendpost">
+                        <form action="" @submit="sendpost" @submit.prevent="sendpost">
                             <div class="form-group">
                                 <label>Email address</label>
                                 <input v-model="email" type="email" class="form-control" placeholder="">
@@ -29,7 +29,7 @@
                                 </label>
                             </div>
                             <div class="form-row justify-content-center">
-                                <a href="/recover" class="btn btn-link"> Forgot Your Password?</a>
+                                <a href="/forgot-password" class="btn btn-link"> Forgot Your Password?</a>
                             </div>
                             <p></p>
 
@@ -67,15 +67,17 @@ export default {
   },
     methods:{
       sendpost: function () {
-          axios.post('http://localhost:9898/api/v1/login', {
-              email: this.email,
-              password: this.password
-          })
-              .then((response) => {
-                  console.log(response);
-              }, (error) => {
-                  console.log(error);
-              })
+            
+            //this.$store.dispatch(AUTH_REQUEST, { username, password })
+
+            axios.post('http://localhost:9898/api/v1/login', {
+                email: this.email,
+                password: this.password
+            }).then((response) => {
+                console.log(response.data.result)
+                this.$router.push('/dashboard')
+                })
+        
       }
     },
 }
