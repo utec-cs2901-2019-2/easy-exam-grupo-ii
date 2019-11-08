@@ -29,6 +29,11 @@ const routes = [
     name: 'submit',
     component: () => import('../views/Submit.vue')
   },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: () => import('../views/Dashboard.vue')
+  },
 ];
 
 const router = new VueRouter({
