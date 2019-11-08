@@ -6,6 +6,11 @@ import com.easyexam.service.IProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.PrintWriter;
+import java.io.File
+
+import java.util.*;
+
 @Service
 public class ProblemServiceImpl implements IProblemService {
 
@@ -14,5 +19,9 @@ public class ProblemServiceImpl implements IProblemService {
 
     @Autowired
     IProblemSubmittedRepo problemSubmittedRepo;
+    
+    public @ResponseBody Iterable<Problem> getAllProblems(){
+        return problemRepo.findAll();
+    }
 
 }
