@@ -18,15 +18,13 @@ public class Admin {
     @Column(name="address")
     private String address;
 
-
     @OneToOne
     @MapsId
     private User user;
 
     public Admin() { }
 
-    public Admin(int id, String fullname, String phone, String address) {
-        this.id = id;
+    public Admin(String fullname, String phone, String address) {
         this.fullname = fullname;
         this.phone = phone;
         this.address = address;
@@ -62,5 +60,13 @@ public class Admin {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -43,8 +43,14 @@ public class Teacher {
 
     public Teacher() { }
 
-    public Teacher(int id, String firstname, String lastname, String institution, int country, Date date_birth, int gender, int bonus, int defaultTemplate, int alerts) {
-        this.id = id;
+    public Teacher(String firstName, String lastName, int country, Date date_birth) {
+        this.firstname = firstName;
+        this.lastname = lastName;
+        this.country = country;
+        this.date_birth = date_birth;
+    }
+
+    public Teacher(String firstname, String lastname, String institution, int country, Date date_birth, int gender, int bonus, int defaultTemplate, int alerts) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.institution = institution;
@@ -134,5 +140,13 @@ public class Teacher {
 
     public void setAlerts(int alerts) {
         this.alerts = alerts;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

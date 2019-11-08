@@ -6,8 +6,9 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+
 @SpringBootApplication
-@ComponentScan({"com.easyexam.controller","com.easyexam.service"})
+@ComponentScan({"com.easyexam.controller, com.easyexam.config, com.easyexam.service"})
 @EntityScan("com.easyexam.model")
 @EnableJpaRepositories("com.easyexam.repository")
 public class BackendApplication {
