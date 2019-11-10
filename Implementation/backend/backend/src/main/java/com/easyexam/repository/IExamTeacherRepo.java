@@ -13,6 +13,6 @@ public interface IExamTeacherRepo extends JpaRepository<ExamTeacher, ExamTeacher
     @Override
     List<ExamTeacher> findAll();
 
-    List<ExamTeacher> findAllByExamTeacherId(int idTeacher);
+    //List<ExamTeacher> findAllByExamTeacherId(int idTeacher);
 
 }
