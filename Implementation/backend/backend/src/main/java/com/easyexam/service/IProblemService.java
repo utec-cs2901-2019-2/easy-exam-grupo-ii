@@ -10,4 +10,6 @@ public interface IProblemService {
     Boolean save(ProblemCompleted p);
 
     List<Problem> getAllProblems();
+
+    List<Problem> getAllProblemsByUsers(int idUser);
 }

@@ -10,4 +10,6 @@ import java.util.List;
 public interface IProblemRepo extends JpaRepository<Problem,Integer> {
     @Override
     List<Problem> findAll();
+
+    Problem findProblemById(int id);
 }

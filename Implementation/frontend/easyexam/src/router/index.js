@@ -35,8 +35,8 @@ const routes = [
     component: () => import('../views/Dashboard.vue')
   },
   {
-    path:'/submit',
-    name:'submit',
+    path: '/submit',
+    name: 'submit',
     component: () => import('../views/Submit.vue')
   }
 ];

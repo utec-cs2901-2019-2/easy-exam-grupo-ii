@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -58,5 +59,15 @@ public class ProblemServiceImpl implements IProblemService {
     @Override
     public List<Problem> getAllProblems() {
         return problemRepo.findAll();
+    }
+
+    @Override
+    public List<Problem> getAllProblemsByUsers(int idUser) {
+        List<ProblemSubmitted> pSubm=problemSubmittedRepo.findAllByProblemSubmittedId_IdUser(idUser);
+        List<Problem> problems=new ArrayList<Problem>();
+        for(ProblemSubmitted ps:pSubm){
+            problems.add(problemRepo.findProblemById(ps.getProblemSubmittedId().getIdProblem()));
+        }
+        return problems;
     }
 }
