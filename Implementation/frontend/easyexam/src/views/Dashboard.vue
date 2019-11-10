@@ -209,7 +209,7 @@
 
 
 <script>
-import json from '/home/juan/Documentos/Software/easy-exam-grupo-ii/Implementation/frontend/easyexam/src/views/information.json'
+import json from './information.json'
 export default {
     data :  () => ({
 
