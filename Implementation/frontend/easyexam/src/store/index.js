@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    nombre:''
+    nombre:'',
+    problemsSelected : [],
   },
   mutations: {
     changeNombre(state,n){

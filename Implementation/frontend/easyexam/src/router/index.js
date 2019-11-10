@@ -34,6 +34,11 @@ const routes = [
     name: 'dashboard',
     component: () => import('../views/Dashboard.vue')
   },
+  {
+    path: '/generate',
+    name: 'generate',
+    component: () => import('../views/Generate.vue')
+  },
 ];
 
 const router = new VueRouter({
