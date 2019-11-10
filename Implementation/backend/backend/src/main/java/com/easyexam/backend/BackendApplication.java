@@ -14,7 +14,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan({"com.easyexam.controller","com.easyexam.config","com.easyexam.service","com.easyexam.service.impl"})
 @EntityScan("com.easyexam.model")
 @EnableJpaRepositories("com.easyexam.repository")
-
 public class BackendApplication {
 	
 	public static void main(String[] args) {
