@@ -33,7 +33,6 @@ public class ProblemController {
     @Autowired
     private IProblemService problemService;
 
-    @PostMapping("fetch-problems")
     problemService.getAllProblems();
 
 

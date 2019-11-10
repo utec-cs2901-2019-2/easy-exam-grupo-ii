@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.PrintWriter;
-import java.io.File
+import java.io.File;
 
 import java.util.*;
 
@@ -20,7 +20,7 @@ public class ProblemServiceImpl implements IProblemService {
     @Autowired
     IProblemSubmittedRepo problemSubmittedRepo;
     
-    public @ResponseBody Iterable<Problem> getAllProblems(){
+    public List<Problem> getAllProblems(){
         return problemRepo.findAll();
     }
 
