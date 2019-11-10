@@ -19,4 +19,5 @@ public interface IProblemService {
 
     List<Problem> getAllProblems();
 
+    String jsonProblems();
 }
