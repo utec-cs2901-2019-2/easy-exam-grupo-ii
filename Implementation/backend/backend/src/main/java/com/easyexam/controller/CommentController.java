@@ -1,5 +1,5 @@
 package com.easyexa.controller;
-
+  
 import com.easyexam.model.*;
 import com.easyexam.model.aux.*;
 import com.easyexam.service.*;
@@ -27,17 +27,16 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/problem/v1")
-public class ProblemController {
-
+@RequestMapping("/comment/v1")
+public class CommentController {
+    
     @Autowired
-    private IProblemService problemService;
+    private ICommentService commentService;
 
-
-    @GetMapping("/problem/getProblems")
-    public List<Problem> getProblems() {
-	    return problemService.getAllProblems();
+    @GetMapping("/comment/customQuery")
+    public List<Comment> returnCustomQuery(){
+        return commentService.customQuery();
     }
 
-
 }
+

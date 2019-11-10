@@ -14,10 +14,6 @@ import java.util.Optional;
 
 public interface IProblemService {
     
-    @Autowired
-    private IProblemRepo problemRepo;
-
     List<Problem> getAllProblems();
 
-    String jsonProblems();
 }

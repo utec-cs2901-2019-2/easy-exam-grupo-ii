@@ -11,6 +11,4 @@ public interface IProblemRepo extends JpaRepository<Problem,Integer> {
     @Override
     List<Problem> findAll();
 
-    @Query("Select * From problem for json auto")
-    String findCustom();
 }

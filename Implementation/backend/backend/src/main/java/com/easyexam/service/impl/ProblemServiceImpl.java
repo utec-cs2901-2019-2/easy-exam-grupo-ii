@@ -1,5 +1,6 @@
 package com.easyexam.service.impl;
 
+import com.easyexam.model.Problem;
 import com.easyexam.repository.IProblemRepo;
 import com.easyexam.repository.IProblemSubmittedRepo;
 import com.easyexam.service.IProblemService;
@@ -25,9 +26,5 @@ public class ProblemServiceImpl implements IProblemService {
         return problemRepo.findAll();
     }
 
-    @Override
-    public String jsonProblems(){
-        return problemRepo.findCustom();
-    }
 
 }
