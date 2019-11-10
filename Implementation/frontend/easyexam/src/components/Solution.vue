@@ -35,13 +35,9 @@
                                     <b-button variant="outline-secondary" @click ="createAlternative">Add</b-button>
                                 </b-input-group>
                                 <b-table caption-top :items="solution.alternatives" :fields="fields">
-                                    <template v-slot:cell(value)="row">
-                                        <b-button size="sm" class="mr-1">
-                                            <mdb-icon far icon="trash-alt" />
-                                        </b-button>
-                                        <b-button size="sm">
-                                            {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
-                                        </b-button>
+                                    <template v-slot:cell(edit)="row">
+                                        <b-button size="sm" class="mr-1">Edit</b-button>
+                                        <b-button size="sm" variant="danger" @click="deleteAlternative(index)">X</b-button>
                                     </template>
                                 </b-table>
                             </b-form-group>
@@ -84,7 +80,8 @@
                 tags: [],
                 fields: [
                     {key:'body', label: 'Alternative'},
-                    {key:'value', label: 'Correct'}
+                    {key:'value', label: 'Correct'},
+                    {key:'edit', label: ''}
                 ],
 
             }
@@ -119,8 +116,14 @@
                 this.$store.commit('updateViewBack')
             },
             ...mapMutations([
-                'createAlternative'
-            ])
+                'createAlternative',
+                'deleteAlternative'
+            ]),
+            showUpdateForm (alt_id){
+                this.solution.updt_id= alt_id;
+                this.solution.updt_body = this.solution.alternatives [alt_id].body;
+                this.solution.updt_value = this.solution.alternatives [alt_id].value;
+            }
         },
         mounted() {
             const tag = axios.get("http://localhost:3000/tags");
@@ -137,7 +140,8 @@
         components: {
             VueEditor,
             Multiselect
-        },
+
+    },
     }
 </script>
 

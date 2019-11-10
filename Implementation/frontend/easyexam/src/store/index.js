@@ -32,6 +32,10 @@ export default new Vuex.Store({
           image: null,
           alt_body: '',
           alt_value: null,
+          updt_id: -1,
+          updt_body: '',
+          updt_value: null
+
         }
       },
       types: [
@@ -66,6 +70,13 @@ export default new Vuex.Store({
       });
       state.submit.form.solution.alt_body = '';
       state.submit.form.solution.alt_value = '';
+    },
+    updateAlternative (index) {
+      this.state.submit.form.solution.alternatives[index].body= this.state.submit.form.solution.updt_body;
+      this.state.submit.form.solution.alternatives[index].value= this.state.submit.form.solution.updt_value;
+    },
+    deleteAlternative (index){
+      this.state.submit.form.solution.alternatives.splice(index, 1)
     }
   },
   actions: {
