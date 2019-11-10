@@ -12,16 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
-import java.io.PrintWriter;
-import java.io.File;
-
-import java.util.*;
-=======
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
->>>>>>> origin/develop
 
 @Service
 public class ProblemServiceImpl implements IProblemService {
@@ -34,18 +27,6 @@ public class ProblemServiceImpl implements IProblemService {
     @Autowired
     IProblemSubmittedRepo problemSubmittedRepo;
 
-<<<<<<< HEAD
-    @Override
-    public List<Problem> getAllProblems(){
-        return problemRepo.findAll();
-    }
-
-    @Override
-    public String jsonProblems(){
-        return problemRepo.findCustom();
-    }
-
-=======
     @Autowired
     IProblemTopicRepo problemTopicRepo;
 
@@ -89,5 +70,4 @@ public class ProblemServiceImpl implements IProblemService {
         }
         return problems;
     }
->>>>>>> origin/develop
 }

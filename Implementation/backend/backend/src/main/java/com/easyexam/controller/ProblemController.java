@@ -1,56 +1,3 @@
-<<<<<<< HEAD
-package com.easyexa.controller;
-
-import com.easyexam.model.*;
-import com.easyexam.model.aux.*;
-import com.easyexam.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-import java.util.ArrayList;
-import java.util.List;
-
-
-@RestController
-//TODO change pathing
-@RequestMapping("/api/probFetcher")
-
-public class ProblemController {
-
-    @Autowired
-    private IProblemService problemService;
-
-
-    @Override
-    public void probFetcher() throws Exception{
-        List<Problem> problems = problemService.getAllProblems();
-        problems.forEach(problem->problem.toString());
-    }
-
-    @Override
-    public void jsonifyProblems() throws Exception{
-        problemService.jsonProblems();
-    }
-
-    jsonifyProblems();
-
-
-
-=======
 package com.easyexam.controller;
 
 import com.easyexam.model.Problem;
@@ -121,6 +68,5 @@ public class ProblemController {
 //        return roleService.getAllRoles();
 //        //return (List<Role>) new ApiResponse<Object>(200, "success",roleService.getAllRoles());
 //    }
->>>>>>> origin/develop
 
 }
