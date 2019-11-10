@@ -7,6 +7,7 @@ import javax.persistence.*;
 @SequenceGenerator(sequenceName = "seqTopic",name="seq_topic")
 public class Topic {
 
+    //TODO implementation topic relation
     @Id
     @GeneratedValue(generator = "seq_topic")
     private int id;

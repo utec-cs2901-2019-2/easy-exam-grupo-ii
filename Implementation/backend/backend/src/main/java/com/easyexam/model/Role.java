@@ -4,17 +4,18 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="role")
-@SequenceGenerator(name = "seq_role",sequenceName = "seqRole")
 public class Role {
 
     @Id
-    @GeneratedValue(generator = "seq_role")
     private int id;
 
     @Column(name="name")
     private String name;
 
-    public Role(String name) {
+    public Role() {}
+
+    public Role(int id, String name) {
+        this.id = id;
         this.name = name;
     }
 
