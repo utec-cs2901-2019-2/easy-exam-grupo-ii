@@ -14,7 +14,6 @@
         name: "Submit",
         data() {
             return {
-                name: 'Hola'
             }
         },
         components: {

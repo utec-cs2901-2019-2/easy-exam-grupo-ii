@@ -6,20 +6,6 @@
                 <b-row>
                     <b-col class="col-md-6">
                         <b-form @reset="onReset">
-                            <b-form-group id="input-group-1" label="What type of problem would you like to submit?" label-for="input-3">
-                                <multiselect
-                                        v-model="problem.topics_id"
-                                        placeholder="Pick a value"
-                                        label="name"
-                                        track-by="id"
-                                        :options="types"
-                                        :multiple="false"
-                                        :searchable="false"
-                                        :close-on-select="true"
-                                        required
-                                >
-                                </multiselect>
-                            </b-form-group>
                             <b-form-group id="input-group-2" label="Problem Title:" label-for="input-1">
                                 <b-form-input
                                         id="input-1"
@@ -86,32 +72,19 @@
 
 <script>
     import { VueEditor } from "vue2-editor"
+    import { mapState } from 'vuex'
     import Multiselect from "vue-multiselect"
     import axios from "axios"
-    import { mapState } from 'vuex'
 
     export default {
         data() {
             return {
-                types: [],
                 tags: [],
-                customToolbar: [
-                    [{ header: [2, 3, 4, false] }],
-                    ["bold", "italic", "underline"],
-                    [{ list: "ordered" }, { list: "bullet" }],
-                    ["code-block"],
-                ]
             }
         },
         mounted() {
-            const type = axios.get("http://localhost:3000/types");
             const tag = axios.get("http://localhost:3000/tags");
-            axios.all([type, tag]).then(axios.spread((...responses) => {
-                const rtype = responses[0];
-                const rtag = responses[1];
-                this.types = rtype.data;
-                this.tags = rtag.data
-            }))
+            tag.then(response => (this.tags = response.data));
         },
         methods: {
             goNext() {
@@ -120,14 +93,15 @@
             onReset(evt) {
                 evt.preventDefault();
                 this.problem.title = '';
-                this.problem.topics = null;
                 this.problem.body = '';
                 this.problem.image = null;
+                this.problem.topics_id = null
             }
         },
         computed: {
             ...mapState ({
-                problem: state => state.submit.form.problem
+                problem: state => state.submit.form.problem,
+                customToolbar: state => state.submit.editor
             }),
             validation() {
                 return (this.problem.title.length > 4)

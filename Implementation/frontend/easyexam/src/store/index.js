@@ -13,6 +13,7 @@ export default new Vuex.Store({
       form: {
         problem: {
           title: '',
+          type: '',
           body: '',
           topics_id: [
           ],
@@ -20,9 +21,31 @@ export default new Vuex.Store({
         },
         solution: {
           description: '',
-          image: null
+          alternatives: [
+            {
+              id: 1,
+              body: "Lorem Ipsum",
+              value: true
+            }
+
+          ],
+          image: null,
+          alt_body: '',
+          alt_value: null,
         }
-      }
+      },
+      types: [
+        { id: 1, name: "Multiple Choice"},
+        { id: 2, name: "True or False"},
+        { id: 3, name: "Short Answer"},
+        { id: 4, name: "Long Answer"}
+      ],
+      editor: [
+        [{ header: [2, 3, 4, false] }],
+        ["bold", "italic", "underline"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["code-block"],
+    ]
     }
 
   },
@@ -34,6 +57,15 @@ export default new Vuex.Store({
     updateViewBack () {
       this.state.submit.show.problem = true;
       this.state.submit.show.solution = false;
+    },
+    createAlternative (state){
+      state.submit.form.solution.alternatives.push({
+        id: + new Date(),
+        body: state.submit.form.solution.alt_body,
+        value: state.submit.form.solution.alt_value
+      });
+      state.submit.form.solution.alt_body = '';
+      state.submit.form.solution.alt_value = '';
     }
   },
   actions: {

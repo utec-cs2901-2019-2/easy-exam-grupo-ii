@@ -6,6 +6,20 @@
                 <b-row>
                     <b-col class="col-md-6">
                         <b-form @submit="onSubmit" @reset="onReset">
+                            <b-form-group id="input-group-1" label="What type of problem would you like to submit?" label-for="input-3">
+                                <multiselect
+                                        v-model="problem.type"
+                                        placeholder="Pick a value"
+                                        label="name"
+                                        track-by="id"
+                                        :options="types"
+                                        :multiple="false"
+                                        :searchable="false"
+                                        :close-on-select="true"
+                                        required
+                                >
+                                </multiselect>
+                            </b-form-group>
                             <b-form-group id="input-group-2" label="Problem Solution" label-for="input-2">
                                 <vue-editor
                                         v-model="solution.description"
@@ -15,6 +29,21 @@
                                         required
                                 >
                                 </vue-editor>
+                                <b-input-group class="mt-3">
+                                    <b-form-input v-model="solution.alt_body"></b-form-input>
+                                    <b-form-input v-model="solution.alt_value"></b-form-input>
+                                    <b-button variant="outline-secondary" @click ="createAlternative">Add</b-button>
+                                </b-input-group>
+                                <b-table caption-top :items="solution.alternatives" :fields="fields">
+                                    <template v-slot:cell(value)="row">
+                                        <b-button size="sm" class="mr-1">
+                                            <mdb-icon far icon="trash-alt" />
+                                        </b-button>
+                                        <b-button size="sm">
+                                            {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
+                                        </b-button>
+                                    </template>
+                                </b-table>
                             </b-form-group>
                             <b-form-group id = "input-group-img" label="Select an image (optional)">
                                 <b-form-file
@@ -45,26 +74,28 @@
 
 <script>
     import { VueEditor } from "vue2-editor"
-    import { mapState } from 'vuex'
+    import { mapState, mapMutations } from 'vuex'
     import axios from "axios"
+    import Multiselect from "vue-multiselect"
     export default {
         name: "Solution",
         data() {
             return {
-                customToolbar: [
-                    [{ header: [2, 3, 4, false] }],
-                    ["bold", "italic", "underline"],
-                    [{ list: "ordered" }, { list: "bullet" }],
-                    ["code-block"],
-                ]
+                tags: [],
+                fields: [
+                    {key:'body', label: 'Alternative'},
+                    {key:'value', label: 'Correct'}
+                ],
+
             }
         },
         methods: {
             onSubmit(evt) {
                 evt.preventDefault();
                 const p_post = axios.post("http://localhost:3000/problem", {
-                    id: 3,
+                    id: new Date(),
                     title: this.problem.title,
+                    type: this.problem.type,
                     body: this.problem.body,
                     topics: this.problem.topics_id,
                     rutaImage: this.problem.image,
@@ -86,16 +117,26 @@
             },
             goBack () {
                 this.$store.commit('updateViewBack')
-            }
+            },
+            ...mapMutations([
+                'createAlternative'
+            ])
+        },
+        mounted() {
+            const tag = axios.get("http://localhost:3000/tags");
+            tag.then(response => (this.tags = response.data));
         },
         computed: {
             ...mapState ({
                 problem: state => state.submit.form.problem,
-                solution: state => state.submit.form.solution
-            }),
+                solution: state => state.submit.form.solution,
+                types: state => state.submit.types,
+                customToolbar: state => state.submit.editor
+            })
         },
         components: {
-            VueEditor
+            VueEditor,
+            Multiselect
         },
     }
 </script>
