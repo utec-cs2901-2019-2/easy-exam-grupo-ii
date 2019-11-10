@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
@@ -20,14 +20,14 @@ const routes = [
     component: () => import('../views/AccountMag/Register.vue')
   },
   {
-    path: '/recover',
-    name: 'recover',
-    component: () => import('../views/AccountMag/Recover.vue')
+    path: '/forgot-password',
+    name: 'forgot-password',
+    component: () => import('../views/ForgotPassword.vue')
   },
   {
-    path: '/submit',
-    name: 'submit',
-    component: () => import('../views/Submit.vue')
+    path: '/reset-password',
+    name: 'reset-password',
+    component: () => import('../views/ResetPassword.vue')
   },
   {
     path: '/dashboard',
@@ -40,6 +40,6 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
-})
+});
 
 export default router

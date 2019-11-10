@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="users")
-@SequenceGenerator(sequenceName = "seqUsu",name="seq_usu")
+@SequenceGenerator(sequenceName = "seq_usu",name="seq_usu")
 public class User {
 
     @Id
@@ -21,12 +21,11 @@ public class User {
     private Boolean active;
 
     @ManyToOne
-    @JoinColumn(name = "role_id",nullable = false)
+    @JoinColumn(name = "role_id",nullable = true) // false
     private Role role;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Teacher teacher;
-
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Admin admin;
@@ -38,6 +37,10 @@ public class User {
         this.password = password;
         this.active = active;
         this.role = role;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     public Role getRole() {
@@ -70,5 +73,23 @@ public class User {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        teacher.setUser(this);
+        this.teacher = teacher;
+    }
+
+    public Teacher getTeacher() {
+        return this.teacher;
+    }
+    
+    public void setAdmin(Admin admin) {
+        admin.setUser(this);
+        this.admin = admin;
+    }
+
+    public Admin getAdmin() {
+        return this.admin;
     }
 }
