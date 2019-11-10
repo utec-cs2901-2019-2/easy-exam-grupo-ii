@@ -24,47 +24,67 @@
             <b-card no-body class="text-center" style="height:250px; margin-top:10px; position : relative; overflow-y : scroll">
                 <p>{{modal_desProblem}}</p>
             </b-card>
-
-            <b-card style="width : 95%; height: 300px">
-                <b-row>
-                    <b-col cols = "10" vertical-align>
-                        <b-row>
-                            <b-button>
-                                Comments
-                            </b-button>
-                        </b-row>
-                        
-                        <ul class="list-unstyled">
-                            <b-media tag="li" style="margin : 10px">
-                                <b-button disabled>
-                                    comment 1
-                                </b-button>
-                            </b-media>
-                            <b-media tag="li" style="margin : 10px">
-                                <b-button disabled>
-                                    comment 1
-                                </b-button>
-                            </b-media>
-                            <b-media tag="li" style="margin : 10px">
-                                <b-button disabled>
-                                    comment 1
-                                </b-button>
-                            </b-media>
-                        </ul>
-                    </b-col>
-                    <b-col cols = "2">
-                        <b-button disabled>
-                            Puntuation
+            <br>
+            <br>
+            <b-row align-h="around" style="height: 300px">
+                <b-col cols = "1,5"></b-col>
+                <b-col cols="9">
+                    <b-row>
+                        <b-card bg-variant="secondary" text-variant="white" no-body header="Comments">
+                        </b-card>
+                    </b-row>
+                    
+                    <ul class="list-unstyled" style="width: 90%; height: 200px; position: relative; overflow-y:scroll">
+                        <b-media tag="li" style="margin : 10px">
+                            <b-card title="Author">
+                                <b-card-text>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+                                </b-card-text>
+                            </b-card>
+                        </b-media>
+                        <b-media tag="li" style="margin : 10px; width: 90%">
+                            <b-card title="Author">
+                                <b-card-text>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+                                </b-card-text>
+                            </b-card>
+                        </b-media>
+                        <b-media tag="li" style="margin : 10px; width: 90%">
+                            <b-card title="Author">
+                                <b-card-text>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+                                </b-card-text>
+                            </b-card>
+                        </b-media>
+                    </ul>
+                </b-col>
+                <b-col cols="2">
+                    <b-row class="justify-content-md-center">
+                        <b-col>
+                        <b-button variant="info" style="font-size:large">
+                            <b style="margin-left: 10px; margin-right: 10px">Score</b>
                         </b-button>
-                        <p>18 users</p>
-                    </b-col>
-                </b-row>
-            </b-card>
+                        </b-col>
+                    </b-row>
+                    <br>
+                    <b-row align-h="center">
+                        <b-col cols="1"></b-col>
+                        <b-col >
+                        <b-button variant="success" style="width : 60px; height: 60px; font-size : x-large">
+                            <b-card-text>4</b-card-text>
+                        </b-button>
+                        </b-col>
+                    </b-row>
+                    <br>
+                    <p>18 users</p>
+                </b-col>
+            </b-row>
+            
 
             <template v-slot:modal-footer>
                 <b-row style="width : 100%">
                     <b-col cols = "3">
-                    <b-button variant="outline-info" @click="show=false">Get Solution</b-button>
+                    <b-button variant="outline-info" @click="hideModalProblem">Get Solution</b-button>
                     </b-col>
                     <b-col cols = "3">
                     <b-button variant="outline-info" @click="show=false">Comments</b-button>
@@ -89,15 +109,18 @@
                             <b-button block href="#" v-b-toggle.accordion-1 variant="info">Subjects</b-button>
                         </b-card-header>
                         <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
-                            <b-card-body>
+                            <b-card-body style="height : 400px; position:relative; overflow-y:scroll">
                                 <b-list-group>
                                     <b-list-group-item v-for="(sub, index) of getSubjects" v-bind:key="index" style="padding:0px" > 
                                         <b-button :pressed.sync=sub.state v-if="sub.state== true" @click="selectSubject(sub.name)" variant="light" style="border:0px; width:100%; heigth: 100%">
                                         {{sub.name}}
                                         </b-button>
-                                        <b-button :pressed.sync=sub.state v-else @click="selectSubject(sub.name)" variant="light" style="border:0px; width:100%; heigth: 100%">
-                                        {{sub.name}}
-                                        <b-badge variant="primary" pill>X</b-badge>
+                                        <b-button :pressed.sync=sub.state v-else @click="selectSubject(sub.name)" variant="light" style="border:0px; width:100%; heigth: 100%" align-h="between">
+                                        
+                                        <b-row align-h="between">
+                                            <b-col cols="9">{{sub.name}}</b-col>
+                                            <b-col cols="3"><b-badge variant="primary" pill>X</b-badge></b-col>
+                                        </b-row>
                                         </b-button>
                                     </b-list-group-item>
                                 </b-list-group>
@@ -112,10 +135,15 @@
                         <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
                             <b-card-body>
                             <b-list-group>
-                                <b-list-group-item v-for="(ty, index) of types" v-bind:key = "index" href="#" variant="info">{{ty}}</b-list-group-item>
+                                <b-list-group-item v-for="(ty, index) of types" v-bind:key = "index" href="#" variant="info" @click="selectType (index)" >{{ty}}</b-list-group-item>
                             </b-list-group>
                             </b-card-body>
                         </b-collapse>
+                    </b-card>
+                    <br>
+                    <b-card class = "text-center">
+                        <p>Créditos</p>
+                        <h1> <b>{{creditos}}</b> </h1>
                     </b-card>
                 </div>
             </b-col>
@@ -131,7 +159,7 @@
                     </template>
 
                     <b-card-body style="position:relative; height:700px; overflow-y:scroll;">
-                        <div role="tablist">
+                        <div role="tablist" v-if="creditos>0" >
                             <b-card style = "margin:20px; background: #d4d4d4" class="mb-1" v-for="(problem, index) of filtrar" v-bind:key = "index">
                                 <b-card-title><b>{{problem.name}}</b></b-card-title>
                                 <b-row>
@@ -163,6 +191,11 @@
                                 <b-button style="margin-top : 10px" href="#" pill variant="light" @click="showModalProblem (problem.id)">Go problem</b-button>
                             </b-card>
                         </div>
+                            <b-row v-else align-v="center" style="height : 100%">
+                                <b-col class="text-center" style="font-size:3rem"><b>
+                                    Sorry you don't have enough credits...</b>
+                                </b-col>
+                            </b-row>
                     </b-card-body>
                 </b-card>
 
@@ -179,6 +212,8 @@
 import json from '/home/juan/Documentos/Software/easy-exam-grupo-ii/Implementation/frontend/easyexam/src/views/information.json'
 export default {
     data :  () => ({
+
+            creditos : 3,
 
             filtrarAvailable : true,
 
@@ -208,7 +243,8 @@ export default {
                         {'name' : 'Algorithms', 'state' : true},
                         {'name' : 'Maths', 'state' :true}],
 
-            types : {'SA' : 'Short Answer', 'LA' : 'Long Answer', 'MC' : 'Multiple Choice', 'TF': 'True or False'}
+            types : {'SA' : 'Short Answer', 'LA' : 'Long Answer', 'MC' : 'Multiple Choice', 'TF': 'True or False'},
+            typeSelected : ''
         
     }),
 
@@ -227,8 +263,12 @@ export default {
             this.modal_selectProblem = this.infoproblems [index]
             
             this.$refs['modal-problem'].show()
-            console.log(index)
       },
+
+        hideModalProblem() {
+            this.creditos -= 1;
+            this.$refs['modal-problem'].hide()
+        },
 
         selectSubject (Subject) {
             let intFind = this.selectedSubjects.indexOf(Subject.toLowerCase())
@@ -237,19 +277,22 @@ export default {
             }
             else{
                 this.selectedSubjects.push (Subject.toLowerCase())
-                console.log(Subject.toLowerCase())
             }
-            console.log("start")
-            for (let ip in this.selectedSubjects){
-                console.log(this.selectedSubjects[ip])
-            }
-            /*
-            if (this.subjectToSearch === ''){
-                this.subjectToSearch = Subject
-            }
-            else{
-                this.subjectToSearch = ''
-            }*/
+        },
+
+        selectType (Type) {
+            if (this.typeSelected === Type)
+                this.typeSelected = ''
+            else
+                this.typeSelected = Type
+        },
+
+        writeFile () {
+            const fs = require ('fs')
+            fs.appendFile('mynewfile1.txt', 'Hello content!', function (err) {
+  if (err) throw err;
+  console.log('Saved!');
+});
         }
 
     },
@@ -257,7 +300,6 @@ export default {
     computed : {
         filtrar : function () {
             let res = []
-            
                 let id = 0
                 for (let problem of this.infoproblems) {
                     problem["id"] = id
@@ -266,14 +308,16 @@ export default {
                     {
                         if (this.keyToSearch === '')
                             {
-                                res.push (problem)
+                                if (this.typeSelected === '' || this.typeSelected === problem.type)
+                                        res.push (problem)
                             }
-                            else
+                        else
                             {
                                 let stringToSearch = problem.tags.toString().concat (" ", problem.description, " ", problem.name).toLowerCase ()
                                 if (stringToSearch.includes (this.keyToSearch.toLowerCase()))
                                 {
-                                    res.push (problem)
+                                    if (this.typeSelected === '' || this.typeSelected === problem.type)
+                                        res.push (problem)
                                 }
                             }
                     }
@@ -283,35 +327,21 @@ export default {
                         {
                             if (this.keyToSearch === '')
                             {
-                                res.push (problem)
+                                if (this.typeSelected === '' || this.typeSelected === problem.type)
+                                        res.push (problem)
                             }
                             else
                             {
                                 let stringToSearch = problem.tags.toString().concat (" ", problem.description, " ", problem.name).toLowerCase ()
                                 if (stringToSearch.includes (this.keyToSearch.toLowerCase()))
                                 {
-                                    res.push (problem)
+                                    if (this.typeSelected === '' || this.typeSelected === problem.type)
+                                        res.push (problem)
                                 }
                             }
                         }
                     }
-                    /*
-                    if (problem.tags.toString().toLowerCase().includes(this.subjectToSearch.toLowerCase()) ) {
-                        res.push (problem)
-                    }*/
                 }
-            /*
-            else {
-                    let id = 0
-                    for (let problem of this.infoproblems) {
-                        problem["id"] = id
-                        id = id + 1
-                        let stringToSearch = problem.tags.toString().concat (" ", problem.description, " ", problem.name).toLowerCase()
-                        if (stringToSearch.includes (this.keyToSearch.toLowerCase()) && stringToSearch.includes(this.subjectToSearch.toLowerCase()) ) {
-                            res.push (problem)
-                        }
-                    }
-            }*/
 
             return res
         },
@@ -328,6 +358,13 @@ export default {
             {
                 finalSubjects.push ({'name' : tTag.charAt(0).toUpperCase() + tTag.slice(1), 'state' : true})
             }
+            finalSubjects.sort(function(a, b){
+                if (a.name > b.name)
+                return 1
+                if (a.name < b.name)
+                return -1
+                return 0
+            })
             return finalSubjects
         }
     }
