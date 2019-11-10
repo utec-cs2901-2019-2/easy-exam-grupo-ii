@@ -19,9 +19,15 @@ public class ProblemServiceImpl implements IProblemService {
 
     @Autowired
     IProblemSubmittedRepo problemSubmittedRepo;
-    
+
+    @Override
     public List<Problem> getAllProblems(){
         return problemRepo.findAll();
+    }
+
+    @Override
+    public String jsonProblems(){
+        return problemRepo.findCustom();
     }
 
 }

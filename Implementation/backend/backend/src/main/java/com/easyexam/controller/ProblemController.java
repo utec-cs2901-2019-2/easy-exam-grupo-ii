@@ -33,7 +33,21 @@ public class ProblemController {
     @Autowired
     private IProblemService problemService;
 
-    problemService.getAllProblems();
+
+    @Override
+    public void probFetcher() throws Exception{
+        List<Problem> problems = problemService.getAllProblems();
+        problems.forEach(problem->problem.toString());
+    }
+
+    @Override
+    public void jsonifyProblems() throws Exception{
+        problemService.jsonProblems();
+    }
+
+    jsonifyProblems();
+
+
 
 
 }
