@@ -39,6 +39,11 @@ const routes = [
     name: 'generate',
     component: () => import('../views/Generate.vue')
   },
+  {
+    path: '/submit',
+    name: 'submit',
+    component: () => import('../views/Submit.vue')
+  }
 ];
 
 const router = new VueRouter({

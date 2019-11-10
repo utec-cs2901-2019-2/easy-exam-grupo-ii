@@ -1,6 +1,7 @@
 package com.easyexam.service;
 
 import com.easyexam.model.Problem;
+<<<<<<< HEAD
 import com.easyexam.repository.IProblemRepo;
 import com.easyexam.service.IProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,4 +21,17 @@ public interface IProblemService {
     List<Problem> getAllProblems();
 
     String jsonProblems();
+=======
+import com.easyexam.model.aux.ProblemCompleted;
+
+import java.util.List;
+
+public interface IProblemService {
+
+    Boolean save(ProblemCompleted p);
+
+    List<Problem> getAllProblems();
+
+    List<Problem> getAllProblemsByUsers(int idUser);
+>>>>>>> origin/develop
 }

@@ -25,7 +25,7 @@
                                         accept="image/jpeg, image/png, image/gif"
                                 ></b-form-file>
                             </b-form-group>
-                            <b-button variant="success" class = "m-2 float-left">Back</b-button>
+                            <b-button variant="success" on-clik class = "m-2 float-left" @click = "goBack" >Back</b-button>
                             <b-button type="submit" variant = "primary" class = "m-2 float-right">Submit</b-button>
                             <b-button type="reset" variant = "danger" class="m-2 float-left" >Reset</b-button>
                         </b-form>
@@ -45,14 +45,12 @@
 
 <script>
     import { VueEditor } from "vue2-editor"
+    import { mapState } from 'vuex'
+    import axios from "axios"
     export default {
         name: "Solution",
         data() {
             return {
-                solution: {
-                    description: '',
-                    image: null
-                },
                 customToolbar: [
                     [{ header: [2, 3, 4, false] }],
                     ["bold", "italic", "underline"],
@@ -64,12 +62,37 @@
         methods: {
             onSubmit(evt) {
                 evt.preventDefault();
-                console.log(this.solution);
+                const p_post = axios.post("http://localhost:3000/problem", {
+                    id: 3,
+                    title: this.problem.title,
+                    body: this.problem.body,
+                    topics: this.problem.topics_id,
+                    rutaImage: this.problem.image,
+                    descriptionSolution: this.solution.description,
+                    pathImageSolution: this.solution.image
+                });
+                p_post.then(resp => {
+                    console.log(resp.data)
+                });
+                p_post.catch(error => {
+                    console.log(error)
+                });
+                this.$store.commit('updateViewNext')
+
             },
             onReset(evt) {
                 evt.preventDefault();
                 this.solution.description = '';
+            },
+            goBack () {
+                this.$store.commit('updateViewBack')
             }
+        },
+        computed: {
+            ...mapState ({
+                problem: state => state.submit.form.problem,
+                solution: state => state.submit.form.solution
+            }),
         },
         components: {
             VueEditor

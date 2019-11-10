@@ -49,7 +49,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().
                 authorizeRequests()
+<<<<<<< HEAD
                 .antMatchers("api/probFetcher", "/api/v1/login*", "/api/v1/register", "/api/v1/forgot-password", "/api/v1/reset-password**").permitAll()
+=======
+                .antMatchers("/api/v1/login*", "/api/v1/register", "/api/v1/forgot-password","/problem/v1/**","/api/v1/reset-password**").permitAll()
+>>>>>>> origin/develop
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
