@@ -35,24 +35,11 @@
                     </b-row>
                     
                     <ul class="list-unstyled" style="width: 90%; height: 200px; position: relative; overflow-y:scroll">
-                        <b-media tag="li" style="margin : 10px">
-                            <b-card title="Author">
+                        <b-media v-for="(com, key) of commentsInfo" v-bind:key = "key" tag="li" style="margin : 10px; width: 90%" >
+                            <b-card>
+                                <h4>{{com.author}}</h4>
                                 <b-card-text>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-                                </b-card-text>
-                            </b-card>
-                        </b-media>
-                        <b-media tag="li" style="margin : 10px; width: 90%">
-                            <b-card title="Author">
-                                <b-card-text>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-                                </b-card-text>
-                            </b-card>
-                        </b-media>
-                        <b-media tag="li" style="margin : 10px; width: 90%">
-                            <b-card title="Author">
-                                <b-card-text>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+                                    {{com.text}}
                                 </b-card-text>
                             </b-card>
                         </b-media>
@@ -87,7 +74,7 @@
                     <b-button variant="outline-info" @click="hideModalProblem">Get Solution</b-button>
                     </b-col>
                     <b-col cols = "3">
-                    <b-button variant="outline-info" @click="show=false">Comments</b-button>
+                    <b-button variant="outline-info" @click="showComment()">Comments</b-button>
                     </b-col>
                     <b-col cols = "3">
                     <b-button variant="outline-danger" @click="show=false">Report</b-button>
@@ -99,6 +86,27 @@
             </template>
 
 
+        </b-modal>
+
+        <b-modal ref="ModalComment" title="New Comment" hide-footer>
+            <b-form @submit="onSubmit" @reset="onReset" >
+                <b-form-group
+                    id="input-group-1"
+                    label="Write your new comment:"
+                    label-for="input-1"
+                >
+                    <b-form-textarea
+                    id="textarea-state"
+                    v-model="newcomment"
+                    :state="newcomment.length <= 500"
+                    placeholder="Enter a maximun of 500 characters"
+                    rows="5"
+                    ></b-form-textarea>
+
+                </b-form-group>
+                    <b-button type="submit" variant="primary">Submit</b-button>
+                    <b-button type="reset" variant="danger">Reset</b-button>
+            </b-form>
         </b-modal>
 
         <b-row class="justify-content-center" style="margin:0">
@@ -213,6 +221,10 @@ import json from './information.json'
 export default {
     data :  () => ({
 
+            newcomment : '',
+
+            actualUser : 'GiordanoLover777',
+
             creditos : 3,
 
             filtrarAvailable : true,
@@ -244,11 +256,30 @@ export default {
                         {'name' : 'Maths', 'state' :true}],
 
             types : {'SA' : 'Short Answer', 'LA' : 'Long Answer', 'MC' : 'Multiple Choice', 'TF': 'True or False'},
-            typeSelected : ''
+            typeSelected : '',
+
+            commentsInfo : [
+                {'author' : 'Batman', 'text' : 'me parece bien'},
+                {'author' : 'Gio', 'text' : 'se puede mejorar'},
+                {'author' : 'Carlitos', 'text' : 'durmiendo'}
+            ]
         
     }),
 
     methods: {
+        showComment (){
+            this.$refs['ModalComment'].show()
+        },
+        onSubmit(evt) {
+            evt.preventDefault()
+            this.commentsInfo.push({'author' : this.actualUser, 'text' : this.newcomment})
+            this.$refs['ModalComment'].hide()
+        },
+        onReset(evt) {
+            evt.preventDefault()
+            
+            this.$refs['ModalComment'].hide()
+        },
         imprimir : function() {
             for (let problem of this.infoproblems){
                 let stringToSearch = problem.tags.toString().concat (" ", problem.description, " ", problem.name).toLowerCase()
@@ -263,7 +294,7 @@ export default {
             this.modal_selectProblem = this.infoproblems [index]
             
             this.$refs['modal-problem'].show()
-      },
+        },
 
         hideModalProblem() {
             this.creditos -= 1;
