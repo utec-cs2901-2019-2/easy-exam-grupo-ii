@@ -5,6 +5,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    nombre:'',
+    problemsSelected : [],
     submit: {
       show: {
         problem: true,
