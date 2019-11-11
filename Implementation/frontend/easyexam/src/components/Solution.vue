@@ -126,7 +126,7 @@
             }
         },
         mounted() {
-            const tag = axios.get("http://localhost:3000/tags");
+            const tag = axios.get("http://localhost:9898/topics/v1/topics/getTopics");
             tag.then(response => (this.tags = response.data));
         },
         computed: {
