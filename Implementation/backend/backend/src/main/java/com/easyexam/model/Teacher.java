@@ -20,13 +20,13 @@ public class Teacher {
     private String institution;
 
     @Column(name="country")
-    private int country;
+    private String country;
 
     @Column(name="date_birth")
     private Date date_birth;
 
     @Column(name="gender")
-    private int gender;
+    private String gender;
 
     @Column(name="bonus")
     private int bonus;
@@ -43,14 +43,14 @@ public class Teacher {
 
     public Teacher() { }
 
-    public Teacher(String firstName, String lastName, int country, Date date_birth) {
+    public Teacher(String firstName, String lastName, String country, Date date_birth) {
         this.firstname = firstName;
         this.lastname = lastName;
         this.country = country;
         this.date_birth = date_birth;
     }
 
-    public Teacher(String firstname, String lastname, String institution, int country, Date date_birth, int gender, int bonus, int defaultTemplate, int alerts) {
+    public Teacher(String firstname, String lastname, String institution, String country, Date date_birth, String gender, int bonus, int defaultTemplate, int alerts) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.institution = institution;
@@ -94,11 +94,11 @@ public class Teacher {
         this.institution = institution;
     }
 
-    public int getCountry() {
+    public String getCountry() {
         return country;
     }
 
-    public void setCountry(int country) {
+    public void setCountry(String country) {
         this.country = country;
     }
 
@@ -110,11 +110,11 @@ public class Teacher {
         this.date_birth = date_birth;
     }
 
-    public int getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
