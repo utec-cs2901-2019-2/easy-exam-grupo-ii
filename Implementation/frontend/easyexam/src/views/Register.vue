@@ -9,22 +9,28 @@
                         <h4 class="card-title mt-2">Sign up</h4>
                     </header>
                     <article class="card-body">
-                        <form action="" @submit="loadpost">
+                        <b-alert v-model="emailCheck" variant="danger" dismissible>
+                            User already register
+                        </b-alert>
+                        <b-form @submit.prevent="loadpost">
                             <label>Name</label>
                             <div class="form-row">
                                 <div class="col form-group">
-                                    <input v-model="firstName" type="text" class="form-control" placeholder="First Name">
+                                    <input v-model="firstName" type="text" class="form-control" placeholder="First Name" :class="{ 'is-invalid': submitted && !firstName }">
+                                    <div v-show="submitted && !firstName" class="invalid-feedback">First Name is required</div>
                                 </div>
 
                                 <div class="col form-group">
-                                    <input v-model="lastName" type="text" class="form-control" placeholder="Last Name">
+                                    <input v-model="lastName" type="text" class="form-control" placeholder="Last Name" :class="{ 'is-invalid': submitted && !lastName }">
+                                    <div v-show="submitted && !lastName" class="invalid-feedback">Last Name is required</div>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label>Email address</label>
-                                <input v-model="email" type="email" class="form-control" placeholder="University / job email address, e.g.name@utec.edu">
+                                <input @keyup="emailCheck = false" v-model="email" type="email" class="form-control" placeholder="University / job email address, e.g.name@utec.edu" :class="{ 'is-invalid': submitted && !email }">
                                 <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                <div v-show="submitted && !email" class="invalid-feedback">Email is required</div>
                             </div>
 
 
@@ -32,31 +38,47 @@
 
                                 <div class = "form-group col-md-6">
                                     <label> Institution </label>
-                                    <input v-model="institution" type="text" class = "form-control" placeholder="University / job name">
+                                    <input v-model="institution" type="text" class = "form-control" placeholder="University / job name" :class="{ 'is-invalid': submitted && !institution }">
+                                    <div v-show="submitted && !institution" class="invalid-feedback">Institution is required</div>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label>Country / region</label>
-                                    <select id="inputState" class="form-control">
-                                        <option> Choose...</option>
-                                    </select>
-
+                                     <b-form-select
+                                    v-model="country"
+                                    :options="countries"
+                                    required
+                                    ></b-form-select>
                                 </div>
                             </div>
                             
-                            <div class="form-group">
-                                <label>Birthdate</label>
-                                <b-form-input v-model = 'birthdate' type="date"></b-form-input>
+                            <div class="form-row">
+                                <div class = "form-group col-md-6">
+                                    <label>Date of Birth</label>
+                                    <b-form-input v-model = 'birthdate' type="date" :class="{ 'is-invalid': submitted && !birthdate }" v-validate="'required'"></b-form-input>
+                                    <div v-show="submitted && !birthdate" class="invalid-feedback">Date of birth is required</div>
+                                </div>
+                                
+                                <div class="form-group col-md-6">
+                                    <label>Gender</label>
+                                     <b-form-select
+                                    v-model="gender"
+                                    :options="genders"
+                                    required
+                                    ></b-form-select>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
-                                <input v-model="password" class="form-control" type="password" placeholder="New Password">
+                                <input v-model="password" class="form-control" type="password" placeholder="New Password" :class="{ 'is-invalid': submitted && !password }">
+                                <div v-show="submitted && !password" class="invalid-feedback">Password is required</div>
                             </div>
 
                             <div class="form-group">
                                 <label>Confirm Password</label>
-                                <input class="form-control" type="password" placeholder="Retype your password">
-                            </div> <!-- form-group end.// -->
+                                <input @keyup ="validatePassword" v-model="confirm_password" class="form-control" type="password" placeholder="Retype your password" :class="{ 'is-invalid': submitted && !confirm_password || passwordCheck}">
+                                <div v-show="submitted && !confirm_password || passwordCheck" class="invalid-feedback">Password not match</div>
+                            </div>
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-block"> Register  </button>
@@ -64,53 +86,338 @@
 
                             <small class="text-muted">By clicking the 'Sign Up' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>
 
-                        </form>
-                    </article> <!-- card-body end .// -->
+                        </b-form>
+                    </article>
 
                     <div class="border-top card-body text-center">Have an account? <a href="/login">Log In</a></div>
-                </div> <!-- card.// -->
-
-            </div> <!-- col.//-->
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Vue from 'vue'
+import vueCountryRegionSelect from 'vue-country-region-select'
+Vue.use(vueCountryRegionSelect)
+
 export default {
   name: 'register',
   components: {
   },
   data(){
       return{
+          submitted: false,
           firstName: '',
           lastName: '',
           email: '',
           password: '',
+          confirm_password: '',
           institution: '',
           gender:'',
-          birthdate: ''
+          birthdate: '',
+          country: '',
+          passwordCheck: false,
+          emailCheck: false,
+          genders: [ "Female", "Male", "Other"],
+          countries: [
+            "Afghanistan",
+            "Åland Islands",
+            "Albania",
+            "Algeria",
+            "American Samoa",
+            "Andorra",
+            "Angola",
+            "Anguilla",
+            "Antarctica",
+            "Antigua and Barbuda",
+            "Argentina",
+            "Armenia",
+            "Aruba",
+            "Australia",
+            "Austria",
+            "Azerbaijan",
+            "Bahamas",
+            "Bahrain",
+            "Bangladesh",
+            "Barbados",
+            "Belarus",
+            "Belgium",
+            "Belize",
+            "Benin",
+            "Bermuda",
+            "Bhutan",
+            "Bolivia, Plurinational State of",
+            "Bonaire, Sint Eustatius and Saba",
+            "Bosnia and Herzegovina",
+            "Botswana",
+            "Bouvet Island",
+            "Brazil",
+            "British Indian Ocean Territory",
+            "Brunei Darussalam",
+            "Bulgaria",
+            "Burkina Faso",
+            "Burundi",
+            "Cambodia",
+            "Cameroon",
+            "Canada",
+            "Cape Verde",
+            "Cayman Islands",
+            "Central African Republic",
+            "Chad",
+            "Chile",
+            "China",
+            "Christmas Island",
+            "Cocos (Keeling) Islands",
+            "Colombia",
+            "Comoros",
+            "Congo",
+            "Congo, the Democratic Republic of the",
+            "Cook Islands",
+            "Costa Rica",
+            "Côte d'Ivoire",
+            "Croatia",
+            "Cuba",
+            "Curaçao",
+            "Cyprus",
+            "Czech Republic",
+            "Denmark",
+            "Djibouti",
+            "Dominica",
+            "Dominican Republic",
+            "Ecuador",
+            "Egypt",
+            "El Salvador",
+            "Equatorial Guinea",
+            "Eritrea",
+            "Estonia",
+            "Ethiopia",
+            "Falkland Islands (Malvinas)",
+            "Faroe Islands",
+            "Fiji",
+            "Finland",
+            "France",
+            "French Guiana",
+            "French Polynesia",
+            "French Southern Territories",
+            "Gabon",
+            "Gambia",
+            "Georgia",
+            "Germany",
+            "Ghana",
+            "Gibraltar",
+            "Greece",
+            "Greenland",
+            "Grenada",
+            "Guadeloupe",
+            "Guam",
+            "Guatemala",
+            "Guernsey",
+            "Guinea",
+            "Guinea-Bissau",
+            "Guyana",
+            "Haiti",
+            "Heard Island and McDonald Islands",
+            "Holy See (Vatican City State)",
+            "Honduras",
+            "Hong Kong",
+            "Hungary",
+            "Iceland",
+            "India",
+            "Indonesia",
+            "Iran, Islamic Republic of",
+            "Iraq",
+            "Ireland",
+            "Isle of Man",
+            "Israel",
+            "Italy",
+            "Jamaica",
+            "Japan",
+            "Jersey",
+            "Jordan",
+            "Kazakhstan",
+            "Kenya",
+            "Kiribati",
+            "Korea, Democratic People's Republic of",
+            "Korea, Republic of",
+            "Kuwait",
+            "Kyrgyzstan",
+            "Lao People's Democratic Republic",
+            "Latvia",
+            "Lebanon",
+            "Lesotho",
+            "Liberia",
+            "Libya",
+            "Liechtenstein",
+            "Lithuania",
+            "Luxembourg",
+            "Macao",
+            "Macedonia, the Former Yugoslav Republic of",
+            "Madagascar",
+            "Malawi",
+            "Malaysia",
+            "Maldives",
+            "Mali",
+            "Malta",
+            "Marshall Islands",
+            "Martinique",
+            "Mauritania",
+            "Mauritius",
+            "Mayotte",
+            "Mexico",
+            "Micronesia, Federated States of",
+            "Moldova, Republic of",
+            "Monaco",
+            "Mongolia",
+            "Montenegro",
+            "Montserrat",
+            "Morocco",
+            "Mozambique",
+            "Myanmar",
+            "Namibia",
+            "Nauru",
+            "Nepal",
+            "Netherlands",
+            "New Caledonia",
+            "New Zealand",
+            "Nicaragua",
+            "Niger",
+            "Nigeria",
+            "Niue",
+            "Norfolk Island",
+            "Northern Mariana Islands",
+            "Norway",
+            "Oman",
+            "Pakistan",
+            "Palau",
+            "Palestine, State of",
+            "Panama",
+            "Papua New Guinea",
+            "Paraguay",
+            "Peru",
+            "Philippines",
+            "Pitcairn",
+            "Poland",
+            "Portugal",
+            "Puerto Rico",
+            "Qatar",
+            "Réunion",
+            "Romania",
+            "Russian Federation",
+            "Rwanda",
+            "Saint Barthélemy",
+            "Saint Helena, Ascension and Tristan da Cunha",
+            "Saint Kitts and Nevis",
+            "Saint Lucia",
+            "Saint Martin (French part)",
+            "Saint Pierre and Miquelon",
+            "Saint Vincent and the Grenadines",
+            "Samoa",
+            "San Marino",
+            "Sao Tome and Principe",
+            "Saudi Arabia",
+            "Senegal",
+            "Serbia",
+            "Seychelles",
+            "Sierra Leone",
+            "Singapore",
+            "Sint Maarten (Dutch part)",
+            "Slovakia",
+            "Slovenia",
+            "Solomon Islands",
+            "Somalia",
+            "South Africa",
+            "South Georgia and the South Sandwich Islands",
+            "South Sudan",
+            "Spain",
+            "Sri Lanka",
+            "Sudan",
+            "Suriname",
+            "Svalbard and Jan Mayen",
+            "Swaziland",
+            "Sweden",
+            "Switzerland",
+            "Syrian Arab Republic",
+            "Taiwan, Province of China",
+            "Tajikistan",
+            "Tanzania, United Republic of",
+            "Thailand",
+            "Timor-Leste",
+            "Togo",
+            "Tokelau",
+            "Tonga",
+            "Trinidad and Tobago",
+            "Tunisia",
+            "Turkey",
+            "Turkmenistan",
+            "Turks and Caicos Islands",
+            "Tuvalu",
+            "Uganda",
+            "Ukraine",
+            "United Arab Emirates",
+            "United Kingdom",
+            "United States",
+            "United States Minor Outlying Islands",
+            "Uruguay",
+            "Uzbekistan",
+            "Vanuatu",
+            "Venezuela, Bolivarian Republic of",
+            "Viet Nam",
+            "Virgin Islands, British",
+            "Virgin Islands, U.S.",
+            "Wallis and Futuna",
+            "Western Sahara",
+            "Yemen",
+            "Zambia",
+            "Zimbabwe"]
       }
   },
   computed:{
   },
     methods:{
-        loadpost: function () {
-            axios.post('http://localhost:9898/api/v1/register', {
-                firstName:this.firstName,
-                lastName: this.lastName,
-                user : {
-                    email: this.email,
-                    password: this.password
-                },
-                institution: this.institution,
-                gender: this.gender
-            })
-                .then((response) => {
-                    console.log(response);
-                }, (error) => {
-                    console.log(error);
-                })
+        loadpost () {
+            this.submitted = true;
+
+            if (this.firstName && this.lastName && 
+                this.email && this.password && this.confirm_password &&
+                this.password == this.confirm_password &&
+                this.institution && this.gender && this.birthdate && this.country) {
+
+                    axios.post('http://localhost:9898/api/v1/register', {
+                        firstname:this.firstName,
+                        lastname: this.lastName,
+                        country: this.country,
+                        user : {
+                            email: this.email,
+                            password: this.password,
+                            role: {
+                                id:1,
+                                name:''
+                            }
+                        },
+                        institution: this.institution,
+                        gender: this.gender,
+                        date_birth: this.birthdate
+                    })
+                        .then((response) => {
+                            if (response.data.message == "success") {
+                                this.$router.push('/dashboard');
+                            } else {
+                                this.emailCheck = true;
+                                this.email = '';
+                            }
+                        }, (error) => {
+                            console.log(error);
+                        })
+                }
+        },
+        validatePassword () {
+            if (this.password != this.confirm_password) {
+                this.passwordCheck =  true;
+            } else {
+                this.passwordCheck =  false;
+            }
         }
     },
 }

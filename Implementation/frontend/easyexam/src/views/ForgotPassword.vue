@@ -9,18 +9,27 @@
                     <a href="/login" class="float-right btn btn-outline-primary mt-1">Log in</a>
                     <h4 class="card-title mt-2">Recover my account</h4>
                 </header>
+                
                 <article class="card-body">
-                    <form action="" @submit="loadRecover" @submit.prevent="">
+                    <b-alert variant="success" v-model="sended" dismissible>Email sended</b-alert>
+                    <b-alert v-model="emailCheck" variant="danger" dismissible>
+                        User dont register
+                    </b-alert>
+                    <b-form action="" @submit="loadRecover" @submit.prevent="">
                         <div class="form-group">
                             <label>Email</label>
-                            <input v-model="email" type="email" class="form-control" placeholder="University / job email address, e.g.name@utec.edu">
+                            <input @keyup="emailCheck = false" v-model="email" type="email" class="form-control" placeholder="University / job email address, e.g.name@utec.edu"  :class="{ 'is-invalid': submitted && !email }">
+                            <div v-show="submitted && !email" class="invalid-feedback">Email is required</div>
                         </div>
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-block"> Recover my account  </button>
+                            <b-button variant="primary" type="submit" class="btn btn-primary btn-block">
+                                <b-spinner v-show="spinner" small></b-spinner>
+                                 Recover my account
+                            </b-button>
                         </div>
 
-                    </form>
+                    </b-form>
                 </article> <!-- card-body end .// -->
 
             </div> <!-- card.// -->
@@ -40,21 +49,39 @@
         },
         data(){
             return {
-                email: ''
+                email: '',
+                submitted: false,
+                sended: false,
+                emailCheck: false,
+                spinner: false
             }
         },
         computed:{
         },
         methods:{
-            loadRecover: function () {
-                axios.post('http://localhost:9898/api/v1/forgot-password', {
-                    email: this.email,
-                })
-                    .then((response) => {
-                        console.log(response);
-                    }, (error) => {
-                        console.log(error);
-                    })  
+            loadRecover () {
+                this.submitted = true;
+                if (this.email && !this.spinner) {
+                    this.spinner = true;
+                    axios.post('http://localhost:9898/api/v1/forgot-password', {
+                        email: this.email,
+                    })
+                        .then((response) => {
+                            console.log(response.data.message);
+                            if (response.data.message == "success") {
+                                this.sended = true;
+                            }
+                            if (response.data.message == "fail") {
+                                this.emailCheck = true;
+                            }
+                            this.spinner = false;
+                        }, (error) => {
+                            console.log(error);
+                            this.spinner = false;
+                        })
+                    this.email = ""  
+                    this.submitted = false;
+                }
             }
         },
     }
