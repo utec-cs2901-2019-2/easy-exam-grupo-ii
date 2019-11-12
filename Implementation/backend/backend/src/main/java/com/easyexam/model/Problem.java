@@ -15,6 +15,9 @@ public class Problem {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "type")
+    private String type;
+
     @Column(name="body")
     private String body;
 
@@ -29,14 +32,30 @@ public class Problem {
 
     public Problem() { }
 
-    public Problem(String title, String body, String rutaImage, float score, int qualifiers) {
+    public Problem(String title, String type, String body, String rutaImage, float score, int qualifiers) {
         this.title = title;
+        this.type = type;
         this.body = body;
         this.rutaImage = rutaImage;
         this.score = score;
         this.qualifiers = qualifiers;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;

@@ -12,9 +12,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import com.easyexam.model.aux.CommentAndUser;
+
+import javax.validation.constraints.Min;
+import java.util.List;
 
 public interface ICommentService {
-    
-    List<Comment> customQuery();
 
+    List<Comment> getCommentByProblem(int idProblem);
 }

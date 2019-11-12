@@ -33,9 +33,9 @@ public class CommentController {
     @Autowired
     private ICommentService commentService;
 
-    @GetMapping("/comment/customQuery")
-    public List<Comment> returnCustomQuery(){
-        return commentService.customQuery();
+    @GetMapping("/comment/getCommentByProblem")
+    public List<Comment> getCommentByProblem(int idProb){
+        return commentService.getCommentByProblem(idProb);
     }
 
 }

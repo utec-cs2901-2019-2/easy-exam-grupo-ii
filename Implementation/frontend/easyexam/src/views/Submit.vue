@@ -1,34 +1,39 @@
 <template>
-    <div class="container m-4">
-        <Problem v-if="showProb">
+    <div>
+        <Problem v-if="showProblem">
         </Problem>
-        <Solution v-if="showSol" @finished="true">
+        <Solution v-if="showSolution">
         </Solution>
     </div>
 </template>
 <script>
     import Problem from "../components/Problem";
     import Solution from "../components/Solution";
+    import { mapState } from 'vuex'
     export default {
         name: "Submit",
         data() {
             return {
-                showProb: true,
-                showSol: true
+                name: 'Hola'
             }
         },
         components: {
             Problem,
             Solution,
         },
-        methods: {
-            finished(){
-                this.showSol = false
-            }
+        computed:{
+            ...mapState ({
+                showProblem: state => state.submit.show.problem,
+                showSolution: state => state.submit.show.solution
+            })
         }
     }
 </script>
 
 <style scoped>
+<<<<<<< HEAD
 
 </style>
+=======
+</style>
+>>>>>>> bdd8f2b35231bec2825c85a6bd073c2f33feb84a

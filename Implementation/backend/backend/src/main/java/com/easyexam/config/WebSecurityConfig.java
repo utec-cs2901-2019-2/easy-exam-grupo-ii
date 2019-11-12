@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/login**", "/api/v1/register",
                 "/api/v1/forgot-password",
                 "/problem/v1/problem/getProblems","/api/v1/reset-password**",
-                "/problem/v1/**", "/comment/v1/**").permitAll()
+                "/problem/v1/**", "/comment/v1/**", "/topics/v1/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()

@@ -13,10 +13,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import com.easyexam.model.Problem;
+import com.easyexam.model.aux.ProblemCompleted;
+
+import java.util.List;
+
 public interface IProblemService {
-    
+
+    Boolean save(ProblemCompleted p);
+
     List<Problem> getAllProblems();
 
-    List<ProblemSubmitted> findUserProblem(int id);
-
+    List<ProblemSubmitted> findUserProblem(int idUser);
 }

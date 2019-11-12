@@ -12,6 +12,8 @@ public class CommentId implements Serializable {
     int idTeacher;
     int idProblem;
 
+    public CommentId() {}
+
     public CommentId(int idTeacher, int idProblem) {
         this.idTeacher = idTeacher;
         this.idProblem = idProblem;
