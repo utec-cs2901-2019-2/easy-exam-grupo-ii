@@ -73,7 +73,10 @@
     import { mapState, mapMutations } from 'vuex'
     import axios from "axios"
     import Multiselect from "vue-multiselect"
+    import { validationMixin } from 'vuelidate'
+    import { minLength, required } from 'vuelidate/lib/validators'
     export default {
+        mixins: [validationMixin],
         name: "Solution",
         data() {
             return {
@@ -141,7 +144,20 @@
             VueEditor,
             Multiselect
 
-    },
+        },
+        validations: {
+            solution: {
+                description: {
+                    required,
+                    minLength: minLength(10)
+                }
+            },
+            problem: {
+                topics: {
+                    required
+                }
+            }
+        }
     }
 </script>
 

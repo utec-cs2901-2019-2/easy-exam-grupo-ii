@@ -38,6 +38,11 @@ const routes = [
     path: '/submit',
     name: 'submit',
     component: () => import('../views/Submit.vue')
+  },
+  {
+    path: '/feedback',
+    name: 'test',
+    component: () => import('../components/Test.vue')
   }
 ];
 

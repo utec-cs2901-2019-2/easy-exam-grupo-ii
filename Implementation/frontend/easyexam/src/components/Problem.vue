@@ -6,21 +6,19 @@
                 <b-row>
                     <b-col class="col-md-6">
                         <b-form @reset="onReset">
-                            <b-form-group id="input-group-2" label="Problem Title:" label-for="input-1">
+                            <b-form-group id="input-group-2" label="Problem Title:">
                                 <b-form-input
                                         id="input-1"
-                                        v-model="problem.title"
+                                        v-model="$v.problem.title.$model"
                                         type="text"
-                                        :state="validation"
+                                        :state= "$v.problem.title.$dirty ? !$v.problem.title.$error : null"
                                         required
                                         placeholder="Please enter your problem title here"
+                                        aria-describedby="input-1-live-feedback"
                                 ></b-form-input>
-                                <b-form-invalid-feedback :state="validation">
-                                    You must need to enter a title.
+                                <b-form-invalid-feedback id="input-1-live-feedback">
+                                    You must need to enter a title of at lest 10 characters.
                                 </b-form-invalid-feedback>
-                                <b-form-valid-feedback :state="validation">
-                                    Looks Good.
-                                </b-form-valid-feedback>
                             </b-form-group>
 
                             <b-form-group id="input-group-3" label="Problem Body">
@@ -32,11 +30,20 @@
                                         :editorToolbar="customToolbar"
                                 >
                                 </vue-editor>
+                                 <b-alert 
+                                        :show="dismissCountDown" 
+                                        dismissible 
+                                        variant="danger"  
+                                        @dismissed="dismissCountDown=0"
+                                        @dismiss-count-down="countDownChanged" 
+                                        >
+                                        Problem body must have at least 100 characters.
+                                </b-alert>
                             </b-form-group>
                             <b-form-group id = "input-group-img" label="Select an image (optional)">
                                 <b-form-file
                                         v-model="problem.image"
-                                        :state="Boolean(problem.image)"
+                                        :state="validatImg"
                                         placeholder="Choose an image (.jpeg, .png, .gif) or drop it here..."
                                         drop-placeholder="Drop image here..."
                                         accept="image/jpeg, image/png, image/gif"
@@ -60,7 +67,7 @@
                     <b-col>
                         <h2>Visualizador</h2>
                         <b-card class="mt-3" header="Form Data Result">
-                            <pre class="m-0">{{ problem }}</pre>
+                            <div class="m-0">{{ problem.body }}</div>
                         </b-card>
                     </b-col>
                 </b-row>
@@ -75,20 +82,46 @@
     import { mapState } from 'vuex'
     import Multiselect from "vue-multiselect"
     import axios from "axios"
+    import { validationMixin } from 'vuelidate'
+    import { minLength, required } from 'vuelidate/lib/validators'
 
     export default {
+        mixins: [validationMixin],
         data() {
             return {
-                tags: [],
+                dismissSecs: 5,
+                dismissCountDown: 0,
+                tags: []
             }
         },
         mounted() {
-            const tag = axios.get("http://localhost:3000/tags");
-            tag.then(response => (this.tags = response.data));
+            const tag = axios.get("http://localhost:9898/topics/v1/topics/getTopics");
+            tag.then(response => (this.tags = response));
+        },
+        computed: {
+            ...mapState ({
+                problem: state => state.submit.form.problem,
+                customToolbar: state => state.submit.editor
+            }),
+            validatImg() {
+                return (Boolean(this.problem.image)==true? true: null)
+            },
         },
         methods: {
+            countDownChanged(dismissCountDown) {
+                this.dismissCountDown = dismissCountDown
+            },
+            showAlert() {
+                this.dismissCountDown = this.dismissSecs
+            },
             goNext() {
-                this.$store.commit('updateViewNext')
+                let valTitle = this.problem.title.length > 0 ? true : false;
+                let valBody = this.problem.body.length > 100 ? true : false;
+                if (valBody && valTitle){
+                    this.$store.commit('updateViewNext')
+                }else{
+                    this.showAlert()
+                }
             },
             onReset(evt) {
                 evt.preventDefault();
@@ -98,18 +131,17 @@
                 this.problem.topics_id = null
             }
         },
-        computed: {
-            ...mapState ({
-                problem: state => state.submit.form.problem,
-                customToolbar: state => state.submit.editor
-            }),
-            validation() {
-                return (this.problem.title.length > 4)
-            }
-        },
         components: {
             VueEditor,
             Multiselect
+        },
+        validations: {
+            problem: {
+                title: {
+                    required,
+                    minLength: minLength(10)
+                }
+            }
         }
     }
 </script>
