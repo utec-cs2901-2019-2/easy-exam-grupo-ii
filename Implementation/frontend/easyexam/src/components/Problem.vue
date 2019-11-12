@@ -5,7 +5,7 @@
                 <h1>Submit a Problem!</h1>
                 <b-row>
                     <b-col class="col-md-6">
-                        <b-form @submit="onSubmit" @reset="onReset">
+                        <b-form @reset="onReset">
                             <b-form-group id="input-group-1" label="What type of problem would you like to submit?" label-for="input-3">
                                 <multiselect
                                         v-model="problem.topics_id"
@@ -68,11 +68,11 @@
                                 </multiselect>
                             </b-form-group>
                             <b-button type="reset" variant="danger">Reset</b-button>
-                            <b-button type="submit" variant="primary" class="mx-1 float-right">Next</b-button>
+                            <b-button variant="primary" class="mx-1 float-right" @click="goNext">Next</b-button>
                         </b-form>
                     </b-col>
                     <b-col>
-                        <h2>Vizualizador</h2>
+                        <h2>Visualizador</h2>
                         <b-card class="mt-3" header="Form Data Result">
                             <pre class="m-0">{{ problem }}</pre>
                         </b-card>
@@ -88,17 +88,11 @@
     import { VueEditor } from "vue2-editor"
     import Multiselect from "vue-multiselect"
     import axios from "axios"
+    import { mapState } from 'vuex'
 
     export default {
         data() {
             return {
-                problem: {
-                    title: '',
-                    body: '',
-                    topics_id: [
-                    ],
-                    image: null,
-                },
                 types: [],
                 tags: [],
                 customToolbar: [
@@ -120,21 +114,8 @@
             }))
         },
         methods: {
-            onSubmit(evt) {
-                evt.preventDefault();
-                console.log(JSON.stringify(this.problem));
-                const p_post = axios.post("http://localhost:3000/problem", {
-			id: 6,
-                    title: this.problem.title,
-                    body: this.problem.body,
-                    topics_id: this.problem.topics_id,
-                    image: this.problem.image
-                });
-                p_post.then(resp => {
-                    console.log(resp.data)
-                });
-                p_post.catch(error => {console.log(error)})
-
+            goNext() {
+                this.$store.commit('updateViewNext')
             },
             onReset(evt) {
                 evt.preventDefault();
@@ -145,8 +126,11 @@
             }
         },
         computed: {
+            ...mapState ({
+                problem: state => state.submit.form.problem
+            }),
             validation() {
-                return this.problem.title.length > 4
+                return (this.problem.title.length > 4)
             }
         },
         components: {

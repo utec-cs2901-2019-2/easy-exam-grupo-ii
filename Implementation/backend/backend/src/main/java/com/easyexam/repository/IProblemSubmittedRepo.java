@@ -13,4 +13,5 @@ public interface IProblemSubmittedRepo extends JpaRepository<ProblemSubmitted, P
     @Override
     List<ProblemSubmitted> findAll();
 
+    List<ProblemSubmitted> findAllByProblemSubmittedId_IdUser(int idUser);
 }
