@@ -72,8 +72,8 @@ public class AccountManagerController {
 
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUser.getEmail(), loginUser.getPassword()));
         final String token = jwtTokenUtil.generateToken(user);
-        
-        return new ApiResponse<>(200, "success",new AuthToken(token, user.getEmail()));
+        final Teacher teacher = teacherService.findOneByUser(user);
+        return new ApiResponse<>(200, "success",new AuthToken(token, user.getEmail(), teacher.getBonus()));
     }
 
     @PostMapping("/register")
@@ -89,6 +89,7 @@ public class AccountManagerController {
 
         User user = userService.save(userDetail);
         teacherDetail.setUser(user);
+        teacherDetail.setBonus(3);
 
         Teacher teacher = teacherService.save(teacherDetail);
         
@@ -96,9 +97,7 @@ public class AccountManagerController {
         user.setTeacher(teacher);
         userService.update(user);
 
-        String token = jwtTokenUtil.generateToken(user);
-
-        return new ApiResponse<>(200, "success",new AuthToken(token, user.getEmail()));
+        return new ApiResponse<>(200, "success",null);
     }
 
     @PostMapping("forgot-password")
@@ -131,7 +130,7 @@ public class AccountManagerController {
         Map<String, Object> model = new HashMap<>();
         
         model.put("token", token);
-        model.put("signature", "https://memorynotfound.com");
+        model.put("signature", "EasyExam");
 
         if (user.getTeacher() != null) {
             model.put("fullName", user.getTeacher().getFirstname() + ' ' +user.getTeacher().getLastname());
