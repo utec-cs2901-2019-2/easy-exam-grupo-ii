@@ -1,6 +1,6 @@
 package com.easyexam.service.impl;
 
-import com.easyexam.model.Problem;
+import com.easyexam.model.*;
 import com.easyexam.repository.IProblemRepo;
 import com.easyexam.repository.IProblemSubmittedRepo;
 import com.easyexam.service.IProblemService;
@@ -26,5 +26,8 @@ public class ProblemServiceImpl implements IProblemService {
         return problemRepo.findAll();
     }
 
-
+    @Override
+    public List<ProblemSubmitted> findUserProblem(int id){
+        return problemSubmittedRepo.findUserQuestions(id);
+    }
 }

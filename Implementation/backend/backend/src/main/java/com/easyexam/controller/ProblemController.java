@@ -39,5 +39,9 @@ public class ProblemController {
 	    return problemService.getAllProblems();
     }
 
+    @GetMapping("/problem/getUserProblems")
+    public List<ProblemSubmitted> getUserProblems(int id){
+        return problemService.findUserProblem(id);
+    }
 
 }
