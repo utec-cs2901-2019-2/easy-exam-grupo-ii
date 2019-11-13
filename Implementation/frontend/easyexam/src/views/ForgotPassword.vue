@@ -63,7 +63,7 @@
                 this.submitted = true;
                 if (this.email && !this.spinner) {
                     this.spinner = true;
-                    axios.post('http://localhost:9898/api/v1/forgot-password', {
+                    axios.post('http://'+ this.$store.state.clientURL + '/api/v1/forgot-password', {
                         email: this.email,
                     })
                         .then((response) => {

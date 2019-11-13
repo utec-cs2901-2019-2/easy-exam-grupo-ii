@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    clientURL: "localhost:8080",
     isLogged:false,
     user: {
       username: null,
@@ -41,8 +42,8 @@ export default new Vuex.Store({
       this.state.submit.show.problem = true;
       this.state.submit.show.solution = false;
     },
-    stateLogged(){
-      return this.isLogged;
+    logout(){
+      this.isLogged = false;
     }
   },
   actions: {

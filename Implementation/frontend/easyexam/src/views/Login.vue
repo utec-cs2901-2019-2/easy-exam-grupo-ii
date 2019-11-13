@@ -86,7 +86,7 @@ export default {
           const { email, password } = this;
           
           if (email && password) {
-              axios.post('http://localhost:9898/api/v1/login', {
+              axios.post('http://'+ this.$store.state.clientURL + '/api/v1/login', {
                 email: email,
                 password: password
             })
