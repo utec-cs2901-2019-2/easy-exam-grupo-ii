@@ -10,6 +10,12 @@ export default new Vuex.Store({
     idsProblems : [],
     newProblem : {},
     myProblems : [],
+    isLogged:false,
+    user: {
+      username: null,
+      token: null,
+      credits: 0
+    },
     submit: {
       show: {
         problem: true,
@@ -54,10 +60,18 @@ export default new Vuex.Store({
       for (let x of this.state.myProblems){
         console.log (x)
       }
+    },
+    stateLogged(){
+      return this.isLogged;
     }
   },
   actions: {
   },
   modules: {
+  },
+  getters:{
+    getIsLogged(state){
+      return state.isLogged;
+    }
   }
 })

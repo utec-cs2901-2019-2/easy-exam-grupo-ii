@@ -55,8 +55,9 @@
                             <div class="form-row">
                                 <div class = "form-group col-md-6">
                                     <label>Date of Birth</label>
-                                    <b-form-input v-model = 'birthdate' type="date" :class="{ 'is-invalid': submitted && !birthdate }" v-validate="'required'"></b-form-input>
-                                    <div v-show="submitted && !birthdate" class="invalid-feedback">Date of birth is required</div>
+                                    <b-form-input @keyup="birthdateValidate = true" v-model = 'birthdate' type="date" :class="{ 'is-invalid': submitted && !birthdate }"></b-form-input>
+                                    <div v-show="submitted && !birthdate && !birthdateValidate" class="invalid-feedback">Date of birth is required</div>
+                                    <div v-show="birthdateValidate && submitted" class="invalid-feedback">Invalid date</div>
                                 </div>
                                 
                                 <div class="form-group col-md-6">
@@ -117,6 +118,7 @@ export default {
           country: '',
           passwordCheck: false,
           emailCheck: false,
+          birthdateValidate: false,
           genders: [ "Female", "Male", "Other"],
           countries: [
             "Afghanistan",
@@ -375,10 +377,20 @@ export default {
     methods:{
         loadpost () {
             this.submitted = true;
+            
+            var now = new Date()
+            var birth = new Date(this.birthdate)
+            
+            if (birth < now) {
+                this.birthdateValidate =  false
+            } else {
+                this.birthdateValidate =  true
+                this.birthdate = ''
+            }
 
             if (this.firstName && this.lastName && 
                 this.email && this.password && this.confirm_password &&
-                this.password == this.confirm_password &&
+                this.password == this.confirm_password && !this.birthdateValidate &&
                 this.institution && this.gender && this.birthdate && this.country) {
 
                     axios.post('http://localhost:9898/api/v1/register', {
@@ -399,7 +411,11 @@ export default {
                     })
                         .then((response) => {
                             if (response.data.message == "success") {
-                                this.$router.push('/dashboard');
+                                //console.log(response.data.result)
+                                //this.$store.state.user.username = response.data.result.username
+                                //this.$store.state.user.token = response.data.result.token
+                                //this.$store.state.user.credits = response.data.result.credits
+                                this.$router.push('/login');
                             } else {
                                 this.emailCheck = true;
                                 this.email = '';

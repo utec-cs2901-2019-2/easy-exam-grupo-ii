@@ -41,6 +41,7 @@
 // @ is an alias to /src
 import HomeCarrousel from "../components/HomeCarrousel";
 
+
 export default {
   name: 'home',
   components: {
@@ -50,6 +51,7 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css?family=Hind+Madurai|Jomolhari&display=swap');
 /* Links */
 a,
 a:focus,
@@ -62,13 +64,14 @@ a:hover {
  * Base structure
  */
 
-html,
-body {
+html,body {
     height: 100%;
     background: #3070ff;
     color: #fff;
     text-align: center;
     text-shadow: 0 1px 3px rgba(241, 233, 233, 0.884);
+    font-family: 'Jomolhari', serif;
+    font-family: 'Hind Madurai', sans-serif;
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */

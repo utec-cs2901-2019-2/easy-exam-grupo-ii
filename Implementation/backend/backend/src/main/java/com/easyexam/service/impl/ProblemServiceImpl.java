@@ -2,19 +2,17 @@ package com.easyexam.service.impl;
 
 import com.easyexam.model.*;
 import com.easyexam.model.aux.ProblemCompleted;
-import com.easyexam.repository.IProblemRepo;
-import com.easyexam.repository.IProblemSubmittedRepo;
-import com.easyexam.repository.IProblemTopicRepo;
-import com.easyexam.repository.ISolutionProblemRepo;
+import com.easyexam.repository.*;
 import com.easyexam.service.IProblemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.io.PrintWriter;
+import java.io.File;
+
+import java.util.*;
 
 @Service
 public class ProblemServiceImpl implements IProblemService {
@@ -32,6 +30,9 @@ public class ProblemServiceImpl implements IProblemService {
 
     @Autowired
     ISolutionProblemRepo solutionProblemRepo;
+
+    @Autowired
+    IProblemSelectedRepo problemSelectedRepo;
 
     @Override
     public Boolean save(ProblemCompleted p) {
@@ -62,12 +63,24 @@ public class ProblemServiceImpl implements IProblemService {
     }
 
     @Override
-    public List<Problem> getAllProblemsByUsers(int idUser) {
-        List<ProblemSubmitted> pSubm=problemSubmittedRepo.findAllByProblemSubmittedId_IdUser(idUser);
-        List<Problem> problems=new ArrayList<Problem>();
-        for(ProblemSubmitted ps:pSubm){
-            problems.add(problemRepo.findProblemById(ps.getProblemSubmittedId().getIdProblem()));
+    public List<ProblemSubmitted> findUserProblem(int id){
+        return problemSubmittedRepo.findUserQuestions(id);
+    }
+
+    @Override
+    public List<ProblemTopic> getProblemTopics(int idProb){
+        return problemTopicRepo.getProblemTopics(idProb);
+    }
+
+    @Override
+    public Boolean saveProblemSelected(ProblemSelected promSecl) {
+        try{
+            problemSelectedRepo.save(promSecl);
+            return true;
         }
-        return problems;
+        catch (Exception e){
+            LOG.warn(e.getMessage());
+            return false;
+        }
     }
 }
