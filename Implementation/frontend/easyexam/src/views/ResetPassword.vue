@@ -63,7 +63,7 @@
                 this.submitted = true;
                 if (this.password && this.confirm_password && 
                     this.password == this.confirm_password) {
-                    axios.post('http://localhost:9898/api/v1/reset-password', {
+                    axios.post('http://'+ this.$store.state.clientURL + '/api/v1/reset-password', {
                         password: this.password,
                         token: this.$route.query.token
                     })

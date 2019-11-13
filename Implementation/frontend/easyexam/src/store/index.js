@@ -10,6 +10,7 @@ export default new Vuex.Store({
     idsProblems : [],
     newProblem : {},
     myProblems : [],
+    clientURL: "localhost:9898",
     isLogged:false,
     user: {
       username: null,
@@ -26,8 +27,7 @@ export default new Vuex.Store({
           title: '',
           type: '',
           body: '',
-          topics_id: [
-          ],
+          topics_id: [],
           image: null
         },
         solution: {
@@ -78,6 +78,9 @@ export default new Vuex.Store({
     },
     stateLogged(){
       return this.isLogged;
+    },
+    logout(){
+      this.isLogged = false;
     }
   },
   actions: {

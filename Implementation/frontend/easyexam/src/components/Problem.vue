@@ -74,7 +74,10 @@
                         </b-form>
             </b-container>
         </b-card>
-
+       <h2>Visualizador</h2>
+        <b-card class="mt-3" header="Form Data Result">
+        <pre class="m-0">{{ problem }}</pre>
+        </b-card>
     </div>
 </template>
 

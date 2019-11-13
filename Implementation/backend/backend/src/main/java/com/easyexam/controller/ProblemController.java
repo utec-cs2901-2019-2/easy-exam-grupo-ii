@@ -40,6 +40,7 @@ public class ProblemController {
     public ApiResponse<ProblemCompleted> register(@Valid @RequestBody ProblemCompleted problemCompleted) {
         LOG.info("Entro a submit problem");
         LOG.info(problemCompleted.getBody());
+        LOG.info(problemCompleted.getDescriptionSolution());
         problemService.save(problemCompleted);
         return new ApiResponse<>(200, "success", true);
     }

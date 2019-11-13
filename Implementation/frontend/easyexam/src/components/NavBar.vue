@@ -23,7 +23,7 @@
                             <em>User</em>
                         </template>
                         <b-dropdown-item href="/profile">Profile</b-dropdown-item>
-                        <b-dropdown-item href="/sign_out">Sign Out</b-dropdown-item>
+                        <b-dropdown-item @click="logouts">Sign Out</b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
             </b-collapse>
@@ -32,9 +32,18 @@
 </template>
 
 <script>
-    export default {
-        name: "NavBar"
+import {mapMutations} from 'vuex'
+export default {
+    name: "NavBar",
+    computed:{
+    ...mapMutations(['logout'])
+    },
+    methods: {
+        logout() {
+
+        }
     }
+}
 </script>
 
 <style scoped>

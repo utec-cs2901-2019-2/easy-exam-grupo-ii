@@ -34,27 +34,28 @@ public class ProblemServiceImpl implements IProblemService {
     @Autowired
     IProblemSelectedRepo problemSelectedRepo;
 
+
     @Override
     public Boolean save(ProblemCompleted p) {
 
-        try{
-            Problem problem=new Problem(p.getTitle(),p.getBody(),p.getRutaImage(),"",0,0);
-            problem=problemRepo.save(problem);
 
-            ProblemSubmitted problemSubmitted=
-                    new ProblemSubmitted(new ProblemSubmittedId(p.getIdTeacher(),problem.getId()),new Date());
-            problemSubmittedRepo.save(problemSubmitted);
+            Problem problem=new Problem(p.getTitle(),p.getType(), p.getBody(),p.getRutaImage(),0,0);
+            problemRepo.save(problem);
+            LOG.info("Entro a service impl");
+            LOG.info(getMaxId()+p.getDescriptionSolution());
+            ProblemSubmittedId subId=new ProblemSubmittedId(p.getIdTeacher(),getMaxId());
+            ProblemSubmitted ps=new ProblemSubmitted(subId,new Date());
+            problemSubmittedRepo.save(ps);
+            LOG.info("Entro a save problem "+p.getDescriptionSolution());
 
-            for(Topic t:p.getTopics()){
-                ProblemTopic problemTopic=new ProblemTopic(new ProblemTopicId(problem.getId(),t.getId()));
-                problemTopicRepo.save((problemTopic));
+            solutionProblemRepo.save(new SolutionProblem(getMaxId(),p.getDescriptionSolution(),p.getPathImageSolution()));
+
+            for(Topic t:p.getTopics()) {
+                ProblemTopic problemTopic = new ProblemTopic(new ProblemTopicId(problem.getId(), t.getId()));
+                problemTopicRepo.save(problemTopic);
             }
             return true;
-        }
-        catch (Exception e){
-            LOG.debug(e.getMessage());
-            return false;
-        }
+
     }
 
     @Override
@@ -96,4 +97,10 @@ public class ProblemServiceImpl implements IProblemService {
     public List<ProblemSelected> getProblemSelected(int idUser){
         return problemSelectedRepo.getSelectedProblems(idUser);
     }
+
+    @Override
+    public int getMaxId() {
+        return problemRepo.max();
+    }
+
 }

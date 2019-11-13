@@ -78,7 +78,11 @@
                                 </b-modal>
             </b-container>
         </b-card>
-
+<h2>Visualizador</h2>
+                        <b-card class="mt-3" header="Form Data Result">
+                            <pre class="m-0">{{ solution }}</pre>
+                            <pre class="m-0">{{ problem }}</pre>
+                        </b-card>
     </div>
 </template>
 
@@ -109,7 +113,7 @@
                     const p_post = axios.post("http://localhost:9898/problem/v1/submitProblem", {
                         id: new Date(),
                         title: this.problem.title,
-                        type: this.problem.type,
+                        type: this.problem.type.name,
                         body: this.problem.body,
                         topics: this.problem.topics_id,
                         rutaImage: this.problem.image,
