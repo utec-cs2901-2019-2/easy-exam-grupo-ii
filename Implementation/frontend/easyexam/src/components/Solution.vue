@@ -133,7 +133,7 @@
                 let valDescrip = this.solution.description.length > 0 ? true : false;
                  if (valDescrip){
                     const p_post = axios.post("http://localhost:9898/problem/v1/submitProblem", {
-                        id: new Date(),
+                        id: 1,
                         title: this.problem.title,
                         type: this.problem.type.name,
                         body: this.problem.body,
