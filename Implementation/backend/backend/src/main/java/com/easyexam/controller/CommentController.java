@@ -55,7 +55,7 @@ public class CommentController {
     }
 
     @GetMapping("/comment/getCommentByProblem")
-    public List<Comment> getCommentByProblem(int idProb){
+    public List<CommentCompleted> getCommentByProblem(int idProb){
         return commentService.getCommentByProblem(idProb);
     }
 

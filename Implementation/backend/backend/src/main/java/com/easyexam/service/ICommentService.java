@@ -1,6 +1,7 @@
 package com.easyexam.service;
 
 import com.easyexam.model.Comment;
+import com.easyexam.model.aux.CommentCompleted;
 import com.easyexam.repository.ICommentRepo;
 import com.easyexam.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public interface ICommentService {
 
-    List<Comment> getCommentByProblem(int idProblem);
+    List<CommentCompleted> getCommentByProblem(int idProblem);
 
     Boolean saveComment(Comment c);
 }

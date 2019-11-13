@@ -1,7 +1,9 @@
 package com.easyexam.service.impl;
 
 import com.easyexam.model.Comment;
+import com.easyexam.model.Teacher;
 import com.easyexam.model.aux.CommentAndUser;
+import com.easyexam.model.aux.CommentCompleted;
 import com.easyexam.repository.ICommentRepo;
 import com.easyexam.repository.ITeacherRepo;
 import com.easyexam.service.ICommentService;
@@ -21,9 +23,24 @@ public class CommentServiceImpl implements ICommentService {
     @Autowired
     ICommentRepo commentRepo;
 
+    @Autowired
+    ITeacherRepo teacherRepo;
+
     @Override
-    public List<Comment> getCommentByProblem(int idProblem){
-        return commentRepo.findAllByCommentId_IdProblem(idProblem);
+    public List<CommentCompleted> getCommentByProblem(int idProblem){
+        List<CommentCompleted> list=new ArrayList<>();
+        List<Comment> tmp=commentRepo.findAllByCommentId_IdProblem(idProblem);
+        for(Comment c:tmp){
+            CommentCompleted com=new CommentCompleted();
+            com.setDescription(c.getDescription());
+            com.setIdProblem(c.getCommentId().getIdProblem());
+            com.setIdTeacher(c.getCommentId().getIdTeacher());
+            Teacher t=teacherRepo.findTeacherById(c.getCommentId().getIdTeacher());
+            com.setNameTeacher(t.getFirstname());
+            list.add(com);
+        }
+
+        return list;
     }
 
     @Override
@@ -32,8 +49,6 @@ public class CommentServiceImpl implements ICommentService {
         return true;
     }
 
-    @Autowired
-    ITeacherRepo teacherRepo;
 
     /*@Override
     public List<CommentAndUser> getCommentByProblem(int idProblem) {
