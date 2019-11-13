@@ -5,6 +5,7 @@
   </div>
 </template>
 <script>
+<<<<<<< HEAD
   import NavBar from "./components/NavBar";
   import {mapGetters} from 'vuex'
   export default {
@@ -20,3 +21,19 @@
 <style scoped>
 </style>
 
+=======
+import NavBar from "./components/NavBar";
+import {mapGetters} from 'vuex'
+export default {
+  name: 'app',
+  components: {
+    NavBar
+  },
+  computed:{
+  ...mapGetters(['getIsLogged'])
+  }
+}
+</script>
+<style scoped>
+</style>
+>>>>>>> 0aa5e6ebc54282ac4bed110517f5aaa2acf7c253
