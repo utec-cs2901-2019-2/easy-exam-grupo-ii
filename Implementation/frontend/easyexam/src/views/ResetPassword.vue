@@ -10,16 +10,17 @@
                             <h4 class="card-title mt-2">Recover my account</h4>
                         </header>
                         <article class="card-body">
-                            <form action="" @submit="loadNewPass" @submit.prevent="">
+                            <form @submit.prevent="loadNewPass">
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input type="password" name="pass" id="pass1" @keyup="checkPass" class="form-control" placeholder="Introduce password">
+                                    <input v-model="password" class="form-control" type="password" placeholder="New Password" :class="{ 'is-invalid': submitted && !password }">
+                                    <div v-show="submitted && !password" class="invalid-feedback">Password is required</div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Repeat Password</label>
-                                    <input type="password" name="repass" id="repass1" @keyup="checkPass" class="form-control" placeholder="Repeat password">
-                                    <span id="confirm-message2" class="confirm-message"> hola</span>
+                                    <label>Confirm Password</label>
+                                    <input @keyup ="validatePassword" v-model="confirm_password" class="form-control" type="password" placeholder="Retype your password" :class="{ 'is-invalid': submitted && !confirm_password || passwordCheck}">
+                                    <div v-show="submitted && !confirm_password || passwordCheck" class="invalid-feedback">Password not match</div>
                                 </div>
 
                                 <div class="form-group">
@@ -49,37 +50,36 @@
         data(){
             return {
                 password: '',
-                token: ''
+                confirm_password: '',
+                token: '',
+                submitted: false,
+                passwordCheck: false
             }
         },
         computed:{
         },
         methods:{
             loadNewPass: function () {
-                axios.post('http://localhost:9898/api/v1/reset-password', {
-                    password: this.password,
-                    token: this.$route.query.token
-                })
-                    .then((response) => {
-                        console.log(response);
-                    }, (error) => {
-                        console.log(error);
+                this.submitted = true;
+                if (this.password && this.confirm_password && 
+                    this.password == this.confirm_password) {
+                    axios.post('http://localhost:9898/api/v1/reset-password', {
+                        password: this.password,
+                        token: this.$route.query.token
                     })
-            },
-            checkPass: function () {
-                var pass = document.getElementById('pass1');
-                var repass = document.getElementById('repass1');
-                var message = document.getElementById('confirm-message2');
-                var accept = "#66cc66";
-                var fail = "#F74B00";
-                if(pass.value === repass.value){
-                    repass.style.backgroundColor = accept;
-                    message.style.color =accept;
+                        .then((response) => {
+                            console.log(response);
+                            this.$router.push('/login');
+                        }, (error) => {
+                            console.log(error);
+                        })
                 }
-                else{
-                    repass.style.backgroundColor = fail;
-                    message.style.color = fail;
-
+            },
+            validatePassword () {
+                if (this.password != this.confirm_password) {
+                    this.passwordCheck =  true;
+                } else {
+                    this.passwordCheck =  false;
                 }
             }
         },

@@ -64,20 +64,24 @@ public class AccountManagerController {
 
     @PostMapping("/login")
     public ApiResponse<AuthToken> login(@RequestBody User loginUser) throws AuthenticationException {
+        final User user = userService.findByEmail(loginUser.getEmail());
+        
+        if (user == null) {
+            return new ApiResponse<>(200, "fail", null);
+        }
 
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUser.getEmail(), loginUser.getPassword()));
-
-        final User user = userService.findByEmail(loginUser.getEmail());
         final String token = jwtTokenUtil.generateToken(user);
-        return new ApiResponse<>(200, "success",new AuthToken(token, user.getEmail()));
+        final Teacher teacher = teacherService.findOneByUser(user);
+        return new ApiResponse<>(200, "success",new AuthToken(token, user.getEmail(), teacher.getBonus()));
     }
 
     @PostMapping("/register")
-    public ApiResponse<User> register(@Valid @RequestBody Teacher teacherDetail) {
+    public ApiResponse<AuthToken> register(@Valid @RequestBody Teacher teacherDetail) {
         User userDetail = teacherDetail.getUser();
         
         if (userService.findByEmail(userDetail.getEmail()) != null) {
-            return null;
+            return new ApiResponse<>(200, "fail", null);
         }
 
         userDetail.setActive(true);
@@ -85,6 +89,7 @@ public class AccountManagerController {
 
         User user = userService.save(userDetail);
         teacherDetail.setUser(user);
+        teacherDetail.setBonus(3);
 
         Teacher teacher = teacherService.save(teacherDetail);
         
@@ -92,36 +97,40 @@ public class AccountManagerController {
         user.setTeacher(teacher);
         userService.update(user);
 
-        return new ApiResponse<>(200, "success", userDetail);
+        return new ApiResponse<>(200, "success",null);
     }
 
     @PostMapping("forgot-password")
-    public String processForgotPasswordForm(@Valid @RequestBody User form, BindingResult result, HttpServletRequest request) {
+    public ApiResponse<?> processForgotPasswordForm(@Valid @RequestBody User form, BindingResult result, HttpServletRequest request) {
         if (result.hasErrors()){
-            return "forgot-password";
+            return new ApiResponse<>(200, "error",null);
         }
 
         User user = userService.findByEmail(form.getEmail());
         if (user == null){
             result.rejectValue("email", null, "We could not find an account for that e-mail address.");
-            return "forgot-password";
+            return new ApiResponse<>(200, "fail",null);
         }
         
-        PasswordResetToken token = new PasswordResetToken();
-        token.setToken(UUID.randomUUID().toString());
-        token.setUser(user);
-        token.setExpiryDate(30);
-        tokenService.save(token);
+        PasswordResetToken token = tokenService.findOneByUser(user);
+
+        if (token == null) {
+            token = new PasswordResetToken();
+            token.setToken(UUID.randomUUID().toString());
+            token.setUser(user);
+            token.setExpiryDate(30);
+            tokenService.save(token);
+        }
 
         Mail mail = new Mail();
-        mail.setFrom("iot3carrito@gmail.com");
+        mail.setFrom("easyexam.web@gmail.com");
         mail.setTo(user.getEmail());
         mail.setSubject("Password reset request");
         
         Map<String, Object> model = new HashMap<>();
         
         model.put("token", token);
-        model.put("signature", "https://memorynotfound.com");
+        model.put("signature", "EasyExam");
 
         if (user.getTeacher() != null) {
             model.put("fullName", user.getTeacher().getFirstname() + ' ' +user.getTeacher().getLastname());
@@ -135,7 +144,7 @@ public class AccountManagerController {
         mail.setModel(model);
         emailService.sendEmail(mail);
         
-        return "redirect:/forgot-password?success";
+        return new ApiResponse<>(200, "success", null);
     }
 
 

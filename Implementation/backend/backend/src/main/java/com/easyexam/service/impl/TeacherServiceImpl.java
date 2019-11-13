@@ -1,6 +1,7 @@
 package com.easyexam.service.impl;
 
 import com.easyexam.model.Teacher;
+import com.easyexam.model.User;
 import com.easyexam.repository.IExamTeacherRepo;
 import com.easyexam.repository.ITeacherRepo;
 import com.easyexam.service.ITeacherService;
@@ -28,6 +29,9 @@ public class TeacherServiceImpl implements ITeacherService {
         newTeacher.setCountry(teacher.getCountry());
         newTeacher.setDate_birth(teacher.getDate_birth());
         newTeacher.setUser(teacher.getUser());
+        newTeacher.setBonus(teacher.getBonus());
+        newTeacher.setGender(teacher.getGender());
+        newTeacher.setInstitution(teacher.getInstitution());
         return teacherRepo.save(newTeacher);
     }
 
@@ -54,5 +58,9 @@ public class TeacherServiceImpl implements ITeacherService {
     @Override
     public Teacher findOne(int id) {
         return teacherRepo.findById(id).get();
+    }
+
+    public Teacher findOneByUser(User user){
+        return teacherRepo.findByUser(user);
     }
 }
