@@ -21,20 +21,7 @@ export default new Vuex.Store({
         },
         solution: {
           description: '',
-          alternatives: [
-            {
-              id: 1,
-              body: "Lorem Ipsum",
-              value: true
-            }
-
-          ],
-          image: null,
-          alt_body: '',
-          alt_value: null,
-          updt_id: '',
-          updt_body: '',
-          updt_value: null
+          image: null
 
         }
       },
@@ -48,7 +35,8 @@ export default new Vuex.Store({
         [{ header: [2, 3, 4, false] }],
         ["bold", "italic", "underline"],
         [{ list: "ordered" }, { list: "bullet" }],
-        ["code-block"],
+        ["formula"],
+        ["code-block"]
     ]
     }
 
@@ -61,22 +49,6 @@ export default new Vuex.Store({
     updateViewBack () {
       this.state.submit.show.problem = true;
       this.state.submit.show.solution = false;
-    },
-    createAlternative (state){
-      state.submit.form.solution.alternatives.push({
-        id: + new Date(),
-        body: state.submit.form.solution.alt_body,
-        value: state.submit.form.solution.alt_value
-      });
-      state.submit.form.solution.alt_body = '';
-      state.submit.form.solution.alt_value = '';
-    },
-    updateAlternative () {
-      this.state.submit.form.solution.alternatives[this.state.submit.form.solution.updt_id].body= this.state.submit.form.solution.updt_body;
-      this.state.submit.form.solution.alternatives[this.state.submit.form.solution.updt_id].value= this.state.submit.form.solution.updt_value;
-    },
-    deleteAlternative (){
-      this.state.submit.form.solution.alternatives.splice(this.state.submit.form.solution.updt_id,1)
     }
   },
   actions: {

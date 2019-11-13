@@ -1,10 +1,9 @@
 <template>
-    <div>
+    <div class="container md-6 align-center mt-2">
         <b-card>
             <b-container class="m-2">
                 <h1>Submit a Problem!</h1>
-                <b-row>
-                    <b-col class="col-md-6">
+
                         <b-form @reset="onReset">
                             <b-form-group id="input-group-2" label="Problem Title:">
                                 <b-form-input
@@ -70,17 +69,9 @@
                                         You need to select at least one tag.
                                 </b-alert>
                             </b-form-group>
-                            <b-button type="reset" variant="danger">Reset</b-button>
-                            <b-button variant="primary" class="mx-1 float-right" @click="goNext">Next</b-button>
+                            <b-button type="reset" variant="light"><i class="fas fa-trash fa-1x" style="color:  #e31d1d;"></i></b-button>
+                            <b-button variant="light" class="mx-1 float-right " @click="goNext"><i class="fas fa-angle-double-right fa-1x" style="color:  #2f3135 ;"></i></b-button>
                         </b-form>
-                    </b-col>
-                    <b-col>
-                        <h2>Visualizador</h2>
-                        <b-card class="mt-3" header="Form Data Result">
-                            <div class="m-0">{{ problem.body }}</div>
-                        </b-card>
-                    </b-col>
-                </b-row>
             </b-container>
         </b-card>
 
@@ -94,6 +85,8 @@
     import axios from "axios"
     import { validationMixin } from 'vuelidate'
     import { minLength, required } from 'vuelidate/lib/validators'
+    import katex from 'katex';
+    import 'katex/dist/katex.min.css';
 
     export default {
         mixins: [validationMixin],
@@ -108,6 +101,7 @@
         mounted() {
             const tag = axios.get("http://localhost:9898/topics/v1/topics/getTopics");
             tag.then(response => (this.tags = response.data));
+            window.katex = katex;
         },
         computed: {
             ...mapState ({
