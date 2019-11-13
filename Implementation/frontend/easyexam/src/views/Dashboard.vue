@@ -118,10 +118,11 @@
         >
         <b>You have this problem</b>
         </b-alert>
-
+        <h1>{{$store.state.user}}</h1>
+        <h2>{{$store.state.isLogged}}</h2>
         <!--SEARCH ENGINE -->
 
-        <b-row class="justify-content-center" style="margin:0">
+        <b-row v-if="$store.state.isLogged == true" class="justify-content-center" style="margin:0">
             <b-col cols = "3">
                 <div role="tablist">
                     <b-card no-body >

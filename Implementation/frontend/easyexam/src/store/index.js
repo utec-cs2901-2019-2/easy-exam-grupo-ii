@@ -22,10 +22,10 @@ export default new Vuex.Store({
     clientURL: "localhost:9898",
     isLogged:false,
     user: {//este objeto se usa para el dashboard
-      id : 1,
+      id : 0,
       username: null,
       token: null,
-      credits: 5
+      credits: 0
     },
     submit: {
       show: {
