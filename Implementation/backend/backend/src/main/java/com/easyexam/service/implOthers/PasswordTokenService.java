@@ -1,6 +1,7 @@
 package com.easyexam.service.implOthers;
 
 import com.easyexam.model.PasswordResetToken;
+import com.easyexam.model.User;
 import com.easyexam.repository.IPasswordResetRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,9 @@ public class PasswordTokenService {
 
     public PasswordResetToken findOne(String token){
         return tokenRepository.findByToken(token);
+    }
+
+    public PasswordResetToken findOneByUser(User user){
+        return tokenRepository.findByUser(user);
     }
 }
