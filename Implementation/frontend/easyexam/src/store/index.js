@@ -6,8 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: {
-      username: '',
-      token: '',
+      username: null,
+      token: null,
       credits: 0
     },
     submit: {
