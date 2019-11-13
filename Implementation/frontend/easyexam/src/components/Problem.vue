@@ -19,8 +19,20 @@
                                     You must need to enter a title of at lest 10 characters.
                                 </b-form-invalid-feedback>
                             </b-form-group>
+                            <b-form-group label="Type of entry:" >
+                                <multiselect
+                                        v-model="input_type"
+                                        placeholder="Select an input type"
+                                        label="name"
+                                        track-by="id"
+                                        :options="input_types"
+                                        :multiple="false"
+                                >
+                                </multiselect>
+                            </b-form-group>
+                                
 
-                            <b-form-group id="input-group-3" label="Problem Body">
+                            <b-form-group id="input-group-3" label="Problem Body" v-if="input_type.id==1">
                                 <vue-editor
                                         v-model="problem.body"
                                         placeholder="Please enter your problem body here"
@@ -36,8 +48,18 @@
                                         @dismissed="dismissCountDownBody=0"
                                         @dismiss-count-down="countDownChanged" 
                                         >
-                                        Problem body must have at least 100 characters.
+                                        You must need to have a problem body.
                                 </b-alert>
+                            </b-form-group>
+
+                            <b-form-group v-if="input_type.id==2" label="Problem Body in Latex">
+                                <b-form-textarea
+                                id="textarea"
+                                v-model="problem.body"
+                                placeholder="Please enter your problem body here in latex..."
+                                rows="3"
+                                max-rows="6"
+                                ></b-form-textarea>
                             </b-form-group>
                             <b-form-group id = "input-group-img" label="Select an image (optional)">
                                 <b-form-file
@@ -74,10 +96,6 @@
                         </b-form>
             </b-container>
         </b-card>
-       <h2>Visualizador</h2>
-        <b-card class="mt-3" header="Form Data Result">
-        <pre class="m-0">{{ problem }}</pre>
-        </b-card>
     </div>
 </template>
 
@@ -98,7 +116,12 @@
                 dismissSecs: 5,
                 dismissCountDownBody: 0,
                 dismissCountDownTags: 0,
-                tags: []
+                tags: [],
+                input_types: [
+                    {id: 1, name: "Rich Text"},
+                    {id: 2, name: "Latex"}
+                ],
+                input_type: ''
             }
         },
         mounted() {
@@ -127,7 +150,7 @@
             },
             goNext() {
                 let valTitle = this.problem.title.length > 0 ? true : false;
-                let valBody = this.problem.body.length > 100 ? true : false;
+                let valBody = this.problem.body.length > 0 ? true : false;
                 let valTags = this.problem.topics_id.length > 0 ? true: false;
                 if (valBody && valTitle && valTags){
                     this.$store.commit('updateViewNext')
@@ -145,6 +168,7 @@
                 this.problem.image = null;
                 this.problem.topics_id = null
             }
+
         },
         components: {
             VueEditor,

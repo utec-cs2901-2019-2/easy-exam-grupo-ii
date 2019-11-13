@@ -18,7 +18,28 @@
                                 >
                                 </multiselect>
                             </b-form-group>
-                            <b-form-group id="input-group-2" label="Problem Solution" label-for="input-2">
+
+                            <b-form-group label="Type of entry:" >
+                                <multiselect
+                                        v-model="input_type"
+                                        placeholder="Select an input type"
+                                        label="name"
+                                        track-by="id"
+                                        :options="input_types"
+                                        :multiple="false"
+                                >
+                                </multiselect>
+                            </b-form-group>
+                                <b-form-group v-if="input_type.id==2" label="Solution Body in Latex">
+                                <b-form-textarea
+                                id="textarea"
+                                v-model="solution.description"
+                                placeholder="Please enter your solution body here in latex..."
+                                rows="3"
+                                max-rows="6"
+                                ></b-form-textarea>
+                            </b-form-group>
+                            <b-form-group id="input-group-2" label="Problem Solution" label-for="input-2" v-if="input_type.id==1">
                                 <vue-editor
                                         v-model="solution.description"
                                         placeholder="Please enter your solution here"
@@ -49,6 +70,7 @@
                             <b-button variant="light" on-clik class = "m-2 float-left" @click = "goBack" ><i class="fas fa-angle-double-left" style="color:  #2f3135;"></i></b-button>
                             <b-button variant = "primary" class = "m-2 float-right" v-b-modal.modalPopover>Submit</b-button>
                             <b-button type="reset" variant = "light" class="m-2 float-left" ><i class="fas fa-trash fa-1x" style="color:  #e31d1d;"></i></b-button>
+                           
                         </b-form>
                             <b-modal 
                                     title="Submit status"
@@ -78,11 +100,6 @@
                                 </b-modal>
             </b-container>
         </b-card>
-<h2>Visualizador</h2>
-                        <b-card class="mt-3" header="Form Data Result">
-                            <pre class="m-0">{{ solution }}</pre>
-                            <pre class="m-0">{{ problem }}</pre>
-                        </b-card>
     </div>
 </template>
 
@@ -100,7 +117,12 @@
             return {
                 dismissSecs: 5,
                 dismissCountDownDescrip: 0,
-                tags: []
+                tags: [],
+                input_types: [
+                    {id: 1, name: "Rich Text"},
+                    {id: 2, name: "Latex"}
+                ],
+                input_type: ''
             }
         },
         methods: {
