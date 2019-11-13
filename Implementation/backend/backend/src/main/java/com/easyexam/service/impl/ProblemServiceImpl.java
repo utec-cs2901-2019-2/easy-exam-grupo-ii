@@ -2,40 +2,40 @@ package com.easyexam.service.impl;
 
 import com.easyexam.model.*;
 import com.easyexam.model.aux.ProblemCompleted;
-    import com.easyexam.repository.IProblemRepo;
-    import com.easyexam.repository.IProblemSubmittedRepo;
-    import com.easyexam.repository.IProblemTopicRepo;
-    import com.easyexam.repository.ISolutionProblemRepo;
-    import com.easyexam.service.IProblemService;
-    import org.slf4j.Logger;
-    import org.slf4j.LoggerFactory;
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.stereotype.Service;
+import com.easyexam.repository.IProblemRepo;
+import com.easyexam.repository.IProblemSubmittedRepo;
+import com.easyexam.repository.IProblemTopicRepo;
+import com.easyexam.repository.ISolutionProblemRepo;
+import com.easyexam.service.IProblemService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-    import java.io.PrintWriter;
-    import java.io.File;
+import java.io.PrintWriter;
+import java.io.File;
 
-    import java.util.*;
+import java.util.*;
 
-    @Service
-    public class ProblemServiceImpl implements IProblemService {
+@Service
+public class ProblemServiceImpl implements IProblemService {
 
-        private static Logger LOG= LoggerFactory.getLogger(ProblemServiceImpl.class);
+    private static Logger LOG= LoggerFactory.getLogger(ProblemServiceImpl.class);
 
-        @Autowired
-        IProblemRepo problemRepo;
+    @Autowired
+    IProblemRepo problemRepo;
 
-        @Autowired
-        IProblemSubmittedRepo problemSubmittedRepo;
+    @Autowired
+    IProblemSubmittedRepo problemSubmittedRepo;
 
-        @Autowired
-        IProblemTopicRepo problemTopicRepo;
+    @Autowired
+    IProblemTopicRepo problemTopicRepo;
 
-        @Autowired
-        ISolutionProblemRepo solutionProblemRepo;
+    @Autowired
+    ISolutionProblemRepo solutionProblemRepo;
 
-        @Override
-        public Boolean save(ProblemCompleted p) {
+    @Override
+    public Boolean save(ProblemCompleted p) {
 
         try{
             Problem problem=new Problem(p.getTitle(),p.getBody(),p.getRutaImage(),"",0,0);
@@ -62,6 +62,7 @@ import com.easyexam.model.aux.ProblemCompleted;
         return problemRepo.findAll();
     }
 
+    @Override
     public List<ProblemSubmitted> findUserProblem(int id){
         return problemSubmittedRepo.findUserQuestions(id);
     }

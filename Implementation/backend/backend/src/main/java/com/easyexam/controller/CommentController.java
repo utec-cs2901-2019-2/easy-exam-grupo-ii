@@ -15,6 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.security.core.AuthenticationException;
 
+import com.easyexam.model.aux.CommentAndUser;
+import com.easyexam.service.ICommentService;
+import com.easyexam.service.IProblemService;
+import com.easyexam.service.IRoleService;
+import com.easyexam.service.impl.ProblemServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
