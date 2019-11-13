@@ -361,11 +361,7 @@ export default {
     mounted () {
         axios.get("http://localhost:9898/problem/v1/problem/getProblems")
         .then(response => (this.infoproblems = response.data)),
-        axios.get ("https://localhost:9898/problem/v1/problem/getCommentByProblem", {
-            params : {
-                idProblem : '1'
-            }
-        })
+        axios.get ("http://localhost:9898/comment/v1/comment/getCommentByProblem?idProb=1")
         .then(response => (this.commentsInfo = response.data))
     },
 

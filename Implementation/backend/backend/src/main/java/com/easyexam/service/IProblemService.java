@@ -1,8 +1,11 @@
 package com.easyexam.service;
 
+import com.easyexam.model.*;
+import java.util.List;
 
 import com.easyexam.model.Problem;
 import com.easyexam.model.aux.ProblemCompleted;
+
 
 public interface IProblemService {
 
