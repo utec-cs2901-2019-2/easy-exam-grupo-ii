@@ -5,6 +5,11 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    user: {
+      username: '',
+      token: '',
+      credits: 0
+    },
     submit: {
       show: {
         problem: true,

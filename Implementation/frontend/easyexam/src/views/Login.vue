@@ -59,6 +59,7 @@
 
 <script>
 import axios from 'axios'
+import { mapState } from 'vuex'
 
 export default {
   name: 'login',
@@ -74,6 +75,10 @@ export default {
       }
   },
   computed:{
+    ...mapState ({
+            username: state => state.user.username,
+            token: state => state.user.token
+        })
   },
     methods:{
       sendpost() {
@@ -87,6 +92,9 @@ export default {
             })
             .then(response => {
                 if (response.data.message == "success") {
+                    this.$store.state.user.username = response.data.result.username
+                    this.$store.state.user.token = response.data.result.token
+                    this.$store.state.user.credits = response.data.result.credits
                     this.$router.push('/dashboard')
                 } else {
                     this.dismissCountDown = this.dismissSecs

@@ -1,6 +1,8 @@
 package com.easyexam.service;
 
 import com.easyexam.model.Teacher;
+import com.easyexam.model.User;
+
 import java.util.List;
 
 
@@ -16,4 +18,5 @@ public interface ITeacherService {
 
     Teacher findOne(int id);
 
+    Teacher findOneByUser(User user);
 }
