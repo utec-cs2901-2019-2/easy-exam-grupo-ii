@@ -1,4 +1,4 @@
-package com.easyexa.controller;
+package com.easyexam.controller;
   
 import com.easyexam.model.*;
 import com.easyexam.model.aux.*;
