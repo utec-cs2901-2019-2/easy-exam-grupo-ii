@@ -59,6 +59,18 @@ public class ProblemController {
         return problemService.getProblemTopics(id);
     }
 
+    @GetMapping("/problem/saveProblemsSelected")
+    public ApiResponse<ProblemSelected> saveProblemsSelected(@Valid @RequestBody
+    ProblemSelected prob){
+        LOG.info("Problema seleccionado");
+        problemService.saveProblemSelected(prob);
+        return new ApiResponse<>(200, "success", true);
+    }
+
+    @GetMapping("/problem/getProblemsSelected")
+    public List<ProblemSelected> getProblemsSelected(int id){
+        return problemService.getProblemSelected(id);
+    }
 
 //    @GetMapping("/roles")
 //    public List<Role> getRoles() throws AuthenticationException{
