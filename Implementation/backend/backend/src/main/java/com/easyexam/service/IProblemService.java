@@ -18,4 +18,6 @@ public interface IProblemService {
     List<ProblemTopic> getProblemTopics(int idProb);
 
     Boolean saveProblemSelected(ProblemSelected promSecl);
+
+    List<ProblemSelected> getProblemSelected(int idUser);
 }
