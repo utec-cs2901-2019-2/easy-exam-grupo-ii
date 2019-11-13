@@ -73,7 +73,7 @@ public class ProblemServiceImpl implements IProblemService {
     }
 
     @Override
-    public List<ProblemCompleted> getProblemTopics(int idProb){
+    public List<ProblemCompleted> getProblemTopics(){
         List<Problem> pt = problemRepo.findAll();
         List<ProblemCompleted> pt2 = new ArrayList<ProblemCompleted>();
 

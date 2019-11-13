@@ -56,14 +56,12 @@ public class ProblemController {
     }
 
     @GetMapping("/problem/getProblemTopics")
-    public List<ProblemCompleted> getProblemTopics(int id){
-        return problemService.getProblemTopics(id);
+    public List<ProblemCompleted> getProblemTopics(){
+        return problemService.getProblemTopics();
     }
 
     @GetMapping("/problem/saveProblemsSelected")
-    public ApiResponse<ProblemSelected> saveProblemsSelected(@Valid @RequestBody
-    ProblemSelected prob){
-        LOG.info("Problema seleccionado");
+    public ApiResponse<ProblemSelected> saveProblemsSelected(@Valid @RequestBody ProblemSelected prob){
         problemService.saveProblemSelected(prob);
         return new ApiResponse<>(200, "success", true);
     }

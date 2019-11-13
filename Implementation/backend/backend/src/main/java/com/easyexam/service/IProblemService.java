@@ -15,7 +15,7 @@ public interface IProblemService {
 
     List<ProblemSubmitted> findUserProblem(int idUser);
 
-    List<ProblemCompleted> getProblemTopics(int idProb);
+    List<ProblemCompleted> getProblemTopics();
 
     Boolean saveProblemSelected(ProblemSelected promSecl);
     
