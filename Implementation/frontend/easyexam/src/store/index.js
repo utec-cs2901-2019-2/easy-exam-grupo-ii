@@ -1,9 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  mounted() {
+    axios.get("http://" + this.$store.state.clientURL + "/problem/v1/problem/getProblemsSelected",
+      {
+        id : this.$store.state.user.id
+      }
+    )
+    .then(response => this.myProblems = response)
+  },
   state: {
     nombre:'',
     problemsSelected : [],
@@ -12,7 +21,8 @@ export default new Vuex.Store({
     myProblems : [],
     clientURL: "localhost:9898",
     isLogged:false,
-    user: {
+    user: {//este objeto se usa para el dashboard
+      id : 0,
       username: null,
       token: null,
       credits: 0
@@ -63,6 +73,10 @@ export default new Vuex.Store({
     },
     updateNewProblem :function (state, nProblem) {
       this.state.newProblem = nProblem.valor
+      if (!(this.state.newProblem in this.state.myProblems)){
+        this.state.myProblems.push(this.state.newProblem)
+
+      }
     },
     updateMyProblems () {
       if (!(this.state.newProblem in this.state.myProblems))
