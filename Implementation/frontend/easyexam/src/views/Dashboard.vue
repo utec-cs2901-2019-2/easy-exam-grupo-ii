@@ -33,9 +33,8 @@
                     
                     <ul class="list-unstyled" style="width: 90%; height: 200px; position: relative; overflow-y:scroll">
                         <b-media v-for="(com, key) of commentsInfo" v-bind:key = "key" tag="li" style="margin : 10px; width: 90%" >
-                            {{com}}
                             <b-card>
-                                <h4>{{com.author}}</h4>
+                                <h4><b>{{com.nameTeacher}} {{com.idTeacher}}</b></h4>
                                 <b-card-text>
                                     {{com.description}}
                                 </b-card-text>
@@ -56,6 +55,7 @@
                             </b-button>
                         </b-row>
                         <br>
+                        {{modal_selectProblem['qualifiers']}} views
                 </b-col>
             </b-row>
             
@@ -191,7 +191,7 @@
                                             {{problem.body}}
                                         </b-card-text>-->
                                         <div style="margin-top : 10px">
-                                            <b-button variant="info" style = "margin:5px" v-for="(tag, index) of temptaglist" v-bind:key="index">{{tag}}</b-button>
+                                            <b-button variant="info" style = "margin:5px" v-for="(tag, index) of problem.topicsString" v-bind:key="index">{{tag}}</b-button>
                                         </div>
                                     </b-col>
                                     <b-col cols = "2" style="height:100%">
@@ -230,16 +230,12 @@ import {mapState} from 'vuex'
 export default {
     data :  () => ({
 
-            idselected : 0,
 
-            temptaglist : ["supertag1", "master theorem","ada","algorithms","maths"],
             showDismissibleAlert: false,
 
             newcomment : '',
 
             actualUser : 'GiordanoLover777',
-
-            creditos : 3,
 
             filtrarAvailable : true,
 
@@ -265,6 +261,8 @@ export default {
 
             selectedSubjects : [],
 
+            mp : [],
+
             subjects : [{'name' : 'Divide and conquer', 'state' : true}, 
                         {'name' : 'Algorithms', 'state' : true},
                         {'name' : 'Maths', 'state' :true}],
@@ -272,8 +270,9 @@ export default {
             types : {'SA' : 'Short Answer', 'LA' : 'Long Answer', 'MC' : 'Multiple Choice', 'TF': 'True or False'},
             typeSelected : '',
 
-            commentsInfo : [
-            ]
+            commentsInfo : [],
+
+            idsProblems : []
         
     }),
 
@@ -283,7 +282,9 @@ export default {
         },
         onSubmit(evt) {
             evt.preventDefault()
-            this.commentsInfo.push({'author' : this.actualUser, 'text' : this.newcomment})
+            let co = {'idTeacher' : this.$store.state.user.id,  'nameTeacher' : this.actualUser, 'description' : this.newcomment, 'idProblem' : this.modal_selectProblem.id}
+            this.commentsInfo.push(co)
+            console.log (co)
             this.$refs['ModalComment'].hide()
         },
         onReset(evt) {
@@ -293,7 +294,7 @@ export default {
         },
         imprimir : function() {
             for (let problem of this.infoproblems){
-                let stringToSearch = problem.tags.toString().concat (" ", problem.body, " ", problem.title).toLowerCase()
+                let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase()
                 console.log (stringToSearch)
             }
         },
@@ -301,7 +302,7 @@ export default {
         showModalProblem(index) {
             this.modal_titleProblem = this.infoproblems [index].name
             this.modal_desProblem = this.infoproblems [index].body
-            this.modal_tagsProblem = this.infoproblems [index].tags
+            this.modal_tagsProblem = this.infoproblems [index].topicsString
             this.modal_selectProblem = this.infoproblems [index]
             
             if (this.idsProblems.includes (this.modal_selectProblem.id)){
@@ -309,6 +310,8 @@ export default {
             }
             else {
                 this.$refs['modal-problem'].show()
+                axios.get("http://" + this.$store.state.clientURL + "/comment/v1/comment/getCommentByProblem?idProb=" + this.modal_selectProblem.id)
+                .then (response => (this.commentsInfo = (response.data)))
             }
         },
 
@@ -317,12 +320,13 @@ export default {
                 type : 'updateNewProblem',
                 valor : this.modal_selectProblem
             })
-            this.$store.commit ({
-                type : 'updateIds',
-                valor : this.modal_selectProblem.id
+            this.idsProblems.push (this.modal_selectProblem.id)
+
+            axios.post('http://' + this.$store.state.clientURL + '/problem/v1/problem/saveProblemsSelected', {
+                idTeacher : this.$store.state.user.id,
+                idProblem : this.modal_selectProblem.id
             })
-            this.$store.commit ('updateMyProblems')
-            this.$store.commit ('viewProblems')
+
             this.creditos -= 1;
             this.$refs['modal-problem'].hide()
         },
@@ -359,19 +363,31 @@ export default {
     },
 
     mounted () {
-        axios.get("http://localhost:9900/problem/v1/problem/getProblems")
-        .then(response => (this.infoproblems = response.data)),
-        axios.get ("http://localhost:9900/comment/v1/comment/getCommentByProblem?idProb=1")
-        .then(response => (this.commentsInfo = response.data))
+        axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSelected?id=' + this.$store.state.user.id)
+        .then(response => {
+            this.mp = response.data
+            for (let m of response.data){
+                this.idsProblems.push(m.id)
+            }
+        }
+        )
+        axios.get("http://" + this.$store.state.clientURL +  "/problem/v1/problem/getProblemTopics")
+        .then(response => (this.infoproblems = response.data))
+        /*axios.get ("http://localhost:9900/comment/v1/comment/getCommentByProblem?idProb=1")
+        .then(response => (this.commentsInfo = response.data))*/
+//        axios.get("http://" + this.$store.state.clientURL + "/problem/v1/problem/getProblemsSelected")
+        
     },
 
     computed : {
          ...mapState ({
             problemsAll : state=>state.myProblems,
-            idsProblems : state=>state.idsProblems
+            creditos : state=>state.user.credits
+            //idsProblems : state=>state.idsProblems
         }),
         filtrar : function () {
             let res = []
+            console.log (this.mp)
             if(this.infoproblems.length > 0){
                 let id = 0
                 for (let problem of this.infoproblems) {
@@ -386,7 +402,7 @@ export default {
                             }
                         else
                             {
-                                let stringToSearch = problem.tags.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
+                                let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
                                 if (stringToSearch.includes (this.keyToSearch.toLowerCase()))
                                 {
                                     if (this.typeSelected === '' || this.typeSelected === problem.type)
@@ -396,7 +412,7 @@ export default {
                     }
                     else
                     {
-                        if (problem.tags.filter(value => this.selectedSubjects.includes (value)).length)
+                        if (problem.topicsString.filter(value => this.selectedSubjects.includes (value)).length)
                         {
                             if (this.keyToSearch === '')
                             {
@@ -405,7 +421,7 @@ export default {
                             }
                             else
                             {
-                                let stringToSearch = problem.tags.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
+                                let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
                                 if (stringToSearch.includes (this.keyToSearch.toLowerCase()))
                                 {
                                     if (this.typeSelected === '' || this.typeSelected === problem.type)
@@ -426,7 +442,7 @@ export default {
             if (this.infoproblems.length > 0){
                 for (let problem of this.infoproblems)
                 {
-                    tempTags = tempTags.concat(problem.tags)
+                    tempTags = tempTags.concat(problem.topicsString)
                 }
                 tempTags = [...new Set(tempTags)]
                 for (let tTag of tempTags)

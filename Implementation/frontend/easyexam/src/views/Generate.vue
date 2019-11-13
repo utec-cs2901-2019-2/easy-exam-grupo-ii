@@ -189,17 +189,23 @@
 
 <script>
 import {mapState} from 'vuex'
+import axios from 'axios'
 export default {
     data : () => ({
         currentPage : 1,
         keyFromAll : '',
-        keyFromSel : ''
+        keyFromSel : '',
+        problemsAll : []
     }),
-
+    mounted() {
+        axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSelected?id=' + this.$store.state.user.id)
+        .then(response => (this.problemsAll = response.data))
+    },
     computed: {
+        
         ...mapState ({
             problemsSelected : state=>state.problemsSelected,
-            problemsAll : state=>state.myProblems
+            //problemsAll : state=>state.myProblems
         }),
         filtrarAll : function () {
             this.$store.commit ('viewProblems')
