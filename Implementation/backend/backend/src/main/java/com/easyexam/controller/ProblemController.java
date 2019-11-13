@@ -67,7 +67,7 @@ public class ProblemController {
     }
 
     @GetMapping("/problem/getProblemsSelected")
-    public List<ProblemSelected> getProblemsSelected(int id){
+    public List<ProblemCompleted> getProblemsSelected(int id){
         return problemService.getProblemSelected(id);
     }
 

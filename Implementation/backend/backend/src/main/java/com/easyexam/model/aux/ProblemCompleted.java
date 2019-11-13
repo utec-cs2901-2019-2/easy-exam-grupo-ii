@@ -24,6 +24,26 @@ public class ProblemCompleted {
 
     private String pathImageSolution;
 
+    private float score;
+
+    private int qualifiers;
+
+    public int getQualifiers() {
+        return qualifiers;
+    }
+
+    public void setQualifiers(int qualifiers) {
+        this.qualifiers = qualifiers;
+    }
+
+    public float getScore() {
+        return score;
+    }
+
+    public void setScore(float score) {
+        this.score = score;
+    }
+
     public int getIdTeacher() {
         return idTeacher;
     }

@@ -19,7 +19,7 @@ public interface IProblemService {
 
     Boolean saveProblemSelected(ProblemSelected promSecl);
     
-    List<ProblemSelected> getProblemSelected(int idUser);
+    List<ProblemCompleted> getProblemSelected(int idUser);
 
     int getMaxId();
 }
