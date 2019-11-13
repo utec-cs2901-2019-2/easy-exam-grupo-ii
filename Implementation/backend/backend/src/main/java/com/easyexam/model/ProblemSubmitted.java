@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.Date;
+import java.util.*;
 
 @Entity
 @Table(name="problem_submitted")

@@ -1,9 +1,11 @@
 package com.easyexam.service;
 
+import com.easyexam.model.*;
+import java.util.List;
+
 import com.easyexam.model.Problem;
 import com.easyexam.model.aux.ProblemCompleted;
 
-import java.util.List;
 
 public interface IProblemService {
 
@@ -11,5 +13,9 @@ public interface IProblemService {
 
     List<Problem> getAllProblems();
 
-    List<Problem> getAllProblemsByUsers(int idUser);
+    List<ProblemSubmitted> findUserProblem(int idUser);
+
+    List<ProblemTopic> getProblemTopics(int idProb);
+
+    Boolean saveProblemSelected(ProblemSelected promSecl);
 }

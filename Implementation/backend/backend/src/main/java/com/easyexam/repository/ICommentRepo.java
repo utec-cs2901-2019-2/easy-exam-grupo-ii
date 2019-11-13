@@ -6,17 +6,22 @@ import com.easyexam.model.aux.CommentAndUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+
 
 import java.util.List;
 
 @Repository
-public interface ICommentRepo extends JpaRepository<Comment, CommentId> {
+public interface ICommentRepo extends JpaRepository<Comment, Integer> {
 
     @Override
     List<Comment> findAll();
 
-//    @Query("select c.id_poblem as idProblem,t.user_id as idTeacher,t.first_name as nameTeacher,c.description as descriptionComment from comment c, teacher t where c.id_teacher=t.user_id and c.id_problem=?1")
-//    List<CommentAndUser> getCommentByProblem(int idProblem);
+    @Query (value = "SELECT description, id_problem FROM comment where id_problem = ?1", nativeQuery = true)
+    List<Comment> getCommentByProblem(int idProblem);
 
-    List<Comment> findAllByCommentId_IdProblem(int idProblem);
 }

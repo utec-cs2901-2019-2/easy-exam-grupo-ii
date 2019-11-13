@@ -7,28 +7,22 @@ import java.util.List;
 
 @Entity
 @Table(name="solution_problem")
-@SequenceGenerator(name="seq_sol",sequenceName = "seqSol")
 public class SolutionProblem {
 
     @Id
-    @GeneratedValue(generator="seq_sol")
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "problem_id",nullable = false)
-    private Problem problem;
-
     @Column(name="description")
-    private String description;
+    private String body;
 
     @Column(name="path_image")
     private String pathImage;
 
     public SolutionProblem() { }
 
-    public SolutionProblem(Problem problem, String description, String pathImage) {
-        this.problem = problem;
-        this.description = description;
+    public SolutionProblem(int id, String body, String pathImage) {
+        this.id = id;
+        this.body = body;
         this.pathImage = pathImage;
     }
 
@@ -40,20 +34,12 @@ public class SolutionProblem {
         this.id = id;
     }
 
-    public Problem getProblem() {
-        return problem;
+    public String getBody() {
+        return body;
     }
 
-    public void setProblem(Problem problem) {
-        this.problem = problem;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public String getPathImage() {

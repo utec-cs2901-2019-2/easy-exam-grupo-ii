@@ -9,20 +9,27 @@
                         <h4 class="card-title mt-2">Login</h4>
                     </header>
                     <article class="card-body">
-                        <form action="" @submit="sendpost" @submit.prevent="sendpost">
+                          <b-alert
+                            :show="dismissCountDown"
+                            dismissible
+                            variant="danger"
+                            @dismissed="dismissCountDown=0"
+                            @dismiss-count-down="countDownChanged"
+                            >
+                            Email or password incorrect
+                            </b-alert>
+
+                        <form @submit.prevent="sendpost">
                             <div class="form-group">
-                                <label>Email address</label>
-                                <input v-model="email" type="email" class="form-control" placeholder="">
-                                <small class="form-text text-muted">We'll never share your Email Address with anyone else.</small>
+                                <label for="email">Email</label>
+                                <input type="email" v-model="email" name="email" class="form-control" :class="{ 'is-invalid': submitted && !email }" />
+                                <div v-show="submitted && !email" class="invalid-feedback">Email is required</div>
                             </div>
-
                             <div class="form-group">
-                                <label>Password</label>
-                                <input v-model="password" type="password" class="form-control" placeholder="">
-
+                                <label htmlFor="password">Password</label>
+                                <input type="password" v-model="password" name="password" class="form-control" :class="{ 'is-invalid': submitted && !password }" />
+                                <div v-show="submitted && !password" class="invalid-feedback">Password is required</div>
                             </div>
-
-
                             <div class="form-row justify-content-center">
                                 <label>
                                     <input type="checkbox" name="remember">  Remember Me
@@ -38,6 +45,7 @@
                                     Login
                                 </button>
                             </div>
+
                         </form>
                     </article>
                     <div class="border-top card-body text-center">Don't have an account? <a href="/register">Sign up</a></div>
@@ -50,8 +58,8 @@
 
 
 <script>
-    import axios from 'axios'
-
+import axios from 'axios'
+import { mapState } from 'vuex'
 
 export default {
   name: 'login',
@@ -60,24 +68,46 @@ export default {
   data(){
       return {
           email:'',
-          password: ''
+          password: '',
+          submitted: false,
+          dismissSecs: 5,
+          dismissCountDown: 0,
       }
   },
   computed:{
+    ...mapState ({
+            username: state => state.user.username,
+            token: state => state.user.token
+        })
   },
     methods:{
-      sendpost: function () {
-            
-            //this.$store.dispatch(AUTH_REQUEST, { username, password })
-
-            axios.post('http://localhost:9898/api/v1/login', {
-                email: this.email,
-                password: this.password
-            }).then((response) => {
-                console.log(response.data.result)
-                this.$router.push('/dashboard')
-                })
-        
+      sendpost() {
+          this.submitted = true;
+          const { email, password } = this;
+          
+          if (email && password) {
+              axios.post('http://localhost:9898/api/v1/login', {
+                email: email,
+                password: password
+            })
+            .then(response => {
+                if (response.data.message == "success") {
+                    this.$store.state.user.username = response.data.result.username
+                    this.$store.state.user.token = response.data.result.token
+                    this.$store.state.user.credits = response.data.result.credits
+                    this.$store.state.isLogged = true;
+                    this.$router.push('/dashboard')
+                } else {
+                    this.dismissCountDown = this.dismissSecs
+                }
+            }, error => {
+                console.log(error);
+                this.dismissCountDown = this.dismissSecs
+            })
+          }
+      },
+      countDownChanged(dismissCountDown) {
+        this.dismissCountDown = dismissCountDown
       }
     },
 }
