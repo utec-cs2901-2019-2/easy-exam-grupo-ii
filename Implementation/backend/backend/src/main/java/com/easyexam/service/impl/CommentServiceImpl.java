@@ -26,6 +26,12 @@ public class CommentServiceImpl implements ICommentService {
         return commentRepo.getCommentByProblem(idProblem);
     }
 
+    @Override
+    public Boolean saveComment(Comment c) {
+        commentRepo.save(c);
+        return true;
+    }
+
     @Autowired
     ITeacherRepo teacherRepo;
 

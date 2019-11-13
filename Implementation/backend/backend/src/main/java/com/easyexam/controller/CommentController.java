@@ -43,6 +43,17 @@ public class CommentController {
     @Autowired
     private ICommentService commentService;
 
+    private static Logger LOG= LoggerFactory.getLogger(ProblemServiceImpl.class);
+
+    @PostMapping("/submitComment")
+    public ApiResponse<CommentCompleted> register(@Valid @RequestBody CommentCompleted c) {
+        LOG.info("Entro a submit comment");
+        CommentId cid=new CommentId(c.getIdTeacher(),c.getIdProblem());
+        Comment comm=new Comment(cid,c.getDescription());
+        commentService.saveComment(comm);
+        return new ApiResponse<>(200, "success", true);
+    }
+
     @GetMapping("/comment/getCommentByProblem")
     public List<Comment> getCommentByProblem(int idProb){
         return commentService.getCommentByProblem(idProb);
