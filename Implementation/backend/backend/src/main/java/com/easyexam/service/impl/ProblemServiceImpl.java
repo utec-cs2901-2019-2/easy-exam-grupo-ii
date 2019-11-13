@@ -7,6 +7,8 @@ import com.easyexam.service.IProblemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.PropertiesBeanDefinitionReader;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 
 import java.io.PrintWriter;
@@ -34,6 +36,8 @@ public class ProblemServiceImpl implements IProblemService {
     @Autowired
     IProblemSelectedRepo problemSelectedRepo;
 
+    @Autowired
+    ITopicRepo topicRepo;
 
     @Override
     public Boolean save(ProblemCompleted p) {
@@ -69,14 +73,24 @@ public class ProblemServiceImpl implements IProblemService {
     }
 
     @Override
-    public List<ProblemTopic> getProblemTopics(int idProb){
-        List<ProblemTopic> pt = problemTopicRepo.findAll();
-        List<ProblemTopic> pt2 = new ArrayList<ProblemTopic>();
+    public List<ProblemCompleted> getProblemTopics(int idProb){
+        List<Problem> pt = problemRepo.findAll();
+        List<ProblemCompleted> pt2 = new ArrayList<ProblemCompleted>();
 
-        for (ProblemTopic p : pt) {
-            if (p.getProblemTopicId().getIdProblem() == idProb) {
-                pt2.add(p);
+        for (Problem p : pt) {
+            ProblemCompleted tmp=new ProblemCompleted();
+            tmp.setBody(p.getBody());
+            tmp.setTitle(p.getTitle());
+            tmp.setType(p.getType());
+            tmp.setId(p.getId());
+            List<ProblemTopic> ptopics=problemTopicRepo.findAllByProblemTopicId_IdProblem(p.getId());
+            List<Topic> topics=new ArrayList<>();
+            for (ProblemTopic ptopic:ptopics) {
+                Topic t=topicRepo.findTopicById(ptopic.getProblemTopicId().getIdTopic());
+                topics.add(t);
             }
+            tmp.setTopics(topics);
+            pt2.add(tmp);
         }
         return pt2;
     }

@@ -56,7 +56,7 @@ public class ProblemController {
     }
 
     @GetMapping("/problem/getProblemTopics")
-    public List<ProblemTopic> getProblemTopics(int id){
+    public List<ProblemCompleted> getProblemTopics(int id){
         return problemService.getProblemTopics(id);
     }
 

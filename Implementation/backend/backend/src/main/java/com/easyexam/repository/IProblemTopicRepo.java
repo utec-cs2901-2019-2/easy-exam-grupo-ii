@@ -23,4 +23,6 @@ public interface IProblemTopicRepo extends JpaRepository<ProblemTopic,ProblemTop
     //@Query (value = "select problem.id as id_problem, topics.id as id_topic from problem, topics, problem_topic where problem_topic.id_problem = problem.id and id_topic = topics.id and problem.id = ?1", nativeQuery = true)
     //List<ProblemTopic> getProblemTopics(int idProb);
 
+    List<ProblemTopic> findAllByProblemTopicId_IdProblem(int idProblem);
+
 }

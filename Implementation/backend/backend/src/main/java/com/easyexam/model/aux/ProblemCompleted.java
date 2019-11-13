@@ -8,6 +8,8 @@ public class ProblemCompleted {
 
     private int idTeacher;
 
+    private int id;
+
     private String title;
 
     private String type;
@@ -44,6 +46,14 @@ public class ProblemCompleted {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getBody() {
