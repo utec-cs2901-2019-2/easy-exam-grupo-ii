@@ -47,10 +47,10 @@ export default new Vuex.Store({
         }
       },
       types: [
-        { id: 1, name: "Multiple Choice"},
-        { id: 2, name: "True or False"},
-        { id: 3, name: "Short Answer"},
-        { id: 4, name: "Long Answer"}
+        { id: 1, name: "MC"},
+        { id: 2, name: "TF"},
+        { id: 3, name: "SA"},
+        { id: 4, name: "LA"}
       ],
       editor: [
         [{ header: [2, 3, 4, false] }],
