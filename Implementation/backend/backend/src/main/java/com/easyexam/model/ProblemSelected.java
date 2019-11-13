@@ -7,8 +7,19 @@ import javax.persistence.*;
 @SequenceGenerator(sequenceName = "seqProbSel",name="seq_problem_selected")
 public class ProblemSelected {
 
-    @Id
-    @GeneratedValue(generator = "seq_problem_selected")
-    private int id;
+    @EmbeddedId
+    private ProblemSelectedId problemSelectedId;
 
+    public ProblemSelected() { }
+    public ProblemSelected(ProblemSelectedId problemSelectedId) {
+        this.problemSelectedId = problemSelectedId;
+    }
+
+    public ProblemSelectedId getProblemSelectedId() {
+        return problemSelectedId;
+    }
+
+    public void setProblemSelectedId(ProblemSelectedId problemSelectedId) {
+        this.problemSelectedId = problemSelectedId;
+    }
 }
