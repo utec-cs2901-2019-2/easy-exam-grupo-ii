@@ -10,8 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class CommentServiceImpl implements ICommentService {
@@ -22,10 +21,15 @@ public class CommentServiceImpl implements ICommentService {
     @Autowired
     ICommentRepo commentRepo;
 
+    @Override
+    public List<Comment> getCommentByProblem(int idProblem){
+        return commentRepo.getCommentByProblem(idProblem);
+    }
+
     @Autowired
     ITeacherRepo teacherRepo;
 
-    @Override
+    /*@Override
     public List<CommentAndUser> getCommentByProblem(int idProblem) {
         LOG.info("ENtro a CommenByProblem para Service");
         List<Comment> listComment=commentRepo.findAllByCommentId_IdProblem(idProblem);
@@ -40,5 +44,5 @@ public class CommentServiceImpl implements ICommentService {
         }
         LOG.info("Salio a CommenByProblem para Service");
         return commentAndUsers;
-    }
+    }*/
 }

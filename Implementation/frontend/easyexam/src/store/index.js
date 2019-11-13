@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    isLogged:false,
     user: {
       username: null,
       token: null,
@@ -39,10 +40,18 @@ export default new Vuex.Store({
     updateViewBack () {
       this.state.submit.show.problem = true;
       this.state.submit.show.solution = false;
+    },
+    stateLogged(){
+      return this.isLogged;
     }
   },
   actions: {
   },
   modules: {
+  },
+  getters:{
+    getIsLogged(state){
+      return state.isLogged;
+    }
   }
 })

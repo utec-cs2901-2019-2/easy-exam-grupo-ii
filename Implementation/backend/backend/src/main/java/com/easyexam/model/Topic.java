@@ -16,7 +16,7 @@ public class Topic {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "topicDad_id",nullable = false)
+    @JoinColumn(name = "topicDad_id",nullable = true)
     private Topic topicDad;
 
     public Topic() { }

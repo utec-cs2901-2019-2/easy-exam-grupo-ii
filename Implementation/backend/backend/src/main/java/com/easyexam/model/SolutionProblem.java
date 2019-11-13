@@ -13,15 +13,16 @@ public class SolutionProblem {
     private int id;
 
     @Column(name="description")
-    private String description;
+    private String body;
 
     @Column(name="path_image")
     private String pathImage;
 
     public SolutionProblem() { }
 
-    public SolutionProblem(String description, String pathImage) {
-        this.description = description;
+    public SolutionProblem(int id, String body, String pathImage) {
+        this.id = id;
+        this.body = body;
         this.pathImage = pathImage;
     }
 
@@ -33,12 +34,12 @@ public class SolutionProblem {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public String getBody() {
+        return body;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public String getPathImage() {
