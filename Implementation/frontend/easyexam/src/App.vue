@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <NavBar></NavBar>
+   <NavBar v-if="getIsLogged"></NavBar>
     <router-view/>
   </div>
 
@@ -16,4 +16,13 @@
 </script>
 <style scoped>
 </style>
+
+<script>
+import {mapGetters} from 'vuex'
+export default {
+  computed:{
+    ...mapGetters(['getIsLogged'])
+  }
+}
+</script>
 
