@@ -39,7 +39,7 @@ public class ProblemServiceImpl implements IProblemService {
     public Boolean save(ProblemCompleted p) {
 
         try{
-            Problem problem=new Problem(p.getTitle(),p.getBody(),p.getRutaImage(),"",0,0);
+            Problem problem=new Problem(p.getTitle(),p.getType(), p.getBody(),p.getRutaImage(),0,0);
             problem=problemRepo.save(problem);
             problemSubmittedRepo.save(new ProblemSubmitted(new ProblemSubmittedId(p.getIdTeacher(),problem.getId()),new Date()));
             solutionProblemRepo.save(new SolutionProblem(problem.getId(),p.getDescriptionSolution(),p.getPathImageSolution()));
