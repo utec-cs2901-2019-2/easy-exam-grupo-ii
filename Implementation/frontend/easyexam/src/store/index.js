@@ -5,15 +5,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-<<<<<<< HEAD
     isLogged:false,
-=======
     user: {
       username: '',
       token: '',
       credits: 0
     },
->>>>>>> 98349889e8976c8e9f4e0908f4181db1f5a89b1c
     submit: {
       show: {
         problem: true,
