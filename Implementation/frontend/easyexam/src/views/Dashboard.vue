@@ -41,7 +41,7 @@
                     <ul class="list-unstyled" style="width: 90%; height: 40%; position: relative; overflow-y:scroll">
                         <b-media v-for="(com, key) of commentsInfo" v-bind:key = "key" tag="li" style="margin : 10px; width: 90%" >
                             <b-card>
-                                <h4><b>{{com.nameTeacher}} {{com.idTeacher}}</b></h4>
+                                <h4><b>{{com.nameTeacher}}</b></h4>
                                 <b-card-text>
                                     {{com.description}}
                                 </b-card-text>
@@ -288,9 +288,9 @@ export default {
         },
         onSubmit(evt) {
             evt.preventDefault()
-            let co = {'idTeacher' : this.$store.state.user.id,  'nameTeacher' : this.actualUser, 'description' : this.newcomment, 'idProblem' : this.modal_selectProblem.id}
+            let co = {'idTeacher' : this.$store.state.user.id,  'nameTeacher' : this.$store.state.user.username, 'description' : this.newcomment, 'idProblem' : this.modal_selectProblem.id}
             this.commentsInfo.push(co)
-            console.log (co)
+            axios.post ('http://' + this.$store.state.clientURL + '/comment/v1/submitComment', co)
             this.$refs['ModalComment'].hide()
         },
         onReset(evt) {
