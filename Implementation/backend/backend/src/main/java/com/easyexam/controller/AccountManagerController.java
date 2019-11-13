@@ -73,7 +73,7 @@ public class AccountManagerController {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUser.getEmail(), loginUser.getPassword()));
         final String token = jwtTokenUtil.generateToken(user);
         final Teacher teacher = teacherService.findOneByUser(user);
-        return new ApiResponse<>(200, "success",new AuthToken(token, user.getEmail(), teacher.getBonus()));
+        return new ApiResponse<>(200, "success",new AuthToken(token, user.getId(), user.getEmail(), teacher.getBonus()));
     }
 
     @PostMapping("/register")
