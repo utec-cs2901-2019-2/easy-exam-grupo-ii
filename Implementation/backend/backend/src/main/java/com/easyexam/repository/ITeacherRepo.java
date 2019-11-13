@@ -6,7 +6,9 @@ import com.easyexam.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,7 +21,9 @@ public interface ITeacherRepo extends JpaRepository<Teacher,Integer> {
 
     @Query(value = "SELECT t.bonus FROM teacher t where t.user_id=?1",nativeQuery = true)
     int getBonus(int idTeacher);
-//    @Modifying
-//    @Query("UPDATE TEACHER T SET T. = :address WHERE c.id = :companyId")
-//    int updateAddress(@Param("companyId") int companyId, @Param("address") String address);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "UPDATE TEACHER  SET bonus = :bonus WHERE user_id = :iduser",nativeQuery = true)
+    void updateAddress(@Param("bonus") int bonus,@Param("iduser") int idTeacher);
 }

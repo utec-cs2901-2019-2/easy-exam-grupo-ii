@@ -78,4 +78,10 @@ public class TeacherServiceImpl implements ITeacherService {
         user.setBonus(teacherRepo.getBonus(u.getId()));
         return user;
     }
+
+    @Override
+    public Boolean updateBonus(int bonus, int idUser) {
+        teacherRepo.updateAddress(bonus,idUser);
+        return true;
+    }
 }
