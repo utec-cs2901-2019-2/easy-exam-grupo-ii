@@ -42,7 +42,7 @@
                                 <b-row class="justify-content-md-center">
                                     <b-col cols="10">
                                         <div style="margin-top:10px">
-                                            <b-button disabled variant="light" style="margin:5px" v-for="(tag, index) of prob.tags" v-bind:key="index">
+                                            <b-button disabled variant="light" style="margin:5px" v-for="(tag, index) of prob.topicsString" v-bind:key="index">
                                                 {{tag}}
                                             </b-button>
                                         </div>
@@ -88,7 +88,7 @@
                                     <b-row style="width:90%">
                                     <b-col cols="10">
                                         <div style="margin-top:10px">
-                                            <b-button disabled variant="light" style="margin:5px" v-for="(tag, index) of prob.tags" v-bind:key="index">
+                                            <b-button disabled variant="light" style="margin:5px" v-for="(tag, index) of prob.topicsString" v-bind:key="index">
                                                 {{tag}}
                                             </b-button>
                                         </div>
@@ -220,7 +220,7 @@ export default {
                 }
                 else
                 {
-                    let stringToSearch = problem.tags.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
+                    let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
                     if (stringToSearch.includes (this.keyFromAll.toLowerCase()))
                     {
                         res.push (problem)
@@ -242,7 +242,7 @@ export default {
                 }
                 else
                 {
-                    let stringToSearch = problem.tags.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
+                    let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
                     if (stringToSearch.includes (this.keyFromSel.toLowerCase()))
                     {
                         res.push (problem)

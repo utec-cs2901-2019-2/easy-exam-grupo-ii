@@ -7,7 +7,7 @@
         <b-modal ref="modal-problem" size = "xl" >
 
             <template v-slot:modal-title>
-                {{modal_titleProblem}}
+                <b>{{modal_titleProblem}}</b>
             </template>
 
             <b-row>
@@ -26,12 +26,19 @@
             <b-row align-h="around" style="height: 300px">
                 <b-col cols = "1,5"></b-col>
                 <b-col cols="9">
+                    <b-row v-if="available">
+                        <b-card no-header style = "width: 80%; margin: 10px; height:60%">
+                            <b-card-body>
+                                {{modal_desProblem}}
+                            </b-card-body>
+                        </b-card>
+                    </b-row>
                     <b-row>
                         <b-card bg-variant="secondary" text-variant="white" no-body header="Comments">
                         </b-card>
                     </b-row>
                     
-                    <ul class="list-unstyled" style="width: 90%; height: 200px; position: relative; overflow-y:scroll">
+                    <ul class="list-unstyled" style="width: 90%; height: 40%; position: relative; overflow-y:scroll">
                         <b-media v-for="(com, key) of commentsInfo" v-bind:key = "key" tag="li" style="margin : 10px; width: 90%" >
                             <b-card>
                                 <h4><b>{{com.nameTeacher}} {{com.idTeacher}}</b></h4>
@@ -62,7 +69,7 @@
 
             <template v-slot:modal-footer>
                 <b-row style="width : 100%">
-                    <b-col cols = "4">
+                    <b-col v-if="!available" cols = "4">
                     <center>
                         <b-button variant="outline-info" @click="hideModalProblem">Get Problem</b-button>
                     </center>
@@ -118,8 +125,6 @@
         >
         <b>You have this problem</b>
         </b-alert>
-        <h1>{{$store.state.user}}</h1>
-        <h2>{{$store.state.isLogged}}</h2>
         <!--SEARCH ENGINE -->
 
         <b-row v-if="$store.state.isLogged == true" class="justify-content-center" style="margin:0">
@@ -301,15 +306,20 @@ export default {
         },
 
         showModalProblem(index) {
-            this.modal_titleProblem = this.infoproblems [index].name
+            this.modal_titleProblem = this.infoproblems [index].title
             this.modal_desProblem = this.infoproblems [index].body
             this.modal_tagsProblem = this.infoproblems [index].topicsString
             this.modal_selectProblem = this.infoproblems [index]
             
             if (this.idsProblems.includes (this.modal_selectProblem.id)){
+                this.available = true
                 this.showDismissibleAlert = true
+                this.$refs['modal-problem'].show()
+                axios.get("http://" + this.$store.state.clientURL + "/comment/v1/comment/getCommentByProblem?idProb=" + this.modal_selectProblem.id)
+                .then (response => (this.commentsInfo = (response.data)))
             }
             else {
+                this.available = false
                 this.$refs['modal-problem'].show()
                 axios.get("http://" + this.$store.state.clientURL + "/comment/v1/comment/getCommentByProblem?idProb=" + this.modal_selectProblem.id)
                 .then (response => (this.commentsInfo = (response.data)))
@@ -327,8 +337,13 @@ export default {
                 idTeacher : this.$store.state.user.id,
                 idProblem : this.modal_selectProblem.id
             })
-
+            let new_credit = this.$store.state.user.credits - 1
             this.$store.state.user.credits -= 1;
+            axios.post('http://' + this.$store.state.clientURL + '/user/v1/teacher/updateBonus',{
+                id : this.$store.state.user.id,
+                bonus : new_credit
+            })
+
             this.$refs['modal-problem'].hide()
         },
 
