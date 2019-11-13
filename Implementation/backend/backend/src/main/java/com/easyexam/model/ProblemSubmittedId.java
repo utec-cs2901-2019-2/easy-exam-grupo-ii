@@ -8,6 +8,8 @@ public class ProblemSubmittedId implements Serializable {
 
     int idUser;
     int idProblem;
+    public ProblemSubmittedId() {
+    }
 
     public ProblemSubmittedId(int idUser, int idProblem) {
         this.idUser = idUser;

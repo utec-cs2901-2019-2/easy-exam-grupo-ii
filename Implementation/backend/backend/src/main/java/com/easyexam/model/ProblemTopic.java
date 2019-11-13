@@ -21,6 +21,9 @@ public class ProblemTopic {
     @EmbeddedId
     private ProblemTopicId problemTopicId;
 
+
+
+    public ProblemTopic() { }
     public ProblemTopic(ProblemTopicId problemTopicId) {
         this.problemTopicId = problemTopicId;
     }

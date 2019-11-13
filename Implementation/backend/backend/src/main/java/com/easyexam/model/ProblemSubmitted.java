@@ -16,6 +16,9 @@ public class ProblemSubmitted {
     @Column(name="date_created")
     private Date dateCreated;
 
+    public ProblemSubmitted() {
+
+    }
     public ProblemSubmitted(ProblemSubmittedId problemSubmittedId, Date dateCreated) {
         this.problemSubmittedId = problemSubmittedId;
         this.dateCreated = dateCreated;
