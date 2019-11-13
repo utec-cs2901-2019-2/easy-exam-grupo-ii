@@ -123,12 +123,13 @@ public class ProblemServiceImpl implements IProblemService {
             tmp2.setQualifiers(p.getQualifiers());
             tmp2.setId(p.getId());
             List<ProblemTopic> ptopics=problemTopicRepo.findAllByProblemTopicId_IdProblem(p.getId());
-            List<Topic> topics=new ArrayList<>();
+            List<String> topics=new ArrayList<>();
             for (ProblemTopic ptopic:ptopics) {
                 Topic t=topicRepo.findTopicById(ptopic.getProblemTopicId().getIdTopic());
-                topics.add(t);
+                topics.add(t.getName());
             }
-           // ps.
+            tmp2.setTopicsString(topics);
+            list.add(tmp2);
         }
 
         return list;
