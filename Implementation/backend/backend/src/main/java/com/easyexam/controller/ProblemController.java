@@ -1,7 +1,6 @@
 package com.easyexam.controller;
 
-import com.easyexam.model.Problem;
-import com.easyexam.model.Role;
+import com.easyexam.model.*;
 import com.easyexam.model.aux.ApiResponse;
 import com.easyexam.model.aux.CommentAndUser;
 import com.easyexam.model.aux.ProblemCompleted;
@@ -50,14 +49,9 @@ public class ProblemController {
         return problemService.getAllProblems();
     }
 
-    @GetMapping("/problem/getCommentByProblem")
-    public List<CommentAndUser> getCommentByProblem(@RequestParam(name="idProblem",required = false)int idProblem) throws AuthenticationException{
-        return commentService.getCommentByProblem(idProblem);
-    }
-
-    @GetMapping("/problem/getProblemsByUser")
-    public List<Problem> getProblemsByUser(@RequestParam(name="idUser",required = false)int idUser) throws AuthenticationException{
-        return problemService.getAllProblemsByUsers(idUser);
+    @GetMapping("/problem/getUserProblems")
+    public List<ProblemSubmitted> getUserProblems(int id){
+        return problemService.findUserProblem(id);
     }
 
 

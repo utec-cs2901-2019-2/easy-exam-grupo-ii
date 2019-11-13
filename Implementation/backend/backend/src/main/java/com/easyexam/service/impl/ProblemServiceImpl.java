@@ -12,9 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.io.PrintWriter;
+import java.io.File;
+
+import java.util.*;
 
 @Service
 public class ProblemServiceImpl implements IProblemService {
@@ -62,12 +63,7 @@ public class ProblemServiceImpl implements IProblemService {
     }
 
     @Override
-    public List<Problem> getAllProblemsByUsers(int idUser) {
-        List<ProblemSubmitted> pSubm=problemSubmittedRepo.findAllByProblemSubmittedId_IdUser(idUser);
-        List<Problem> problems=new ArrayList<Problem>();
-        for(ProblemSubmitted ps:pSubm){
-            problems.add(problemRepo.findProblemById(ps.getProblemSubmittedId().getIdProblem()));
-        }
-        return problems;
+    public List<ProblemSubmitted> findUserProblem(int id){
+        return problemSubmittedRepo.findUserQuestions(id);
     }
 }

@@ -3,7 +3,6 @@
    <NavBar v-if="getIsLogged"></NavBar>
     <router-view/>
   </div>
-
 </template>
 <script>
   import NavBar from "./components/NavBar";
@@ -17,6 +16,7 @@
 <style scoped>
 </style>
 
+<<<<<<< HEAD
 <script>
 import {mapGetters} from 'vuex'
 export default {
@@ -25,4 +25,6 @@ export default {
   }
 }
 </script>
+=======
+>>>>>>> 326f8857a5c6ebb8c1a9c2b8b3283a00ef85df76
 
