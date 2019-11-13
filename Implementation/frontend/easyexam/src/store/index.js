@@ -32,7 +32,7 @@ export default new Vuex.Store({
           image: null,
           alt_body: '',
           alt_value: null,
-          updt_id: -1,
+          updt_id: '',
           updt_body: '',
           updt_value: null
 
@@ -71,12 +71,12 @@ export default new Vuex.Store({
       state.submit.form.solution.alt_body = '';
       state.submit.form.solution.alt_value = '';
     },
-    updateAlternative (index) {
-      this.state.submit.form.solution.alternatives[index].body= this.state.submit.form.solution.updt_body;
-      this.state.submit.form.solution.alternatives[index].value= this.state.submit.form.solution.updt_value;
+    updateAlternative () {
+      this.state.submit.form.solution.alternatives[this.state.submit.form.solution.updt_id].body= this.state.submit.form.solution.updt_body;
+      this.state.submit.form.solution.alternatives[this.state.submit.form.solution.updt_id].value= this.state.submit.form.solution.updt_value;
     },
-    deleteAlternative (index){
-      this.state.submit.form.solution.alternatives.splice(index, 1)
+    deleteAlternative (){
+      this.state.submit.form.solution.alternatives.splice(this.state.submit.form.solution.updt_id,1)
     }
   },
   actions: {

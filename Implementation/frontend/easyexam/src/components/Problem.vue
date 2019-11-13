@@ -31,10 +31,10 @@
                                 >
                                 </vue-editor>
                                  <b-alert 
-                                        :show="dismissCountDown" 
+                                        :show="dismissCountDownBody" 
                                         dismissible 
                                         variant="danger"  
-                                        @dismissed="dismissCountDown=0"
+                                        @dismissed="dismissCountDownBody=0"
                                         @dismiss-count-down="countDownChanged" 
                                         >
                                         Problem body must have at least 100 characters.
@@ -57,8 +57,18 @@
                                         track-by="id"
                                         :options="tags"
                                         :multiple="true"
+                                        :hide-selected="true"
                                 >
                                 </multiselect>
+                                <b-alert 
+                                        :show="dismissCountDownTags" 
+                                        dismissible 
+                                        variant="danger"  
+                                        @dismissed="dismissCountDownTags=0"
+                                        @dismiss-count-down="countDownChanged" 
+                                        >
+                                        You need to select at least one tag.
+                                </b-alert>
                             </b-form-group>
                             <b-button type="reset" variant="danger">Reset</b-button>
                             <b-button variant="primary" class="mx-1 float-right" @click="goNext">Next</b-button>
@@ -90,13 +100,14 @@
         data() {
             return {
                 dismissSecs: 5,
-                dismissCountDown: 0,
+                dismissCountDownBody: 0,
+                dismissCountDownTags: 0,
                 tags: []
             }
         },
         mounted() {
             const tag = axios.get("http://localhost:9898/topics/v1/topics/getTopics");
-            tag.then(response => (this.tags = response));
+            tag.then(response => (this.tags = response.data));
         },
         computed: {
             ...mapState ({
@@ -111,16 +122,23 @@
             countDownChanged(dismissCountDown) {
                 this.dismissCountDown = dismissCountDown
             },
-            showAlert() {
-                this.dismissCountDown = this.dismissSecs
+            showAlertBody() {
+                this.dismissCountDownBody = this.dismissSecs
+            },
+            showAlertTags() {
+                this.dismissCountDownTags = this.dismissSecs
             },
             goNext() {
                 let valTitle = this.problem.title.length > 0 ? true : false;
                 let valBody = this.problem.body.length > 100 ? true : false;
-                if (valBody && valTitle){
+                let valTags = this.problem.topics_id.length > 0 ? true: false;
+                if (valBody && valTitle && valTags){
                     this.$store.commit('updateViewNext')
                 }else{
-                    this.showAlert()
+                    if (!valTags)
+                        this.showAlertTags()
+                    if (!valBody) 
+                        this.showAlertBody()
                 }
             },
             onReset(evt) {
