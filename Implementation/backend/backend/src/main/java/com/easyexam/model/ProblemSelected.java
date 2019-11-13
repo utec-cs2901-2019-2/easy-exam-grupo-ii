@@ -11,4 +11,5 @@ public class ProblemSelected {
     @GeneratedValue(generator = "seq_problem_selected")
     private int id;
 
+
 }
