@@ -2,8 +2,10 @@ package com.easyexam.service.impl;
 
 import com.easyexam.model.Teacher;
 import com.easyexam.model.User;
+import com.easyexam.model.aux.UserCompleted;
 import com.easyexam.repository.IExamTeacherRepo;
 import com.easyexam.repository.ITeacherRepo;
+import com.easyexam.repository.IUserRepo;
 import com.easyexam.service.ITeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,9 @@ public class TeacherServiceImpl implements ITeacherService {
 
     @Autowired
     ITeacherRepo teacherRepo;
+
+    @Autowired
+    IUserRepo userRepo;
 
     @Autowired
     IExamTeacherRepo examTeacherRepo;
@@ -62,5 +67,15 @@ public class TeacherServiceImpl implements ITeacherService {
 
     public Teacher findOneByUser(User user){
         return teacherRepo.findByUser(user);
+    }
+
+    @Override
+    public UserCompleted getDates(String email){
+        UserCompleted user=new UserCompleted();
+        user.setEmail(email);
+        User u=userRepo.findUserByEmail(email);
+        user.setId(u.getId());
+        user.setBonus(teacherRepo.getBonus(u.getId()));
+        return user;
     }
 }
