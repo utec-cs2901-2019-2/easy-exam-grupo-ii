@@ -38,7 +38,7 @@
                         </b-card>
                     </b-row>
                     
-                    <ul class="list-unstyled" style="width: 90%; height: 40%; position: relative; overflow-y:scroll">
+                    <ul class="list-unstyled" style="width: 90%; height: 30%; position: relative; overflow-y:scroll">
                         <b-media v-for="(com, key) of commentsInfo" v-bind:key = "key" tag="li" style="margin : 10px; width: 90%" >
                             <b-card>
                                 <h4><b>{{com.nameTeacher}}</b></h4>
@@ -244,6 +244,8 @@ export default {
             actualUser : 'GiordanoLover777',
 
             filtrarAvailable : true,
+
+            available : true,
 
             subjectToSearch : '',
 
