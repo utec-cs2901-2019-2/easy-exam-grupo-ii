@@ -84,4 +84,8 @@ public class ProblemServiceImpl implements IProblemService {
         }
     }
 
+    @Override
+    public List<ProblemSelected> getProblemSelected(int idUser){
+        return problemSelectedRepo.getSelectedProblems(idUser);
+    }
 }
