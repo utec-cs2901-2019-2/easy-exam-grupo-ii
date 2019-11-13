@@ -8,6 +8,8 @@ public class ProblemCompleted {
 
     private int idTeacher;
 
+    private int id;
+
     private String title;
 
     private String type;
@@ -18,9 +20,39 @@ public class ProblemCompleted {
 
     private List<Topic> topics;
 
+    private List<String> topicsString;
+
     private String descriptionSolution;
 
     private String pathImageSolution;
+
+    private float score;
+
+    private int qualifiers;
+
+    public int getQualifiers() {
+        return qualifiers;
+    }
+
+    public List<String> getTopicsString() {
+        return topicsString;
+    }
+
+    public void setTopicsString(List<String> topicsString) {
+        this.topicsString = topicsString;
+    }
+
+    public void setQualifiers(int qualifiers) {
+        this.qualifiers = qualifiers;
+    }
+
+    public float getScore() {
+        return score;
+    }
+
+    public void setScore(float score) {
+        this.score = score;
+    }
 
     public int getIdTeacher() {
         return idTeacher;
@@ -44,6 +76,14 @@ public class ProblemCompleted {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getBody() {

@@ -7,6 +7,8 @@ import com.easyexam.service.IProblemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.PropertiesBeanDefinitionReader;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 
 import java.io.PrintWriter;
@@ -34,6 +36,8 @@ public class ProblemServiceImpl implements IProblemService {
     @Autowired
     IProblemSelectedRepo problemSelectedRepo;
 
+    @Autowired
+    ITopicRepo topicRepo;
 
     @Override
     public Boolean save(ProblemCompleted p) {
@@ -69,8 +73,28 @@ public class ProblemServiceImpl implements IProblemService {
     }
 
     @Override
-    public List<ProblemTopic> getProblemTopics(int idProb){
-        return problemTopicRepo.getProblemTopics(idProb);
+    public List<ProblemCompleted> getProblemTopics(){
+        List<Problem> pt = problemRepo.findAll();
+        List<ProblemCompleted> pt2 = new ArrayList<ProblemCompleted>();
+
+        for (Problem p : pt) {
+            ProblemCompleted tmp=new ProblemCompleted();
+            tmp.setBody(p.getBody());
+            tmp.setTitle(p.getTitle());
+            tmp.setType(p.getType());
+            tmp.setScore(p.getScore());
+            tmp.setQualifiers(p.getQualifiers());
+            tmp.setId(p.getId());
+            List<ProblemTopic> ptopics=problemTopicRepo.findAllByProblemTopicId_IdProblem(p.getId());
+            List<String> topics=new ArrayList<>();
+            for (ProblemTopic ptopic:ptopics) {
+                Topic t=topicRepo.findTopicById(ptopic.getProblemTopicId().getIdTopic());
+                topics.add(t.getName());
+            }
+            tmp.setTopicsString(topics);
+            pt2.add(tmp);
+        }
+        return pt2;
     }
 
     @Override
@@ -86,8 +110,29 @@ public class ProblemServiceImpl implements IProblemService {
     }
 
     @Override
-    public List<ProblemSelected> getProblemSelected(int idUser){
-        return problemSelectedRepo.getSelectedProblems(idUser);
+    public List<ProblemCompleted> getProblemSelected(int idUser){
+        List<ProblemSelected> tmp=problemSelectedRepo.findAllByProblemSelectedId_IdTeacher(idUser);
+        List<ProblemCompleted> list=new ArrayList<>();
+        for(ProblemSelected ps:tmp){
+            Problem p=problemRepo.findProblemById(ps.getProblemSelectedId().getIdProblem());
+            ProblemCompleted tmp2=new ProblemCompleted();
+            tmp2.setBody(p.getBody());
+            tmp2.setTitle(p.getTitle());
+            tmp2.setType(p.getType());
+            tmp2.setScore(p.getScore());
+            tmp2.setQualifiers(p.getQualifiers());
+            tmp2.setId(p.getId());
+            List<ProblemTopic> ptopics=problemTopicRepo.findAllByProblemTopicId_IdProblem(p.getId());
+            List<String> topics=new ArrayList<>();
+            for (ProblemTopic ptopic:ptopics) {
+                Topic t=topicRepo.findTopicById(ptopic.getProblemTopicId().getIdTopic());
+                topics.add(t.getName());
+            }
+            tmp2.setTopicsString(topics);
+            list.add(tmp2);
+        }
+
+        return list;
     }
 
     @Override

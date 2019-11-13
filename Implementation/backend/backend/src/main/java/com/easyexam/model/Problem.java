@@ -41,6 +41,9 @@ public class Problem {
         this.qualifiers = qualifiers;
     }
 
+    public Problem(String title, String body, String rutaImage, int i, int i1) {
+    }
+
     public String getType() {
         return type;
     }

@@ -23,7 +23,13 @@ public class CommentServiceImpl implements ICommentService {
 
     @Override
     public List<Comment> getCommentByProblem(int idProblem){
-        return commentRepo.getCommentByProblem(idProblem);
+        return commentRepo.findAllByCommentId_IdProblem(idProblem);
+    }
+
+    @Override
+    public Boolean saveComment(Comment c) {
+        commentRepo.save(c);
+        return true;
     }
 
     @Autowired

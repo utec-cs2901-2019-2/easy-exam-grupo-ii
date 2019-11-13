@@ -21,7 +21,9 @@ public interface ICommentRepo extends JpaRepository<Comment, Integer> {
     @Override
     List<Comment> findAll();
 
-    @Query (value = "SELECT description, id_problem FROM comment where id_problem = ?1", nativeQuery = true)
-    List<Comment> getCommentByProblem(int idProblem);
+//    @Query (value = "SELECT description, id_problem FROM comment where id_problem = ?1", nativeQuery = true)
+//    List<Comment> getCommentByProblem(int idProblem);
+
+    List<Comment> findAllByCommentId_IdProblem(int idProblem);
 
 }

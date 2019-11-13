@@ -15,11 +15,11 @@ public interface IProblemService {
 
     List<ProblemSubmitted> findUserProblem(int idUser);
 
-    List<ProblemTopic> getProblemTopics(int idProb);
+    List<ProblemCompleted> getProblemTopics();
 
     Boolean saveProblemSelected(ProblemSelected promSecl);
-
-    List<ProblemSelected> getProblemSelected(int idUser);
+    
+    List<ProblemCompleted> getProblemSelected(int idUser);
 
     int getMaxId();
 }

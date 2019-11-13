@@ -11,4 +11,7 @@ public interface ITopicRepo extends JpaRepository<Topic,Integer> {
 
     @Override
     List<Topic> findAll();
+
+    Topic findTopicById(int id);
+
 }

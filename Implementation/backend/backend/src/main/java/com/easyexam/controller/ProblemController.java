@@ -4,6 +4,7 @@ import com.easyexam.model.*;
 import com.easyexam.model.aux.ApiResponse;
 import com.easyexam.model.aux.CommentAndUser;
 import com.easyexam.model.aux.ProblemCompleted;
+import com.easyexam.model.aux.TeacherProblem;
 import com.easyexam.service.ICommentService;
 import com.easyexam.service.IProblemService;
 import com.easyexam.service.IRoleService;
@@ -56,20 +57,20 @@ public class ProblemController {
     }
 
     @GetMapping("/problem/getProblemTopics")
-    public List<ProblemTopic> getProblemTopics(int id){
-        return problemService.getProblemTopics(id);
+    public List<ProblemCompleted> getProblemTopics(){
+        return problemService.getProblemTopics();
     }
 
-    @GetMapping("/problem/saveProblemsSelected")
-    public ApiResponse<ProblemSelected> saveProblemsSelected(@Valid @RequestBody
-    ProblemSelected prob){
-        LOG.info("Problema seleccionado");
-        problemService.saveProblemSelected(prob);
+    @PostMapping("/problem/saveProblemsSelected")
+    public ApiResponse<TeacherProblem> saveProblemsSelected(@Valid @RequestBody TeacherProblem prob){
+        ProblemSelectedId p=new ProblemSelectedId(prob.getIdProblem(),prob.getIdTeacher());
+        ProblemSelected ps=new ProblemSelected(p);
+        problemService.saveProblemSelected(ps);
         return new ApiResponse<>(200, "success", true);
     }
 
     @GetMapping("/problem/getProblemsSelected")
-    public List<ProblemSelected> getProblemsSelected(int id){
+    public List<ProblemCompleted> getProblemsSelected(int id){
         return problemService.getProblemSelected(id);
     }
 

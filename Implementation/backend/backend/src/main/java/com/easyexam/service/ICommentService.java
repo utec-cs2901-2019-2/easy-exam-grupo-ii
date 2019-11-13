@@ -19,4 +19,6 @@ import java.util.List;
 public interface ICommentService {
 
     List<Comment> getCommentByProblem(int idProblem);
+
+    Boolean saveComment(Comment c);
 }

@@ -5,6 +5,11 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    nombre:'',
+    problemsSelected : [],
+    idsProblems : [],
+    newProblem : {},
+    myProblems : [],
     clientURL: "localhost:9898",
     isLogged:false,
     user: {
@@ -55,6 +60,24 @@ export default new Vuex.Store({
     updateViewBack () {
       this.state.submit.show.problem = true;
       this.state.submit.show.solution = false;
+    },
+    updateNewProblem :function (state, nProblem) {
+      this.state.newProblem = nProblem.valor
+    },
+    updateMyProblems () {
+      if (!(this.state.newProblem in this.state.myProblems))
+        this.state.myProblems.push(this.state.newProblem)
+    },
+    updateIds : function (state, newId) {
+      this.state.idsProblems.push (newId.valor)
+    },
+    viewProblems () {
+      for (let x of this.state.myProblems){
+        console.log (x)
+      }
+    },
+    stateLogged(){
+      return this.isLogged;
     },
     logout(){
       this.isLogged = false;

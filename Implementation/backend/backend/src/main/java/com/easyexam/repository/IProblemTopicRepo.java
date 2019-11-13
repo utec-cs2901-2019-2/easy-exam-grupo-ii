@@ -20,7 +20,9 @@ public interface IProblemTopicRepo extends JpaRepository<ProblemTopic,ProblemTop
     @Override
     List<ProblemTopic> findAll();
 
-    @Query (value = "select problem.title, topics.name from problem, topics, problem_topic where id_problem = problem.id and id_topic = topics.id and problem.id = ?1", nativeQuery = true)
-    List<ProblemTopic> getProblemTopics(int idProb);
+    //@Query (value = "select problem.id as id_problem, topics.id as id_topic from problem, topics, problem_topic where problem_topic.id_problem = problem.id and id_topic = topics.id and problem.id = ?1", nativeQuery = true)
+    //List<ProblemTopic> getProblemTopics(int idProb);
+
+    List<ProblemTopic> findAllByProblemTopicId_IdProblem(int idProblem);
 
 }
