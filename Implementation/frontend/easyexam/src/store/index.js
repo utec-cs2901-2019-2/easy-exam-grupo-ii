@@ -7,8 +7,8 @@ export default new Vuex.Store({
   state: {
     isLogged:false,
     user: {
-      username: '',
-      token: '',
+      username: null,
+      token: null,
       credits: 0
     },
     submit: {

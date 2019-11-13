@@ -32,7 +32,7 @@ public class ProblemController {
 
     @Autowired
     ICommentService commentService;
-
+    
     private static Logger LOG= LoggerFactory.getLogger(ProblemServiceImpl.class);
 
 
@@ -52,6 +52,11 @@ public class ProblemController {
     @GetMapping("/problem/getUserProblems")
     public List<ProblemSubmitted> getUserProblems(int id){
         return problemService.findUserProblem(id);
+    }
+
+    @GetMapping("/problem/getProblemTopics")
+    public List<ProblemTopic> getProblemTopics(int id){
+        return problemService.getProblemTopics(id);
     }
 
 

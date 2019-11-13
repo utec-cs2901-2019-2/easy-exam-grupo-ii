@@ -3,6 +3,7 @@ package com.easyexam.service;
 import com.easyexam.model.*;
 import com.easyexam.repository.IProblemRepo;
 import com.easyexam.repository.IProblemSubmittedRepo;
+import com.easyexam.repository.IProblemTopicRepo;
 import com.easyexam.service.IProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,4 +26,6 @@ public interface IProblemService {
     List<Problem> getAllProblems();
 
     List<ProblemSubmitted> findUserProblem(int idUser);
+
+    List<ProblemTopic> getProblemTopics(int idProb);
 }
