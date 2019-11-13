@@ -20,6 +20,7 @@ export default new Vuex.Store({
       form: {
         problem: {
           title: '',
+          type: '',
           body: '',
           topics_id: [
           ],
@@ -28,8 +29,22 @@ export default new Vuex.Store({
         solution: {
           description: '',
           image: null
+
         }
-      }
+      },
+      types: [
+        { id: 1, name: "Multiple Choice"},
+        { id: 2, name: "True or False"},
+        { id: 3, name: "Short Answer"},
+        { id: 4, name: "Long Answer"}
+      ],
+      editor: [
+        [{ header: [2, 3, 4, false] }],
+        ["bold", "italic", "underline"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["formula"],
+        ["code-block"]
+    ]
     }
 
   },

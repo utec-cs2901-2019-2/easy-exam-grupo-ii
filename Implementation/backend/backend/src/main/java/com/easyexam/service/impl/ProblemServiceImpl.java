@@ -2,10 +2,7 @@ package com.easyexam.service.impl;
 
 import com.easyexam.model.*;
 import com.easyexam.model.aux.ProblemCompleted;
-import com.easyexam.repository.IProblemRepo;
-import com.easyexam.repository.IProblemSubmittedRepo;
-import com.easyexam.repository.IProblemTopicRepo;
-import com.easyexam.repository.ISolutionProblemRepo;
+import com.easyexam.repository.*;
 import com.easyexam.service.IProblemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,20 +31,22 @@ public class ProblemServiceImpl implements IProblemService {
     @Autowired
     ISolutionProblemRepo solutionProblemRepo;
 
+    @Autowired
+    IProblemSelectedRepo problemSelectedRepo;
+
+
     @Override
     public Boolean save(ProblemCompleted p) {
 
         try{
-            Problem problem=new Problem(p.getTitle(),p.getBody(),p.getRutaImage(),"",0,0);
+            Problem problem=new Problem(p.getTitle(),p.getType(), p.getBody(),p.getRutaImage(),0,0);
             problem=problemRepo.save(problem);
-
-            ProblemSubmitted problemSubmitted=
-                    new ProblemSubmitted(new ProblemSubmittedId(p.getIdTeacher(),problem.getId()),new Date());
-            problemSubmittedRepo.save(problemSubmitted);
+            problemSubmittedRepo.save(new ProblemSubmitted(new ProblemSubmittedId(p.getIdTeacher(),problem.getId()),new Date()));
+            solutionProblemRepo.save(new SolutionProblem(problem.getId(),p.getDescriptionSolution(),p.getPathImageSolution()));
 
             for(Topic t:p.getTopics()){
                 ProblemTopic problemTopic=new ProblemTopic(new ProblemTopicId(problem.getId(),t.getId()));
-                problemTopicRepo.save((problemTopic));
+                problemTopicRepo.save(problemTopic);
             }
             return true;
         }
@@ -72,4 +71,20 @@ public class ProblemServiceImpl implements IProblemService {
         return problemTopicRepo.getProblemTopics(idProb);
     }
 
+    @Override
+    public Boolean saveProblemSelected(ProblemSelected promSecl) {
+        try{
+            problemSelectedRepo.save(promSecl);
+            return true;
+        }
+        catch (Exception e){
+            LOG.warn(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public List<ProblemSelected> getProblemSelected(int idUser){
+        return problemSelectedRepo.getSelectedProblems(idUser);
+    }
 }

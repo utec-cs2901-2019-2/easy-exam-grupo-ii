@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="problem_selected")
-@SequenceGenerator(sequenceName = "seqProbSel",name="seq_problem_selected")
 public class ProblemSelected {
 
     @EmbeddedId
