@@ -328,7 +328,7 @@ export default {
                 idProblem : this.modal_selectProblem.id
             })
 
-            this.creditos -= 1;
+            this.$store.state.user.credits -= 1;
             this.$refs['modal-problem'].hide()
         },
 
