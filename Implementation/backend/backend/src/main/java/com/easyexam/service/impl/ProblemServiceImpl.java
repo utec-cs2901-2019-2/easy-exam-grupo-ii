@@ -47,7 +47,7 @@ public class ProblemServiceImpl implements IProblemService {
 
             for(Topic t:p.getTopics()){
                 ProblemTopic problemTopic=new ProblemTopic(new ProblemTopicId(problem.getId(),t.getId()));
-                problemTopicRepo.save((problemTopic));
+                problemTopicRepo.save(problemTopic);
             }
             return true;
         }
