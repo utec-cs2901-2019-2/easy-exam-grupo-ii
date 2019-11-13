@@ -86,12 +86,12 @@ public class ProblemServiceImpl implements IProblemService {
             tmp.setQualifiers(p.getQualifiers());
             tmp.setId(p.getId());
             List<ProblemTopic> ptopics=problemTopicRepo.findAllByProblemTopicId_IdProblem(p.getId());
-            List<Topic> topics=new ArrayList<>();
+            List<String> topics=new ArrayList<>();
             for (ProblemTopic ptopic:ptopics) {
                 Topic t=topicRepo.findTopicById(ptopic.getProblemTopicId().getIdTopic());
-                topics.add(t);
+                topics.add(t.getName());
             }
-            tmp.setTopics(topics);
+            tmp.setTopicsString(topics);
             pt2.add(tmp);
         }
         return pt2;
@@ -115,6 +115,13 @@ public class ProblemServiceImpl implements IProblemService {
         List<ProblemCompleted> list=new ArrayList<>();
         for(ProblemSelected ps:tmp){
             Problem p=problemRepo.findProblemById(ps.getProblemSelectedId().getIdProblem());
+            ProblemCompleted tmp2=new ProblemCompleted();
+            tmp2.setBody(p.getBody());
+            tmp2.setTitle(p.getTitle());
+            tmp2.setType(p.getType());
+            tmp2.setScore(p.getScore());
+            tmp2.setQualifiers(p.getQualifiers());
+            tmp2.setId(p.getId());
             List<ProblemTopic> ptopics=problemTopicRepo.findAllByProblemTopicId_IdProblem(p.getId());
             List<Topic> topics=new ArrayList<>();
             for (ProblemTopic ptopic:ptopics) {

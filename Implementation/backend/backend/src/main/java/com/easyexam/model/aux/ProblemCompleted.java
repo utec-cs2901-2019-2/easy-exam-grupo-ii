@@ -20,6 +20,8 @@ public class ProblemCompleted {
 
     private List<Topic> topics;
 
+    private List<String> topicsString;
+
     private String descriptionSolution;
 
     private String pathImageSolution;
@@ -30,6 +32,14 @@ public class ProblemCompleted {
 
     public int getQualifiers() {
         return qualifiers;
+    }
+
+    public List<String> getTopicsString() {
+        return topicsString;
+    }
+
+    public void setTopicsString(List<String> topicsString) {
+        this.topicsString = topicsString;
     }
 
     public void setQualifiers(int qualifiers) {
