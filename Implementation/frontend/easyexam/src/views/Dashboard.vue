@@ -2,6 +2,8 @@
 
     <div class="mt-5">
 
+        <!-- START MODAL FOR PROBLEM -->
+
         <b-modal ref="modal-problem" size = "xl" >
 
             <template v-slot:modal-title>
@@ -20,11 +22,6 @@
                     </b-button>
                 </b-col>
             </b-row>
-            <br>
-            <b-card no-body class="text-center" style="height:250px; margin-top:10px; position : relative; overflow-y : scroll">
-                <p>{{modal_desProblem}}</p>
-            </b-card>
-            <br>
             <br>
             <b-row align-h="around" style="height: 300px">
                 <b-col cols = "1,5"></b-col>
@@ -46,47 +43,45 @@
                     </ul>
                 </b-col>
                 <b-col cols="2">
-                    <b-row class="justify-content-md-center">
-                        <b-col>
-                        <b-button variant="info" style="font-size:large">
-                            <b style="margin-left: 10px; margin-right: 10px">Score</b>
-                        </b-button>
-                        </b-col>
-                    </b-row>
-                    <br>
-                    <b-row align-h="center">
-                        <b-col cols="1"></b-col>
-                        <b-col >
-                        <b-button variant="success" style="width : 60px; height: 60px; font-size : x-large">
-                            <b-card-text>4</b-card-text>
-                        </b-button>
-                        </b-col>
-                    </b-row>
-                    <br>
-                    <p>18 users</p>
+                        <b-row>
+                            <b-button variant="info" style="font-size:large">
+                                <b style="margin-left: 10px; margin-right: 10px">Score</b>
+                            </b-button>
+                        </b-row>
+                        <br>
+                        <b-row>
+                            <b-button variant="success" style="width : 60px; height: 60px; font-size : x-large">
+                                {{modal_selectProblem ['score']}}
+                            </b-button>
+                        </b-row>
+                        <br>
                 </b-col>
             </b-row>
             
 
             <template v-slot:modal-footer>
                 <b-row style="width : 100%">
-                    <b-col cols = "3">
-                    <b-button variant="outline-info" @click="hideModalProblem">Get Solution</b-button>
+                    <b-col cols = "4">
+                    <center>
+                        <b-button variant="outline-info" @click="hideModalProblem">Get Problem</b-button>
+                    </center>
                     </b-col>
-                    <b-col cols = "3">
-                    <b-button variant="outline-info" @click="showComment()">Comments</b-button>
+                    <b-col cols = "4">
+                    <center>
+                        <b-button variant="outline-info" @click="showComment()">Comment</b-button>
+                    </center>
                     </b-col>
-                    <b-col cols = "3">
-                    <b-button variant="outline-danger" @click="show=false">Report</b-button>
-                    </b-col>
-                    <b-col cols = "3">
-                    <b-button variant="outline-danger" @click="cancel()">Cancel</b-button>
+                    <b-col cols = "4">
+                    <center>
+                        <b-button variant="outline-danger" @click="cancel()">Cancel</b-button>
+                    </center>
                     </b-col>
                 </b-row>
             </template>
-
-
         </b-modal>
+
+        <!-- END MODAL FOR PROBLEM-->
+        <!-- START MODAL FOR COMMENTS -->
 
         <b-modal ref="ModalComment" title="New Comment" hide-footer>
             <b-form @submit="onSubmit" @reset="onReset" >
@@ -108,6 +103,22 @@
                     <b-button type="reset" variant="danger">Reset</b-button>
             </b-form>
         </b-modal>
+
+        <!--END MODAL FOR COMMENTS -->
+
+        <!--ALERT FOR A PROBLEM YOU HAVE -->
+
+        <b-alert
+        variant="warning"
+        :show = showDismissibleAlert
+        dismissible
+        fade
+        @dismissed="showDismissibleAlert=false"
+        >
+        <b>You have this problem</b>
+        </b-alert>
+
+        <!--SEARCH ENGINE -->
 
         <b-row class="justify-content-center" style="margin:0">
             <b-col cols = "3">
@@ -152,6 +163,9 @@
                     <b-card class = "text-center">
                         <p>Créditos</p>
                         <h1> <b>{{creditos}}</b> </h1>
+                        <p v-if="creditos <= 0">
+                            You can't get new problems, you don't have enough credits
+                        </p>
                     </b-card>
                 </div>
             </b-col>
@@ -167,7 +181,7 @@
                     </template>
 
                     <b-card-body style="position:relative; height:700px; overflow-y:scroll;">
-                        <div role="tablist" v-if="creditos>0" >
+                        <div role="tablist" >
                             <b-card style = "margin:20px; background: #d4d4d4" class="mb-1" v-for="(problem, index) of filtrar" v-bind:key = "index">
                                 <b-card-title><b>{{problem.name}}</b></b-card-title>
                                 <b-row>
@@ -196,14 +210,9 @@
                                     </b-col>
                                 </b-row>
                                 
-                                <b-button style="margin-top : 10px" href="#" pill variant="light" @click="showModalProblem (problem.id)">Go problem</b-button>
+                                <b-button v-if="creditos > 0" style="margin-top : 10px" href="#" pill variant="light" @click="showModalProblem (problem.id)">Go problem</b-button>
                             </b-card>
                         </div>
-                            <b-row v-else align-v="center" style="height : 100%">
-                                <b-col class="text-center" style="font-size:3rem"><b>
-                                    Sorry you don't have enough credits...</b>
-                                </b-col>
-                            </b-row>
                     </b-card-body>
                 </b-card>
 
@@ -218,8 +227,12 @@
 
 <script>
 import json from './information.json'
+import axios from 'axios'
+import {mapState} from 'vuex'
 export default {
     data :  () => ({
+
+            showDismissibleAlert: false,
 
             newcomment : '',
 
@@ -237,7 +250,7 @@ export default {
 
             mensajevacio : '',
 
-            totalproblems : json,
+            totalproblems : [],
 
             infoproblems : json,
 
@@ -292,12 +305,26 @@ export default {
             this.modal_desProblem = this.infoproblems [index].description
             this.modal_tagsProblem = this.infoproblems [index].tags
             this.modal_selectProblem = this.infoproblems [index]
-            
-            this.$refs['modal-problem'].show()
+            if (this.problemsAll.includes (this.modal_selectProblem)){
+                this.showDismissibleAlert = true
+            }
+            else {
+                this.$refs['modal-problem'].show()
+            }
         },
 
         hideModalProblem() {
+            this.$store.commit ({
+                type : 'updateNewProblem',
+                valor : this.modal_selectProblem
+            })
+            this.$store.commit ('updateMyProblems')
+            this.$store.commit ('viewProblems')
             this.creditos -= 1;
+            this.$refs['modal-problem'].hide()
+        },
+
+        cancel () {
             this.$refs['modal-problem'].hide()
         },
 
@@ -321,14 +348,23 @@ export default {
         writeFile () {
             const fs = require ('fs')
             fs.appendFile('mynewfile1.txt', 'Hello content!', function (err) {
-  if (err) throw err;
-  console.log('Saved!');
-});
+                            if (err) throw err;
+                            console.log('Saved!');
+                            });
         }
 
     },
 
+    mounted () {
+        axios.get("http://localhost:9898/problem/v1/problem/getProblems")
+        .then(response => (this.totalproblems = response.data))
+    },
+
     computed : {
+         ...mapState ({
+            problemsSelected : state=>state.problemsSelected,
+            problemsAll : state=>state.myProblems
+        }),
         filtrar : function () {
             let res = []
                 let id = 0

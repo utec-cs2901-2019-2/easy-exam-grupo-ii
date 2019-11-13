@@ -7,6 +7,8 @@ export default new Vuex.Store({
   state: {
     nombre:'',
     problemsSelected : [],
+    newProblem : {},
+    myProblems : [],
     submit: {
       show: {
         problem: true,
@@ -36,6 +38,17 @@ export default new Vuex.Store({
     updateViewBack () {
       this.state.submit.show.problem = true;
       this.state.submit.show.solution = false;
+    },
+    updateNewProblem :function (state, nProblem) {
+      this.state.newProblem = nProblem.valor
+    },
+    updateMyProblems () {
+      this.state.myProblems.push(this.state.newProblem)
+    },
+    viewProblems () {
+      for (let x of this.state.myProblems){
+        console.log (x)
+      }
     }
   },
   actions: {

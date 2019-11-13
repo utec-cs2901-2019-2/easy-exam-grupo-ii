@@ -7,9 +7,10 @@
 
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav>
+                    
                     <b-nav-item href="/home">Home</b-nav-item>
-                    <b-nav-item href="/submit">Submit</b-nav-item>
-                    <b-nav-item href="/generate">Generate</b-nav-item>
+                    <router-link to = "/submit">Submit</router-link>
+                    <router-link to = "/generate">Generate</router-link>
                     <b-nav-item href="/feedback">Feedback</b-nav-item>
                 </b-navbar-nav>
 

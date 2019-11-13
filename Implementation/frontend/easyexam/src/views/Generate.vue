@@ -177,21 +177,21 @@
 </template>
 
 <script>
-import json from './information.json'
 import {mapState} from 'vuex'
 export default {
     data : () => ({
         currentPage : 1,
-        problemsAll : json,
         keyFromAll : '',
         keyFromSel : ''
     }),
 
     computed: {
         ...mapState ({
-            problemsSelected : state=>state.problemsSelected
+            problemsSelected : state=>state.problemsSelected,
+            problemsAll : state=>state.myProblems
         }),
         filtrarAll : function () {
+            this.$store.commit ('viewProblems')
             let res = []
             let id = 0
             for (let problem of this.problemsAll) {
