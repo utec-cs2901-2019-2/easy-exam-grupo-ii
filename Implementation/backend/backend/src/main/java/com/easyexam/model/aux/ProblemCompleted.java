@@ -8,8 +8,6 @@ public class ProblemCompleted {
 
     private int idTeacher;
 
-    private int id;
-
     private String title;
 
     private String type;
@@ -29,6 +27,9 @@ public class ProblemCompleted {
     private float score;
 
     private int qualifiers;
+
+    private int id;
+
 
     public int getQualifiers() {
         return qualifiers;
