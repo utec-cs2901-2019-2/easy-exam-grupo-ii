@@ -69,7 +69,15 @@ public class ProblemServiceImpl implements IProblemService {
 
     @Override
     public List<ProblemTopic> getProblemTopics(int idProb){
-        return problemTopicRepo.getProblemTopics(idProb);
+        List<ProblemTopic> pt = problemTopicRepo.findAll();
+        List<ProblemTopic> pt2 = new ArrayList<ProblemTopic>();
+
+        for (ProblemTopic p : pt) {
+            if (p.getProblemTopicId().getIdProblem() == idProb) {
+                pt2.add(p);
+            }
+        }
+        return pt2;
     }
 
     @Override
@@ -84,4 +92,8 @@ public class ProblemServiceImpl implements IProblemService {
         }
     }
 
+    @Override
+    public List<ProblemSelected> getProblemSelected(int idUser){
+        return problemSelectedRepo.getSelectedProblems(idUser);
+    }
 }

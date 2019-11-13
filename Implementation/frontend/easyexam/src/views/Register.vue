@@ -393,7 +393,7 @@ export default {
                 this.password == this.confirm_password && !this.birthdateValidate &&
                 this.institution && this.gender && this.birthdate && this.country) {
 
-                    axios.post('http://localhost:9898/api/v1/register', {
+                    axios.post('http://localhost:9900/api/v1/register', {
                         firstname:this.firstName,
                         lastname: this.lastName,
                         country: this.country,
