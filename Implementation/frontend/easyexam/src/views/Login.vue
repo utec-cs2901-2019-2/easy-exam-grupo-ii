@@ -95,6 +95,7 @@ export default {
                     this.$store.state.user.username = response.data.result.username
                     this.$store.state.user.token = response.data.result.token
                     this.$store.state.user.credits = response.data.result.credits
+                    this.$store.state.isLogged = true;
                     this.$router.push('/dashboard')
                 } else {
                     this.dismissCountDown = this.dismissSecs
