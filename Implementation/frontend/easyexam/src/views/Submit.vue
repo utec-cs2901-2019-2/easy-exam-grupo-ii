@@ -31,9 +31,4 @@
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-
 </style>
-=======
-</style>
->>>>>>> bdd8f2b35231bec2825c85a6bd073c2f33feb84a
