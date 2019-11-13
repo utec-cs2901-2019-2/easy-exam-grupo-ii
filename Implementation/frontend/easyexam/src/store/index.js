@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    clientURL: "localhost:8080",
+    clientURL: "localhost:9898",
     isLogged:false,
     user: {
       username: null,
