@@ -42,6 +42,8 @@ public class ProblemServiceImpl implements IProblemService {
             Problem problem=new Problem(p.getTitle(),p.getType(), p.getBody(),p.getRutaImage(),0,0);
             problem=problemRepo.save(problem);
             problemSubmittedRepo.save(new ProblemSubmitted(new ProblemSubmittedId(p.getIdTeacher(),problem.getId()),new Date()));
+            LOG.info("Entro a save problem "+p.getDescriptionSolution());
+            LOG.info(problem.getId()+p.getDescriptionSolution());
             solutionProblemRepo.save(new SolutionProblem(problem.getId(),p.getDescriptionSolution(),p.getPathImageSolution()));
 
             for(Topic t:p.getTopics()){

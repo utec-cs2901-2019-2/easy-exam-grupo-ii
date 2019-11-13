@@ -109,7 +109,7 @@
                     const p_post = axios.post("http://localhost:9898/problem/v1/submitProblem", {
                         id: new Date(),
                         title: this.problem.title,
-                        type: this.problem.type,
+                        type: this.problem.type ,
                         body: this.problem.body,
                         topics: this.problem.topics_id,
                         rutaImage: this.problem.image,
