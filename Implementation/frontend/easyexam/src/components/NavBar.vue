@@ -8,7 +8,7 @@
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav>
                     
-                    <b-nav-item href="/home">Home</b-nav-item>
+                    <router-link to="/dashboard">Home</router-link>
                     <router-link to = "/submit">Submit</router-link>
                     <router-link to = "/generate">Generate</router-link>
                     <b-nav-item href="/feedback">Feedback</b-nav-item>

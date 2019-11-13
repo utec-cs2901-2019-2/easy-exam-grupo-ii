@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     nombre:'',
     problemsSelected : [],
+    idsProblems : [],
     newProblem : {},
     myProblems : [],
     submit: {
@@ -43,7 +44,11 @@ export default new Vuex.Store({
       this.state.newProblem = nProblem.valor
     },
     updateMyProblems () {
-      this.state.myProblems.push(this.state.newProblem)
+      if (!(this.state.newProblem in this.state.myProblems))
+        this.state.myProblems.push(this.state.newProblem)
+    },
+    updateIds : function (state, newId) {
+      this.state.idsProblems.push (newId.valor)
     },
     viewProblems () {
       for (let x of this.state.myProblems){

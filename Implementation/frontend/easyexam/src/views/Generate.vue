@@ -36,7 +36,7 @@
                             <b-card style="margin:20px; background:#d4d4d4" class="mb-1" v-for="(prob, index) of filtrarAll" v-bind:key = "index">
                                 <b-card-title>
                                     <b>
-                                        {{prob.name}}
+                                        {{prob.title}}
                                     </b>
                                 </b-card-title>
                                 <b-row class="justify-content-md-center">
@@ -81,10 +81,11 @@
                             <b-card style="margin:20px; background:#d4d4d4" class="mb-1" v-for="(prob, index) of filtrarSel" v-bind:key = "index">
                                 <b-card-title>
                                     <b>
-                                        {{prob.name}}
+                                        {{prob.title}}
                                     </b>
                                 </b-card-title>
                                 <b-row class="justify-content-md-center">
+                                    <b-row style="width:90%">
                                     <b-col cols="10">
                                         <div style="margin-top:10px">
                                             <b-button disabled variant="light" style="margin:5px" v-for="(tag, index) of prob.tags" v-bind:key="index">
@@ -94,13 +95,23 @@
 
                                     </b-col>
                                     <b-col cols="2" style="height:100%">
-                                        <b-button disabled variant = "light" style=" width : 70px; height:70px"><b>
-                                            {{prob.type}}</b>
-                                        </b-button>
+                                        <b-form-input style="width:100%"  type="number"></b-form-input>
                                     </b-col>
-                                    <b-button style="margin-top : 10px; width:90%" href="#" pill variant="info" @click="SaveProblem(prob.id)">
-                                        Save Problem
-                                    </b-button>
+                                    </b-row>
+                                    <b-row style="width:90%">
+                                        <b-col cols="9">
+                                            <b-button style="margin-top : 10px ;width:100%" href="#" pill variant="info" @click="SaveProblem(prob.id)">
+                                                Save Problem
+                                            </b-button>
+                                        </b-col>
+                                        <b-col cols="3">
+                                            <b-button disabled variant = "light" style="margin-top : 10px ; width : 100%"><b>
+                                                {{prob.type}}</b>
+                                            </b-button>
+                                        </b-col>
+                                    </b-row>
+                                    
+                                   
                                 </b-row>
                             </b-card>
                         </div>
@@ -203,7 +214,7 @@ export default {
                 }
                 else
                 {
-                    let stringToSearch = problem.tags.toString().concat (" ", problem.description, " ", problem.name).toLowerCase ()
+                    let stringToSearch = problem.tags.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
                     if (stringToSearch.includes (this.keyFromAll.toLowerCase()))
                     {
                         res.push (problem)
@@ -225,7 +236,7 @@ export default {
                 }
                 else
                 {
-                    let stringToSearch = problem.tags.toString().concat (" ", problem.description, " ", problem.name).toLowerCase ()
+                    let stringToSearch = problem.tags.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
                     if (stringToSearch.includes (this.keyFromSel.toLowerCase()))
                     {
                         res.push (problem)

@@ -33,10 +33,11 @@
                     
                     <ul class="list-unstyled" style="width: 90%; height: 200px; position: relative; overflow-y:scroll">
                         <b-media v-for="(com, key) of commentsInfo" v-bind:key = "key" tag="li" style="margin : 10px; width: 90%" >
+                            {{com}}
                             <b-card>
                                 <h4>{{com.author}}</h4>
                                 <b-card-text>
-                                    {{com.text}}
+                                    {{com.description}}
                                 </b-card-text>
                             </b-card>
                         </b-media>
@@ -183,39 +184,36 @@
                     <b-card-body style="position:relative; height:700px; overflow-y:scroll;">
                         <div role="tablist" >
                             <b-card style = "margin:20px; background: #d4d4d4" class="mb-1" v-for="(problem, index) of filtrar" v-bind:key = "index">
-                                <b-card-title><b>{{problem.name}}</b></b-card-title>
-                                <b-row>
-                                    <b-col cols = "10">
-                                        <b-card-text style="height : 50px; position:relative; overflow-y:hidden">
-                                    {{problem.description}}
-                                </b-card-text>
-                                <div style="margin-top : 10px">
-                                    <b-button variant="info" style = "margin:5px" v-for="(tag, index) of problem.tags" v-bind:key="index">{{tag}}</b-button>
-                                </div>
+                                <b-card-title><b>{{problem.title}}</b></b-card-title>
+                                <b-row style="height :70px">
+                                    <b-col cols = "10" style="height:100%">
+                                        <!--b-card-text style="position:relative; overflow-y:hidden">
+                                            {{problem.body}}
+                                        </b-card-text>-->
+                                        <div style="margin-top : 10px">
+                                            <b-button variant="info" style = "margin:5px" v-for="(tag, index) of temptaglist" v-bind:key="index">{{tag}}</b-button>
+                                        </div>
                                     </b-col>
-                                    <b-col cols = "2">
+                                    <b-col cols = "2" style="height:100%">
                                         <ul class="list-unstyled">
-                                        <li>
-                                        <b-button disabled style="width : 50%; height: 50%; font-size : x-large">
-                                            {{problem.score}}
-                                        </b-button>
-                                        </li>
-                                        <br>
-                                        <li>
-                                        <b-button disabled variant = "light" style="font-size : small; width : 50%"><b>
-                                            {{problem.type}}</b>
-                                        </b-button>
-                                        </li>
+                                            <li>
+                                                <b-button disabled style="width : 50%">
+                                                    {{problem.score}}
+                                                </b-button>
+                                            </li>
+                                            <li>
+                                                <b-button disabled variant = "light" style="font-size : small; width : 50%"><b>
+                                                    {{problem.type}}</b>
+                                                </b-button>
+                                            </li>
                                         </ul>
                                     </b-col>
                                 </b-row>
-                                
-                                <b-button v-if="creditos > 0" style="margin-top : 10px" href="#" pill variant="light" @click="showModalProblem (problem.id)">Go problem</b-button>
+                                <b-button v-if="creditos > 0" style="margin-top : 10px" href="#" pill variant="light" @click="showModalProblem (problem.idx)">Go problem</b-button>
                             </b-card>
                         </div>
                     </b-card-body>
                 </b-card>
-
             </b-col>
         </b-row>
 
@@ -226,12 +224,15 @@
 
 
 <script>
-import json from './information.json'
+//import json from './information.json'
 import axios from 'axios'
 import {mapState} from 'vuex'
 export default {
     data :  () => ({
 
+            idselected : 0,
+
+            temptaglist : ["supertag1", "master theorem","ada","algorithms","maths"],
             showDismissibleAlert: false,
 
             newcomment : '',
@@ -252,7 +253,7 @@ export default {
 
             totalproblems : [],
 
-            infoproblems : json,
+            infoproblems : [],
 
             modal_titleProblem : '',
 
@@ -272,9 +273,6 @@ export default {
             typeSelected : '',
 
             commentsInfo : [
-                {'author' : 'Batman', 'text' : 'me parece bien'},
-                {'author' : 'Gio', 'text' : 'se puede mejorar'},
-                {'author' : 'Carlitos', 'text' : 'durmiendo'}
             ]
         
     }),
@@ -295,17 +293,18 @@ export default {
         },
         imprimir : function() {
             for (let problem of this.infoproblems){
-                let stringToSearch = problem.tags.toString().concat (" ", problem.description, " ", problem.name).toLowerCase()
+                let stringToSearch = problem.tags.toString().concat (" ", problem.body, " ", problem.title).toLowerCase()
                 console.log (stringToSearch)
             }
         },
 
         showModalProblem(index) {
             this.modal_titleProblem = this.infoproblems [index].name
-            this.modal_desProblem = this.infoproblems [index].description
+            this.modal_desProblem = this.infoproblems [index].body
             this.modal_tagsProblem = this.infoproblems [index].tags
             this.modal_selectProblem = this.infoproblems [index]
-            if (this.problemsAll.includes (this.modal_selectProblem)){
+            
+            if (this.idsProblems.includes (this.modal_selectProblem.id)){
                 this.showDismissibleAlert = true
             }
             else {
@@ -317,6 +316,10 @@ export default {
             this.$store.commit ({
                 type : 'updateNewProblem',
                 valor : this.modal_selectProblem
+            })
+            this.$store.commit ({
+                type : 'updateIds',
+                valor : this.modal_selectProblem.id
             })
             this.$store.commit ('updateMyProblems')
             this.$store.commit ('viewProblems')
@@ -357,19 +360,26 @@ export default {
 
     mounted () {
         axios.get("http://localhost:9898/problem/v1/problem/getProblems")
-        .then(response => (this.totalproblems = response.data))
+        .then(response => (this.infoproblems = response.data)),
+        axios.get ("https://localhost:9898/problem/v1/problem/getCommentByProblem", {
+            params : {
+                idProblem : '1'
+            }
+        })
+        .then(response => (this.commentsInfo = response.data))
     },
 
     computed : {
          ...mapState ({
-            problemsSelected : state=>state.problemsSelected,
-            problemsAll : state=>state.myProblems
+            problemsAll : state=>state.myProblems,
+            idsProblems : state=>state.idsProblems
         }),
         filtrar : function () {
             let res = []
+            if(this.infoproblems.length > 0){
                 let id = 0
                 for (let problem of this.infoproblems) {
-                    problem["id"] = id
+                    problem["idx"] = id
                     id = id + 1
                     if (this.selectedSubjects.length === 0)
                     {
@@ -380,7 +390,7 @@ export default {
                             }
                         else
                             {
-                                let stringToSearch = problem.tags.toString().concat (" ", problem.description, " ", problem.name).toLowerCase ()
+                                let stringToSearch = problem.tags.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
                                 if (stringToSearch.includes (this.keyToSearch.toLowerCase()))
                                 {
                                     if (this.typeSelected === '' || this.typeSelected === problem.type)
@@ -399,7 +409,7 @@ export default {
                             }
                             else
                             {
-                                let stringToSearch = problem.tags.toString().concat (" ", problem.description, " ", problem.name).toLowerCase ()
+                                let stringToSearch = problem.tags.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
                                 if (stringToSearch.includes (this.keyToSearch.toLowerCase()))
                                 {
                                     if (this.typeSelected === '' || this.typeSelected === problem.type)
@@ -409,6 +419,7 @@ export default {
                         }
                     }
                 }
+            }
 
             return res
         },
@@ -416,22 +427,24 @@ export default {
         getSubjects : function () {
             let finalSubjects = []
             let tempTags = []
-            for (let problem of this.infoproblems)
-            {
-                tempTags = tempTags.concat(problem.tags)
+            if (this.infoproblems.length > 0){
+                for (let problem of this.infoproblems)
+                {
+                    tempTags = tempTags.concat(problem.tags)
+                }
+                tempTags = [...new Set(tempTags)]
+                for (let tTag of tempTags)
+                {
+                    finalSubjects.push ({'name' : tTag, 'state' : true})
+                }
+                finalSubjects.sort(function(a, b){
+                    if (a.name > b.name)
+                    return 1
+                    if (a.name < b.name)
+                    return -1
+                    return 0
+                })
             }
-            tempTags = [...new Set(tempTags)]
-            for (let tTag of tempTags)
-            {
-                finalSubjects.push ({'name' : tTag.charAt(0).toUpperCase() + tTag.slice(1), 'state' : true})
-            }
-            finalSubjects.sort(function(a, b){
-                if (a.name > b.name)
-                return 1
-                if (a.name < b.name)
-                return -1
-                return 0
-            })
             return finalSubjects
         }
     }
