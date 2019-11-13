@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-   <NavBar v-if="getIsLogged"></NavBar>
+   <NavBar></NavBar>
     <router-view/>
   </div>
 </template>
