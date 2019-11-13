@@ -2,10 +2,7 @@ package com.easyexam.service.impl;
 
 import com.easyexam.model.*;
 import com.easyexam.model.aux.ProblemCompleted;
-import com.easyexam.repository.IProblemRepo;
-import com.easyexam.repository.IProblemSubmittedRepo;
-import com.easyexam.repository.IProblemTopicRepo;
-import com.easyexam.repository.ISolutionProblemRepo;
+import com.easyexam.repository.*;
 import com.easyexam.service.IProblemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +30,9 @@ public class ProblemServiceImpl implements IProblemService {
 
     @Autowired
     ISolutionProblemRepo solutionProblemRepo;
+
+    @Autowired
+    IProblemSelectedRepo problemSelectedRepo;
 
     @Override
     public Boolean save(ProblemCompleted p) {
@@ -70,6 +70,18 @@ public class ProblemServiceImpl implements IProblemService {
     @Override
     public List<ProblemTopic> getProblemTopics(int idProb){
         return problemTopicRepo.getProblemTopics(idProb);
+    }
+
+    @Override
+    public Boolean saveProblemSelected(ProblemSelected promSecl) {
+        try{
+            problemSelectedRepo.save(promSecl);
+            return true;
+        }
+        catch (Exception e){
+            LOG.warn(e.getMessage());
+            return false;
+        }
     }
 
 }
