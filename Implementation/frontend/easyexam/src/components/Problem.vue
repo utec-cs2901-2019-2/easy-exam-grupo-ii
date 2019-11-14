@@ -3,9 +3,9 @@
         <b-card>
             <b-container class="m-2">
                 <h1>Submit a Problem!</h1>
-
+                     <font color="red">Fields with '*' are obligatory</font> 
                         <b-form @reset="onReset">
-                            <b-form-group id="input-group-2" label="Problem Title:">
+                            <b-form-group id="input-group-2" label="Problem Title: *">
                                 <b-form-input
                                         id="input-1"
                                         v-model="$v.problem.title.$model"
@@ -32,7 +32,7 @@
                             </b-form-group>
                                 
 
-                            <b-form-group id="input-group-3" label="Problem Body" v-if="input_type.id==1">
+                            <b-form-group id="input-group-3" label="Problem Body *" v-if="input_type.id==1">
                                 <vue-editor
                                         v-model="problem.body"
                                         placeholder="Please enter your problem body here"
@@ -70,7 +70,7 @@
                                         accept="image/jpeg, image/png, image/gif"
                                 ></b-form-file>
                             </b-form-group>
-                            <b-form-group label="Tags:">
+                            <b-form-group label="Tags: *">
                                 <multiselect
                                         v-model="problem.topics_id"
                                         placeholder="Search a tag"
