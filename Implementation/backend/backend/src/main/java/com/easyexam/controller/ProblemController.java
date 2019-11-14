@@ -46,6 +46,14 @@ public class ProblemController {
         return new ApiResponse<>(200, "success", true);
     }
 
+    @PostMapping("/updateProblem")
+    public ApiResponse<Problem> update(@Valid int idProblem,@Valid int rate) {
+        LOG.info("Entro a update problem");
+
+        problemService.updateRateProblem(idProblem, rate);
+        return new ApiResponse<>(200, "success", true);
+    }
+
     @GetMapping("/problem/getProblems")
     public List<Problem> getProblems() throws AuthenticationException{
         return problemService.getAllProblems();

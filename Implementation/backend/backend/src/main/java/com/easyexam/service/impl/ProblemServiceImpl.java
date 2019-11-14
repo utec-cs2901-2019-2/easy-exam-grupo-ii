@@ -140,4 +140,15 @@ public class ProblemServiceImpl implements IProblemService {
         return problemRepo.max();
     }
 
+    @Override
+    public void updateRateProblem(int idProblem, int rate) {
+        Problem p=problemRepo.findProblemById(idProblem);
+        float rateCurrent=p.getScore()*p.getQualifiers();
+        rateCurrent+=rate;
+        rateCurrent/=(p.getQualifiers()+1);
+        p.setScore(rateCurrent);
+        p.setQualifiers(p.getQualifiers()+1);
+        problemRepo.save(p);
+    }
+
 }

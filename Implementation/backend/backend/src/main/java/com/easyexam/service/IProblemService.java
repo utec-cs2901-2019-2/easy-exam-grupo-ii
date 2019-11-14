@@ -22,4 +22,6 @@ public interface IProblemService {
     List<ProblemCompleted> getProblemSelected(int idUser);
 
     int getMaxId();
+
+    void updateRateProblem(int idProblem,int rate);
 }
