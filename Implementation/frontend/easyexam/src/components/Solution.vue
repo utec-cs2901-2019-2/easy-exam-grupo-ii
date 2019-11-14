@@ -3,8 +3,9 @@
         <b-card>
             <b-container class="m-2">
                 <h1>Submit a Solution!</h1>
+                     <font color="red"> <small>Required *</small> </font> 
                         <b-form @reset="onReset">
-                            <b-form-group id="input-group-1" label="What type of problem would you like to submit?" label-for="input-3">
+                            <b-form-group id="input-group-1" label="What type of problem would you like to submit? *" label-for="input-3">
                                 <multiselect
                                         v-model="problem.type"
                                         placeholder="Pick a value"
@@ -28,7 +29,8 @@
                                 </b-alert>
                             </b-form-group>
 
-                            <b-form-group  label="Solution Body in Latex">
+                            <b-form-group  label="Problem
+                            Solution *">
                                 <b-form-textarea
                                 id="textarea"
                                 v-model="$v.solution.description.$model"
@@ -132,7 +134,9 @@
                     axios.post('http://' + this.$store.state.clientURL + '/user/v1/teacher/updateBonus',{
                         id : this.$store.state.user.id,
                         bonus : new_credit
-                    })
+                    });
+                    this.ResetAllFields();
+                    this.goBack();
                 } else{
                     this.showAlertDescription()
                 }
@@ -153,6 +157,14 @@
             },
             showAlertProbType() {
                 this.dismissCountDownPropType = this.dismissSecs
+            },
+            ResetAllFields(){
+                this.solution.description = '';
+                this.problem.type = '';
+                this.problem.title = '';
+                this.problem.body = '';
+                this.problem.image = null;
+                this.problem.topics_id = null
             }
         },
         mounted() {

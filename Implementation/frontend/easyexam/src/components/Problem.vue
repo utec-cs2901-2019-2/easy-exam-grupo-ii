@@ -3,9 +3,9 @@
         <b-card>
             <b-container class="m-2">
                 <h1>Submit a Problem!</h1>
-
+                     <font color="red"> <small>Required *</small> </font> 
                         <b-form @reset="onReset">
-                            <b-form-group id="input-group-2" label="Problem Title:">
+                            <b-form-group id="input-group-2" label="Problem Title: *">
                                 <b-form-input
                                         id="input-1"
                                         v-model="$v.problem.title.$model"
@@ -29,7 +29,7 @@
                                 </b-alert>
                             </b-form-group>
                                                             
-                            <b-form-group label="Problem Body">
+                            <b-form-group label="Problem Body: *">
                                 <b-form-textarea
                                 id="textarea"
                                 v-model="$v.problem.body.$model"
@@ -53,7 +53,7 @@
                                 </b-alert>
                             </b-form-group>
                            
-                            <b-form-group label="Tags:">
+                            <b-form-group label="Tags: *">
                                 <multiselect
                                         v-model="$v.problem.topics_id.$model"
                                         :state= "$v.problem.topics_id.$dirty ? !$v.problem.topics_id.$error : null"
