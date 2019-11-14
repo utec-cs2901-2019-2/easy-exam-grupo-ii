@@ -341,6 +341,7 @@ export default {
             })
             let new_credit = this.$store.state.user.credits - 1
             this.$store.state.user.credits -= 1;
+            if (this.$store.state.user.credits == 0) alert("You have ran out of credits! Submit a problem to get some more!");
             axios.post('http://' + this.$store.state.clientURL + '/user/v1/teacher/updateBonus',{
                 id : this.$store.state.user.id,
                 bonus : new_credit
