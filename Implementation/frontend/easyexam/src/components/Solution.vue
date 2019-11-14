@@ -3,8 +3,9 @@
         <b-card>
             <b-container class="m-2">
                 <h1>Submit a Solution!</h1>
+                     <font color="red">Fields with '*' are obligatory</font> 
                         <b-form @reset="onReset">
-                            <b-form-group id="input-group-1" label="What type of problem would you like to submit?" label-for="input-3">
+                            <b-form-group id="input-group-1" label="What type of problem would you like to submit? *" label-for="input-3">
                                 <multiselect
                                         v-model="problem.type"
                                         placeholder="Pick a value"
@@ -34,15 +35,17 @@
                                 <b-form-textarea
                                 id="textarea"
                                 v-model="solution.description"
-                                placeholder="Please enter your solution body here in latex..."
+                                placeholder="Please enter your solution body
+                                here in latex..."
                                 rows="3"
                                 max-rows="6"
                                 ></b-form-textarea>
                             </b-form-group>
-                            <b-form-group id="input-group-2" label="Problem Solution" label-for="input-2" v-if="input_type.id==1">
+                            <b-form-group id="input-group-2" label="Problem
+                            Solution *" label-for="input-2" v-if="input_type.id==1">
                                 <vue-editor
                                         v-model="solution.description"
-                                        placeholder="Please enter your solution here"
+                                        placeholder="Please enter your solution here * "
                                         type="text"
                                         :editor-toolbar="customToolbar"
                                         required
@@ -58,7 +61,7 @@
                                         You must need to enter a problem solution.
                                 </b-alert>
                                </b-form-group>
-                                 <b-form-group id = "input-group-img" label="Select an image (optional)">
+                                 <b-form-group id = "input-group-img" label="Select an image">
                                 <b-form-file
                                         v-model="solution.image"
                                         :state="validatImg"

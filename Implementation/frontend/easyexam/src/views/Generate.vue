@@ -125,18 +125,19 @@
 
         <b-row v-else-if="currentPage===2" class="justify-content-md-center">
             <b-col col lg="7">
+                 <font color="red">Fields with '*' are obligatory</font> 
                 <b-form>
                     <b-form-group>
                         <b-form-input
                         v-model="title"
-                        placeholder="Title">
+                        placeholder="Title *">
 
                         </b-form-input>
                     </b-form-group>
                     <b-form-group>
                         <b-form-textarea
                         v-model="text"
-                        placeholder="Indications"
+                        placeholder="Indications *"
                         rows="6">
 
                         </b-form-textarea>
