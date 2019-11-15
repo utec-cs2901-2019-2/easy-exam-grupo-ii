@@ -15,9 +15,13 @@ public class Suggest {
     @Column(name="description")
     private String description;
 
-    public Suggest(SuggestId suggestId, String description) {
+    @Column(name="isReported")
+    private boolean isReported;
+
+    public Suggest(SuggestId suggestId, String description, boolean isReported) {
         this.suggestId = suggestId;
         this.description = description;
+        this.isReported = false;
     }
 
     public SuggestId getSuggestId() {
@@ -34,5 +38,13 @@ public class Suggest {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean getIsReported(){
+        return isReported;
+    }
+
+    public void setIsReported(boolean isReported){
+        this.isReported = isReported;
     }
 }
