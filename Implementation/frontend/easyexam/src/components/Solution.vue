@@ -164,7 +164,7 @@
                 this.problem.title = '';
                 this.problem.body = '';
                 this.problem.image = null;
-                this.problem.topics_id = null
+                this.problem.topics_id = []
             }
         },
         mounted() {

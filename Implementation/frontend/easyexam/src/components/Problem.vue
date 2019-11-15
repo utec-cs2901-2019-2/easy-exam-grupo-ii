@@ -78,7 +78,7 @@
                                         You need to select at least one tag.
                                 </b-alert>
                             </b-form-group>
-                             <b-form-group id = "input-group-img" label="Select an image (optional)">
+                             <b-form-group id = "input-group-img" label="Select an image: ">
                                 <b-form-file
                                         v-model="problem.image"
                                         :state="validatImg"
@@ -101,8 +101,6 @@
     import axios from "axios"
     import { validationMixin } from 'vuelidate'
     import { minLength, required } from 'vuelidate/lib/validators'
-    import katex from 'katex';
-    import 'katex/dist/katex.min.css';
 
     export default {
         mixins: [validationMixin],
@@ -123,7 +121,6 @@
         mounted() {
             const tag = axios.get("http://localhost:9898/topics/v1/topics/getTopics");
             tag.then(response => (this.tags = response.data));
-            window.katex = katex;
         },
         computed: {
             ...mapState ({
@@ -162,12 +159,15 @@
                         this.showAlertTitle();
                 }
             },
-            onReset(evt) {
+            onReset (evt) {
                 evt.preventDefault();
                 this.problem.title = '';
                 this.problem.body = '';
                 this.problem.image = null;
-                this.problem.topics_id = null
+                this.problem.topics_id = []
+            },
+            uploadImage (evt) {
+                evt.preventDefault();
             }
 
         },
