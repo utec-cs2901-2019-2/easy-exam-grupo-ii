@@ -19,4 +19,6 @@ public interface IProblemRepo extends JpaRepository<Problem,Integer> {
 
     @Query(value = "SELECT max(p.id) FROM problem p",nativeQuery = true)
     int max();
+
+
 }

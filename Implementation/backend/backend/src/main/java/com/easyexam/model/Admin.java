@@ -1,5 +1,7 @@
 package com.easyexam.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,6 +22,7 @@ public class Admin {
 
     @OneToOne
     @MapsId
+    @JsonIgnore
     private User user;
 
     public Admin() { }
