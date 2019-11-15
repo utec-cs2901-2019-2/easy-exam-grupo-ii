@@ -32,7 +32,7 @@ public class TeacherController {
     }
 
     @Transactional
-    @PostMapping("/teacher/update")
+    @PutMapping("/teacher/update")
     public ApiResponse<Teacher> updateTeacher(@Valid @RequestBody Teacher teacher){
         teacherService.update(teacher);
         return new ApiResponse<>(200, "success", true);
