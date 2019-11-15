@@ -1,8 +1,11 @@
 package com.easyexam.service.impl;
 
 import com.easyexam.model.User;
+import com.easyexam.model.aux.UserCompleted;
 import com.easyexam.repository.IUserRepo;
 import com.easyexam.service.IUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,6 +28,8 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
     @Autowired
     private BCryptPasswordEncoder bcryptEncoder;
+
+    private static Logger LOG= LoggerFactory.getLogger(ProblemServiceImpl.class);
 
     /* Revisar */
     @Bean
@@ -90,6 +95,19 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
             user.setPassword(bcryptEncoder.encode(user.getPassword()));
             userRepo.save(user);
         }
+        return user;
+    }
+
+    @Override
+    public UserCompleted getDates(String email){
+        UserCompleted user=new UserCompleted();
+        user.setEmail(email);
+        User u=userRepo.findUserByEmail(email);
+        LOG.info("entro a serviece impl");
+        LOG.info(u.getRole().getName());
+        user.setId(u.getId());
+
+        //user.setBonus(teacherRepo.getBonus(u.getId()));
         return user;
     }
 

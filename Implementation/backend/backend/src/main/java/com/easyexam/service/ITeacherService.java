@@ -21,7 +21,6 @@ public interface ITeacherService {
 
     Teacher findOneByUser(User user);
 
-    UserCompleted getDates(String email);
 
     Boolean updateBonus(int bonus,int idUser);
 }

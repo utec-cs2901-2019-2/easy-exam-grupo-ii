@@ -2,10 +2,7 @@ package com.easyexam.controller;
 
 import com.easyexam.model.aux.ApiResponse;
 import com.easyexam.model.aux.UserCompleted;
-import com.easyexam.repository.IUserRepo;
-import com.easyexam.service.IProblemService;
 import com.easyexam.service.ITeacherService;
-import com.easyexam.service.IUserService;
 import com.easyexam.service.impl.ProblemServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,22 +14,20 @@ import javax.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/user/v1")
-public class UserController {
+@RequestMapping("/teacher/v1")
+public class TeacherController {
 
     @Autowired
     ITeacherService teacherService;
 
-    @Autowired
-    IUserService userService;
-
     private static Logger LOG= LoggerFactory.getLogger(ProblemServiceImpl.class);
 
 
-    @GetMapping("/user/getDates")
-    public UserCompleted getUserDates(String email){
-        LOG.info("Imprime correo  "+ email);
-        return userService.getDates(email);
+    @Transactional
+    @PostMapping("/teacher/updateBonus")
+    public ApiResponse<UserCompleted> updateBonus(@Valid @RequestBody UserCompleted user){
+        teacherService.updateBonus(user.getBonus(),user.getId());
+        return new ApiResponse<>(200, "success", true);
     }
 
 

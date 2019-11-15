@@ -25,5 +25,5 @@ public interface ITeacherRepo extends JpaRepository<Teacher,Integer> {
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query(value = "UPDATE TEACHER  SET bonus = :bonus WHERE user_id = :iduser",nativeQuery = true)
-    void updateAddress(@Param("bonus") int bonus,@Param("iduser") int idTeacher);
+    void updateBonus(@Param("bonus") int bonus,@Param("iduser") int idTeacher);
 }

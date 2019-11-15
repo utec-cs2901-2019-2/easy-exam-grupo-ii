@@ -15,9 +15,22 @@ public class Suggest {
     @Column(name="description")
     private String description;
 
-    public Suggest(SuggestId suggestId, String description) {
+    @Column(name="is_reported")
+    private Boolean isReported;
+
+    public Suggest() { }
+    public Suggest(SuggestId suggestId, String description, Boolean isReported) {
         this.suggestId = suggestId;
         this.description = description;
+        this.isReported = isReported;
+    }
+
+    public Boolean getReported() {
+        return isReported;
+    }
+
+    public void setReported(Boolean reported) {
+        isReported = reported;
     }
 
     public SuggestId getSuggestId() {

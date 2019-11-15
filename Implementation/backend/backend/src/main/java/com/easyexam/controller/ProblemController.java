@@ -46,9 +46,9 @@ public class ProblemController {
         return new ApiResponse<>(200, "success", true);
     }
 
-    @PostMapping("/updateProblem")
+    @PostMapping("/updateProblemRatio")
     public ApiResponse<Problem> update(@Valid int idProblem,@Valid int rate) {
-        LOG.info("Entro a update problem");
+        LOG.info("Entro a update ratio problem");
 
         problemService.updateRateProblem(idProblem, rate);
         return new ApiResponse<>(200, "success", true);
