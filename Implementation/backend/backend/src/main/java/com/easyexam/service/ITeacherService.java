@@ -21,6 +21,5 @@ public interface ITeacherService {
 
     Teacher findOneByUser(User user);
 
-
     Boolean updateBonus(int bonus,int idUser);
 }

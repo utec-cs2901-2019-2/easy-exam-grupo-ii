@@ -1,5 +1,6 @@
 package com.easyexam.controller;
 
+import com.easyexam.model.Teacher;
 import com.easyexam.model.aux.ApiResponse;
 import com.easyexam.model.aux.UserCompleted;
 import com.easyexam.service.ITeacherService;
@@ -28,6 +29,18 @@ public class TeacherController {
     public ApiResponse<UserCompleted> updateBonus(@Valid @RequestBody UserCompleted user){
         teacherService.updateBonus(user.getBonus(),user.getId());
         return new ApiResponse<>(200, "success", true);
+    }
+
+    @Transactional
+    @PostMapping("/teacher/update")
+    public ApiResponse<Teacher> updateTeacher(@Valid @RequestBody Teacher teacher){
+        teacherService.update(teacher);
+        return new ApiResponse<>(200, "success", true);
+    }
+
+    @GetMapping("/teacher/getDatos")
+    public Teacher getDatosTeacher(@Valid int idTeacher){
+        return teacherService.findOne(idTeacher);
     }
 
 

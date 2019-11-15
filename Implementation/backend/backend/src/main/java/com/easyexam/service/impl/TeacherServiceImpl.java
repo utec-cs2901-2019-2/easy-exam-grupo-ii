@@ -62,7 +62,7 @@ public class TeacherServiceImpl implements ITeacherService {
 
     @Override
     public Teacher findOne(int id) {
-        return teacherRepo.findById(id).get();
+        return teacherRepo.findTeacherById(id);
     }
 
     public Teacher findOneByUser(User user){
