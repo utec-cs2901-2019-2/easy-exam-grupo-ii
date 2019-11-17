@@ -4,41 +4,124 @@
 
         <!-- START MODAL FOR PROBLEM -->
 
-        <b-modal ref="modal-problem" size = "xl" >
+        <b-modal v-if="available" ref="modal-problem" size = "xl" >
+            <template v-slot:modal-title>
+                <b>{{modal_titleProblem}}</b>
+            </template>
+            <b-row>
+                <b-col cols = "10">
+                    <b-button variant = "info" pill style="margin:3px" v-for="(tag, index) of modal_tagsProblem" v-bind:key = "index">
+                    {{tag}}
+                    </b-button>
+                </b-col>
+                <b-col cols = "2">
+                    <b-button disabled style="width:100%">
+                        {{types[modal_selectProblem ['type']]}}
+                    </b-button>
+                </b-col>
+            </b-row>
+            <b-row align-h="around" >
+                <b-col cols="9">
+                    <b-card no-header style = "width: 95%; margin: 10px; position:relative; overflow-y:scroll">
+                        <b-card-body>
+                            {{modal_desProblem}}
+                        </b-card-body>
+                    </b-card>
+                    <b-button disabled style="background : #6c757d">
+                        Comments
+                    </b-button>
+                    
+                    <ul class="list-unstyled" style="width: 90%; height:200px;position: relative; overflow-y:scroll">
+                        <b-media v-for="(com, key) of commentsInfo" v-bind:key = "key" tag="li" style="margin : 10px; width: 90%" >
+                            <b-card>
+                                <h4><b>{{com.nameTeacher}}</b></h4>
+                                <b-card-text>
+                                    {{com.description}}
+                                </b-card-text>
+                            </b-card>
+                        </b-media>
+                    </ul>
+                </b-col>
+                <b-col cols="3">
+                    <br>
+                    <center>
+                        <h3>
+                            <b style="margin-left: 10px; margin-right: 10px">Score</b>
+                        </h3>
+                        <b-button variant="success" style="width : 50px; height: 50px; font-size : x-large">
+                            {{modal_selectProblem ['score']}}
+                        </b-button>
+                        <p>
+                            {{modal_selectProblem['qualifiers']}} views
+                        </p>
+                        <b-button-group>
+                            <b-button v-for="(btn, idx) in stars"
+                                :key="idx"
+                                :pressed.sync = "btn.state"
+                                variant = "outline-dark"
+                                @mouseover= "upstars (idx)"
+                                @mouseleave="downstars"
+                                pill
+                            >
+                            <mdb-icon icon="star" />
+                            </b-button>
+                        </b-button-group>
+                    </center>
 
+                </b-col>
+            </b-row>
+            
+
+            <template v-slot:modal-footer>
+                <b-row style="width : 100%">
+                    <b-col cols = "4">
+                        <center>
+                            <b-button variant = "outline-warning">
+                                <b>See Solution</b>
+                            </b-button>
+                        </center>
+                    </b-col>
+                    <b-col cols = "4">
+                    <center>
+                        <b-button variant="outline-info" @click="showComment()"><b>Comment</b></b-button>
+                    </center>
+                    </b-col>
+                    <b-col cols = "4">
+                    <center>
+                        <b-button variant="outline-danger" @click="cancel()"><b>Cancel</b></b-button>
+                    </center>
+                    </b-col>
+                </b-row>
+            </template>
+        </b-modal>
+
+        <!-- MODAL IF YOU DONT HAVE -->
+
+        <b-modal v-else ref="modal-problem" size = "xl" >
             <template v-slot:modal-title>
                 <b>{{modal_titleProblem}}</b>
             </template>
 
             <b-row>
-                <b-col cols = "9">
+                <b-col cols = "10">
                     <b-button variant = "info" pill style="margin:3px" v-for="(tag, index) of modal_tagsProblem" v-bind:key = "index">
                     {{tag}}
                     </b-button>
                 </b-col>
-                <b-col cols = "3">
+                <b-col cols = "2">
                     <b-button disabled style="width:100%">
                         {{types[modal_selectProblem ['type']]}}
                     </b-button>
                 </b-col>
             </b-row>
             <br>
-            <b-row align-h="around" style="height: 300px">
-                <b-col cols = "1,5"></b-col>
-                <b-col cols="9">
-                    <b-row v-if="available">
-                        <b-card no-header style = "width: 80%; margin: 10px; height:60%">
-                            <b-card-body>
-                                {{modal_desProblem}}
-                            </b-card-body>
-                        </b-card>
-                    </b-row>
-                    <b-row>
-                        <b-card bg-variant="secondary" text-variant="white" no-body header="Comments">
-                        </b-card>
-                    </b-row>
+            <b-row align-h="around">
+                <b-col cols="10">
+                    <b-button disabled style="background : #6c757d">
+                        Comments
+                    </b-button>
                     
-                    <ul class="list-unstyled" style="width: 90%; height: 30%; position: relative; overflow-y:scroll">
+                    <ul class="list-unstyled" style="width: 90%; height:200px;position: relative; overflow-y:scroll">
                         <b-media v-for="(com, key) of commentsInfo" v-bind:key = "key" tag="li" style="margin : 10px; width: 90%" >
                             <b-card>
                                 <h4><b>{{com.nameTeacher}}</b></h4>
@@ -50,38 +133,31 @@
                     </ul>
                 </b-col>
                 <b-col cols="2">
-                        <b-row>
-                            <b-button variant="info" style="font-size:large">
-                                <b style="margin-left: 10px; margin-right: 10px">Score</b>
-                            </b-button>
-                        </b-row>
-                        <br>
-                        <b-row>
-                            <b-button variant="success" style="width : 60px; height: 60px; font-size : x-large">
-                                {{modal_selectProblem ['score']}}
-                            </b-button>
-                        </b-row>
-                        <br>
-                        {{modal_selectProblem['qualifiers']}} views
+                    <br>
+                    <center>
+                        <h3>
+                            <b style="margin-left: 10px; margin-right: 10px">Score</b>
+                        </h3>
+                        <b-button variant="success" style="width : 50px; height: 50px; font-size : x-large">
+                            {{modal_selectProblem ['score']}}
+                        </b-button>
+                        <p>
+                            {{modal_selectProblem['qualifiers']}} views
+                        </p>
+                    </center>
                 </b-col>
             </b-row>
-            
 
             <template v-slot:modal-footer>
                 <b-row style="width : 100%">
-                    <b-col v-if="!available" cols = "4">
+                    <b-col cols = "6">
                     <center>
-                        <b-button variant="outline-info" @click="hideModalProblem">Get Problem</b-button>
+                        <b-button variant="outline-warning" @click="hideModalProblem"><b>Get Problem</b></b-button>
                     </center>
                     </b-col>
-                    <b-col cols = "4">
+                    <b-col cols = "6">
                     <center>
-                        <b-button variant="outline-info" @click="showComment()">Comment</b-button>
-                    </center>
-                    </b-col>
-                    <b-col cols = "4">
-                    <center>
-                        <b-button variant="outline-danger" @click="cancel()">Cancel</b-button>
+                        <b-button variant="outline-danger" @click="cancel()"><b>Cancel</b></b-button>
                     </center>
                     </b-col>
                 </b-row>
@@ -108,7 +184,7 @@
 
                 </b-form-group>
                     <b-button type="submit" variant="primary">Submit</b-button>
-                    <b-button type="reset" variant="danger">Reset</b-button>
+                    <!--b-button type="reset" variant="danger">Reset</b-button-->
             </b-form>
         </b-modal>
 
@@ -233,11 +309,27 @@
 //import json from './information.json'
 import axios from 'axios'
 import {mapState} from 'vuex'
+import { mdbIcon } from 'mdbvue';
+
+
 export default {
+
+    components : {
+        mdbIcon
+    },
+
     data :  () => ({
 
 
             showDismissibleAlert: false,
+
+            stars : [
+                {state : false},
+                {state : false},
+                {state : false},
+                {state : false},
+                {state : false}
+            ],
 
             newcomment : '',
 
@@ -285,6 +377,19 @@ export default {
     }),
 
     methods: {
+
+        upstars (idx) {
+            for (let i = 0; i < idx; i++){
+                this.stars[i].state = true
+            }
+        },
+
+        downstars () {
+            for (let i = 0; i < 5; i++){
+                this.stars[i].state = false
+            }
+        },
+
         showComment (){
             this.$refs['ModalComment'].show()
         },
