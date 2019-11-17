@@ -27,6 +27,7 @@ public class User {
     private Role role;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Teacher teacher;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
