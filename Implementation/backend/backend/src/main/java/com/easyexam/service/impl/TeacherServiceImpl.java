@@ -62,26 +62,18 @@ public class TeacherServiceImpl implements ITeacherService {
 
     @Override
     public Teacher findOne(int id) {
-        return teacherRepo.findById(id).get();
+        return teacherRepo.findTeacherById(id);
     }
 
     public Teacher findOneByUser(User user){
         return teacherRepo.findByUser(user);
     }
 
-    @Override
-    public UserCompleted getDates(String email){
-        UserCompleted user=new UserCompleted();
-        user.setEmail(email);
-        User u=userRepo.findUserByEmail(email);
-        user.setId(u.getId());
-        user.setBonus(teacherRepo.getBonus(u.getId()));
-        return user;
-    }
+
 
     @Override
     public Boolean updateBonus(int bonus, int idUser) {
-        teacherRepo.updateAddress(bonus,idUser);
+        teacherRepo.updateBonus(bonus,idUser);
         return true;
     }
 }
