@@ -39,6 +39,9 @@ public class ProblemServiceImpl implements IProblemService {
     @Autowired
     ITopicRepo topicRepo;
 
+    @Autowired
+    ITeacherScoreRepo teacherScoreRepo;
+
     @Override
     public Boolean save(ProblemCompleted p) {
 
@@ -149,6 +152,18 @@ public class ProblemServiceImpl implements IProblemService {
         p.setScore(rateCurrent);
         p.setQualifiers(p.getQualifiers()+1);
         problemRepo.save(p);
+    }
+
+    @Override
+    public int getTeacherScore(int idProblem, int idTeacher) {
+        TeacherScore ts=teacherScoreRepo.findTeacherScoreByTeacherScoreIdIdProblemAndTeacherScoreId_IdTeacher(idProblem,idTeacher);
+        return (ts==null)?0:ts.getScore();
+    }
+
+    @Override
+    public Boolean saveTeacherScore(int idProblem, int idTeacher, int score) {
+        teacherScoreRepo.save(new TeacherScore(new TeacherScoreId(idProblem,idTeacher),score));
+        return true;
     }
 
 }

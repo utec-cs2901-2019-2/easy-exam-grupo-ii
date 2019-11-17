@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.easyexam.model.Problem;
 import com.easyexam.model.aux.ProblemCompleted;
+import javassist.compiler.ast.Pair;
 
 
 public interface IProblemService {
@@ -24,4 +25,8 @@ public interface IProblemService {
     int getMaxId();
 
     void updateRateProblem(int idProblem,int rate);
+
+    int getTeacherScore(int idProblem,int idTeacher);
+
+    Boolean saveTeacherScore(int idProblem,int idTeacher,int score);
 }

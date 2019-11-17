@@ -15,6 +15,8 @@ public class TeacherScore {
     @Column(name = "score")
     private int score;
 
+    public TeacherScore() {}
+
     public TeacherScore(TeacherScoreId teacherScoreId, int score) {
         this.teacherScoreId = teacherScoreId;
         this.score = score;
