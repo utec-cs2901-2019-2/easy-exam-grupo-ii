@@ -41,7 +41,6 @@ public class Teacher {
 
     @OneToOne
     @MapsId
-    
     private User user;
 
     public Teacher() { }
