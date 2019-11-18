@@ -67,6 +67,11 @@ public class ProblemServiceImpl implements IProblemService {
     }
 
     @Override
+    public Problem findProblemById(int id) {
+        return problemRepo.findProblemById(id);
+    }
+
+    @Override
     public List<Problem> getAllProblems() {
         return problemRepo.findAll();
     }
