@@ -82,6 +82,18 @@ public class ProblemController {
         return problemService.getProblemSelected(id);
     }
 
+    @GetMapping("/problem/getProblemsScore")
+    public int getProblemsSelected(int idProblem, int idTeacher){
+        return problemService.getTeacherScore(idProblem,idTeacher);
+    }
+
+    @PostMapping("/problem/saveTeacherScore")
+    public Boolean saveProblemsSelected(@Valid @RequestBody ProblemCompleted p){
+        problemService.saveTeacherScore(p.getId(),p.getIdTeacher(),p.getScoreInteger());
+        return true;
+    }
+
+
 //    @GetMapping("/roles")
 //    public List<Role> getRoles() throws AuthenticationException{
 //        ArrayList<Role> rol= (ArrayList<Role>) roleService.getAllRoles();

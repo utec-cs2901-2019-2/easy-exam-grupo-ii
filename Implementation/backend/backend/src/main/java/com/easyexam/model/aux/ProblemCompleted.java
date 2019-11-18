@@ -26,10 +26,19 @@ public class ProblemCompleted {
 
     private float score;
 
+    private int scoreInteger;
+
     private int qualifiers;
 
     private int id;
 
+    public int getScoreInteger() {
+        return scoreInteger;
+    }
+
+    public void setScoreInteger(int scoreInteger) {
+        this.scoreInteger = scoreInteger;
+    }
 
     public int getQualifiers() {
         return qualifiers;
