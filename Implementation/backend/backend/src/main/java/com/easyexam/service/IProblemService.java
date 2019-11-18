@@ -12,6 +12,8 @@ public interface IProblemService {
 
     Boolean save(ProblemCompleted p);
 
+    Problem findProblemById(int id);
+
     List<Problem> getAllProblems();
 
     List<ProblemSubmitted> findUserProblem(int idUser);
