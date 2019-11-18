@@ -3,14 +3,14 @@
         <b-card>
             <b-container class="m-2">
                 <h1>Submit a Solution!</h1>
-                     <font color="red">Fields with '*' are obligatory</font> 
+                     <font color="red"> <small>Required *</small> </font> 
                         <b-form @reset="onReset">
                             <b-form-group id="input-group-1" label="What type of problem would you like to submit? *" label-for="input-3">
                                 <multiselect
                                         v-model="problem.type"
                                         placeholder="Pick a value"
                                         label="name"
-                                        track-by="id"
+                                        track-by="value"
                                         :options="types"
                                         :searchable="false"
                                         :close-on-select="true"
@@ -18,39 +18,28 @@
                                         :allowEmpty = "false"
                                 >
                                 </multiselect>
+                                <b-alert 
+                                        :show="dismissCountDownPropType" 
+                                        dismissible 
+                                        variant="danger"  
+                                        @dismissed="dismissCountDownDescrip=0"
+                                        @dismiss-count-down="countDownChanged" 
+                                        >
+                                        You must need to enter a problem solution.
+                                </b-alert>
                             </b-form-group>
 
-                            <b-form-group label="Type of entry:" >
-                                <multiselect
-                                        v-model="input_type"
-                                        placeholder="Select an input type"
-                                        label="name"
-                                        track-by="id"
-                                        :options="input_types"
-                                        :multiple="false"
-                                >
-                                </multiselect>
-                            </b-form-group>
-                                <b-form-group v-if="input_type.id==2" label="Solution Body in Latex">
+                            <b-form-group  label="Problem
+                            Solution *">
                                 <b-form-textarea
                                 id="textarea"
-                                v-model="solution.description"
-                                placeholder="Please enter your solution body
-                                here in latex..."
-                                rows="3"
-                                max-rows="6"
+                                v-model="$v.solution.description.$model"
+                                placeholder="Please enter your solution body here in latex..."
+                                :state= "$v.solution.description.$dirty ? !$v.solution.description.$error : null"
+                                required
+                                rows="6"
+                                max-rows="12"
                                 ></b-form-textarea>
-                            </b-form-group>
-                            <b-form-group id="input-group-2" label="Problem
-                            Solution *" label-for="input-2" v-if="input_type.id==1">
-                                <vue-editor
-                                        v-model="solution.description"
-                                        placeholder="Please enter your solution here * "
-                                        type="text"
-                                        :editor-toolbar="customToolbar"
-                                        required
-                                >
-                                </vue-editor>
                                 <b-alert 
                                         :show="dismissCountDownDescrip" 
                                         dismissible 
@@ -60,15 +49,6 @@
                                         >
                                         You must need to enter a problem solution.
                                 </b-alert>
-                               </b-form-group>
-                                 <b-form-group id = "input-group-img" label="Select an image">
-                                <b-form-file
-                                        v-model="solution.image"
-                                        :state="validatImg"
-                                        placeholder="Choose an image (.jpeg, .png, .gif) or drop it here..."
-                                        drop-placeholder="Drop image here..."
-                                        accept="image/jpeg, image/png, image/gif"
-                                ></b-form-file>
                             </b-form-group>
                             <b-button variant="light" on-clik class = "m-2 float-left" @click = "goBack" ><i class="fas fa-angle-double-left" style="color:  #2f3135;"></i></b-button>
                             <b-button variant = "primary" class = "m-2 float-right" v-b-modal.modalPopover>Submit</b-button>
@@ -107,7 +87,6 @@
 </template>
 
 <script>
-    import { VueEditor } from "vue2-editor"
     import { mapState } from 'vuex'
     import axios from "axios"
     import Multiselect from "vue-multiselect"
@@ -120,12 +99,9 @@
             return {
                 dismissSecs: 5,
                 dismissCountDownDescrip: 0,
+                dismissCountDownPropType: 0,
                 tags: [],
-                input_types: [
-                    {id: 1, name: "Rich Text"},
-                    {id: 2, name: "Latex"}
-                ],
-                input_type: ''
+                dicty : {'Short Answer' : 'SA', 'Long Answer' : 'LA', 'Multiple Choice' : 'MC' , 'True or False' : 'TF'}
             }
         },
         methods: {
@@ -138,7 +114,7 @@
                     const p_post = axios.post("http://localhost:9898/problem/v1/submitProblem", {
                         id: 1,
                         title: this.problem.title,
-                        type: this.problem.type.name,
+                        type: this.problem.type.value,
                         body: this.problem.body,
                         topics: this.problem.topics_id,
                         rutaImage: this.problem.image,
@@ -158,7 +134,9 @@
                     axios.post('http://' + this.$store.state.clientURL + '/user/v1/teacher/updateBonus',{
                         id : this.$store.state.user.id,
                         bonus : new_credit
-                    })
+                    });
+                    this.ResetAllFields();
+                    this.goBack();
                 } else{
                     this.showAlertDescription()
                 }
@@ -166,6 +144,7 @@
             onReset(evt) {
                 evt.preventDefault();
                 this.solution.description = '';
+                this.problem.type = '';
             },
             goBack () {
                 this.$store.commit('updateViewBack')
@@ -175,6 +154,17 @@
             },
             showAlertDescription() {
                 this.dismissCountDownDescrip = this.dismissSecs
+            },
+            showAlertProbType() {
+                this.dismissCountDownPropType = this.dismissSecs
+            },
+            ResetAllFields(){
+                this.solution.description = '';
+                this.problem.type = '';
+                this.problem.title = '';
+                this.problem.body = '';
+                this.problem.image = null;
+                this.problem.topics_id = []
             }
         },
         mounted() {
@@ -193,7 +183,6 @@
             }
         },
         components: {
-            VueEditor,
             Multiselect
 
         },
@@ -201,7 +190,7 @@
             solution: {
                 description: {
                     required,
-                    minLength: minLength(10)
+                    minLength: minLength(1)
                 }
             }
         }
