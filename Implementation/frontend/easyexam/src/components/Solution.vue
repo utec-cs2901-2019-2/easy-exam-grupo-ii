@@ -1,5 +1,6 @@
 <template>
     <div class="container md-6 align-center mt-2">
+        <b-card-group deck>
         <b-card>
             <b-container class="m-2">
                 <h1>Submit a Solution!</h1>
@@ -83,6 +84,12 @@
                                 </b-modal>
             </b-container>
         </b-card>
+        <b-card>
+            <h1>Preview</h1>
+            <latex :content="solution.description"/>    
+        </b-card>
+        </b-card-group>
+
     </div>
 </template>
 
@@ -92,6 +99,8 @@
     import Multiselect from "vue-multiselect"
     import { validationMixin } from 'vuelidate'
     import { minLength, required } from 'vuelidate/lib/validators'
+    import { parse, HtmlGenerator } from 'latex.js'
+
     export default {
         mixins: [validationMixin],
         name: "Solution",
@@ -112,7 +121,7 @@
                 let valDescrip = this.solution.description.length > 0 ? true : false;
                  if (valDescrip){
                     const p_post = axios.post("http://localhost:9898/problem/v1/submitProblem", {
-                        id: 1,
+                        idTeacher: this.user.id,
                         title: this.problem.title,
                         type: this.problem.type.value,
                         body: this.problem.body,
@@ -140,6 +149,7 @@
                 } else{
                     this.showAlertDescription()
                 }
+
             },
             onReset(evt) {
                 evt.preventDefault();
@@ -165,6 +175,11 @@
                 this.problem.body = '';
                 this.problem.image = null;
                 this.problem.topics_id = []
+            },
+            visualize(){
+                let generator = new HtmlGenerator({ hyphenate: false })
+                let doc = parse(this.solution.description, { generator: generator }).htmlDocument()
+                console.log(doc.outerHTML)
             }
         },
         mounted() {
@@ -176,7 +191,7 @@
                 problem: state => state.submit.form.problem,
                 solution: state => state.submit.form.solution,
                 types: state => state.submit.types,
-                customToolbar: state => state.submit.editor
+                user: state => state.user,
             }),
             validatImg() {
                 return (Boolean(this.problem.image)==true? true: null)

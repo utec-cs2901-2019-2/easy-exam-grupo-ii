@@ -10,7 +10,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
-
+import VueLaTeX2JS from 'latex2vue';
+Vue.use(VueLaTeX2JS);
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
 

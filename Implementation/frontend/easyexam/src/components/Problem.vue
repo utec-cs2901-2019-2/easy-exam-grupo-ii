@@ -1,7 +1,8 @@
 <template>
     <div class="container md-6 align-center mt-2">
+        <b-card-group deck>
         <b-card>
-            <b-container class="m-2">
+            <b-container >
                 <h1>Submit a Problem!</h1>
                      <font color="red"> <small>Required *</small> </font> 
                         <b-form @reset="onReset">
@@ -90,8 +91,18 @@
                             <b-button type="reset" variant="light"><i class="fas fa-trash fa-1x" style="color:  #e31d1d;"></i></b-button>
                             <b-button variant="light" class="mx-1 float-right " @click="goNext"><i class="fas fa-angle-double-right fa-1x" style="color:  #2f3135 ;"></i></b-button>
                         </b-form>
+
+            <b-button @click="visualize">Visualizar</b-button>           
             </b-container>
         </b-card>
+            <b-card>
+                <h1>Preview</h1>
+                <h3> {{problem.title}} </h3>
+                <latex :content= "problem.body"/>    
+            </b-card>
+        </b-card-group>
+
+        
     </div>
 </template>
 
@@ -101,6 +112,7 @@
     import axios from "axios"
     import { validationMixin } from 'vuelidate'
     import { minLength, required } from 'vuelidate/lib/validators'
+    import { parse, HtmlGenerator } from 'latex.js'
 
     export default {
         mixins: [validationMixin],
@@ -115,7 +127,10 @@
                     {id: 1, name: "Rich Text"},
                     {id: 2, name: "Latex"}
                 ],
-                input_type: ''
+                input_type: '',
+                tex: String.raw`
+                
+                `
             }
         },
         mounted() {
@@ -168,6 +183,11 @@
             },
             uploadImage (evt) {
                 evt.preventDefault();
+            },
+            visualize(){
+                let generator = new HtmlGenerator({ hyphenate: false })
+                let doc = parse(this.problem.body, { generator: generator }).htmlDocument()
+                console.log(doc.outerHTML)  
             }
 
         },
@@ -191,4 +211,6 @@
     }
 </script>
 <style src="../static/css/vue-multiselect/vue-multiselect.min.css"></style>
+<style src="../static/css/latex2js.css"></style>
+
 

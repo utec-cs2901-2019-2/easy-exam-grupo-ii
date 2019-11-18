@@ -140,6 +140,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     data() {
         return {
@@ -162,7 +163,8 @@ export default {
         }
     },
     mounted() {
-       
+            const tag = axios.get("http://localhost:9898/topics/v1/topics/getTopics");
+            tag.then(response => (this.tags = response.data));
     }
 }
 </script>
