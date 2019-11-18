@@ -48,7 +48,7 @@ const routes = [
     path: '/reported-problems',
     name: 'reported-problems',
     component: () => import('../views/ReportedProblem.vue')
-  }
+  },
 ];
 
 const router = new VueRouter({

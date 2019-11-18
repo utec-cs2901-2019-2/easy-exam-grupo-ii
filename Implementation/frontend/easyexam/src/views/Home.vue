@@ -16,6 +16,7 @@
                 <p class="lead">EasyExam is an online platform aiming to help teachers to generate problems for the exams that they wish to take their students. EasyExam works on a 3x1 system in which each the user sends 1 problem for every 3 they will recieve, it is in order to encourage the collaboration within the platform. The users can download the generated exams in PDF-Latex format.</p>
                 <p class="lead text-center">
                     <b-button variant="primary" href="/login">Get Started</b-button>
+                    <b-button variant="primary" href="/pruebahtml">PruebaHtml</b-button>
                     <b-button class="m-2" variant="primary" href="#Learn-More">Learn More</b-button>
                 </p>
               </div>
