@@ -1,7 +1,8 @@
 <template>
     <div class="container md-6 align-center mt-2">
+        <b-card-group deck>
         <b-card>
-            <b-container class="m-2">
+            <b-container >
                 <h1>Submit a Problem!</h1>
                      <font color="red"> <small>Required *</small> </font> 
                         <b-form @reset="onReset">
@@ -91,12 +92,16 @@
                             <b-button variant="light" class="mx-1 float-right " @click="goNext"><i class="fas fa-angle-double-right fa-1x" style="color:  #2f3135 ;"></i></b-button>
                         </b-form>
 
+            <b-button @click="visualize">Visualizar</b-button>           
             </b-container>
         </b-card>
-        <b-card>
-            hola mundo
-        <latex :content= "problem.body"/>    
-        </b-card>
+            <b-card>
+                <h1>Preview</h1>
+                <h3> {{problem.title}} </h3>
+                <latex :content= "problem.body"/>    
+            </b-card>
+        </b-card-group>
+
         
     </div>
 </template>
@@ -107,6 +112,7 @@
     import axios from "axios"
     import { validationMixin } from 'vuelidate'
     import { minLength, required } from 'vuelidate/lib/validators'
+    import { parse, HtmlGenerator } from 'latex.js'
 
     export default {
         mixins: [validationMixin],
@@ -123,30 +129,7 @@
                 ],
                 input_type: '',
                 tex: String.raw`
-                \begin{verbatim}
-      \rput(0,0){$x(t)$}
-      \rput(4,1.5){$f(t)$}
-      \rput(4,-1.5){$g(t)$}
-      \rput(8.2,0){$y(t)$}
-      \rput(1.5,-2){$h(t)$}
-      \psframe(1,-2.5)(7,2.5)
-      \psframe(3,1)(5,2)
-      \psframe(3,-1)(5,-2)
-      \rput(4,0){$X_k = \frac{1}{p} \sum \limits_{n=\langle p\rangle}x(n)e^{-ik\omega_0n}$}
-      \psline[linewidth=1.25 pt]{->}(0.5,0)(1.5,0)
-      \psline[linewidth=1.25 pt]{->}(1.5,1.5)(3,1.5)
-      \psline[linewidth=1.25 pt]{->}(1.5,-1.5)(3,-1.5)
-      \psline[linewidth=1.25 pt]{->}(6.5,1.5)(6.5,0.25)
-      \psline[linewidth=1.25 pt]{->}(6.5,-1.5)(6.5,-0.25)
-      \psline[linewidth=1.25 pt]{->}(6.75,0)(7.75,0)
-      \psline[linewidth=1.25 pt](1.5,-1.5)(1.5,1.5)
-      \psline[linewidth=1.25 pt](5,1.5)(6.5,1.5)
-      \psline[linewidth=1.25 pt](5,-1.5)(6.5,-1.5)
-      \psline[linewidth=1.25 pt](6,-1.5)(6.5,-1.5)
-      \pscircle(6.5,0){0.25}
-      \psline(6.25,0)(6.75,0)
-      \psline(6.5,0.5)(6.5,-0.5)
-      \end{verbatim}
+                
                 `
             }
         },
@@ -200,6 +183,11 @@
             },
             uploadImage (evt) {
                 evt.preventDefault();
+            },
+            visualize(){
+                let generator = new HtmlGenerator({ hyphenate: false })
+                let doc = parse(this.problem.body, { generator: generator }).htmlDocument()
+                console.log(doc.outerHTML)  
             }
 
         },
