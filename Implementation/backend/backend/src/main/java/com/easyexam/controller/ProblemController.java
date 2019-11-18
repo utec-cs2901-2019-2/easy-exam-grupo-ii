@@ -46,6 +46,14 @@ public class ProblemController {
         return new ApiResponse<>(200, "success", true);
     }
 
+    @PostMapping("/updateProblemRatio")
+    public ApiResponse<Problem> update(@Valid int idProblem,@Valid int rate) {
+        LOG.info("Entro a update ratio problem");
+
+        problemService.updateRateProblem(idProblem, rate);
+        return new ApiResponse<>(200, "success", true);
+    }
+
     @GetMapping("/problem/getProblems")
     public List<Problem> getProblems() throws AuthenticationException{
         return problemService.getAllProblems();
@@ -73,6 +81,18 @@ public class ProblemController {
     public List<ProblemCompleted> getProblemsSelected(int id){
         return problemService.getProblemSelected(id);
     }
+
+    @GetMapping("/problem/getProblemsScore")
+    public int getProblemsSelected(int idProblem, int idTeacher){
+        return problemService.getTeacherScore(idProblem,idTeacher);
+    }
+
+    @PostMapping("/problem/saveTeacherScore")
+    public Boolean saveProblemsSelected(@Valid @RequestBody ProblemCompleted p){
+        problemService.saveTeacherScore(p.getId(),p.getIdTeacher(),p.getScoreInteger());
+        return true;
+    }
+
 
 //    @GetMapping("/roles")
 //    public List<Role> getRoles() throws AuthenticationException{

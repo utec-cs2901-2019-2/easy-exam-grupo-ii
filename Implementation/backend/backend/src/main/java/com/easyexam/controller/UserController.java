@@ -2,9 +2,13 @@ package com.easyexam.controller;
 
 import com.easyexam.model.aux.ApiResponse;
 import com.easyexam.model.aux.UserCompleted;
+import com.easyexam.repository.IUserRepo;
 import com.easyexam.service.IProblemService;
 import com.easyexam.service.ITeacherService;
 import com.easyexam.service.IUserService;
+import com.easyexam.service.impl.ProblemServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -19,17 +23,18 @@ public class UserController {
     @Autowired
     ITeacherService teacherService;
 
-    @GetMapping("/teacher/getDates")
+    @Autowired
+    IUserService userService;
+
+    private static Logger LOG= LoggerFactory.getLogger(ProblemServiceImpl.class);
+
+
+    @GetMapping("/user/getDates")
     public UserCompleted getUserDates(String email){
-        return teacherService.getDates(email);
+        LOG.info("Imprime correo  "+ email);
+        return userService.getDates(email);
     }
 
-    @Transactional
-    @PostMapping("/teacher/updateBonus")
-    public ApiResponse<UserCompleted> updateBonus(@Valid @RequestBody UserCompleted user){
-        teacherService.updateBonus(user.getBonus(),user.getId());
-        return new ApiResponse<>(200, "success", true);
-    }
 
 
 }
