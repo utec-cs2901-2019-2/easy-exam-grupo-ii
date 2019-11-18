@@ -51,14 +51,7 @@ export default new Vuex.Store({
         { name: "True or False", value: "TF"},
         { name: "Short Answer", value: "SA"},
         { name: "Long Answer", value: "LA"}
-      ],
-      editor: [
-        [{ header: [2, 3, 4, false] }],
-        ["bold", "italic", "underline"],
-        [{ list: "ordered" }, { list: "bullet" }],
-        ["formula"],
-        ["code-block"]
-    ]
+      ]
     }
 
   },

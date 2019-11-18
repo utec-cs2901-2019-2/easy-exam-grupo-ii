@@ -112,7 +112,7 @@
                 let valDescrip = this.solution.description.length > 0 ? true : false;
                  if (valDescrip){
                     const p_post = axios.post("http://localhost:9898/problem/v1/submitProblem", {
-                        id: 1,
+                        idTeacher: this.user.id,
                         title: this.problem.title,
                         type: this.problem.type.value,
                         body: this.problem.body,
@@ -176,7 +176,7 @@
                 problem: state => state.submit.form.problem,
                 solution: state => state.submit.form.solution,
                 types: state => state.submit.types,
-                customToolbar: state => state.submit.editor
+                user: state => state.user,
             }),
             validatImg() {
                 return (Boolean(this.problem.image)==true? true: null)

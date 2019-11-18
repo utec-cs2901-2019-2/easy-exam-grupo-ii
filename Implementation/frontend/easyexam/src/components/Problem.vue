@@ -90,8 +90,14 @@
                             <b-button type="reset" variant="light"><i class="fas fa-trash fa-1x" style="color:  #e31d1d;"></i></b-button>
                             <b-button variant="light" class="mx-1 float-right " @click="goNext"><i class="fas fa-angle-double-right fa-1x" style="color:  #2f3135 ;"></i></b-button>
                         </b-form>
+
             </b-container>
         </b-card>
+        <b-card>
+            hola mundo
+        <latex :content= "problem.body"/>    
+        </b-card>
+        
     </div>
 </template>
 
@@ -115,7 +121,33 @@
                     {id: 1, name: "Rich Text"},
                     {id: 2, name: "Latex"}
                 ],
-                input_type: ''
+                input_type: '',
+                tex: String.raw`
+                \begin{verbatim}
+      \rput(0,0){$x(t)$}
+      \rput(4,1.5){$f(t)$}
+      \rput(4,-1.5){$g(t)$}
+      \rput(8.2,0){$y(t)$}
+      \rput(1.5,-2){$h(t)$}
+      \psframe(1,-2.5)(7,2.5)
+      \psframe(3,1)(5,2)
+      \psframe(3,-1)(5,-2)
+      \rput(4,0){$X_k = \frac{1}{p} \sum \limits_{n=\langle p\rangle}x(n)e^{-ik\omega_0n}$}
+      \psline[linewidth=1.25 pt]{->}(0.5,0)(1.5,0)
+      \psline[linewidth=1.25 pt]{->}(1.5,1.5)(3,1.5)
+      \psline[linewidth=1.25 pt]{->}(1.5,-1.5)(3,-1.5)
+      \psline[linewidth=1.25 pt]{->}(6.5,1.5)(6.5,0.25)
+      \psline[linewidth=1.25 pt]{->}(6.5,-1.5)(6.5,-0.25)
+      \psline[linewidth=1.25 pt]{->}(6.75,0)(7.75,0)
+      \psline[linewidth=1.25 pt](1.5,-1.5)(1.5,1.5)
+      \psline[linewidth=1.25 pt](5,1.5)(6.5,1.5)
+      \psline[linewidth=1.25 pt](5,-1.5)(6.5,-1.5)
+      \psline[linewidth=1.25 pt](6,-1.5)(6.5,-1.5)
+      \pscircle(6.5,0){0.25}
+      \psline(6.25,0)(6.75,0)
+      \psline(6.5,0.5)(6.5,-0.5)
+      \end{verbatim}
+                `
             }
         },
         mounted() {
@@ -191,4 +223,6 @@
     }
 </script>
 <style src="../static/css/vue-multiselect/vue-multiselect.min.css"></style>
+<style src="../static/css/latex2js.css"></style>
+
 
