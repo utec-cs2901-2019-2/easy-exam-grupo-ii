@@ -41,7 +41,7 @@ public class Teacher {
 
     @OneToOne
     @MapsId
-    @JsonIgnore
+    
     private User user;
 
     public Teacher() { }

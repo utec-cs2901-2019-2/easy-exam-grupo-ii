@@ -48,6 +48,11 @@ const routes = [
     path: '/profile',
     name: 'profile',
     component: () => import('../views/Profile.vue')
+  },
+  {
+    path: '/reported-problems',
+    name: 'reported-problems',
+    component: () => import('../views/ReportedProblem.vue')
   }
 ];
 
