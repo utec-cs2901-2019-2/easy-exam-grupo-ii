@@ -54,13 +54,14 @@
                         <p>
                             {{modal_selectProblem['qualifiers']}} views
                         </p>
-                        <b-button-group>
+                        <b-button-group >
                             <b-button v-for="(btn, idx) in stars"
                                 :key="idx"
                                 :pressed.sync = "btn.state"
                                 variant = "outline-dark"
                                 @mouseover= "upstars (idx)"
                                 @mouseleave="downstars"
+                                @click="checkIfCheck"
                                 pill
                             >
                             <mdb-icon icon="star" />
@@ -377,6 +378,36 @@ export default {
     }),
 
     methods: {
+
+        checkIfCheck () {
+            let ans = -1
+            console.log("checkin")
+            console.log(this.modal_selectProblem.id,)
+            console.log(this.$store.state.user.id)
+            axios.get("http://" + this.$store.state.clientURL + "/problem/v1/problem/getProblemsScore", 
+            {idProblem : 1, idTeacher : 1})
+                .then (response => {
+                    console.log(response.data)
+                })
+            return ans
+
+        },
+
+        updateScore (val) {
+            if (this.checkIfCheck () != -1)
+            {
+                let new_score = this.modal_selectProblem['score']
+                new_score = new_score * this.modal_selectProblem ['qualifiers']
+                new_score = new_score + val
+                new_score = new_score/(this.modal_selectProblem ['qualifiers'] + 1)
+                new_score = Math.round (new_score * 10) / 10
+                this.modal_selectProblem['qualifiers']++
+                this.modal_selectProblem ['score'] = new_score
+                axios.post("http://" + this.$store.state.clientURL + "/problem/v1/problem/saveTeacherScore",
+                 {id : this.modal_selectProblem.id, idTeacher : this.$store.state.user.id , score : val} )
+                axios.post("http://" + this.$store.state.clientURL + "/problem/v1/updateProblemRatio", {idProblem : this.modal_selectProblem.id, rate : val})
+            }
+        },
 
         upstars (idx) {
             for (let i = 0; i < idx; i++){
