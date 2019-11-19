@@ -98,22 +98,19 @@
             <b-card>
                 <h1>Preview</h1>
                 <h3> {{problem.title}} </h3>
-                <latex :content= "problem.body"/>    
+                {{problem.body}}
             </b-card>
         </b-card-group>
 
         
     </div>
 </template>
-
 <script>
     import { mapState } from 'vuex'
     import Multiselect from "vue-multiselect"
     import axios from "axios"
     import { validationMixin } from 'vuelidate'
     import { minLength, required } from 'vuelidate/lib/validators'
-    import { parse, HtmlGenerator } from 'latex.js'
-
     export default {
         mixins: [validationMixin],
         data() {
@@ -128,9 +125,6 @@
                     {id: 2, name: "Latex"}
                 ],
                 input_type: '',
-                tex: String.raw`
-                
-                `
             }
         },
         mounted() {
@@ -183,11 +177,6 @@
             },
             uploadImage (evt) {
                 evt.preventDefault();
-            },
-            visualize(){
-                let generator = new HtmlGenerator({ hyphenate: false })
-                let doc = parse(this.problem.body, { generator: generator }).htmlDocument()
-                console.log(doc.outerHTML)  
             }
 
         },
@@ -211,6 +200,5 @@
     }
 </script>
 <style src="../static/css/vue-multiselect/vue-multiselect.min.css"></style>
-<style src="../static/css/latex2js.css"></style>
 
 
