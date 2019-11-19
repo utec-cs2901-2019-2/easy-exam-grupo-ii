@@ -185,11 +185,13 @@
                 evt.preventDefault();
             },
             visualize(){
-                const prob = axios.get('http://' + this.$store.state.clientURL +'/problem/v1/problem/latexToHtml' + this.problem.body);
-                prob.then(response => (this.recibo = response.data));
+                //const prob = axios.get('http://' + this.$store.state.clientURL +'/problem/v1/problem/latexToHtml' + this.problem.body);
+                //prob.then(response => (this.recibo = response.data));
                 console.log(this.problem.body);
                 let generator = new HtmlGenerator({ hyphenate: false })
                 let doc = parse(this.problem.body, { generator: generator })
+                document.getElementById("testa").appendChild(doc.stylesAndScripts("https://cdn.jsdelivr.net/npm/latex.js@0.11.1/dist/"))
+                document.getElementById("testa").appendChild(doc.domFragment());
                 document.getElementById("testa").appendChild(doc.stylesAndScripts("https://cdn.jsdelivr.net/npm/latex.js@0.11.1/dist/"))
                 document.getElementById("testa").appendChild(doc.domFragment())
             }
