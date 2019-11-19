@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -134,8 +135,14 @@ public class ProblemController {
         return preview;
     }
 
-    @GetMapping("/problem/latexToHtmlbyBody")
-    public String latexToHtmlbyBody(String body) throws IOException {
+    @PostMapping("/problem/latexToHtmlbyBody")
+    public String latexToHtmlbyBody(@RequestBody Map<String, String> data) throws IOException {
+
+        String body = data.get("body");
+
+        if (body == null) {
+            return "Error";
+        }
         
         File input = new File("sample.tex");
         File output = new File("sample.html");
