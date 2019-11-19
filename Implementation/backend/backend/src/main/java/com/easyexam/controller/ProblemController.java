@@ -122,7 +122,32 @@ public class ProblemController {
         Runtime.getRuntime().exec("pandoc " + input.getPath() + " --from=latex --to=html5 -s --output=" + output.getPath());
 
         BufferedReader reader = new BufferedReader(new FileReader(output));
-        String line;
+        String line = reader.readLine();
+        String preview = "";
+        
+        while ((line = reader.readLine()) != null) {
+            preview = preview + '\n' + line;
+        }
+        
+        reader.close();
+        
+        return preview;
+    }
+
+    @GetMapping("/problem/latexToHtmlbyBody")
+    public String latexToHtmlbyBody(String body) throws IOException {
+        
+        File input = new File("sample.tex");
+        File output = new File("sample.html");
+        
+        FileWriter writer = new FileWriter(input);
+        writer.write(body);
+        writer.close();
+        
+        Runtime.getRuntime().exec("pandoc " + input.getPath() + " --from=latex --to=html5 -s --output=" + output.getPath());
+
+        BufferedReader reader = new BufferedReader(new FileReader(output));
+        String line = reader.readLine();
         String preview = "";
         
         while ((line = reader.readLine()) != null) {
