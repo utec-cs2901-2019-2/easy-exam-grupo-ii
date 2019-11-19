@@ -135,6 +135,12 @@ export default {
           sortable: true,
           class: "text-center"
         },
+        {
+          key: "timesReported",
+          label: "Times Reported",
+          sortable: true,
+          class: "text-center"
+        },
         { key: "actions", label: "Actions" }
       ],
       totalRows: 1,

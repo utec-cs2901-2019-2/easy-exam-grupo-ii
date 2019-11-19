@@ -50,6 +50,7 @@ public class ProblemServiceImpl implements IProblemService {
             problemRepo.save(problem);
             LOG.info("Entro a service impl");
             LOG.info(getMaxId()+p.getDescriptionSolution());
+            LOG.info("Id usuario::"+p.getIdTeacher());
             ProblemSubmittedId subId=new ProblemSubmittedId(p.getIdTeacher(),getMaxId());
             ProblemSubmitted ps=new ProblemSubmitted(subId,new Date());
             problemSubmittedRepo.save(ps);
@@ -63,6 +64,11 @@ public class ProblemServiceImpl implements IProblemService {
             }
             return true;
 
+    }
+
+    @Override
+    public Problem findProblemById(int id) {
+        return problemRepo.findProblemById(id);
     }
 
     @Override
