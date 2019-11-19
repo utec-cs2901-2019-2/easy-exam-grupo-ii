@@ -98,8 +98,8 @@
             <b-card>
                 <h1>Preview</h1>
                 <h3> {{problem.title}} </h3>
-                <div id = "testa"></div>
-                {{recibo}}       
+                <b-card-body v-html="recibo">
+                </b-card-body>      
             </b-card>
         </b-card-group>
 
@@ -112,7 +112,7 @@
     import axios from "axios"
     import { validationMixin } from 'vuelidate'
     import { minLength, required } from 'vuelidate/lib/validators'
-    import { parse, HtmlGenerator } from 'latex.js'
+    //import { parse, HtmlGenerator } from 'latex.js'
     export default {
         mixins: [validationMixin],
         data() {
@@ -185,15 +185,10 @@
                 evt.preventDefault();
             },
             visualize(){
-                //const prob = axios.get('http://' + this.$store.state.clientURL +'/problem/v1/problem/latexToHtml' + this.problem.body);
-                //prob.then(response => (this.recibo = response.data));
-                console.log(this.problem.body);
-                let generator = new HtmlGenerator({ hyphenate: false })
-                let doc = parse(this.problem.body, { generator: generator })
-                document.getElementById("testa").appendChild(doc.stylesAndScripts("https://cdn.jsdelivr.net/npm/latex.js@0.11.1/dist/"))
-                document.getElementById("testa").appendChild(doc.domFragment());
-                document.getElementById("testa").appendChild(doc.stylesAndScripts("https://cdn.jsdelivr.net/npm/latex.js@0.11.1/dist/"))
-                document.getElementById("testa").appendChild(doc.domFragment())
+                const prob = axios.post('http://' + this.$store.state.clientURL +'/problem/v1/problem/latexToHtmlbyBody',{
+                    body: this.problem.body
+                });
+                prob.then(response => (this.recibo = response.data));
             }
 
         },
