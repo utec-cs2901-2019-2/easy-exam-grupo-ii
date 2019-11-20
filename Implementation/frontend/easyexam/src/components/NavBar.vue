@@ -54,18 +54,16 @@
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+//import {mapMutations} from 'vuex'
 import {mapGetters} from 'vuex'
 export default {
     name: "NavBar",
     computed:{
-    ...mapMutations(['logout']),
+   // ...mapMutations(['logout']),
         ...mapGetters(['getIsLogged'])
     },
     methods: {
-        logout() {
-
-        }
+        //logout() {        }
     }
 }
 </script>
