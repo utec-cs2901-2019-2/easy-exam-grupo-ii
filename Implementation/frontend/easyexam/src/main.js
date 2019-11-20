@@ -15,6 +15,9 @@ Vue.use(VueLaTeX2JS);
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
 
+var VueCookie = require('vue-cookie');
+Vue.use(VueCookie);
+
 /* No Borrar
 router.beforeEach((to, from, next) => {
   if (to.fullPath == '/' || to.fullPath == '/register' || to.fullPath == '/login' ||

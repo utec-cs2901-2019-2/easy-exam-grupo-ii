@@ -313,7 +313,9 @@ import { mdbIcon } from 'mdbvue';
 
 
 export default {
-
+    beforeCreate(){
+        this.$cookie.get('id')
+    },
     components : {
         mdbIcon
     },

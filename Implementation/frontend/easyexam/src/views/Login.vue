@@ -92,12 +92,17 @@ export default {
             })
             .then(response => {
                 if (response.data.message == "success") {
-                    this.$store.state.user.username = response.data.result.username
+					this.$cookie.set('id', response.data.result.id)
+					this.$cookie.get('id')
+
+					this.$store.state.user.username = response.data.result.username
                     this.$store.state.user.token = response.data.result.token
                     this.$store.state.user.credits = response.data.result.credits
                     this.$store.state.user.id = response.data.result.id
                     this.$store.state.isLogged = true;
-                    this.$router.push('/dashboard')
+					
+					this.$router.push('/dashboard')
+	
                 } else {
                     this.dismissCountDown = this.dismissSecs
                 }
