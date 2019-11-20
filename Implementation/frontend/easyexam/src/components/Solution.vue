@@ -52,9 +52,9 @@
                                 </b-alert>
                             </b-form-group>
                             <b-button variant="light" on-clik class = "m-2 float-left" @click = "goBack" ><i class="fas fa-angle-double-left" style="color:  #2f3135;"></i></b-button>
-                            <b-button variant = "primary" class = "m-2 float-right" v-b-modal.modalPopover>Submit</b-button>
+                            <b-button variant = "light" class = "m-2 float-right" v-b-modal.modalPopover>Submit</b-button>
                             <b-button type="reset" variant = "light" class="m-2 float-left" ><i class="fas fa-trash fa-1x" style="color:  #e31d1d;"></i></b-button>
-                           
+                            <b-button variant="light" class="mx-1 float-right " @click="visualize"><i class="fas fa-play-circle"></i></b-button>
                         </b-form>
                             <b-modal 
                                     title="Submit status"
@@ -86,7 +86,8 @@
         </b-card>
         <b-card>
             <h1>Preview</h1>
-            <latex :content="solution.description"/>    
+            <b-card-body v-html="solution_html">
+            </b-card-body>      
         </b-card>
         </b-card-group>
 
@@ -99,7 +100,7 @@
     import Multiselect from "vue-multiselect"
     import { validationMixin } from 'vuelidate'
     import { minLength, required } from 'vuelidate/lib/validators'
-    import { parse, HtmlGenerator } from 'latex.js'
+   // import { parse, HtmlGenerator } from 'latex.js'
 
     export default {
         mixins: [validationMixin],
@@ -110,7 +111,8 @@
                 dismissCountDownDescrip: 0,
                 dismissCountDownPropType: 0,
                 tags: [],
-                dicty : {'Short Answer' : 'SA', 'Long Answer' : 'LA', 'Multiple Choice' : 'MC' , 'True or False' : 'TF'}
+                dicty : {'Short Answer' : 'SA', 'Long Answer' : 'LA', 'Multiple Choice' : 'MC' , 'True or False' : 'TF'},
+                solution_html: ''
             }
         },
         methods: {
@@ -177,9 +179,10 @@
                 this.problem.topics_id = []
             },
             visualize(){
-                let generator = new HtmlGenerator({ hyphenate: false })
-                let doc = parse(this.solution.description, { generator: generator }).htmlDocument()
-                console.log(doc.outerHTML)
+                const prob = axios.post('http://' + this.$store.state.clientURL +'/problem/v1/problem/latexToHtmlbyBody',{
+                    body: this.solution.description
+                });
+                prob.then(response => (this.solution_html = response.data));
             }
         },
         mounted() {

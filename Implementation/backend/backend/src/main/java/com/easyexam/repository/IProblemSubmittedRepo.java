@@ -17,8 +17,7 @@ public interface IProblemSubmittedRepo extends JpaRepository<ProblemSubmitted, P
 
     @Override
     List<ProblemSubmitted> findAll();
- 
-    @Query (value = "select users.id, problem.id from users,problem, problem_submitted ps where users.id = ps.id_user and ps.id_problem = problem.id and users.id = ?1", nativeQuery = true)
-    List<ProblemSubmitted> findUserQuestions(int id);
+
+    List<ProblemSubmitted> findAllByProblemSubmittedId_IdUser(int idUser);
 
 }

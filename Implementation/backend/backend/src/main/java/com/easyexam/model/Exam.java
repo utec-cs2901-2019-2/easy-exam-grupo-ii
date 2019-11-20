@@ -18,6 +18,8 @@ public class Exam {
     @Column(name="creation_date")
     private Date creationDate;
 
+    public Exam() { }
+
     public Exam(String title, Date creationDate) {
         this.title = title;
         this.creationDate = creationDate;

@@ -23,8 +23,7 @@
             <b-row align-h="around" >
                 <b-col cols="9">
                     <b-card no-header style = "width: 95%; margin: 10px; position:relative; overflow-y:scroll">
-                        <b-card-body>
-                            {{modal_desProblem}}
+                        <b-card-body v-html="modal_desProblem">
                         </b-card-body>
                     </b-card>
                     <b-button disabled style="background : #6c757d">
@@ -54,13 +53,14 @@
                         <p>
                             {{modal_selectProblem['qualifiers']}} views
                         </p>
-                        <b-button-group>
+                        <b-button-group >
                             <b-button v-for="(btn, idx) in stars"
                                 :key="idx"
                                 :pressed.sync = "btn.state"
                                 variant = "outline-dark"
                                 @mouseover= "upstars (idx)"
                                 @mouseleave="downstars"
+                                @click="updateScore (idx + 1)"
                                 pill
                             >
                             <mdb-icon icon="star" />
@@ -76,7 +76,7 @@
                 <b-row style="width : 100%">
                     <b-col cols = "4">
                         <center>
-                            <b-button variant = "outline-warning">
+                            <b-button variant = "outline-warning" @click="showSol()">
                                 <b>See Solution</b>
                             </b-button>
                         </center>
@@ -190,6 +190,16 @@
 
         <!--END MODAL FOR COMMENTS -->
 
+        <!-- START MODAL FOR SOLUTION-->
+
+        <b-modal ref="ModalSol" title="Solution " hide-footer>
+            <div v-html="solutionshow">
+
+            </div>
+        </b-modal>
+
+        <!-- END MODAL FOR SOLUTION -->
+
         <!--ALERT FOR A PROBLEM YOU HAVE -->
 
         <b-alert
@@ -210,7 +220,7 @@
                         <b-card-header header-tag="header" class="p-1" role="tab">
                             <b-button block href="#" v-b-toggle.accordion-1 variant="info">Subjects</b-button>
                         </b-card-header>
-                        <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
+                        <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
                             <b-card-body style="height : 400px; position:relative; overflow-y:scroll">
                                 <b-list-group>
                                     <b-list-group-item v-for="(sub, index) of getSubjects" v-bind:key="index" style="padding:0px" > 
@@ -258,8 +268,14 @@
                 <b-card style="width:80%" header-tag="header">
                     <template v-slot:header>
                         <b-row align-h="between" style="margin:auto">
-                            <b-form-input style="width:92%" type="text" v-model="keyToSearch"></b-form-input>
-                            <b-button variant="info">Filtrar</b-button>
+                            <b-form-input style="width:80%" type="text" v-model="keyToSearch"></b-form-input>
+        <b-form-select style="width:10%"
+          id="input-3"
+          v-model="form_select.tsort"
+          :options="form_select.sorts"
+          required
+        ></b-form-select>
+                            <b-button style="width:10%" variant="info">Filtrar</b-button>
                         </b-row>
                     </template>
 
@@ -328,8 +344,14 @@ export default {
 
     data :  () => ({
 
+            solutionshow :  [],
 
             showDismissibleAlert: false,
+
+            form_select : {
+                tsort : null,
+                sorts : [{ text: 'Order by', value: null }, 'Title', 'Score', 'qualifiers'],
+            },
 
             stars : [
                 {state : false},
@@ -367,9 +389,15 @@ export default {
 
             modal_selectProblem : {},
 
+            modal_solution : '',
+
             selectedSubjects : [],
 
+            ifscore : -1,
+
             mp : [],
+
+            selected : [],
 
             subjects : [{'name' : 'Divide and conquer', 'state' : true}, 
                         {'name' : 'Algorithms', 'state' : true},
@@ -386,6 +414,39 @@ export default {
 
     methods: {
 
+        checkIfCheck () {
+            console.log("checkin")
+            console.log(this.modal_selectProblem.id,)
+            console.log(this.$store.state.user.id)
+            axios.get("http://" + this.$store.state.clientURL + "/problem/v1/problem/getProblemsScore?idProblem="+
+            this.modal_selectProblem.id + "&idTeacher="+ this.$store.state.user.id)
+            .then (response => this.ifscore = response.data)
+
+        },
+
+        updateScore (val) {
+            console.log("up")
+            this.checkIfCheck ()
+            if (this.ifscore <= 0)
+            {
+                console.log("al")
+                let new_score = this.modal_selectProblem['score']
+                new_score = new_score * this.modal_selectProblem ['qualifiers']
+                new_score = new_score + val
+                new_score = new_score/(this.modal_selectProblem ['qualifiers'] + 1)
+                new_score = Math.round (new_score * 10) / 10
+                console.log("round")
+                console.log(new_score)
+                console.log(Math.round(new_score))
+                this.modal_selectProblem['qualifiers']++
+                this.modal_selectProblem ['score'] = new_score
+                axios.post("http://" + this.$store.state.clientURL + "/problem/v1/problem/saveTeacherScore",
+                 {id : this.modal_selectProblem.id, idTeacher : this.$store.state.user.id , scoreInteger : val} )
+                axios.post("http://" + this.$store.state.clientURL + "/problem/v1/updateProblemRatio?idProblem=" + this.modal_selectProblem.id +
+                "&rate=" + val)
+            }
+        },
+
         upstars (idx) {
             for (let i = 0; i < idx; i++){
                 this.stars[i].state = true
@@ -400,6 +461,16 @@ export default {
 
         showComment (){
             this.$refs['ModalComment'].show()
+        },
+        showSol () {
+
+
+            axios.post('http://' + this.$store.state.clientURL + '/problem/v1/problem/latexToHtmlbyBody', {
+                body: this.solutionshow
+            })
+            .then(response => (this.solutionshow = (response.data)))
+
+            this.$refs['ModalSol'].show()
         },
         onSubmit(evt) {
             evt.preventDefault()
@@ -425,6 +496,12 @@ export default {
             this.modal_desProblem = this.infoproblems [index].body
             this.modal_tagsProblem = this.infoproblems [index].topicsString
             this.modal_selectProblem = this.infoproblems [index]
+            this.solutionshow = ''
+            axios.get("http://" + this.$store.state.clientURL + "/problem/v1/problem/latexToHtml?idProblem=" + this.modal_selectProblem.id)
+            .then(response => {this.modal_desProblem = (response.data)})
+            axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getSolutionProblem?idProblem=' + this.modal_selectProblem.id)
+            .then(response => (this.solutionshow = (response.data.body)))
+            this.modal_solution = this.infoproblems [index].body
             
             if (this.idsProblems.includes (this.modal_selectProblem.id)){
                 this.available = true
@@ -439,6 +516,7 @@ export default {
                 axios.get("http://" + this.$store.state.clientURL + "/comment/v1/comment/getCommentByProblem?idProb=" + this.modal_selectProblem.id)
                 .then (response => (this.commentsInfo = (response.data)))
             }
+            console.log(this.modal_desProblem)
         },
 
         hideModalProblem() {
@@ -460,10 +538,14 @@ export default {
                 bonus : new_credit
             })
 
-            this.$refs['modal-problem'].hide()
+            this.available = true
+
+            //this.$refs['modal-problem'].hide()
         },
 
         cancel () {
+                       // console.log(this.solutionshow)
+console.log(this.modal_desProblem)
             this.$refs['modal-problem'].hide()
         },
 
@@ -519,7 +601,6 @@ export default {
         }),
         filtrar : function () {
             let res = []
-            console.log (this.mp)
             if(this.infoproblems.length > 0){
                 let id = 0
                 for (let problem of this.infoproblems) {
@@ -565,6 +646,24 @@ export default {
                 }
             }
 
+            if (this.form_select.tsort === 'Title'){
+                res.sort (function (a,b) {
+                    if (a.title < b.title) return -1
+                    else return 1
+                })
+            }
+            else if (this.form_select.tsort === 'Score'){
+                res.sort (function (a,b) {
+                    if (a.score > b.score) return -1
+                    else return 1
+                })
+            }
+            else if (this.form_select.tsort === 'qualifiers'){
+                res.sort (function (a,b) {
+                    if (a.qualifiers > b.qualifiers) return -1
+                    else return 1
+                })
+            }
             return res
         },
 

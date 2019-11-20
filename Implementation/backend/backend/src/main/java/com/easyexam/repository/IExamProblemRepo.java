@@ -13,4 +13,5 @@ public interface IExamProblemRepo extends JpaRepository<ExamProblem, ExamProblem
     @Override
     List<ExamProblem> findAll();
 
+    List<ExamProblem> findAllByExamProblemId_IdExam(int idExam);
 }

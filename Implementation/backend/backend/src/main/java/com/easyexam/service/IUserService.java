@@ -27,4 +27,6 @@ public interface IUserService {
     User updatePassword(int id);
 
     UserCompleted getDates(String email);
+
+    List<UserCompleted> getReportedUsers();
 }

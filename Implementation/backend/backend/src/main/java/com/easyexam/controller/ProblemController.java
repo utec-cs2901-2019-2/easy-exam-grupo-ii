@@ -6,13 +6,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
-import com.easyexam.model.Problem;
-import com.easyexam.model.ProblemSelected;
-import com.easyexam.model.ProblemSelectedId;
-import com.easyexam.model.ProblemSubmitted;
+import com.easyexam.model.*;
 import com.easyexam.model.aux.ApiResponse;
 import com.easyexam.model.aux.ProblemCompleted;
 import com.easyexam.model.aux.TeacherProblem;
@@ -134,8 +132,14 @@ public class ProblemController {
         return preview;
     }
 
-    @GetMapping("/problem/latexToHtmlbyBody")
-    public String latexToHtmlbyBody(String body) throws IOException {
+    @PostMapping("/problem/latexToHtmlbyBody")
+    public String latexToHtmlbyBody(@RequestBody Map<String, String> data) throws IOException {
+
+        String body = data.get("body");
+
+        if (body == null) {
+            return "Error";
+        }
         
         File input = new File("sample.tex");
         File output = new File("sample.html");
@@ -159,6 +163,15 @@ public class ProblemController {
         return preview;
     }
 
+    @GetMapping("/problem/getSolutionProblem")
+    public SolutionProblem getSolutionProblem(int idProblem) {
+        return problemService.getSolutionOfProblem(idProblem);
+    }
+
+    @GetMapping("/problem/getProblemsSubmitedByUser")
+    public List<ProblemCompleted> getProblemsSubmited(int idUser) {
+        return problemService.getListProblemCompletedSubmitedByUser(idUser);
+    }
 
 //    @GetMapping("/roles")
 //    public List<Role> getRoles() throws AuthenticationException{

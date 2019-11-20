@@ -18,7 +18,7 @@ public class Problem {
     @Column(name = "type")
     private String type;
 
-    @Column(name="body")
+    @Column(name="body",columnDefinition="TEXT")
     private String body;
 
     @Column(name="rutaImage")
