@@ -33,4 +33,6 @@ public interface IProblemService {
     Boolean saveTeacherScore(int idProblem,int idTeacher,int score);
 
     SolutionProblem getSolutionOfProblem(int idProblem);
+
+    List<ProblemCompleted> getListProblemCompletedSubmitedByUser(int idUser);
 }

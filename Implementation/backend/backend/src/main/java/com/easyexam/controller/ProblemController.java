@@ -168,6 +168,11 @@ public class ProblemController {
         return problemService.getSolutionOfProblem(idProblem);
     }
 
+    @GetMapping("/problem/getProblemsSubmitedByUser")
+    public List<ProblemCompleted> getProblemsSubmited(int idUser) {
+        return problemService.getListProblemCompletedSubmitedByUser(idUser);
+    }
+
 //    @GetMapping("/roles")
 //    public List<Role> getRoles() throws AuthenticationException{
 //        ArrayList<Role> rol= (ArrayList<Role>) roleService.getAllRoles();

@@ -78,7 +78,7 @@ public class ProblemServiceImpl implements IProblemService {
 
     @Override
     public List<ProblemSubmitted> findUserProblem(int id){
-        return problemSubmittedRepo.findUserQuestions(id);
+        return problemSubmittedRepo.findAllByProblemSubmittedId_IdUser(id);
     }
 
     @Override
@@ -175,6 +175,31 @@ public class ProblemServiceImpl implements IProblemService {
     @Override
     public SolutionProblem getSolutionOfProblem(int idProblem) {
         return solutionProblemRepo.findSolutionProblemById(idProblem);
+    }
+
+    @Override
+    public List<ProblemCompleted> getListProblemCompletedSubmitedByUser(int idUser) {
+        List<ProblemSubmitted> ps=findUserProblem(idUser);
+        List<ProblemCompleted> list=new ArrayList<>();
+        for(ProblemSubmitted x:ps){
+            Problem p=findProblemById(x.getProblemSubmittedId().getIdProblem());
+            ProblemCompleted pc=new ProblemCompleted();
+            pc.setId(x.getProblemSubmittedId().getIdProblem());
+            pc.setBody(p.getBody());
+            pc.setTitle(p.getTitle());
+            pc.setType(p.getType());
+            pc.setScore(p.getScore());
+            pc.setQualifiers(p.getQualifiers());
+            List<ProblemTopic> ptopics=problemTopicRepo.findAllByProblemTopicId_IdProblem(p.getId());
+            List<String> topics=new ArrayList<>();
+            for (ProblemTopic ptopic:ptopics) {
+                Topic t=topicRepo.findTopicById(ptopic.getProblemTopicId().getIdTopic());
+                topics.add(t.getName());
+            }
+            pc.setTopicsString(topics);
+            list.add(pc);
+        }
+        return list;
     }
 
 }
