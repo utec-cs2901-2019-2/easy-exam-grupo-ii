@@ -313,9 +313,10 @@ import { mdbIcon } from 'mdbvue';
 
 
 export default {
-    beforeCreate(){
-        this.$cookie.get('id')
+    created(){
+    this.items = JSON.parse(localStorage.getItem('items'))
     },
+    
     components : {
         mdbIcon
     },

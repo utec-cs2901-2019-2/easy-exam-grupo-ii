@@ -18,6 +18,9 @@ Vue.config.productionTip = false;
 var VueCookie = require('vue-cookie');
 Vue.use(VueCookie);
 
+import VueSession from 'vue-session'
+Vue.use(VueSession)
+
 /* No Borrar
 router.beforeEach((to, from, next) => {
   if (to.fullPath == '/' || to.fullPath == '/register' || to.fullPath == '/login' ||
