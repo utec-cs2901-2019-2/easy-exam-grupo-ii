@@ -76,7 +76,7 @@
                 <b-row style="width : 100%">
                     <b-col cols = "4">
                         <center>
-                            <b-button variant = "outline-warning">
+                            <b-button variant = "outline-warning" @click="showSol()">
                                 <b>See Solution</b>
                             </b-button>
                         </center>
@@ -189,6 +189,14 @@
         </b-modal>
 
         <!--END MODAL FOR COMMENTS -->
+
+        <!-- START MODAL FOR SOLUTION-->
+
+        <b-modal ref="ModalSol" title="Solution " hide-footer>
+            {{modal_solution}}
+        </b-modal>
+
+        <!-- END MODAL FOR SOLUTION -->
 
         <!--ALERT FOR A PROBLEM YOU HAVE -->
 
@@ -370,6 +378,8 @@ export default {
 
             modal_selectProblem : {},
 
+            modal_solution : '',
+
             selectedSubjects : [],
 
             ifscore : -1,
@@ -441,6 +451,9 @@ export default {
         showComment (){
             this.$refs['ModalComment'].show()
         },
+        showSol () {
+            this.$refs['ModalSol'].show()
+        },
         onSubmit(evt) {
             evt.preventDefault()
             let co = {'idTeacher' : this.$store.state.user.id,  'nameTeacher' : this.$store.state.user.username, 'description' : this.newcomment, 'idProblem' : this.modal_selectProblem.id}
@@ -467,6 +480,9 @@ export default {
             this.modal_selectProblem = this.infoproblems [index]
             axios.get("http://" + this.$store.state.clientURL + "/problem/v1/problem/latexToHtml?idProblem=" + this.modal_selectProblem.id)
             .then(response => {this.modal_desProblem = (response.data)})
+            console.log (this.infoproblems[index].body)
+            console.log (this.modal_desProblem)
+            this.modal_solution = this.infoproblems [index].body
             
             if (this.idsProblems.includes (this.modal_selectProblem.id)){
                 this.available = true
@@ -502,7 +518,9 @@ export default {
                 bonus : new_credit
             })
 
-            this.$refs['modal-problem'].hide()
+            this.available = true
+
+            //this.$refs['modal-problem'].hide()
         },
 
         cancel () {
@@ -561,7 +579,6 @@ export default {
         }),
         filtrar : function () {
             let res = []
-            console.log (this.form_select.tsort)
             if(this.infoproblems.length > 0){
                 let id = 0
                 for (let problem of this.infoproblems) {
