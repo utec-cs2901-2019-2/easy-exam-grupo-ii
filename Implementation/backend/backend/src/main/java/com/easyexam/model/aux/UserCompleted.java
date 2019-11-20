@@ -6,12 +6,58 @@ public class UserCompleted {
     private int bonus;
     private String email;
 
+    private int count;
+
+    private String first_name;
+    private String last_name;
+
     public UserCompleted() { }
 
     public UserCompleted(int id, int bonus, String email) {
         this.id = id;
         this.bonus = bonus;
         this.email = email;
+    }
+
+    public UserCompleted(int id, int bonus, String email, int count, String first_name, String last_name) {
+        this.id = id;
+        this.bonus = bonus;
+        this.email = email;
+        this.count = count;
+        this.first_name = first_name;
+        this.last_name = last_name;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public UserCompleted(int id, int bonus, String email, String first_name, String last_name) {
+        this.id = id;
+        this.bonus = bonus;
+        this.email = email;
+        this.first_name = first_name;
+        this.last_name = last_name;
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
     public int getId() {

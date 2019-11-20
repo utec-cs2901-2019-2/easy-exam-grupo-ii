@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -33,6 +34,11 @@ public class UserController {
     public UserCompleted getUserDates(String email){
         LOG.info("Imprime correo  "+ email);
         return userService.getDates(email);
+    }
+
+    @GetMapping("/user/getReportedUsers")
+    public List<UserCompleted> getReportedUsers(){
+        return userService.getReportedUsers();
     }
 
 

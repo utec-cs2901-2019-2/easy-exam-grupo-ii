@@ -7,13 +7,6 @@ import javax.persistence.FieldResult;
 import javax.persistence.Table;
 import javax.persistence.SqlResultSetMapping;
 
-@SqlResultSetMapping(
-        name = "ProblemTopicMapping",
-        entities = @EntityResult(
-                entityClass = ProblemTopic.class,
-                fields = {
-                    @FieldResult(name = "idProblem", column = "idProblem"),
-                    @FieldResult(name = "idTopic", column = "idTopic")}))
 @Entity
 @Table(name="problem_topic")
 public class ProblemTopic {

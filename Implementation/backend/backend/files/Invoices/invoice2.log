@@ -1,0 +1,43 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2019.11.18)  18 NOV 2019 16:37
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**/home/gz007/Documents/UTEC/Software/Project/easy-exam-grupo-ii/Implementation
+/backend/backend/./files/Invoices/temp/invoice2.tex
+
+(/home/gz007/Documents/UTEC/Software/Project/easy-exam-grupo-ii/Implementation/
+backend/backend/./files/Invoices/temp/invoice2.tex
+LaTeX2e <2018-12-01>
+(/usr/share/texlive/texmf-dist/tex/latex/base/letter.cls
+Document Class: letter 2014/09/29 v1.2z Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
+)
+\longindentation=\dimen102
+\indentedwidth=\dimen103
+\labelcount=\count80
+)
+
+! LaTeX Error: File `invoice.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+! Emergency stop.
+<read *> 
+         
+l.3 \address
+            {Josh Parker \\^^M
+*** (cannot \read from terminal in nonstop modes)
+
+ 
+Here is how much of TeX's memory you used:
+ 137 strings out of 494561
+ 1962 string characters out of 6177453
+ 53585 words of memory out of 5000000
+ 3887 multiletter control sequences out of 15000+600000
+ 3640 words of font info for 14 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 23i,0n,17p,252b,36s stack positions out of 5000i,500n,10000p,200000b,80000s
+!  ==> Fatal error occurred, no output PDF file produced!

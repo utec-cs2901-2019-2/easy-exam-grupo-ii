@@ -11,24 +11,6 @@ import javax.persistence.SqlResultSetMapping;
 import javax.persistence.ColumnResult;
 import javax.persistence.ConstructorResult;
 
-
-@SqlResultSetMapping (
-    name="ProblemTopicProblem",
-    classes = {
-        @ConstructorResult(
-            targetClass = com.easyexam.model.ProblemTopicId.class,
-            columns = {
-                @ColumnResult(name = "idProblem"),
-                @ColumnResult(name = "idTopic")
-            }
-        )
-    }
-)
-@NamedNativeQuery (
-    name = "ProblemTopicQ", 
-    query = "select problem.id as idProblem, topics.id as idTopic from problem, topics, problem_topic where problem_topic.id_problem = problem.id and id_topic = topics.id and problem.id = ?",
-    resultSetMapping = "ProblemTopicProblem"
-)
 @Embeddable
 public class ProblemTopicId implements Serializable {
 
