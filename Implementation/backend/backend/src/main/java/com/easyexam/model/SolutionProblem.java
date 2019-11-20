@@ -12,7 +12,7 @@ public class SolutionProblem {
     @Id
     private int id;
 
-    @Column(name="description")
+    @Column(name="description",columnDefinition="TEXT")
     private String body;
 
     @Column(name="path_image")

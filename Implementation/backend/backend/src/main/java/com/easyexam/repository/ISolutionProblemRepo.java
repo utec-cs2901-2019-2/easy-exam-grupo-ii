@@ -11,4 +11,6 @@ public interface ISolutionProblemRepo extends JpaRepository<SolutionProblem,Inte
 
     @Override
     List<SolutionProblem> findAll();
+
+    SolutionProblem findSolutionProblemById(int idProblem);
 }

@@ -9,8 +9,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/exam/v1")
 public class ExamController {
 
-    public void convertLatexToPdf(){
-
-
-    }
 }

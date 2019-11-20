@@ -2,6 +2,7 @@ package com.easyexam.service.impl;
 
 import com.easyexam.model.User;
 import com.easyexam.model.aux.UserCompleted;
+import com.easyexam.repository.ISuggestRepo;
 import com.easyexam.repository.IUserRepo;
 import com.easyexam.service.IUserService;
 import org.slf4j.Logger;
@@ -25,6 +26,9 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
     @Autowired
     IUserRepo userRepo;
+
+    @Autowired
+    ISuggestRepo suggestRepo;
 
     @Autowired
     private BCryptPasswordEncoder bcryptEncoder;
@@ -111,5 +115,10 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
         return user;
     }
 
-    
+    @Override
+    public List<UserCompleted> getReportedUsers() {
+        return suggestRepo.getSuggest();
+    }
+
+
 }
