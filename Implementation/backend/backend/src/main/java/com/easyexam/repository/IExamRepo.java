@@ -12,4 +12,6 @@ public interface IExamRepo extends JpaRepository<Exam,Integer> {
     @Override
     List<Exam> findAll();
 
+    Exam findExamById(int id);
+
 }

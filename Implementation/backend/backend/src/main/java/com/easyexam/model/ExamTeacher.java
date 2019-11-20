@@ -11,6 +11,8 @@ public class ExamTeacher {
     @EmbeddedId
     private ExamTeacherId examTeacherId;
 
+    public ExamTeacher() { }
+
     public ExamTeacher(ExamTeacherId examTeacherId) {
         this.examTeacherId = examTeacherId;
     }
