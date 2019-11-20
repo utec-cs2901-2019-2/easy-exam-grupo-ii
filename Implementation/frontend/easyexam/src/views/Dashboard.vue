@@ -193,7 +193,9 @@
         <!-- START MODAL FOR SOLUTION-->
 
         <b-modal ref="ModalSol" title="Solution " hide-footer>
-            {{modal_solution}}
+            <div v-html="solutionshow">
+
+            </div>
         </b-modal>
 
         <!-- END MODAL FOR SOLUTION -->
@@ -334,6 +336,7 @@ export default {
 
     data :  () => ({
 
+            solutionshow :  [],
 
             showDismissibleAlert: false,
 
@@ -452,6 +455,13 @@ export default {
             this.$refs['ModalComment'].show()
         },
         showSol () {
+
+
+            axios.post('http://' + this.$store.state.clientURL + '/problem/v1/problem/latexToHtmlbyBody', {
+                body: this.solutionshow
+            })
+            .then(response => (this.solutionshow = (response.data)))
+
             this.$refs['ModalSol'].show()
         },
         onSubmit(evt) {
@@ -478,10 +488,11 @@ export default {
             this.modal_desProblem = this.infoproblems [index].body
             this.modal_tagsProblem = this.infoproblems [index].topicsString
             this.modal_selectProblem = this.infoproblems [index]
+            this.solutionshow = ''
             axios.get("http://" + this.$store.state.clientURL + "/problem/v1/problem/latexToHtml?idProblem=" + this.modal_selectProblem.id)
             .then(response => {this.modal_desProblem = (response.data)})
-            console.log (this.infoproblems[index].body)
-            console.log (this.modal_desProblem)
+            axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getSolutionProblem?idProblem=' + this.modal_selectProblem.id)
+            .then(response => (this.solutionshow = (response.data.body)))
             this.modal_solution = this.infoproblems [index].body
             
             if (this.idsProblems.includes (this.modal_selectProblem.id)){
@@ -497,6 +508,7 @@ export default {
                 axios.get("http://" + this.$store.state.clientURL + "/comment/v1/comment/getCommentByProblem?idProb=" + this.modal_selectProblem.id)
                 .then (response => (this.commentsInfo = (response.data)))
             }
+            console.log(this.modal_desProblem)
         },
 
         hideModalProblem() {
@@ -524,6 +536,8 @@ export default {
         },
 
         cancel () {
+                       // console.log(this.solutionshow)
+console.log(this.modal_desProblem)
             this.$refs['modal-problem'].hide()
         },
 

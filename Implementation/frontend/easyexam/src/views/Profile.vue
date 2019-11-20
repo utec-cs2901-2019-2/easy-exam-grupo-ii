@@ -2,12 +2,12 @@
     <div class="mt-5 mx-5">
         <div class="mx-5">
             <b-row>
-                <b-col sm=4>
-                    <div class="w-100 p-3">
+                <b-col cols="6" md="4">
+                    <b-card class="w-100 p-3">
                         <!--b-img class="w-100 mb-5" src="https://picsum.photos/600/300/?image=25"></b-img-->
-                        <h4><b>{{user.information.first_name}}</b></h4>
-                        <h4><b>{{user.information.last_name}}</b></h4>
-                        <h4>{{user.information.email}}</h4>
+                        <h4><b>{{user.information.firstname}}</b></h4>
+                        <h4><b>{{user.information.lastname}}</b></h4>
+                        <h4>{{user.information.user.email}}</h4>
                         <br>
                         <h5>
                             <b>Problems Submited</b>
@@ -43,14 +43,14 @@
                             <b>Date of Birth</b>
                         </h5>
                         <h5>
-                            {{user.information.DateOfBirth}}
+                            {{user.information.date_birth.slice(0,10)}}
                         </h5>
                         <!--b-button class="w-100" variant="dark">
                             Edit Proffile
                         </b-button-->
-                    </div>
+                    </b-card>
                 </b-col>
-                <b-col sm=8>
+                <b-col cols="12" md="8">
                     <div class="w-100 h-100">
                         <b-tabs justified>
                             <!--b-tab class="p-4" title="Overview" active>
@@ -95,7 +95,7 @@
                                 </b-card>
                             </b-tab>
                             <b-tab class="p-4 h-100" title="Problems Obtained">
-                                <b-row align-h="between" style="margin:auto">
+                                <b-row align-h="between" style="margin:auto" fixed>
                                     <b-form-input style="width:80%" type="text" v-model="keyToSearch2"></b-form-input>
                                     <b-form-select style="width:10%"
                                     id="input-3"
@@ -244,12 +244,6 @@ export default {
                     numberOfComments: 1
                 },
                 information:{
-                    first_name: "Anggie",
-                    last_name: "Yengle",
-                    email: "angie.yengle@gmail.com",
-                    institution: "UTEC",
-                    country: "Perú",
-                    DateOfBirth: "12/01/2019"
                 }
             }
 
@@ -260,10 +254,14 @@ export default {
         .then(response => (this.infoproblems = response.data));
         axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSelected?id=' + this.$store.state.user.id)
         .then(response => (this.obproblems = response.data))
+        axios.get('http://' + this.$store.state.clientURL + '/teacher/v1/teacher/getDatos?idTeacher=' + this.$store.state.user.id)
+        .then(response => (this.user.information = (response.data)))
     },
     computed: {
         filtrar : function () {
             let res = []
+            console.log("filtrrar")
+            console.log(this.$store.state.user.id)
             console.log(this.infoproblems)
             if(this.infoproblems.length > 0){
                 let id = 0

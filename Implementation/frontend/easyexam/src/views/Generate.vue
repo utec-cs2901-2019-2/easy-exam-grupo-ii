@@ -196,7 +196,8 @@ export default {
         currentPage : 1,
         keyFromAll : '',
         keyFromSel : '',
-        problemsAll : []
+        problemsAll : [],
+        problemsSelected : []
     }),
     mounted() {
         axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSelected?id=' + this.$store.state.user.id)
@@ -205,7 +206,7 @@ export default {
     computed: {
         
         ...mapState ({
-            problemsSelected : state=>state.problemsSelected,
+            //problemsSelected : state=>state.problemsSelected,
             //problemsAll : state=>state.myProblems
         }),
         filtrarAll : function () {
