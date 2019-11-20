@@ -172,4 +172,9 @@ public class ProblemServiceImpl implements IProblemService {
         return true;
     }
 
+    @Override
+    public SolutionProblem getSolutionOfProblem(int idProblem) {
+        return solutionProblemRepo.findSolutionProblemById(idProblem);
+    }
+
 }

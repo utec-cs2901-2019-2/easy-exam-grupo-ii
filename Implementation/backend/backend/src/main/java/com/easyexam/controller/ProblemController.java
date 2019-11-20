@@ -10,10 +10,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import com.easyexam.model.Problem;
-import com.easyexam.model.ProblemSelected;
-import com.easyexam.model.ProblemSelectedId;
-import com.easyexam.model.ProblemSubmitted;
+import com.easyexam.model.*;
 import com.easyexam.model.aux.ApiResponse;
 import com.easyexam.model.aux.ProblemCompleted;
 import com.easyexam.model.aux.TeacherProblem;
@@ -166,6 +163,10 @@ public class ProblemController {
         return preview;
     }
 
+    @GetMapping("/problem/getSolutionProblem")
+    public SolutionProblem getSolutionProblem(int idProblem) {
+        return problemService.getSolutionOfProblem(idProblem);
+    }
 
 //    @GetMapping("/roles")
 //    public List<Role> getRoles() throws AuthenticationException{
