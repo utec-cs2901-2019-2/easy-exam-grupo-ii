@@ -76,7 +76,7 @@
                 <b-row style="width : 100%">
                     <b-col cols = "4">
                         <center>
-                            <b-button variant = "outline-warning">
+                            <b-button variant = "outline-warning" @click="showSol()">
                                 <b>See Solution</b>
                             </b-button>
                         </center>
@@ -189,6 +189,16 @@
         </b-modal>
 
         <!--END MODAL FOR COMMENTS -->
+
+        <!-- START MODAL FOR SOLUTION-->
+
+        <b-modal ref="ModalSol" title="Solution " hide-footer>
+            <div v-html="solutionshow">
+
+            </div>
+        </b-modal>
+
+        <!-- END MODAL FOR SOLUTION -->
 
         <!--ALERT FOR A PROBLEM YOU HAVE -->
 
@@ -326,6 +336,7 @@ export default {
 
     data :  () => ({
 
+            solutionshow :  [],
 
             showDismissibleAlert: false,
 
@@ -369,6 +380,8 @@ export default {
             modal_tagsProblem : [],
 
             modal_selectProblem : {},
+
+            modal_solution : '',
 
             selectedSubjects : [],
 
@@ -441,6 +454,16 @@ export default {
         showComment (){
             this.$refs['ModalComment'].show()
         },
+        showSol () {
+
+
+            axios.post('http://' + this.$store.state.clientURL + '/problem/v1/problem/latexToHtmlbyBody', {
+                body: this.solutionshow
+            })
+            .then(response => (this.solutionshow = (response.data)))
+
+            this.$refs['ModalSol'].show()
+        },
         onSubmit(evt) {
             evt.preventDefault()
             let co = {'idTeacher' : this.$store.state.user.id,  'nameTeacher' : this.$store.state.user.username, 'description' : this.newcomment, 'idProblem' : this.modal_selectProblem.id}
@@ -465,8 +488,12 @@ export default {
             this.modal_desProblem = this.infoproblems [index].body
             this.modal_tagsProblem = this.infoproblems [index].topicsString
             this.modal_selectProblem = this.infoproblems [index]
+            this.solutionshow = ''
             axios.get("http://" + this.$store.state.clientURL + "/problem/v1/problem/latexToHtml?idProblem=" + this.modal_selectProblem.id)
             .then(response => {this.modal_desProblem = (response.data)})
+            axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getSolutionProblem?idProblem=' + this.modal_selectProblem.id)
+            .then(response => (this.solutionshow = (response.data.body)))
+            this.modal_solution = this.infoproblems [index].body
             
             if (this.idsProblems.includes (this.modal_selectProblem.id)){
                 this.available = true
@@ -481,6 +508,7 @@ export default {
                 axios.get("http://" + this.$store.state.clientURL + "/comment/v1/comment/getCommentByProblem?idProb=" + this.modal_selectProblem.id)
                 .then (response => (this.commentsInfo = (response.data)))
             }
+            console.log(this.modal_desProblem)
         },
 
         hideModalProblem() {
@@ -502,10 +530,14 @@ export default {
                 bonus : new_credit
             })
 
-            this.$refs['modal-problem'].hide()
+            this.available = true
+
+            //this.$refs['modal-problem'].hide()
         },
 
         cancel () {
+                       // console.log(this.solutionshow)
+console.log(this.modal_desProblem)
             this.$refs['modal-problem'].hide()
         },
 
@@ -561,7 +593,6 @@ export default {
         }),
         filtrar : function () {
             let res = []
-            console.log (this.form_select.tsort)
             if(this.infoproblems.length > 0){
                 let id = 0
                 for (let problem of this.infoproblems) {
