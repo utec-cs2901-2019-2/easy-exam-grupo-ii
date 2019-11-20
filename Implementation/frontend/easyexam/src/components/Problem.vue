@@ -79,6 +79,8 @@
                                         You need to select at least one tag.
                                 </b-alert>
                             </b-form-group>
+                            <!-- Inser a image -->
+                            <!-- 
                              <b-form-group id = "input-group-img" label="Select an image: ">
                                 <b-form-file
                                         v-model="problem.image"
@@ -88,32 +90,33 @@
                                         accept="image/jpeg, image/png, image/gif"
                                 ></b-form-file>
                             </b-form-group>
+                            -->
                             <b-button type="reset" variant="light"><i class="fas fa-trash fa-1x" style="color:  #e31d1d;"></i></b-button>
                             <b-button variant="light" class="mx-1 float-right " @click="goNext"><i class="fas fa-angle-double-right fa-1x" style="color:  #2f3135 ;"></i></b-button>
+                            <b-button variant="light" class="mx-1 float-right " @click="visualize"><i class="fas fa-play-circle"></i></b-button>
                         </b-form>
 
-            <b-button @click="visualize">Visualizar</b-button>           
+                      
             </b-container>
         </b-card>
             <b-card>
                 <h1>Preview</h1>
                 <h3> {{problem.title}} </h3>
-                <latex :content= "problem.body"/>    
+                <b-card-body v-html="problem_html">
+                </b-card-body>      
             </b-card>
         </b-card-group>
 
         
     </div>
 </template>
-
 <script>
     import { mapState } from 'vuex'
     import Multiselect from "vue-multiselect"
     import axios from "axios"
     import { validationMixin } from 'vuelidate'
     import { minLength, required } from 'vuelidate/lib/validators'
-    import { parse, HtmlGenerator } from 'latex.js'
-
+    //import { parse, HtmlGenerator } from 'latex.js'
     export default {
         mixins: [validationMixin],
         data() {
@@ -128,9 +131,7 @@
                     {id: 2, name: "Latex"}
                 ],
                 input_type: '',
-                tex: String.raw`
-                
-                `
+                problem_html: '',
             }
         },
         mounted() {
@@ -185,9 +186,10 @@
                 evt.preventDefault();
             },
             visualize(){
-                let generator = new HtmlGenerator({ hyphenate: false })
-                let doc = parse(this.problem.body, { generator: generator }).htmlDocument()
-                console.log(doc.outerHTML)  
+                const prob = axios.post('http://' + this.$store.state.clientURL +'/problem/v1/problem/latexToHtmlbyBody',{
+                    body: this.problem.body
+                });
+                prob.then(response => (this.problem_html = response.data));
             }
 
         },
