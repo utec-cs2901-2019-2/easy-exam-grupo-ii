@@ -48,23 +48,19 @@
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
             </b-collapse>
-        </b-navbar>
+        </b-navbar> 
     </div>
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
 import {mapGetters} from 'vuex'
 export default {
     name: "NavBar",
     computed:{
-    ...mapMutations(['logout']),
     ...mapGetters(['getIsLogged'])
     },
     methods: {
-        logout() {
-			alert("funca")
-            console.log("funca")
+        logout:function() {
             localStorage.clear()
         }
     }
