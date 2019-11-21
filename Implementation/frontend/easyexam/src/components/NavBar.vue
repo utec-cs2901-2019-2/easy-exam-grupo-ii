@@ -23,8 +23,7 @@
                             <em>User</em>
                         </template>
                         <b-dropdown-item> <router-link to="/profile">Profile</router-link></b-dropdown-item>
-                        <b-dropdown-item href="/">Sign Out</b-dropdown-item>
-                       <!-- <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>-->
+                        <b-dropdown-item href="/" @click="logout">Sign Out</b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
             </b-collapse>
@@ -54,16 +53,20 @@
 </template>
 
 <script>
-//import {mapMutations} from 'vuex'
+import {mapMutations} from 'vuex'
 import {mapGetters} from 'vuex'
 export default {
     name: "NavBar",
     computed:{
-   // ...mapMutations(['logout']),
-        ...mapGetters(['getIsLogged'])
+    ...mapMutations(['logout']),
+    ...mapGetters(['getIsLogged'])
     },
     methods: {
-        //logout() {        }
+        logout() {
+			alert("funca")
+            console.log("funca")
+            localStorage.clear()
+        }
     }
 }
 </script>
