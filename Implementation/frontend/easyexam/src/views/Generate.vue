@@ -192,6 +192,15 @@
 import {mapState} from 'vuex'
 import axios from 'axios'
 export default {
+    created(){
+    this.items = JSON.parse(localStorage.getItem('items'))
+    this.$store.state.user.username = this.items.map(items => items.username)
+    this.$store.state.user.token = this.items.map(items => items.token)
+    this.$store.state.user.credits = this.items.map(items => items.credits)
+    this.$store.state.user.id = this.items.map(items => items.id)
+    this.$store.state.isLogged = true;
+    },
+
     data : () => ({
         currentPage : 1,
         keyFromAll : '',
