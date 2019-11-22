@@ -611,6 +611,13 @@ export default {
             }
         }
         )
+        axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSubmitedByUser?idUser=' + this.$store.state.user.id)
+        .then(response => {
+            for (let m of response.data){
+                this.idsProblems.push(m.id)
+            }
+        }
+        )
         axios.get("http://" + this.$store.state.clientURL +  "/problem/v1/problem/getProblemTopics")
         .then(response => (this.infoproblems = response.data))
         /*axios.get ("http://localhost:9900/comment/v1/comment/getCommentByProblem?idProb=1")
@@ -632,39 +639,42 @@ export default {
                 for (let problem of this.infoproblems) {
                     problem["idx"] = id
                     id = id + 1
-                    if (this.selectedSubjects.length === 0)
+                    if (!this.idsProblems.includes(problem.id))
                     {
-                        if (this.keyToSearch === '')
-                            {
-                                if (this.typeSelected === '' || this.typeSelected === problem.type)
-                                        res.push (problem)
-                            }
-                        else
-                            {
-                                let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
-                                if (stringToSearch.includes (this.keyToSearch.toLowerCase()))
-                                {
-                                    if (this.typeSelected === '' || this.typeSelected === problem.type)
-                                        res.push (problem)
-                                }
-                            }
-                    }
-                    else
-                    {
-                        if (problem.topicsString.filter(value => this.selectedSubjects.includes (value)).length)
+                        if (this.selectedSubjects.length === 0)
                         {
                             if (this.keyToSearch === '')
-                            {
-                                if (this.typeSelected === '' || this.typeSelected === problem.type)
-                                        res.push (problem)
-                            }
-                            else
-                            {
-                                let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
-                                if (stringToSearch.includes (this.keyToSearch.toLowerCase()))
                                 {
                                     if (this.typeSelected === '' || this.typeSelected === problem.type)
-                                        res.push (problem)
+                                            res.push (problem)
+                                }
+                            else
+                                {
+                                    let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
+                                    if (stringToSearch.includes (this.keyToSearch.toLowerCase()))
+                                    {
+                                        if (this.typeSelected === '' || this.typeSelected === problem.type)
+                                            res.push (problem)
+                                    }
+                                }
+                        }
+                        else
+                        {
+                            if (problem.topicsString.filter(value => this.selectedSubjects.includes (value)).length)
+                            {
+                                if (this.keyToSearch === '')
+                                {
+                                    if (this.typeSelected === '' || this.typeSelected === problem.type)
+                                            res.push (problem)
+                                }
+                                else
+                                {
+                                    let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
+                                    if (stringToSearch.includes (this.keyToSearch.toLowerCase()))
+                                    {
+                                        if (this.typeSelected === '' || this.typeSelected === problem.type)
+                                            res.push (problem)
+                                    }
                                 }
                             }
                         }
