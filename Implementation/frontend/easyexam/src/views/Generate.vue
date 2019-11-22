@@ -1,6 +1,7 @@
 <template>
     <div class="md-6 mt-2">
-        <center>
+        <div>        
+            <center>
             <h1>
                 <b v-if="currentPage===1">
                     Select Problems
@@ -11,9 +12,15 @@
                 <b v-else-if="currentPage===3">
                     Exam Preview
                 </b>
+
+                
                 
             </h1>
-        </center>  
+        </center> 
+        <b-button variant="light" class="mx-1 float-right "><i class="fas fa-angle-double-right fa-1x" style="color:  #2f3135 ;"></i></b-button>
+        </div>
+ 
+       
         <b-card-group deck v-if="currentPage===1" align-h="around">
         <b-card header="Your Problems">
             <b-form-input placeholder="Search a problem for your exam" type="text" v-model="keyFromAll">
@@ -139,7 +146,7 @@
                 </b-card>
         </div>
 </b-card-group>
-        <b-card-group deck>
+        <b-card-group deck v-else-if="currentPage===3" class="justify-content-md-center">
             <b-card>
                 <b-embed
                 type="iframe"

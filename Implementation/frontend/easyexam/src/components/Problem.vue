@@ -93,7 +93,7 @@
                             -->
                             <b-button type="reset" variant="light"><i class="fas fa-trash fa-1x" style="color:  #e31d1d;"></i></b-button>
                             <b-button variant="light" class="mx-1 float-right " @click="goNext"><i class="fas fa-angle-double-right fa-1x" style="color:  #2f3135 ;"></i></b-button>
-                            <b-button variant="light" class="mx-1 float-right " ><i class="fas fa-play-circle"></i></b-button>
+                            <b-button variant="light" class="mx-1 float-right " @click="visualize"><i class="fas fa-play-circle"></i></b-button>
                         </b-form>
 
                       
@@ -102,7 +102,15 @@
             <b-card>
                 <h1>Preview</h1>
                 <h3> {{problem.title}} </h3>
-                <TexVizualizer/>
+               
+               <!--
+                <b-card-body v-html="test">
+                </b-card-body>
+                -->
+                <b-card-body v-html="problem_html">
+                </b-card-body>
+                
+                
             </b-card>
         </b-card-group>
 
@@ -110,13 +118,15 @@
     </div>
 </template>
 <script>
-    import TexVizualizer from "../components/TexVizualizer";
+    //import TexVizualizer from "../components/TexVizualizer";
     import { mapState } from 'vuex'
     import Multiselect from "vue-multiselect"
     import axios from "axios"
     import { validationMixin } from 'vuelidate'
     import { minLength, required } from 'vuelidate/lib/validators'
     import { parse, HtmlGenerator } from 'latex.js'
+    import katex from 'katex';
+    import 'katex/dist/katex.min.css';
     export default {
         mixins: [validationMixin],
         data() {
@@ -132,9 +142,11 @@
                 ],
                 input_type: '',
                 problem_html: '',
+                test: ''
             }
         },
         mounted() {
+            window.katex = katex;
             const tag = axios.get("http://localhost:9898/topics/v1/topics/getTopics");
             tag.then(response => (this.tags = response.data));
         },
@@ -186,15 +198,23 @@
                 evt.preventDefault();
             },
             visualize(){
+                
+               const prob = axios.post('http://' + this.$store.state.clientURL +'/problem/v1/problem/latexToHtmlbyBody',{
+                    body: this.problem.body
+                });
+                prob.then(response => (this.problem_html = response.data));
+                
                 let generator = new HtmlGenerator({ hyphenate: false })
                 let doc = parse(this.problem.body, { generator: generator })
-                this.problem_html = doc.htmlDocument('https://cdn.jsdelivr.net/npm/latex.js@0.11.1/dist/').documentElement.outerHTML
+                console.log(this.test);
+                this.test = doc.htmlDocument().documentElement.outerHTML
+                
             }
 
         },
         components: {
             Multiselect,
-            TexVizualizer
+            //TexVizualizer
         },
         validations: {
             problem: {
