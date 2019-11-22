@@ -13,7 +13,7 @@
                             User already register
                         </b-alert>
                         <b-form @submit.prevent="loadpost">
-                            <label>Name</label>
+                            <label>Name <font color="red">*</font></label>
                             <div class="form-row">
                                 <div class="col form-group">
                                     <input v-model="firstName" type="text" class="form-control" placeholder="First Name" :class="{ 'is-invalid': submitted && !firstName }">
@@ -27,7 +27,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Email address</label>
+                                <label>Email address <font color="red">*</font></label>
                                 <input @keyup="emailCheck = false" v-model="email" type="email" class="form-control" placeholder="University / job email address, e.g.name@utec.edu" :class="{ 'is-invalid': submitted && !email }">
                                 <small class="form-text text-muted">We'll never share your email with anyone else.</small>
                                 <div v-show="submitted && !email" class="invalid-feedback">Email is required</div>
@@ -37,13 +37,13 @@
                             <div class="form-row">
 
                                 <div class = "form-group col-md-6">
-                                    <label> Institution </label>
+                                    <label> Institution <font color="red">*</font></label>
                                     <input v-model="institution" type="text" class = "form-control" placeholder="University / job name" :class="{ 'is-invalid': submitted && !institution }">
                                     <div v-show="submitted && !institution" class="invalid-feedback">Institution is required</div>
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label>Country / region</label>
+                                    <label>Country / region <font color="red">*</font></label>
                                      <b-form-select
                                     v-model="country"
                                     :options="countries"
@@ -54,14 +54,14 @@
                             
                             <div class="form-row">
                                 <div class = "form-group col-md-6">
-                                    <label>Date of Birth</label>
+                                    <label>Date of Birth <font color="red">*</font></label>
                                     <b-form-input @keyup="birthdateValidate = true" v-model = 'birthdate' type="date" :class="{ 'is-invalid': submitted && !birthdate }"></b-form-input>
                                     <div v-show="submitted && !birthdate && !birthdateValidate" class="invalid-feedback">Date of birth is required</div>
                                     <div v-show="birthdateValidate && submitted" class="invalid-feedback">Invalid date</div>
                                 </div>
                                 
                                 <div class="form-group col-md-6">
-                                    <label>Gender</label>
+                                    <label>Gender <font color="red">*</font></label>
                                      <b-form-select
                                     v-model="gender"
                                     :options="genders"
@@ -71,12 +71,13 @@
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
-                                <input v-model="password" class="form-control" type="password" placeholder="New Password" :class="{ 'is-invalid': submitted && !password }">
-                                <div v-show="submitted && !password" class="invalid-feedback">Password is required</div>
+                                <input @keyup="checkLenght" v-model="password" class="form-control" type="password" placeholder="New Password" :class="{ 'is-invalid': submitted && !password || passLenght}">
+                                <small class="form-text text-muted">Make sure it al least 6 characters.</small>
+                                <div v-show="submitted && !password || passLenght" class="invalid-feedback">Full password is required</div>
                             </div>
 
                             <div class="form-group">
-                                <label>Confirm Password</label>
+                                <label>Confirm Password <font color="red">*</font></label>
                                 <input @keyup ="validatePassword" v-model="confirm_password" class="form-control" type="password" placeholder="Retype your password" :class="{ 'is-invalid': submitted && !confirm_password || passwordCheck}">
                                 <div v-show="submitted && !confirm_password || passwordCheck" class="invalid-feedback">Password not match</div>
                             </div>
@@ -117,6 +118,7 @@ export default {
           birthdate: '',
           country: '',
           passwordCheck: false,
+          passLenght:false,
           emailCheck: false,
           birthdateValidate: false,
           genders: [ "Female", "Male", "Other"],
@@ -378,10 +380,11 @@ export default {
         loadpost () {
             this.submitted = true;
             
-            var now = new Date()
+            var max = new Date(1930,0,1)
+            var min = new Date(2002,0,1)
             var birth = new Date(this.birthdate)
             
-            if (birth < now) {
+            if (birth < min && birth > max) {
                 this.birthdateValidate =  false
             } else {
                 this.birthdateValidate =  true
@@ -430,6 +433,13 @@ export default {
                 this.passwordCheck =  true;
             } else {
                 this.passwordCheck =  false;
+            }
+        },
+        checkLenght(){
+            if (this.password.length<6){
+                this.passLenght= true;
+            } else {
+                this.passLenght =  false;
             }
         }
     },
