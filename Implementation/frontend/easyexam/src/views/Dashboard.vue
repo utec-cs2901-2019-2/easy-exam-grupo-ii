@@ -407,9 +407,6 @@ export default {
     methods: {
 
         checkIfCheck () {
-            console.log("checkin")
-            console.log(this.modal_selectProblem.id,)
-            console.log(this.$store.state.user.id)
             axios.get("http://" + this.$store.state.clientURL + "/problem/v1/problem/getProblemsScore?idProblem="+
             this.modal_selectProblem.id + "&idTeacher="+ this.$store.state.user.id)
             .then (response => this.ifscore = response.data)
@@ -417,19 +414,14 @@ export default {
         },
 
         updateScore (val) {
-            console.log("up")
             this.checkIfCheck ()
             if (this.ifscore <= 0)
             {
-                console.log("al")
                 let new_score = this.modal_selectProblem['score']
                 new_score = new_score * this.modal_selectProblem ['qualifiers']
                 new_score = new_score + val
                 new_score = new_score/(this.modal_selectProblem ['qualifiers'] + 1)
                 new_score = Math.round (new_score * 10) / 10
-                console.log("round")
-                console.log(new_score)
-                console.log(Math.round(new_score))
                 this.modal_selectProblem['qualifiers']++
                 this.modal_selectProblem ['score'] = new_score
                 axios.post("http://" + this.$store.state.clientURL + "/problem/v1/problem/saveTeacherScore",
@@ -508,7 +500,6 @@ export default {
                 axios.get("http://" + this.$store.state.clientURL + "/comment/v1/comment/getCommentByProblem?idProb=" + this.modal_selectProblem.id)
                 .then (response => (this.commentsInfo = (response.data)))
             }
-            console.log(this.modal_desProblem)
         },
 
         hideModalProblem() {
@@ -536,8 +527,6 @@ export default {
         },
 
         cancel () {
-                       // console.log(this.solutionshow)
-console.log(this.modal_desProblem)
             this.$refs['modal-problem'].hide()
         },
 
@@ -562,7 +551,6 @@ console.log(this.modal_desProblem)
             const fs = require ('fs')
             fs.appendFile('mynewfile1.txt', 'Hello content!', function (err) {
                             if (err) throw err;
-                            console.log('Saved!');
                             });
         }
 

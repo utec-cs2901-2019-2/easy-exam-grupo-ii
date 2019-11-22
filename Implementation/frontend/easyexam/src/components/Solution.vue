@@ -142,7 +142,7 @@
                    this.$router.push('/dashboard');
                    let new_credit = this.$store.state.user.credits + 3
                     this.$store.state.user.credits += 3;
-                    axios.post('http://' + this.$store.state.clientURL + '/user/v1/teacher/updateBonus',{
+                    axios.post('http://' + this.$store.state.clientURL + '/teacher/v1/teacher/updateBonus',{
                         id : this.$store.state.user.id,
                         bonus : new_credit
                     });
@@ -186,7 +186,7 @@
             }
         },
         mounted() {
-            const tag = axios.get("http://localhost:9898/topics/v1/topics/getTopics");
+            const tag = axios.get("http://" + this.$store.state.clientURL + "/topics/v1/topics/getTopics");
             tag.then(response => (this.tags = response.data));
         },
         computed: {

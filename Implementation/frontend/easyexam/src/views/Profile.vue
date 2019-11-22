@@ -231,12 +231,6 @@ export default {
             keyToSearch : '',
             keyToSearch2 : '',
             show : true,
-            form: {
-                email: '',
-                name: '',
-                food: null,
-                checked: []
-                },
             user: {
                 stats:{
                     submitedProb: 12,
@@ -244,6 +238,10 @@ export default {
                     numberOfComments: 1
                 },
                 information:{
+                    date_birth : '11/11/1111',
+                    user : {
+                        email : ''
+                    }
                 }
             }
 
@@ -260,9 +258,6 @@ export default {
     computed: {
         filtrar : function () {
             let res = []
-            console.log("filtrrar")
-            console.log(this.$store.state.user.id)
-            console.log(this.infoproblems)
             if(this.infoproblems.length > 0){
                 let id = 0
                 for (let problem of this.infoproblems) {
@@ -307,8 +302,6 @@ export default {
         },
         filtrar2 : function () {
             let res = []
-            console.log("hola")
-            console.log(this.obproblems)
             if(this.obproblems.length > 0){
                 let id = 0
                 for (let problem of this.obproblems) {
@@ -353,23 +346,6 @@ export default {
         },
     },
     methods: {
-        onSubmit(evt) {
-        evt.preventDefault()
-        alert(JSON.stringify(this.form))
-      },
-      onReset(evt) {
-        evt.preventDefault()
-        // Reset our form values
-        this.form.email = ''
-        this.form.name = ''
-        this.form.food = null
-        this.form.checked = []
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
-      }
     },
 }
 </script>
