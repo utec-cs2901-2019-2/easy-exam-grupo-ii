@@ -13,6 +13,8 @@ import '@fortawesome/fontawesome-free/js/all.js'
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
 
+import VueSessionStorage from 'vue-sessionstorage'
+Vue.use(VueSessionStorage)
 /* No Borrar
 router.beforeEach((to, from, next) => {
   if (to.fullPath == '/' || to.fullPath == '/register' || to.fullPath == '/login' ||

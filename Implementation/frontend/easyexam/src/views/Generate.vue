@@ -17,7 +17,6 @@
                 
             </h1>
         </center> 
-        <b-button variant="light" class="mx-1 float-right "><i class="fas fa-angle-double-right fa-1x" style="color:  #2f3135 ;"></i></b-button>
         </div>
  
        
@@ -70,8 +69,8 @@
                     </div>
 
                 </b-col>
-                <b-col cols="2" style="height:100%">
-                    <b-form-input style="width:100%"  type="number"></b-form-input>
+                <b-col cols="2" >
+                    <b-form-input  placeholder="a" type="number"></b-form-input>
                 </b-col>
                 </b-row>
                 <b-row style="width:90%">
@@ -144,6 +143,7 @@
                     </b-row>
                 </b-form>
                 </b-card>
+            <b-button variant="light" class="mx-1 float-right " @click="submit()" ><i class="fas fa-angle-double-right fa-1x" style="color:  #2f3135 ;"></i></b-button>
         </div>
 </b-card-group>
         <b-card-group deck v-else-if="currentPage===3" class="justify-content-md-center">
@@ -175,6 +175,7 @@ export default {
         keyFromAll : '',
         keyFromSel : '',
         problemsAll : [],
+        problems: [],
         problemsSelected : [],
         problemsSub : []
     }),
@@ -256,14 +257,30 @@ export default {
     methods: {
         SelectProblem : function (index) {
             if (this.problemsSelected.length < 8){
+
                 this.problemsSelected.push (this.problemsAll[index])
                 this.problemsAll.splice(index, 1)
             }
         },
 
         SaveProblem : function (index) {
+ 
             this.problemsAll.push (this.problemsSelected[index])
             this.problemsSelected.splice(index, 1)
+        },
+        submit() {
+            console.log("entro")
+            const p_post = axios.post("http://localhost:9898/exam/v1/submitExam", {
+                idTeacher: 52,
+                title: this.problem.title,
+                listProblems: this.problemsSelected,
+            });
+            p_post.then(resp => {
+                console.log(resp.data)
+            });
+            p_post.catch(error => {
+                console.log(error)
+            });
         }
     },
     validations: {

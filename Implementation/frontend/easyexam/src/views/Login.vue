@@ -98,6 +98,10 @@ export default {
                     this.$store.state.user.id = response.data.result.id
                     this.$store.state.isLogged = true;
                     this.$router.push('/dashboard')
+                    this.$session.set('user', this.$store.state.user.username)
+                    this.$session.set('token', this.$store.state.user.token )
+                    this.$session.set('isLogged', this.$store.state.isLogged)
+                    this.$session.set('user_id',this.$store.state.user.id )
                 } else {
                     this.dismissCountDown = this.dismissSecs
                 }
