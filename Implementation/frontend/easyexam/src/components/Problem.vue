@@ -17,7 +17,7 @@
                                         aria-describedby="input-1-live-feedback"
                                 ></b-form-input>
                                 <b-form-invalid-feedback id="input-1-live-feedback">
-                                    You must need to enter a title of at lest 10 characters.
+                                    You must need to have a problem title.
                                 </b-form-invalid-feedback>
                                 <b-alert 
                                         :show="dismissCountDownTags" 
