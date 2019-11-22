@@ -44,14 +44,14 @@ import HomeCarrousel from "../components/HomeCarrousel";
 
 
 export default {
-    created(){
-    this.items = JSON.parse(localStorage.getItem('items'))
-    this.$store.state.user.username = this.items.map(items => items.username)
-    this.$store.state.user.token = this.items.map(items => items.token)
-    this.$store.state.user.credits = this.items.map(items => items.credits)
-    this.$store.state.user.id = this.items.map(items => items.id)
-    this.$store.state.isLogged = true;
-    },
+  created(){
+        this.items = JSON.parse(localStorage.getItem('items'))
+        this.$store.state.user.username = this.items.map(items =>items.username).toString()
+        this.$store.state.user.token = this.items.map(items =>items.token).toString()
+        this.$store.state.user.credits = parseInt(this.items.map(items =>items.credits))
+        this.$store.state.user.id = parseInt(this.items.map(items => items.id))
+        this.$store.state.isLogged = true;
+        },
 
   name: 'home',
   components: {

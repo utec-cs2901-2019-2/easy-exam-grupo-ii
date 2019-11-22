@@ -331,10 +331,10 @@ import { mdbIcon } from 'mdbvue';
 export default {
     created(){
     this.items = JSON.parse(localStorage.getItem('items'))
-    this.$store.state.user.username = this.items.map(items => items.username)
-    this.$store.state.user.token = this.items.map(items => items.token)
-    this.$store.state.user.credits = this.items.map(items => items.credits)
-    this.$store.state.user.id = this.items.map(items => items.id)
+    this.$store.state.user.username = this.items.map(items =>items.username).toString()
+    this.$store.state.user.token = this.items.map(items =>items.token).toString()
+    this.$store.state.user.credits = parseInt(this.items.map(items =>items.credits))
+    this.$store.state.user.id = parseInt(this.items.map(items => items.id))
     this.$store.state.isLogged = true;
     },
     
@@ -418,8 +418,7 @@ export default {
             console.log("checkin")
             console.log(this.modal_selectProblem.id,)
             console.log(this.$store.state.user.id)
-            axios.get("http://" + this.$store.state.clientURL + "/problem/v1/problem/getProblemsScore?idProblem="+
-            this.modal_selectProblem.id + "&idTeacher="+ this.$store.state.user.id)
+            axios.get("http://" + this.$store.state.clientURL + "/problem/v1/problem/getProblemsScore?idProblem="+ this.modal_selectProblem.id + "&idTeacher="+ this.$store.state.user.id)
             .then (response => this.ifscore = response.data)
 
         },
