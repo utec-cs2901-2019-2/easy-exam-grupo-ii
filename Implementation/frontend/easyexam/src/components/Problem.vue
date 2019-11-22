@@ -93,7 +93,7 @@
                             -->
                             <b-button type="reset" variant="light"><i class="fas fa-trash fa-1x" style="color:  #e31d1d;"></i></b-button>
                             <b-button variant="light" class="mx-1 float-right " @click="goNext"><i class="fas fa-angle-double-right fa-1x" style="color:  #2f3135 ;"></i></b-button>
-                            <b-button variant="light" class="mx-1 float-right " @click="visualize"><i class="fas fa-play-circle"></i></b-button>
+                            <b-button variant="light" class="mx-1 float-right " ><i class="fas fa-play-circle"></i></b-button>
                         </b-form>
 
                       
@@ -102,8 +102,7 @@
             <b-card>
                 <h1>Preview</h1>
                 <h3> {{problem.title}} </h3>
-                <b-card-body v-html="problem_html">
-                </b-card-body>
+                <TexVizualizer/>
             </b-card>
         </b-card-group>
 
@@ -111,6 +110,7 @@
     </div>
 </template>
 <script>
+    import TexVizualizer from "../components/TexVizualizer";
     import { mapState } from 'vuex'
     import Multiselect from "vue-multiselect"
     import axios from "axios"
@@ -193,7 +193,8 @@
 
         },
         components: {
-            Multiselect
+            Multiselect,
+            TexVizualizer
         },
         validations: {
             problem: {
@@ -212,6 +213,4 @@
     }
 </script>
 <style src="../static/css/vue-multiselect/vue-multiselect.min.css"></style>
-<style src="../static/css/latex2js.css"></style>
-
 
