@@ -53,7 +53,7 @@
                         <p>
                             {{modal_selectProblem['qualifiers']}} views
                         </p>
-                        <b-button-group >
+                        <b-button-group v-if="ifscore <= 0">
                             <b-button v-for="(btn, idx) in stars"
                                 :key="idx"
                                 :pressed.sync = "btn.state"
@@ -61,6 +61,24 @@
                                 @mouseover= "upstars (idx)"
                                 @mouseleave="downstars"
                                 @click="updateScore (idx + 1)"
+                                pill
+                            >
+                            <mdb-icon icon="star" />
+                            </b-button>
+                        </b-button-group>
+                        <b-button-group v-else>
+                            <b-button v-for="n in ifscore"
+                                :key="n"
+                                pressed
+                                variant = "outline-dark"
+                                pill
+                            >
+                            <mdb-icon icon="star" />
+                            </b-button>
+                            <b-button v-for="n in (5 - ifscore)"
+                                :key="n + ifscore"
+                                disabled
+                                variant = "outline-dark"
                                 pill
                             >
                             <mdb-icon icon="star" />
@@ -414,7 +432,7 @@ export default {
         },
 
         updateScore (val) {
-            this.checkIfCheck ()
+            
             if (this.ifscore <= 0)
             {
                 let new_score = this.modal_selectProblem['score']
@@ -428,6 +446,7 @@ export default {
                  {id : this.modal_selectProblem.id, idTeacher : this.$store.state.user.id , scoreInteger : val} )
                 axios.post("http://" + this.$store.state.clientURL + "/problem/v1/updateProblemRatio?idProblem=" + this.modal_selectProblem.id +
                 "&rate=" + val)
+                this.ifscore = val
             }
         },
 
@@ -486,6 +505,7 @@ export default {
             axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getSolutionProblem?idProblem=' + this.modal_selectProblem.id)
             .then(response => (this.solutionshow = (response.data.body)))
             this.modal_solution = this.infoproblems [index].body
+            this.checkIfCheck ()
             
             if (this.idsProblems.includes (this.modal_selectProblem.id)){
                 this.available = true
