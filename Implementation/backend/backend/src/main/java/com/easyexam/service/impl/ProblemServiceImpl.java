@@ -42,26 +42,29 @@ public class ProblemServiceImpl implements IProblemService {
     @Autowired
     ITeacherScoreRepo teacherScoreRepo;
 
+    @Autowired
+    ICorrelativeRepo correlativeRepo;
+
     @Override
     public Boolean save(ProblemCompleted p) {
 
 
             Problem problem=new Problem(p.getTitle(),p.getType(), p.getBody(),p.getRutaImage(),0,0);
+            problem.setId(correlativeRepo.getIdProblem());
             problemRepo.save(problem);
-            LOG.info("Entro a service impl");
-            LOG.info(getMaxId()+p.getDescriptionSolution());
             LOG.info("Id usuario::"+p.getIdTeacher());
-            ProblemSubmittedId subId=new ProblemSubmittedId(p.getIdTeacher(),getMaxId());
+            ProblemSubmittedId subId=new ProblemSubmittedId(p.getIdTeacher(),problem.getId());
             ProblemSubmitted ps=new ProblemSubmitted(subId,new Date());
             problemSubmittedRepo.save(ps);
             LOG.info("Entro a save problem "+p.getDescriptionSolution());
 
-            solutionProblemRepo.save(new SolutionProblem(getMaxId(),p.getDescriptionSolution(),p.getPathImageSolution()));
+            solutionProblemRepo.save(new SolutionProblem(problem.getId(),p.getDescriptionSolution(),p.getPathImageSolution()));
 
             for(Topic t:p.getTopics()) {
                 ProblemTopic problemTopic = new ProblemTopic(new ProblemTopicId(problem.getId(), t.getId()));
                 problemTopicRepo.save(problemTopic);
             }
+            correlativeRepo.updateIdProblem();
             return true;
 
     }
@@ -142,11 +145,6 @@ public class ProblemServiceImpl implements IProblemService {
         }
 
         return list;
-    }
-
-    @Override
-    public int getMaxId() {
-        return problemRepo.max();
     }
 
     @Override

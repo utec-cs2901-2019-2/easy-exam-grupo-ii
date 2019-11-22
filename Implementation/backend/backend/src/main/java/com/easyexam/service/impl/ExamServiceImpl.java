@@ -35,14 +35,18 @@ public class ExamServiceImpl implements IExamService {
         Exam e=new Exam();
         e.setCreationDate(new Date());
         e.setTitle(exam.getTitle());
+        e.setId(correlativeRepo.getIdExam());
         examRepo.save(e);
-        int idExam=correlativeRepo.getIdExam();
-        ExamTeacher et=new ExamTeacher(new ExamTeacherId(exam.getIdTeacher(),idExam));
+
+        System.out.println("Entro a idexam");
+        System.out.println(e.getId());
+        ExamTeacher et=new ExamTeacher(new ExamTeacherId(exam.getIdTeacher(),e.getId()));
         examTeacherRepo.save(et);
         for(ProblemCompleted x:exam.getListProblems()){
-            ExamProblem  ep=new ExamProblem(new ExamProblemId(x.getId(),idExam),x.getScoreInteger());
+            ExamProblem  ep=new ExamProblem(new ExamProblemId(x.getId(),e.getId()),x.getScoreInteger());
             examProblemRepo.save(ep);
         }
+        correlativeRepo.updateIdExam();
         return true;
     }
 }

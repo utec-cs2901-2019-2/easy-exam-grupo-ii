@@ -6,11 +6,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="users")
-@SequenceGenerator(sequenceName = "seq_usu",name="seq_usu")
 public class User {
 
     @Id
-    @GeneratedValue(generator = "seq_usu")
     private int id;
 
     @Column(name = "email")
@@ -41,6 +39,10 @@ public class User {
         this.password = password;
         this.active = active;
         this.role = role;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {

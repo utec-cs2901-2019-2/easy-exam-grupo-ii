@@ -1,6 +1,6 @@
 package com.easyexam.service.implOthers;
 
-import com.easyexam.model.PasswordResetToken;
+import com.easyexam.model.aux.PasswordResetToken;
 import com.easyexam.model.User;
 import com.easyexam.repository.IPasswordResetRepo;
 import org.springframework.beans.factory.annotation.Autowired;

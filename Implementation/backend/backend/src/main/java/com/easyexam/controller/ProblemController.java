@@ -48,7 +48,7 @@ public class ProblemController {
     @Autowired
     ICommentService commentService;
 
-    private static Logger LOG = LoggerFactory.getLogger(ProblemServiceImpl.class);
+    private static Logger LOG = LoggerFactory.getLogger(ProblemController.class);
 
     @PostMapping("/submitProblem")
     public ApiResponse<ProblemCompleted> register(@Valid @RequestBody ProblemCompleted problemCompleted) {
