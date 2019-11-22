@@ -176,12 +176,14 @@ export default {
         keyFromSel : '',
         problemsAll : [],
         problems: [],
-        problemsSelected : [
-        ]
+        problemsSelected : [],
+        problemsSub : []
     }),
     mounted() {
         axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSelected?id=' + this.$store.state.user.id)
         .then(response => (this.problemsAll = response.data))
+        axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSubmitedByUser?idUser=' + this.$store.state.user.id)
+        .then(response => (this.problemsSub = response.data))
     },
     computed: {
         
@@ -195,6 +197,22 @@ export default {
             let res = []
             let id = 0
             for (let problem of this.problemsAll) {
+                problem["id"] = id
+                id = id + 1
+                if (this.keyFromAll === '')
+                {
+                    res.push (problem)
+                }
+                else
+                {
+                    let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
+                    if (stringToSearch.includes (this.keyFromAll.toLowerCase()))
+                    {
+                        res.push (problem)
+                    }
+                }
+            }
+            for (let problem of this.problemsSub) {
                 problem["id"] = id
                 id = id + 1
                 if (this.keyFromAll === '')
