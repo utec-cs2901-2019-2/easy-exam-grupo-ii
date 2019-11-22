@@ -103,13 +103,14 @@
                 <h1>Preview</h1>
                 <h3> {{problem.title}} </h3>
                
-               <!--
-                <b-card-body v-html="test">
-                </b-card-body>
-                -->
+
                 <b-card-body v-html="problem_html">
                 </b-card-body>
                 
+                <!--
+                <b-card-body v-html="problem_html">
+                </b-card-body>
+                -->
                 
             </b-card>
         </b-card-group>
@@ -202,12 +203,11 @@
                const prob = axios.post('http://' + this.$store.state.clientURL +'/problem/v1/problem/latexToHtmlbyBody',{
                     body: this.problem.body
                 });
-                prob.then(response => (this.problem_html = response.data));
+                prob.then(response => (this.test = response.data));
                 
                 let generator = new HtmlGenerator({ hyphenate: false })
                 let doc = parse(this.problem.body, { generator: generator })
-                console.log(this.test);
-                this.test = doc.htmlDocument().documentElement.outerHTML
+                this.problem_html = doc.htmlDocument().documentElement.outerHTML
                 
             }
 
@@ -220,7 +220,7 @@
             problem: {
                 title: {
                     required,
-                    minLength: minLength(10)
+                    minLength: minLength(1)
                 },
                 body: {
                     required
