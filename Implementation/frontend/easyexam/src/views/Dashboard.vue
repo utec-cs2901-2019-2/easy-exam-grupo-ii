@@ -106,7 +106,7 @@
                     </b-col>
                     <b-col cols = "4">
                     <center>
-                        <b-button variant="outline-danger" @click="cancel()"><b>Cancel</b></b-button>
+                        <b-button variant="outline-danger" @click="cancel()"><b>Done</b></b-button>
                     </center>
                     </b-col>
                 </b-row>
@@ -272,10 +272,27 @@
                     </b-card>
                     <br>
                     <b-card class = "text-center">
-                        <p>Créditos</p>
+                        <p>Credits</p>
                         <h1> <b>{{creditos}}</b> </h1>
                         <p v-if="creditos <= 0">
                             You can't get new problems, you don't have enough credits
+                        </p>
+                    </b-card>
+                    <br>
+                    <b-card>
+                        <h4><b>Problem Types</b></h4>
+                        <br>
+                        <p>
+                            SA : Short Answer
+                        </p>
+                        <p>
+                            LA : Long Answer
+                        </p>
+                        <p>
+                            MC : Multiple Choice
+                        </p>
+                        <p>
+                            TF : True or False
                         </p>
                     </b-card>
                 </div>
@@ -286,14 +303,20 @@
                 <b-card style="width:80%" header-tag="header">
                     <template v-slot:header>
                         <b-row align-h="between" style="margin:auto">
-                            <b-form-input style="width:80%" type="text" v-model="keyToSearch"></b-form-input>
-        <b-form-select style="width:10%"
-          id="input-3"
-          v-model="form_select.tsort"
-          :options="form_select.sorts"
-          required
-        ></b-form-select>
-                            <b-button style="width:10%" variant="info">Filtrar</b-button>
+                            <b-col cols="12" md="8" class="p-0">
+                                <b-form-input class="w-100" type="text" v-model="keyToSearch"></b-form-input>
+                            </b-col>
+                            <b-col cols="12" md="2" class="p-0">
+                                <b-form-select class="w-100"
+                                id="input-3"
+                                v-model="form_select.tsort"
+                                :options="form_select.sorts"
+                                required
+                                ></b-form-select>
+                            </b-col>
+                            <b-col cols="12" md="2" class="p-0">
+                                <b-button class="w-100" variant="info">Search</b-button>
+                            </b-col>
                         </b-row>
                     </template>
 
@@ -513,8 +536,10 @@ export default {
                 this.$refs['modal-problem'].show()
                 axios.get("http://" + this.$store.state.clientURL + "/comment/v1/comment/getCommentByProblem?idProb=" + this.modal_selectProblem.id)
                 .then (response => (this.commentsInfo = (response.data)))
+                alert ("You have already get this problem. Go to Generate to use it in a new exam!")
             }
             else {
+                if (this.$store.state.user.credits == 0) alert("You have ran out of credits! Submit a problem to get some more!");
                 this.available = false
                 this.$refs['modal-problem'].show()
                 axios.get("http://" + this.$store.state.clientURL + "/comment/v1/comment/getCommentByProblem?idProb=" + this.modal_selectProblem.id)
@@ -535,13 +560,14 @@ export default {
             })
             let new_credit = this.$store.state.user.credits - 1
             this.$store.state.user.credits -= 1;
-            if (this.$store.state.user.credits == 0) alert("You have ran out of credits! Submit a problem to get some more!");
             axios.post('http://' + this.$store.state.clientURL + '/teacher/v1/teacher/updateBonus',{
                 id : this.$store.state.user.id,
                 bonus : new_credit
             })
 
             this.available = true
+
+            alert ("Now you can use this problem to generate an exam. Go to Generate to use it!")
 
             //this.$refs['modal-problem'].hide()
         },
