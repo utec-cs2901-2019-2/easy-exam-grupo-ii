@@ -303,10 +303,10 @@
                 <b-card style="width:80%" header-tag="header">
                     <template v-slot:header>
                         <b-row align-h="between" style="margin:auto">
-                            <b-col cols="12" md="8" class="p-0">
+                            <b-col cols="12" lg="8" class="p-0">
                                 <b-form-input class="w-100" type="text" v-model="keyToSearch"></b-form-input>
                             </b-col>
-                            <b-col cols="12" md="2" class="p-0">
+                            <b-col cols="12" lg="2" class="p-0">
                                 <b-form-select class="w-100"
                                 id="input-3"
                                 v-model="form_select.tsort"
@@ -314,7 +314,7 @@
                                 required
                                 ></b-form-select>
                             </b-col>
-                            <b-col cols="12" md="2" class="p-0">
+                            <b-col cols="12" lg="2" class="p-0">
                                 <b-button class="w-100" variant="info">Search</b-button>
                             </b-col>
                         </b-row>
@@ -324,24 +324,21 @@
                         <div role="tablist" >
                             <b-card style = "margin:20px; background: #d4d4d4" class="mb-1" v-for="(problem, index) of filtrar" v-bind:key = "index">
                                 <b-card-title><b>{{problem.title}}</b></b-card-title>
-                                <b-row style="height :70px">
-                                    <b-col cols = "10" style="height:100%">
-                                        <!--b-card-text style="position:relative; overflow-y:hidden">
-                                            {{problem.body}}
-                                        </b-card-text>-->
+                                <b-row style="min-height :70px">
+                                    <b-col cols = "12" xl="10" class="h-100">
                                         <div style="margin-top : 10px">
                                             <b-button variant="info" style = "margin:5px" v-for="(tag, index) of problem.topicsString" v-bind:key="index">{{tag}}</b-button>
                                         </div>
                                     </b-col>
-                                    <b-col cols = "2" style="height:100%">
+                                    <b-col cols = "12" xl="2" class="h-100">
                                         <ul class="list-unstyled">
                                             <li>
-                                                <b-button disabled style="width : 50%">
+                                                <b-button disabled style="width : 80px">
                                                     {{problem.score}}
                                                 </b-button>
                                             </li>
                                             <li>
-                                                <b-button disabled variant = "light" style="font-size : small; width : 50%"><b>
+                                                <b-button disabled variant = "light" style="font-size : small; width : 80px"><b>
                                                     {{problem.type}}</b>
                                                 </b-button>
                                             </li>

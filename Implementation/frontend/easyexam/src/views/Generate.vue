@@ -31,7 +31,7 @@
                 </b>
             </b-card-title>
             <b-row class="justify-content-md-center">
-                <b-col cols="10">
+                <b-col cols="9" lg="10">
                     <div style="margin-top:10px">
                         <b-button disabled variant="light" style="margin:5px" v-for="(tag, index) of prob.topicsString" v-bind:key="index">
                             {{tag}}
@@ -39,8 +39,8 @@
                     </div>
 
                 </b-col>
-                <b-col cols="2" style="height:100%">
-                    <b-button disabled variant = "light" style=" width : 70px; height:70px"><b>
+                <b-col cols="3" lg="2">
+                    <b-button disabled variant = "light" style=" width : 60px; height:60px"><b>
                         {{prob.type}}</b>
                     </b-button>
                 </b-col>
@@ -70,17 +70,17 @@
 
                 </b-col>
                 <b-col cols="2" >
-                    <b-form-input  placeholder="a" type="number"></b-form-input>
+                    <b-form-input type="number" style="min-width:50px;max-width:70px"></b-form-input>
                 </b-col>
                 </b-row>
                 <b-row style="width:90%">
-                    <b-col cols="9">
+                    <b-col cols="10">
                         <b-button style="margin-top : 10px ;width:100%" href="#" pill variant="info" @click="SaveProblem(prob.id)">
                             Save Problem
                         </b-button>
                     </b-col>
-                    <b-col cols="3">
-                        <b-button disabled variant = "light" style="margin-top : 10px ; width : 100%"><b>
+                    <b-col cols="2">
+                        <b-button disabled variant = "light" style="margin-top : 10px ; width : 50px"><b>
                             {{prob.type}}</b>
                         </b-button>
                     </b-col>
