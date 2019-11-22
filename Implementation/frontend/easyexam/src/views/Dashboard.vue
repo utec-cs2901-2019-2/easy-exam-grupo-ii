@@ -53,7 +53,7 @@
                         <p>
                             {{modal_selectProblem['qualifiers']}} views
                         </p>
-                        <b-button-group >
+                        <b-button-group v-if="ifscore <= 0">
                             <b-button v-for="(btn, idx) in stars"
                                 :key="idx"
                                 :pressed.sync = "btn.state"
@@ -61,6 +61,24 @@
                                 @mouseover= "upstars (idx)"
                                 @mouseleave="downstars"
                                 @click="updateScore (idx + 1)"
+                                pill
+                            >
+                            <mdb-icon icon="star" />
+                            </b-button>
+                        </b-button-group>
+                        <b-button-group v-else>
+                            <b-button v-for="n in ifscore"
+                                :key="n"
+                                pressed
+                                variant = "outline-dark"
+                                pill
+                            >
+                            <mdb-icon icon="star" />
+                            </b-button>
+                            <b-button v-for="n in (5 - ifscore)"
+                                :key="n + ifscore"
+                                disabled
+                                variant = "outline-dark"
                                 pill
                             >
                             <mdb-icon icon="star" />
@@ -424,25 +442,21 @@ export default {
         },
 
         updateScore (val) {
-            console.log("up")
-            this.checkIfCheck ()
+            
             if (this.ifscore <= 0)
             {
-                console.log("al")
                 let new_score = this.modal_selectProblem['score']
                 new_score = new_score * this.modal_selectProblem ['qualifiers']
                 new_score = new_score + val
                 new_score = new_score/(this.modal_selectProblem ['qualifiers'] + 1)
                 new_score = Math.round (new_score * 10) / 10
-                console.log("round")
-                console.log(new_score)
-                console.log(Math.round(new_score))
                 this.modal_selectProblem['qualifiers']++
                 this.modal_selectProblem ['score'] = new_score
                 axios.post("http://" + this.$store.state.clientURL + "/problem/v1/problem/saveTeacherScore",
                  {id : this.modal_selectProblem.id, idTeacher : this.$store.state.user.id , scoreInteger : val} )
                 axios.post("http://" + this.$store.state.clientURL + "/problem/v1/updateProblemRatio?idProblem=" + this.modal_selectProblem.id +
                 "&rate=" + val)
+                this.ifscore = val
             }
         },
 
@@ -501,6 +515,7 @@ export default {
             axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getSolutionProblem?idProblem=' + this.modal_selectProblem.id)
             .then(response => (this.solutionshow = (response.data.body)))
             this.modal_solution = this.infoproblems [index].body
+            this.checkIfCheck ()
             
             if (this.idsProblems.includes (this.modal_selectProblem.id)){
                 this.available = true
@@ -515,7 +530,6 @@ export default {
                 axios.get("http://" + this.$store.state.clientURL + "/comment/v1/comment/getCommentByProblem?idProb=" + this.modal_selectProblem.id)
                 .then (response => (this.commentsInfo = (response.data)))
             }
-            console.log(this.modal_desProblem)
         },
 
         hideModalProblem() {
@@ -532,7 +546,7 @@ export default {
             let new_credit = this.$store.state.user.credits - 1
             this.$store.state.user.credits -= 1;
             if (this.$store.state.user.credits == 0) alert("You have ran out of credits! Submit a problem to get some more!");
-            axios.post('http://' + this.$store.state.clientURL + '/user/v1/teacher/updateBonus',{
+            axios.post('http://' + this.$store.state.clientURL + '/teacher/v1/teacher/updateBonus',{
                 id : this.$store.state.user.id,
                 bonus : new_credit
             })
@@ -543,8 +557,6 @@ export default {
         },
 
         cancel () {
-                       // console.log(this.solutionshow)
-console.log(this.modal_desProblem)
             this.$refs['modal-problem'].hide()
         },
 
@@ -569,7 +581,6 @@ console.log(this.modal_desProblem)
             const fs = require ('fs')
             fs.appendFile('mynewfile1.txt', 'Hello content!', function (err) {
                             if (err) throw err;
-                            console.log('Saved!');
                             });
         }
 
