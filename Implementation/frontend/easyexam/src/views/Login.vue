@@ -21,12 +21,12 @@
 
                         <form @submit.prevent="sendpost">
                             <div class="form-group">
-                                <label for="email"> Email <font color="red">*</font></label>
+                                <label for="email">Email</label>
                                 <input type="email" v-model="email" name="email" class="form-control" :class="{ 'is-invalid': submitted && !email }" />
                                 <div v-show="submitted && !email" class="invalid-feedback">Email is required</div>
                             </div>
                             <div class="form-group">
-                                <label htmlFor="password"> Password <font color="red">*</font></label>
+                                <label htmlFor="password">Password</label>
                                 <input type="password" v-model="password" name="password" class="form-control" :class="{ 'is-invalid': submitted && !password }" />
                                 <div v-show="submitted && !password" class="invalid-feedback">Password is required</div>
                             </div>
@@ -61,19 +61,17 @@
 import axios from 'axios'
 import { mapState } from 'vuex'
 
-
 export default {
   name: 'login',
   components: {
   },
-
   data(){
-	return {
-		email:'',
-		password: '',
-		submitted: false,
-		dismissSecs: 5,
-		dismissCountDown: 0,
+      return {
+          email:'',
+          password: '',
+          submitted: false,
+          dismissSecs: 5,
+          dismissCountDown: 0,
       }
   },
   computed:{
@@ -82,23 +80,7 @@ export default {
             token: state => state.user.token
         })
   },
-  created: function(){
-	this.view()
-	this.localData()
-	//this.items = JSON.parse('items', localStorage.getItem('items'))
-	},
-
-	methods:{
-	localData: function(){
-	let parsed = JSON.stringify(this.items)
-	localStorage.setItem('items', parsed)
-	},
-
-	view: function(){
-		this.items = []
-		
-	},
-	
+    methods:{
       sendpost() {
           this.submitted = true;
           const { email, password } = this;
@@ -110,24 +92,12 @@ export default {
             })
             .then(response => {
                 if (response.data.message == "success") {
-					this.$store.state.user.username = response.data.result.username
+                    this.$store.state.user.username = response.data.result.username
                     this.$store.state.user.token = response.data.result.token
                     this.$store.state.user.credits = response.data.result.credits
                     this.$store.state.user.id = response.data.result.id
                     this.$store.state.isLogged = true;
-
-					var id = response.data.result.id
-					var username = response.data.result.username
-					var token = response.data.result.token
-					var credits = response.data.result.credits
-
-					this.items.push({id:id,username:username,token:token,credits:credits})
-
-					this.$router.push('/dashboard')
-
-
-					this.localData()
-	
+                    this.$router.push('/dashboard')
                 } else {
                     this.dismissCountDown = this.dismissSecs
                 }
