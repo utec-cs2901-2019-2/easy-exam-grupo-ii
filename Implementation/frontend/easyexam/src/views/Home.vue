@@ -3,25 +3,29 @@
     <div class="site-wrapper">
 
       <div class="site-wrapper-inner">
-
           <div class="inner cover text-center">
+
             <div class="container inner">
                 <h1 class="cover-heading" style="font: oblique bold 350% cursive;">Welcome To EasyExam!</h1>
               <p class="lead" style="font: oblique bold 150% cursive;"> <small>Your smartest exam generation tool!</small></p>
             </div>
-              <HomeCarrousel style="margin-bottom: 3%"></HomeCarrousel>
-              <hr width="95%" size=200 color="black">
-              <b-card class="text-center" style="margin: 3%">
-              <div class="inner cover text-center">
+              <hr width="95%" size=200 color="#2f3135">
+              <b-row>
+                  <b-col md="6">
+              <div class="inner cover text-center" style="margin: 3%">
                 <p class="lead">EasyExam is an online platform aiming to help teachers to generate problems for the exams that they wish to take their students. EasyExam works on a 3x1 system in which each the user sends 1 problem for every 3 they will recieve, it is in order to encourage the collaboration within the platform. The users can download the generated exams in PDF-Latex format.</p>
                 <p class="lead text-center">
                     <b-button variant="dark" href="/login" style="background-color: black">Get Started</b-button>
                     <b-button class="m-2" variant="dark" href="#Learn-More">Learn More</b-button>
                 </p>
               </div>
-              </b-card>
+                  </b-col>
+                  <b-col md="6">
+              <HomeCarrousel style="margin: 3%"></HomeCarrousel>
+                  </b-col>
+              </b-row>
         </div>
-          <hr width="95%" size=200 color="black">
+          <hr width="95%" size=200 color="#2f3135">
           <div id="Learn-More" style="margin-top: 3%">
               <b-embed
                       type="iframe"
@@ -53,7 +57,6 @@ export default {
   }
 }
 </script>
-
 <style scoped>
 @import url('https://fonts.googleapis.com/css?family=Hind+Madurai|Jomolhari&display=swap');
 /* Links */
