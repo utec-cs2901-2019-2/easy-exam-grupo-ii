@@ -44,7 +44,7 @@
                         {{prob.type}}</b>
                     </b-button>
                 </b-col>
-                <b-button style="margin-top : 10px; width:90%" href="#" pill variant="info" @click="SelectProblem(prob.id)">
+                <b-button style="margin-top : 10px; width:90%"  pill variant="info" @click="SelectProblem(prob.id)">
                     Select Problem
                 </b-button>
             </b-row>
@@ -75,7 +75,7 @@
                 </b-row>
                 <b-row style="width:90%">
                     <b-col cols="9">
-                        <b-button style="margin-top : 10px ;width:100%" href="#" pill variant="info" @click="SaveProblem(prob.id)">
+                        <b-button style="margin-top : 10px ;width:100%" pill variant="info" @click="SaveProblem(prob.id)">
                             Save Problem
                         </b-button>
                     </b-col>
@@ -161,12 +161,10 @@
         <b-pagination v-model="currentPage" :total-rows="3" :per-page="1" use-router align="fill" hide-goto-end-buttons></b-pagination>
     </div>
 </template>
-
 <script>
+import { minLength, required } from 'vuelidate/lib/validators'
 import {mapState} from 'vuex'
 import { validationMixin } from 'vuelidate'
-import { minLength, required } from 'vuelidate/lib/validators'
-    
 import axios from 'axios'
 export default {
     mixins: [validationMixin],
@@ -175,28 +173,38 @@ export default {
         keyFromAll : '',
         keyFromSel : '',
         problemsAll : [],
-        problems: [],
         problemsSelected : [],
-        problemsSub : []
+        problemsSub : [], 
+        componentLoaded: false,
     }),
     mounted() {
-        axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSelected?id=' + this.$store.state.user.id)
-        .then(response => (this.problemsAll = response.data))
         axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSubmitedByUser?idUser=' + this.$store.state.user.id)
         .then(response => (this.problemsSub = response.data))
+        axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSelected?id=' + this.$store.state.user.id)
+        .then(response => (this.problemsAll = response.data))
+        
+        console.log("b");
+        console.log(this.problemsAll.length);
+        console.log(this.problemsSub.length);
+        
     },
     computed: {
         
         ...mapState ({
-            exam: state => state.exam
             //problemsSelected : state=>state.problemsSelected,
             //problemsAll : state=>state.myProblems
         }),
         filtrarAll : function () {
+            console.log(this.componentLoaded)
+            if(!this.componentLoaded)
+                return null;
+            console.log("a");
+            console.log(this.problemsAll.length);
+            console.log(this.problemsSub.length);
             this.$store.commit ('viewProblems')
+            this.MergeSelect();
             let res = []
-            let id = 0
-            for (let problem of this.problemsAll) {
+            let id = 0 
                 problem["id"] = id
                 id = id + 1
                 if (this.keyFromAll === '')
@@ -212,22 +220,8 @@ export default {
                     }
                 }
             }
-            for (let problem of this.problemsSub) {
-                problem["id"] = id
-                id = id + 1
-                if (this.keyFromAll === '')
-                {
-                    res.push (problem)
-                }
-                else
-                {
-                    let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
-                    if (stringToSearch.includes (this.keyFromAll.toLowerCase()))
-                    {
-                        res.push (problem)
-                    }
-                }
-            }
+            
+
             return res
         },
 
@@ -257,54 +251,42 @@ export default {
     methods: {
         SelectProblem : function (index) {
             if (this.problemsSelected.length < 8){
-
                 this.problemsSelected.push (this.problemsAll[index])
                 this.problemsAll.splice(index, 1)
             }
         },
 
         SaveProblem : function (index) {
- 
             this.problemsAll.push (this.problemsSelected[index])
             this.problemsSelected.splice(index, 1)
         },
-        submit() {
-            console.log("entro")
-            const p_post = axios.post("http://localhost:9898/exam/v1/submitExam", {
-                idTeacher: 52,
-                title: this.problem.title,
-                listProblems: this.problemsSelected,
-            });
-            p_post.then(resp => {
-                console.log(resp.data)
-            });
-            p_post.catch(error => {
-                console.log(error)
-            });
+        MergeSelect(){
         }
     },
     validations: {
-        exam: {
-            title: {
-                required
-            },
-            indications: {
-              minLength: minLength(0)
-            },
-            time: {
-                required
-            },
-            institution: {
-                minLength: minLength(0)
-            },
-            course: {
-                required
-            },
-            teacher: {
-                minLength: minLength(0)
-            }
-
+    exam: {
+        title: {
+            required
+        },
+        indications: {
+            minLength: minLength(0)
+        },
+        time: {
+            required
+        },
+        institution: {
+            minLength: minLength(0)
+        },
+        course: {
+            required
+        },
+        teacher: {
+            minLength: minLength(0)
         }
+
     }
 }
+}
 </script>
+
+
