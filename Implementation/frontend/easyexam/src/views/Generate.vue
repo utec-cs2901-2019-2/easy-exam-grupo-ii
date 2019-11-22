@@ -1,6 +1,7 @@
 <template>
-    <div class="mt-5">
-        <center>
+    <div class="md-6 mt-2">
+        <div>        
+            <center>
             <h1>
                 <b v-if="currentPage===1">
                     Select Problems
@@ -11,132 +12,105 @@
                 <b v-else-if="currentPage===3">
                     Exam Preview
                 </b>
+
+                
                 
             </h1>
-        </center>
+        </center> 
+        <b-button variant="light" class="mx-1 float-right "><i class="fas fa-angle-double-right fa-1x" style="color:  #2f3135 ;"></i></b-button>
+        </div>
+ 
+       
+        <b-card-group deck v-if="currentPage===1" align-h="around">
+        <b-card header="Your Problems">
+            <b-form-input placeholder="Search a problem for your exam" type="text" v-model="keyFromAll">
+            </b-form-input>
+            <b-card style="margin:20px; background:#d4d4d4" class="mb-1" v-for="(prob, index) of filtrarAll" v-bind:key = "index">
+            <b-card-title>
+                <b>
+                    {{prob.title}}
+                </b>
+            </b-card-title>
+            <b-row class="justify-content-md-center">
+                <b-col cols="10">
+                    <div style="margin-top:10px">
+                        <b-button disabled variant="light" style="margin:5px" v-for="(tag, index) of prob.topicsString" v-bind:key="index">
+                            {{tag}}
+                        </b-button>
+                    </div>
 
-        <br>        
+                </b-col>
+                <b-col cols="2" style="height:100%">
+                    <b-button disabled variant = "light" style=" width : 70px; height:70px"><b>
+                        {{prob.type}}</b>
+                    </b-button>
+                </b-col>
+                <b-button style="margin-top : 10px; width:90%" href="#" pill variant="info" @click="SelectProblem(prob.id)">
+                    Select Problem
+                </b-button>
+            </b-row>
+        </b-card>
+        </b-card>
+        <b-card header="Problems Selected">
+            <b-form-input style="width:100%" type="text" v-model="keyFromSel" >
+            </b-form-input>
+            <b-card style="margin:20px; background:#d4d4d4" class="mb-1" v-for="(prob, index) of filtrarSel" v-bind:key = "index">
+            <b-card-title>
+                <b>
+                    {{prob.title}}
+                </b>
+            </b-card-title>
+            <b-row class="justify-content-md-center">
+                <b-row style="width:90%">
+                <b-col cols="10">
+                    <div style="margin-top:10px">
+                        <b-button disabled variant="light" style="margin:5px" v-for="(tag, index) of prob.topicsString" v-bind:key="index">
+                            {{tag}}
+                        </b-button>
+                    </div>
 
-        <b-row v-if="currentPage===1" align-h="around" style="width:100%">
-            
-            <b-col cols=5>
-                <h3>
-                    Your Problems:
-                </h3>
-                <b-card style="width:100%; height:700px" header-tag="header">
-                    <template v-slot:header>
-                        <b-row align-h="between" style="margin:auto">
-                            <b-form-input style="width:100%" type="text" v-model="keyFromAll">
-                            </b-form-input>
-                        </b-row>
-                    </template>
-
-                    <b-card-body style="height:600px; position:relative; overflow-y:scroll">
-                        <div role="tablist">
-                            <b-card style="margin:20px; background:#d4d4d4" class="mb-1" v-for="(prob, index) of filtrarAll" v-bind:key = "index">
-                                <b-card-title>
-                                    <b>
-                                        {{prob.title}}
-                                    </b>
-                                </b-card-title>
-                                <b-row class="justify-content-md-center">
-                                    <b-col cols="10">
-                                        <div style="margin-top:10px">
-                                            <b-button disabled variant="light" style="margin:5px" v-for="(tag, index) of prob.topicsString" v-bind:key="index">
-                                                {{tag}}
-                                            </b-button>
-                                        </div>
-
-                                    </b-col>
-                                    <b-col cols="2" style="height:100%">
-                                        <b-button disabled variant = "light" style=" width : 70px; height:70px"><b>
-                                            {{prob.type}}</b>
-                                        </b-button>
-                                    </b-col>
-                                    <b-button style="margin-top : 10px; width:90%" href="#" pill variant="info" @click="SelectProblem(prob.id)">
-                                        Select Problem
-                                    </b-button>
-                                </b-row>
-                            </b-card>
-                        </div>
-                    </b-card-body>
-
-                </b-card>
-            </b-col>
-
-            <b-col cols="5">
-                <h3>
-                    Problems Selected:
-                </h3>
-                <b-card style="width:100%; height:700px" header-tag="header">
-                    <template v-slot:header>
-                        <b-row align-h="between" style="margin:auto">
-                            <b-form-input style="width:100%" type="text" v-model="keyFromSel">
-                            </b-form-input>
-                        </b-row>
-                    </template>
-
-                    <b-card-body style="height:600px; position:relative; overflow-y:scroll">
-                        <div role="tablist">
-                            <b-card style="margin:20px; background:#d4d4d4" class="mb-1" v-for="(prob, index) of filtrarSel" v-bind:key = "index">
-                                <b-card-title>
-                                    <b>
-                                        {{prob.title}}
-                                    </b>
-                                </b-card-title>
-                                <b-row class="justify-content-md-center">
-                                    <b-row style="width:90%">
-                                    <b-col cols="10">
-                                        <div style="margin-top:10px">
-                                            <b-button disabled variant="light" style="margin:5px" v-for="(tag, index) of prob.topicsString" v-bind:key="index">
-                                                {{tag}}
-                                            </b-button>
-                                        </div>
-
-                                    </b-col>
-                                    <b-col cols="2" style="height:100%">
-                                        <b-form-input style="width:100%"  type="number"></b-form-input>
-                                    </b-col>
-                                    </b-row>
-                                    <b-row style="width:90%">
-                                        <b-col cols="9">
-                                            <b-button style="margin-top : 10px ;width:100%" href="#" pill variant="info" @click="SaveProblem(prob.id)">
-                                                Save Problem
-                                            </b-button>
-                                        </b-col>
-                                        <b-col cols="3">
-                                            <b-button disabled variant = "light" style="margin-top : 10px ; width : 100%"><b>
-                                                {{prob.type}}</b>
-                                            </b-button>
-                                        </b-col>
-                                    </b-row>
-                                    
-                                   
-                                </b-row>
-                            </b-card>
-                        </div>
-                    </b-card-body>
-
-                </b-card>
-            </b-col>
-        </b-row>
-
-        
-
-        <b-row v-else-if="currentPage===2" class="justify-content-md-center">
-            <b-col col lg="7">
-                 <font color="red">Fields with '*' are obligatory</font> 
+                </b-col>
+                <b-col cols="2" style="height:100%">
+                    <b-form-input style="width:100%"  type="number"></b-form-input>
+                </b-col>
+                </b-row>
+                <b-row style="width:90%">
+                    <b-col cols="9">
+                        <b-button style="margin-top : 10px ;width:100%" href="#" pill variant="info" @click="SaveProblem(prob.id)">
+                            Save Problem
+                        </b-button>
+                    </b-col>
+                    <b-col cols="3">
+                        <b-button disabled variant = "light" style="margin-top : 10px ; width : 100%"><b>
+                            {{prob.type}}</b>
+                        </b-button>
+                    </b-col>
+                </b-row>
+                
+                
+            </b-row>
+        </b-card>
+        </b-card>
+        </b-card-group>    
+        <b-card-group deck v-else-if="currentPage===2" >
+            <div class="container md-4 w-50 align-center mt-2">            <b-card >
+                <small><font color="red">Obligatory *</font> </small>
                 <b-form>
                     <b-form-group>
                         <b-form-input
-                        v-model="title"
-                        placeholder="Title *">
-
+                        v-model="$v.exam.title.$model"
+                        placeholder="Title *"
+                        :state= "$v.exam.title.$dirty ? !$v.exam.title.$error : null"
+                        >
                         </b-form-input>
+                        <b-form-invalid-feedback id="input-2-live-feedback">
+                            You must need to enter an exam title.
+                        </b-form-invalid-feedback>
                     </b-form-group>
                     <b-form-group>
                         <b-form-textarea
-                        v-model="text"
+                        v-model="$v.exam.indications.$model"
+                        :state= "$v.exam.indications.$dirty ? !$v.exam.indications.$error : null"
                         placeholder="Indications *"
                         rows="6">
 
@@ -145,53 +119,57 @@
                     <b-row>
                         <b-col cols="6">
                             Time:
-                            <b-form-input>
+                            <b-form-input v-model="$v.exam.time.$model"
+                            :state= "$v.exam.time.$dirty ? !$v.exam.time.$error : null"
+                            >
                             </b-form-input>
                         </b-col>
                         <b-col cols="6">
                             Institution:
-                            <b-form-input>
+                            <b-form-input v-model="$v.exam.institution.$model" :state= "$v.exam.institution.$dirty ? !$v.exam.institution.$error : null">
                             </b-form-input>
                         </b-col>
                     </b-row>
                     <b-row>
                         <b-col cols="6">
                             Teacher:
-                            <b-form-input>
+                            <b-form-input v-model="$v.exam.teacher.$model" :state= "$v.exam.teacher.$dirty ? !$v.exam.teacher.$error : null">
                             </b-form-input>
                         </b-col>
                         <b-col cols="6">
                             Course:
-                            <b-form-input>
+                            <b-form-input v-model="$v.exam.course.$model" :state= "$v.exam.course.$dirty ? !$v.exam.course.$error : null">
                             </b-form-input>
                         </b-col>
                     </b-row>
                 </b-form>
-                </b-col>
-        </b-row>
+                </b-card>
+        </div>
+</b-card-group>
+        <b-card-group deck v-else-if="currentPage===3" class="justify-content-md-center">
+            <b-card>
+                <b-embed
+                type="iframe"
+                aspect="16by9"
+                src=" "
+                allowfullscreen
+                >
+            </b-embed>
+            </b-card>
 
-        <b-row v-else-if="currentPage===3" class="justify-content-md-center">
-            <b-col col lg="7">
-                <div>
-  <b-embed
-    type="iframe"
-    aspect="16by9"
-    src=" "
-    allowfullscreen
-  ></b-embed>
-</div>
-            </b-col>
-        </b-row>
-
-        <br>
+        </b-card-group>
         <b-pagination v-model="currentPage" :total-rows="3" :per-page="1" use-router align="fill" hide-goto-end-buttons></b-pagination>
     </div>
 </template>
 
 <script>
 import {mapState} from 'vuex'
+import { validationMixin } from 'vuelidate'
+import { minLength, required } from 'vuelidate/lib/validators'
+    
 import axios from 'axios'
 export default {
+    mixins: [validationMixin],
     data : () => ({
         currentPage : 1,
         keyFromAll : '',
@@ -206,6 +184,7 @@ export default {
     computed: {
         
         ...mapState ({
+            exam: state => state.exam
             //problemsSelected : state=>state.problemsSelected,
             //problemsAll : state=>state.myProblems
         }),
@@ -268,5 +247,28 @@ export default {
             this.problemsSelected.splice(index, 1)
         }
     },
+    validations: {
+        exam: {
+            title: {
+                required
+            },
+            indications: {
+              minLength: minLength(0)
+            },
+            time: {
+                required
+            },
+            institution: {
+                minLength: minLength(0)
+            },
+            course: {
+                required
+            },
+            teacher: {
+                minLength: minLength(0)
+            }
+
+        }
+    }
 }
 </script>
