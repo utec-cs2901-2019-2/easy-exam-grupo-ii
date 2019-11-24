@@ -21,7 +21,7 @@
                         <b-card-title>{{prob.title}}</b-card-title>
                         <b-card-sub-title><small><strong>Tags: </strong></small><small v-for="(tag, index) of prob.topicsString" v-bind:key="index"> | {{tag}}</small></b-card-sub-title>
                         <b-button squared size="sm" variant="light" class="mt-2 float-md-left" @click="selectProblem(prob.id)">Select</b-button>
-                        <b-button squared size="sm" variant="light" class="mt-2 float-md-left">View</b-button>
+                        <b-button squared size="sm" variant="light" class="mt-2 float-md-left" @click="visualize(prob.body);$bvModal.show('problemVisualizador');">View</b-button>
                         <b-card-text><small class="float-right">{{dicty[prob.type]}}</small></b-card-text>
                     </b-card>
                 </b-container>
@@ -168,6 +168,12 @@
             <b-progress height="2px" :value="tabIndex+1" :max=3></b-progress>
             
         </b-tabs>
+
+        <!--Modal Visualizador-->
+            <b-modal title="Problem Vizualizador" id="problemVisualizador" ok-only>
+            <b-card-body v-html="problem_html"></b-card-body>
+            </b-modal>
+        <!--Modal Submit Confirmation-->
         <b-modal 
                 title="Submit status"
                 id="examSubmitModal"
