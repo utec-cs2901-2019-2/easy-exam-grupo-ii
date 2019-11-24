@@ -1,7 +1,6 @@
 <template>
     <div class="md-6 mt-2">
         <h1 class="text-center">Generate an Exam</h1>
-        {{tabIndex}}
         <b-alert 
             variant="danger" dismissible
             :show="dismissCountDownSelect"
