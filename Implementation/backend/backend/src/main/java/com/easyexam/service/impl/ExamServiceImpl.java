@@ -36,6 +36,9 @@ public class ExamServiceImpl implements IExamService {
         e.setCreationDate(new Date());
         e.setTitle(exam.getTitle());
         e.setId(correlativeRepo.getIdExam());
+        e.setIndications(exam.getIndications());
+        e.setCourse(exam.getCourse());
+        e.setDuration(exam.getDuration());
         examRepo.save(e);
 
         System.out.println("Entro a idexam");

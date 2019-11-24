@@ -18,9 +18,6 @@ public class BackendApplication {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
-
-		//Role role_admin = new Role(0, "admin");
-		//Role role_teacher = new Role(1, "teacher");
 		
 	}
 

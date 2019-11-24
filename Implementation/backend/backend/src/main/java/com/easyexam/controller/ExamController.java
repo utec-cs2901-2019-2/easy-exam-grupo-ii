@@ -52,6 +52,7 @@ public class ExamController {
         String namePDF="prueba.pdf";
         generateLatex(name);
         generatePDF(namePDF,name);
+
         response.setContentType("application/pdf");
 
         response.setHeader("Content-Disposition","attachment;filename="+path+separator+"prueba.pdf");
@@ -82,6 +83,10 @@ public class ExamController {
         String begin = "\\begin{document} \n";
         String maketitle = "\\maketitle \n";
         String problem = "Helloworld \n";
+
+        String section = "\\section{Problem ";
+        String endBracket=" } \n";
+        String subsection = "\\subsection{SubProblem} \n";
         String end = "\\end{document} \n";
 
         String path="./src/main/java/com/easyexam/files";
@@ -93,7 +98,16 @@ public class ExamController {
         out.write(title.getBytes());
         out.write(begin.getBytes());
         out.write(maketitle.getBytes());
-        out.write(problem.getBytes());
+
+        for(int i=0;i<5;i++){
+            String numP=Integer.toString(i);
+            String tmp=section+numP+endBracket;
+            out.write(tmp.getBytes());
+            out.write(problem.getBytes());
+        }
+
+
+
         out.write(end.getBytes());
         out.close();
         LOG.info("acabo a generate Latex");
