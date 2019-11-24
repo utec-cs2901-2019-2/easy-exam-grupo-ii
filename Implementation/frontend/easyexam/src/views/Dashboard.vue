@@ -1,6 +1,6 @@
 <template>
 
-    <div class="mt-5">
+    <div>
 
         <!-- START MODAL FOR PROBLEM -->
 
@@ -229,84 +229,77 @@
         >
         <b>You have this problem</b>
         </b-alert>
-        <!--SEARCH ENGINE -->
 
-        <b-row v-if="$store.state.isLogged == true" class="justify-content-center" style="margin:0">
-            <b-col cols = "3">
+        <!--SEARCH ENGINE -->
+        <b-row v-if="$store.state.isLogged == true" class="justify-content-center">
+            <b-col cols = "3" class="bg-light" >
                 <div role="tablist">
-                    <b-card no-body >
-                        <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block href="#" v-b-toggle.accordion-1 variant="info">Subjects</b-button>
+                    <b-card no-body style="margin-top: 25px; border-color: white">
+                        <b-card-header header-tag="header" class="p-1 bg-secondary" role="tab" align="center">
+                            <h6 style="color: white">Credits</h6>
                         </b-card-header>
-                        <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
-                            <b-card-body style="height : 400px; position:relative; overflow-y:scroll">
+                        <b-card-body>
+                            <h1 align="center" style="color: #2f3135"> <b>{{creditos}}</b> </h1>
+                        </b-card-body>
+                    </b-card>
+
+                    <b-card no-body style="margin-top: 0px; border-color: white; padding: 0">
+                        <b-card-header header-tag="header" class="p-1 bg-secondary" role="tab" align="center">
+                            <h6 style="color: white">Subjects</h6>
+                        </b-card-header>
+                            <b-card-body style="height: auto; max-height: 300px; position:relative">
                                 <b-list-group>
-                                    <b-list-group-item v-for="(sub, index) of getSubjects" v-bind:key="index" style="padding:0px" > 
+                                    <b-list-group-item v-for="(sub, index) of getSubjects" v-bind:key="index" style="padding:0px" >
                                         <b-button :pressed.sync=sub.state v-if="sub.state== true" @click="selectSubject(sub.name)" variant="light" style="border:0px; width:100%; heigth: 100%">
                                         {{sub.name}}
                                         </b-button>
                                         <b-button :pressed.sync=sub.state v-else @click="selectSubject(sub.name)" variant="light" style="border:0px; width:100%; heigth: 100%" align-h="between">
-                                        
+
                                         <b-row align-h="between">
                                             <b-col cols="9">{{sub.name}}</b-col>
-                                            <b-col cols="3"><b-badge variant="primary" pill>X</b-badge></b-col>
+                                            <b-col cols="3"><b-badge variant="dark" pill>X</b-badge></b-col>
                                         </b-row>
                                         </b-button>
                                     </b-list-group-item>
                                 </b-list-group>
                             </b-card-body>
-                        </b-collapse>
                     </b-card>
 
-                    <b-card no-body >
-                        <b-card-header header-tag="header" class="p-1" role="tab">
-                            <b-button block href="#" v-b-toggle.accordion-2 variant="info">Type of problem</b-button>
+                    <b-card no-body style="margin-top: 5px; border-color: white">
+                        <b-card-header header-tag="header" class="p-1 bg-secondary" role="tab" align="center" >
+                            <h6 style="color: white">Problem Type</h6>
                         </b-card-header>
-                        <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
-                            <b-card-body>
+                            <b-card-body align="center" >
                             <b-list-group>
-                                <b-list-group-item v-for="(ty, index) of types" v-bind:key = "index" href="#" variant="info" @click="selectType (index)" >{{ty}}</b-list-group-item>
+                            <!--<b-list-group-item v-for="(ty, index) of types" v-bind:key = "index" href="#" @click="selectType (index)" style="color: black">{{ty}}</b-list-group-item>-->
+
+                                <b-list-group-item v-for="(ty, index) of getTypes" v-bind:key="index" style="padding:0px" >
+                                    <b-button :pressed.sync=ty.state v-if="ty.state== true" @click="selectType(ty.name)" variant="light" style="border:0px; width:100%; heigth: 100%">
+                                        {{ty.name}}
+                                    </b-button>
+                                    <b-button :pressed.sync=ty.state v-else @click="selectType(ty.name)" variant="light" style="border:0px; width:100%; heigth: 100%" align-h="between">
+                                        <b-row align-h="between">
+                                            <b-col cols="9">{{ty.name}}</b-col>
+                                            <b-col cols="3"><b-badge variant="dark" pill>X</b-badge></b-col>
+                                        </b-row>
+                                    </b-button>
+                                </b-list-group-item>
+
                             </b-list-group>
                             </b-card-body>
-                        </b-collapse>
-                    </b-card>
-                    <br>
-                    <b-card class = "text-center">
-                        <p>Credits</p>
-                        <h1> <b>{{creditos}}</b> </h1>
-                        <p v-if="creditos <= 0">
-                            You can't get new problems, you don't have enough credits
-                        </p>
-                    </b-card>
-                    <br>
-                    <b-card>
-                        <h4><b>Problem Types</b></h4>
-                        <br>
-                        <p>
-                            SA : Short Answer
-                        </p>
-                        <p>
-                            LA : Long Answer
-                        </p>
-                        <p>
-                            MC : Multiple Choice
-                        </p>
-                        <p>
-                            TF : True or False
-                        </p>
                     </b-card>
                 </div>
             </b-col>
 
-            <b-col cols = "9">
+            <b-col cols = "9" style="margin-top: 20px" >
 
-                <b-card style="width:80%" header-tag="header">
+                <b-card style="width:90%" header-tag="header" >
                     <template v-slot:header>
                         <b-row align-h="between" style="margin:auto">
-                            <b-col cols="12" md="8" class="p-0">
+                            <b-col cols="12" lg="8" class="p-0">
                                 <b-form-input class="w-100" type="text" v-model="keyToSearch"></b-form-input>
                             </b-col>
-                            <b-col cols="12" md="2" class="p-0">
+                            <b-col cols="12" lg="2" class="p-0">
                                 <b-form-select class="w-100"
                                 id="input-3"
                                 v-model="form_select.tsort"
@@ -314,44 +307,22 @@
                                 required
                                 ></b-form-select>
                             </b-col>
-                            <b-col cols="12" md="2" class="p-0">
-                                <b-button class="w-100" variant="info">Search</b-button>
+                            <b-col cols="12" lg="2" class="p-0">
+                                <b-button class="w-100" squared variant="outline-secondary">Search</b-button>
                             </b-col>
                         </b-row>
                     </template>
 
-                    <b-card-body style="position:relative; height:700px; overflow-y:scroll;">
-                        <div role="tablist" >
-                            <b-card style = "margin:20px; background: #d4d4d4" class="mb-1" v-for="(problem, index) of filtrar" v-bind:key = "index">
-                                <b-card-title><b>{{problem.title}}</b></b-card-title>
-                                <b-row style="height :70px">
-                                    <b-col cols = "10" style="height:100%">
-                                        <!--b-card-text style="position:relative; overflow-y:hidden">
-                                            {{problem.body}}
-                                        </b-card-text>-->
-                                        <div style="margin-top : 10px">
-                                            <b-button variant="info" style = "margin:5px" v-for="(tag, index) of problem.topicsString" v-bind:key="index">{{tag}}</b-button>
-                                        </div>
-                                    </b-col>
-                                    <b-col cols = "2" style="height:100%">
-                                        <ul class="list-unstyled">
-                                            <li>
-                                                <b-button disabled style="width : 50%">
-                                                    {{problem.score}}
-                                                </b-button>
-                                            </li>
-                                            <li>
-                                                <b-button disabled variant = "light" style="font-size : small; width : 50%"><b>
-                                                    {{problem.type}}</b>
-                                                </b-button>
-                                            </li>
-                                        </ul>
-                                    </b-col>
-                                </b-row>
-                                <b-button v-if="creditos > 0" style="margin-top : 10px" href="#" pill variant="light" @click="showModalProblem (problem.idx)">Go problem</b-button>
-                            </b-card>
-                        </div>
-                    </b-card-body>
+                    <b-container> 
+                        <!--Card for problems-->
+                        <b-card class="mt-2" v-for="(problem, index) of filtrar" v-bind:key = "index" >
+                            <b-button disabled size="sm" variant="light" class="float-right"><small class="pull-right">{{problem.score}}</small></b-button>
+                            <b-card-title>{{problem.title}}</b-card-title>
+                            <b-card-sub-title><small><strong>Tags: </strong></small><small v-for="(tag, index) of problem.topicsString" v-bind:key="index"> | {{tag}}</small></b-card-sub-title>
+                            <b-button squared v-if="creditos > 0" size="sm" variant="light" class="mt-2 float-md-left" @click="showModalProblem (problem.idx)">Select</b-button>
+                            <b-card-text><small class="float-right">{{dicty[problem.type]}}</small></b-card-text>
+                        </b-card>
+                    </b-container>
                 </b-card>
             </b-col>
         </b-row>
@@ -370,22 +341,17 @@ import { mdbIcon } from 'mdbvue';
 
 
 export default {
-
     components : {
         mdbIcon
     },
-
     data :  () => ({
-
+            dicty : {'SA' : 'Short Answer', 'LA' : 'Long Answer', 'MC' : 'Multiple Choice' , 'TF' : 'True or False'},
             solutionshow :  [],
-
             showDismissibleAlert: false,
-
             form_select : {
                 tsort : null,
                 sorts : [{ text: 'Order by', value: null }, 'Title', 'Score', 'qualifiers'],
             },
-
             stars : [
                 {state : false},
                 {state : false},
@@ -393,54 +359,32 @@ export default {
                 {state : false},
                 {state : false}
             ],
-
             newcomment : '',
-
             actualUser : 'GiordanoLover777',
-
             filtrarAvailable : true,
-
             available : true,
-
             subjectToSearch : '',
-
             keyToSearch : '',
-
             results : [],
-
             totalproblems : [],
-
             infoproblems : [],
-
             modal_titleProblem : '',
-
             modal_desProblem : '',
-
             modal_tagsProblem : [],
-
             modal_selectProblem : {},
-
             modal_solution : '',
-
             selectedSubjects : [],
-
             ifscore : -1,
-
             mp : [],
-
             selected : [],
-
             subjects : [{'name' : 'Divide and conquer', 'state' : true}, 
                         {'name' : 'Algorithms', 'state' : true},
                         {'name' : 'Maths', 'state' :true}],
-
             types : {'SA' : 'Short Answer', 'LA' : 'Long Answer', 'MC' : 'Multiple Choice', 'TF': 'True or False'},
-            typeSelected : '',
-
+            selectedTypes:[],
+            typeSelected:'',
             commentsInfo : [],
-
             idsProblems : []
-        
     }),
 
     methods: {
@@ -585,12 +529,27 @@ export default {
         },
 
         selectType (Type) {
-            if (this.typeSelected === Type)
-                this.typeSelected = ''
-            else
-                this.typeSelected = Type
-        },
+            if (Type=='Short Answer (SA)'){
+                Type='SA'
+            }
+            if (Type=='Multiple Choise (MC)'){
+                Type='MC'
+            }
+            if (Type=='Long Answer (SA)'){
+                Type='LA'
+            }
+            if (Type=='True or False (TF)'){
+                Type='TF'
+            }
+            let intFind = this.selectedTypes.indexOf(Type)
+            if (intFind >= 0){
+                this.selectedTypes.splice(intFind, 1)
+            }
+            else{
+                this.selectedTypes.push (Type)
+            }
 
+        },
 
     },
 
@@ -631,39 +590,27 @@ export default {
                 for (let problem of this.infoproblems) {
                     problem["idx"] = id
                     id = id + 1
-                    if (!this.idsProblems.includes(problem.id))
-                    {
-                        if (this.selectedSubjects.length === 0)
-                        {
-                            if (this.keyToSearch === '')
-                                {
+                    if (!this.idsProblems.includes(problem.id)) {
+                        if (this.selectedSubjects.length === 0) {
+                            if (this.keyToSearch === '') {
+                                if (this.typeSelected === '' || this.typeSelected === problem.type)
+                                    res.push (problem)
+                            }
+                            else {
+                                let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
+                                if (stringToSearch.includes (this.keyToSearch.toLowerCase())) {
                                     if (this.typeSelected === '' || this.typeSelected === problem.type)
-                                            res.push (problem)
-                                }
-                            else
-                                {
-                                    let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
-                                    if (stringToSearch.includes (this.keyToSearch.toLowerCase()))
-                                    {
-                                        if (this.typeSelected === '' || this.typeSelected === problem.type)
-                                            res.push (problem)
-                                    }
-                                }
-                        }
-                        else
-                        {
-                            if (problem.topicsString.filter(value => this.selectedSubjects.includes (value)).length)
-                            {
-                                if (this.keyToSearch === '')
-                                {
+                                        res.push (problem)
+                                }}}
+                        else {
+                            if (problem.topicsString.filter(value => this.selectedSubjects.includes (value.toLowerCase())).length) {
+                                if (this.keyToSearch === '') {
                                     if (this.typeSelected === '' || this.typeSelected === problem.type)
-                                            res.push (problem)
+                                        res.push (problem)
                                 }
-                                else
-                                {
+                                else {
                                     let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
-                                    if (stringToSearch.includes (this.keyToSearch.toLowerCase()))
-                                    {
+                                    if (stringToSearch.includes (this.keyToSearch.toLowerCase())) {
                                         if (this.typeSelected === '' || this.typeSelected === problem.type)
                                             res.push (problem)
                                     }
@@ -699,13 +646,11 @@ export default {
             let finalSubjects = []
             let tempTags = []
             if (this.infoproblems.length > 0){
-                for (let problem of this.infoproblems)
-                {
+                for (let problem of this.infoproblems) {
                     tempTags = tempTags.concat(problem.topicsString)
                 }
                 tempTags = [...new Set(tempTags)]
-                for (let tTag of tempTags)
-                {
+                for (let tTag of tempTags) {
                     finalSubjects.push ({'name' : tTag, 'state' : true})
                 }
                 finalSubjects.sort(function(a, b){
@@ -717,6 +662,39 @@ export default {
                 })
             }
             return finalSubjects
+        },
+
+        getTypes : function () {
+            let finalTypes = []
+            let tempTags = []
+            if (this.infoproblems.length > 0){
+                for (let problem of this.infoproblems) {
+                    tempTags = tempTags.concat(problem.type)
+                }
+                tempTags = [...new Set(tempTags)]
+                for (let tTag of tempTags) {
+                    if (tTag=='SA'){
+                        finalTypes.push ({'name' : 'Short Answer (SA)', 'state' : true})
+                    }
+                    if (tTag=='MC'){
+                        finalTypes.push ({'name' : 'Multiple Choise (MC)', 'state' : true})
+                    }
+                    if (tTag=='LA'){
+                        finalTypes.push ({'name' : 'Long Answer (LA)', 'state' : true})
+                    }
+                    if (tTag=='TF'){
+                        finalTypes.push ({'name' : 'True or False (TF)', 'state' : true})
+                    }
+                }
+                finalTypes.sort(function(a, b){
+                    if (a.name > b.name)
+                        return 1
+                    if (a.name < b.name)
+                        return -1
+                    return 0
+                })
+            }
+            return finalTypes
         }
     }
 

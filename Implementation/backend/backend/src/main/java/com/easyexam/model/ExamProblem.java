@@ -15,6 +15,8 @@ public class ExamProblem {
     @Column(name="score")
     private int score;
 
+    public ExamProblem() { }
+
     public ExamProblem(ExamProblemId examProblemId, int score) {
         this.examProblemId = examProblemId;
         this.score = score;

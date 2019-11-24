@@ -21,12 +21,34 @@ public class Correlativo {
     @Column(name = "id_exam")
     private int idExam;
 
+    @Column(name = "id_topic")
+    private int idTopic;
+
     public Correlativo() { }
 
-    public Correlativo(int idProblem, int idUser, int idExam) {
+
+    public Correlativo(int id, int idProblem, int idUser, int idExam, int idTopic) {
+        this.id = id;
         this.idProblem = idProblem;
         this.idUser = idUser;
         this.idExam = idExam;
+        this.idTopic = idTopic;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getIdTopic() {
+        return idTopic;
+    }
+
+    public void setIdTopic(int idTopic) {
+        this.idTopic = idTopic;
     }
 
     public int getIdProblem() {

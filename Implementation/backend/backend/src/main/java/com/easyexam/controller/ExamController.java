@@ -29,7 +29,7 @@ import java.util.HashMap;
 public class ExamController {
 
 
-    private static Logger LOG= LoggerFactory.getLogger(ProblemServiceImpl.class);
+    private static Logger LOG= LoggerFactory.getLogger(ExamController.class);
 
     @Autowired
     IExamService examService;
@@ -52,10 +52,12 @@ public class ExamController {
         String namePDF="prueba.pdf";
         generateLatex(name);
         generatePDF(namePDF,name);
+
         response.setContentType("application/pdf");
 
         response.setHeader("Content-Disposition","attachment;filename="+path+separator+"prueba.pdf");
         response.setHeader("Content-Transfer-Enconding","binary");
+
         try{
             BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
             FileInputStream fis = new FileInputStream(path+separator+"prueba.pdf");
@@ -75,11 +77,17 @@ public class ExamController {
 
 
     private void generateLatex(String name) throws IOException {
+        LOG.info("entro a generate Latex");
+        String documentclass = "\\documentclass{article} \n";
+        String title = "\\title{NewTitle} \n";
+        String begin = "\\begin{document} \n";
+        String maketitle = "\\maketitle \n";
+        String problem = "Helloworld \n";
 
-        String documentclass = "\\documentclass{article}";
-        String begin = "\\begin{document}";
-        String data = "Helloworld";
-        String end = "\\end{document}";
+        String section = "\\section{Problem ";
+        String endBracket=" } \n";
+        String subsection = "\\subsection{SubProblem} \n";
+        String end = "\\end{document} \n";
 
         String path="./src/main/java/com/easyexam/files";
         String separator="/";
@@ -87,10 +95,22 @@ public class ExamController {
         FileOutputStream out = new FileOutputStream(path+separator+name);
 
         out.write(documentclass.getBytes());
+        out.write(title.getBytes());
         out.write(begin.getBytes());
-        out.write(data.getBytes());
+        out.write(maketitle.getBytes());
+
+        for(int i=0;i<5;i++){
+            String numP=Integer.toString(i);
+            String tmp=section+numP+endBracket;
+            out.write(tmp.getBytes());
+            out.write(problem.getBytes());
+        }
+
+
+
         out.write(end.getBytes());
         out.close();
+        LOG.info("acabo a generate Latex");
     }
 
     private void generatePDF(String name,String fileLatex) throws IOException {
@@ -102,8 +122,6 @@ public class ExamController {
         File workingDirectory = new File(path);
 
         File template = new File(workingDirectory.getAbsolutePath() + separator + fileLatex);
-
-        //File tempDir = new File(workingDirectory.getAbsolutePath() + File.separator + "temp");
 
         JLRGenerator pdfGen = new JLRGenerator();
         pdfGen.deleteTempFiles(false,false,false);

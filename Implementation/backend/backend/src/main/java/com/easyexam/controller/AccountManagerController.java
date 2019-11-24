@@ -22,7 +22,6 @@ import org.springframework.validation.BindingResult;
 
 import com.easyexam.service.IUserService;
 import com.easyexam.service.IRoleService;
-import com.easyexam.service.impl.RoleServiceImpl;
 import com.easyexam.config.JwtTokenUtil;
 import com.easyexam.model.aux.ApiResponse;
 import com.easyexam.model.aux.AuthToken;
@@ -32,7 +31,7 @@ import com.easyexam.model.User;
 import com.easyexam.service.implOthers.EmailService;
 import com.easyexam.service.implOthers.PasswordTokenService;
 import com.easyexam.service.ITeacherService;
-import com.easyexam.model.PasswordResetToken;
+import com.easyexam.model.aux.PasswordResetToken;
 import com.easyexam.model.Teacher;
 
 

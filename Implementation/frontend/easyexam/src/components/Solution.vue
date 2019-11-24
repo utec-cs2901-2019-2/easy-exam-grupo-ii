@@ -100,7 +100,7 @@
     import Multiselect from "vue-multiselect"
     import { validationMixin } from 'vuelidate'
     import { minLength, required } from 'vuelidate/lib/validators'
-   // import { parse, HtmlGenerator } from 'latex.js'
+    import { parse, HtmlGenerator } from 'latex.js'
 
     export default {
         mixins: [validationMixin],
@@ -179,10 +179,9 @@
                 this.problem.topics_id = []
             },
             visualize(){
-                const prob = axios.post('http://' + this.$store.state.clientURL +'/problem/v1/problem/latexToHtmlbyBody',{
-                    body: this.solution.description
-                });
-                prob.then(response => (this.solution_html = response.data));
+                let generator = new HtmlGenerator({ hyphenate: false })
+                let doc = parse(this.solution.description, { generator: generator })
+                this.solution_html = doc.htmlDocument().documentElement.outerHTML
             }
         },
         mounted() {
