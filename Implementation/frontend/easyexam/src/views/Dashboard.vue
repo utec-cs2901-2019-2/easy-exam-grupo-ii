@@ -236,6 +236,15 @@
                 <div role="tablist">
                     <b-card no-body style="margin-top: 25px; border-color: white">
                         <b-card-header header-tag="header" class="p-1 bg-secondary" role="tab" align="center">
+                            <h6 style="color: white">Credits</h6>
+                        </b-card-header>
+                        <b-card-body>
+                            <h1 align="center" style="color: #2f3135"> <b>{{creditos}}</b> </h1>
+                        </b-card-body>
+                    </b-card>
+
+                    <b-card no-body style="margin-top: 0px; border-color: white; padding: 0">
+                        <b-card-header header-tag="header" class="p-1 bg-secondary" role="tab" align="center">
                             <h6 style="color: white">Subjects</h6>
                         </b-card-header>
                             <b-card-body style="height: auto; max-height: 300px; position:relative">
@@ -278,15 +287,6 @@
 
                             </b-list-group>
                             </b-card-body>
-                    </b-card>
-
-                    <b-card no-body style="margin-top: 5px; border-color: white">
-                        <b-card-header header-tag="header" class="p-1 bg-secondary" role="tab" align="center">
-                            <h6 style="color: white">Credits</h6>
-                        </b-card-header>
-                        <b-card-body>
-                            <h1 align="center" style="color: #2f3135"> <b>{{creditos}}</b> </h1>
-                        </b-card-body>
                     </b-card>
                 </div>
             </b-col>
