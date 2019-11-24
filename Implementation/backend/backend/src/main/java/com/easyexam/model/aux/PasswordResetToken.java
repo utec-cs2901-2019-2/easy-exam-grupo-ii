@@ -1,4 +1,4 @@
-package com.easyexam.model;
+package com.easyexam.model.aux;
 
 import javax.persistence.*;
 import java.util.Calendar;

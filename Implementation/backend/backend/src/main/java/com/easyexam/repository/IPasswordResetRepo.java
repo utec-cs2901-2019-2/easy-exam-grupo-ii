@@ -1,6 +1,6 @@
 package com.easyexam.repository;
 
-import com.easyexam.model.PasswordResetToken;
+import com.easyexam.model.aux.PasswordResetToken;
 import com.easyexam.model.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
