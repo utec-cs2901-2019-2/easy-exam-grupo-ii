@@ -2,7 +2,12 @@
     <div class="md-6 mt-2">
         <h1 class="text-center">Generate an Exam</h1>
         {{tabIndex}}
-        <b-alert v-model="problemSelectCheck" variant="danger" dismissible>
+        <b-alert 
+            variant="danger" dismissible
+            :show="dismissCountDownSelect"
+            @dismissed="dismissCountDownSelect=0"
+            @dismiss-count-down="countDownChanged" 
+        >
             You must select at lest one problem for your exam!
         </b-alert>
         <b-alert v-model="richMaximunProblem" variant="warning" dismissible>
@@ -38,7 +43,11 @@
                         <b-form-invalid-feedback id="input-1-live-feedback">
                             You must need to enter your exam title.
                         </b-form-invalid-feedback>
-                        <b-alert v-model="examTitleMissing" variant="danger" dismissible>
+                        <b-alert 
+                            :show="dismissCountDownTitle"
+                            @dismissed="dismissCountDownTitle=0"
+                            @dismiss-count-down="countDownChanged"  
+                            variant="danger" dismissible>
                             You must enter the title for your exam!
                         </b-alert>
                     </b-form-group>
@@ -54,7 +63,11 @@
                         <b-form-invalid-feedback id="input-2-live-feedback">
                             You must need to enter your exam indications.
                         </b-form-invalid-feedback>
-                        <b-alert v-model="examIndicationsMissing" variant="danger" dismissible>
+                        <b-alert 
+                            :show="dismissCountDownIndications"
+                            @dismissed="dismissCountDownIndications=0"
+                            @dismiss-count-down="countDownChanged" 
+                        variant="danger" dismissible>
                             You must enter the indications for your exam!
                         </b-alert>
                     </b-form-group>
@@ -69,7 +82,11 @@
                             <b-form-invalid-feedback id="input-3-live-feedback">
                             You must need to enter your exam details.
                             </b-form-invalid-feedback>
-                            <b-alert v-model="examDurationMissing" variant="danger" dismissible>
+                            <b-alert 
+                                :show="dismissCountDownDuration"
+                                @dismissed="dismissCountDownDuration=0"
+                                @dismiss-count-down="countDownChanged" 
+                                variant="danger" dismissible>
                                 You must enter the title for your exam!
                             </b-alert>
                             
@@ -192,9 +209,11 @@ export default {
     mixins: [validationMixin],
     data(){
         return {
-            examIndicationsMissing: false,
-            examDurationMissing: false,
-            examTitleMissing: false,
+            dismissSecs: 5,
+            dismissCountDownDuration: 0,
+            dismissCountDownIndications: 0,
+            dismissCountDownSelect: 0,
+            dismissCountDownTitle: 0,
             tabIndex : 0,
             keyFromAll : '',
             keyFromSel : '',
@@ -202,7 +221,6 @@ export default {
             problemsSelected : [],
             problemsSub : [], 
             selectOne: false,
-            problemSelectCheck: false,
             richMaximunProblem: false,
             maxNumberProblems: 8,
             problem_html: '',
@@ -253,28 +271,6 @@ export default {
             return res
             
         },
-
-        filtrarSel : function () {
-            let res = []
-            let id = 0
-            for (let problem of this.problemsSelected) {
-                problem["id"] = id
-                id = id + 1
-                if (this.keyFromSel === '' )
-                {
-                    res.push (problem)
-                }
-                else
-                {
-                    let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
-                    if (stringToSearch.includes (this.keyFromSel.toLowerCase()) )
-                    {
-                        res.push (problem)
-                    }
-                }
-            }
-            return res
-        }
     },
 
     methods: {
@@ -293,7 +289,7 @@ export default {
                     if (this.problemsSelected.length >= 1){
                         this.tabIndex++;
                     }else{
-                        this.problemSelectCheck = true;
+                        this.showAlertSelect();
                     }
                     break;
                 }
@@ -305,11 +301,11 @@ export default {
                         this.$bvModal.show('examSubmitModal');
                     }else{
                     if (!valIndications){
-                        this.examIndicationsMissing = true;
+                        this.showAlertIndicationsMissing();
                     }if (!valDuration){
-                        this.examDurationMissing = true;
+                        this.showAlertDurationMissing();
                     }if (!valTitle){
-                        this.examTitleMissing = true;
+                        this.showAlertTitleMissing();
                         }
                     }
                     break;
@@ -330,7 +326,21 @@ export default {
             this.problemsAll.push (this.problemsSelected[index])
             this.problemsSelected.splice(index, 1)
         },
-
+        countDownChanged(dismissCountDown) {
+                this.dismissCountDown = dismissCountDown
+        },
+        showAlertSelect() {
+            this.dismissCountDownSelect = this.dismissSecs
+        },
+        showAlertTitleMissing() {
+            this.dismissCountDownTitle = this.dismissSecs
+        },
+        showAlertIndicationsMissing() {
+            this.dismissCountDownIndications = this.dismissSecs
+        },
+        showAlertDurationMissing() {
+            this.dismissCountDownDuration = this.dismissSecs
+        },
     },
     validations: {
     exam: {

@@ -20,10 +20,10 @@
                                     You must need to enter a title of at lest 10 characters.
                                 </b-form-invalid-feedback>
                                 <b-alert 
-                                        :show="dismissCountDownTags" 
+                                        :show="dismissCountDownTitle" 
                                         dismissible 
                                         variant="danger"  
-                                        @dismissed="dismissCountDownTags=0"
+                                        @dismissed="dismissCountDownTitle=0"
                                         @dismiss-count-down="countDownChanged" 
                                         >
                                         You need to enter a title.
