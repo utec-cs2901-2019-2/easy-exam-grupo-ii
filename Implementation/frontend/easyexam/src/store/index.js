@@ -56,7 +56,7 @@ export default new Vuex.Store({
     exam:{ //generate
       title: '',
       indications: '',
-      time: '',
+      duration: '',
       teacher: '',
       institution: '',
       course: ''

@@ -313,35 +313,16 @@
                         </b-row>
                     </template>
 
-                    <b-card-body style="position:relative; height:600px; max-height: 700px; overflow-y:scroll;">
-                        <div role="tablist" >
-                            <b-card style = "margin:20px; background: #d4d4d4" class="mb-1" v-for="(problem, index) of filtrar" v-bind:key = "index">
-                                <b-card-title><b>{{problem.title}}</b></b-card-title>
-                                <b-row style="min-height :70px">
-                                    <b-col cols = "12" xl="10" class="h-100">
-                                        <div style="margin-top : 10px">
-                                            <b-button variant="info" style = "margin:5px" v-for="(tag, index) of problem.topicsString" v-bind:key="index">{{tag}}</b-button>
-                                        </div>
-                                    </b-col>
-                                    <b-col cols = "12" xl="2" class="h-100">
-                                        <ul class="list-unstyled">
-                                            <li>
-                                                <b-button disabled style="width : 80px">
-                                                    {{problem.score}}
-                                                </b-button>
-                                            </li>
-                                            <li>
-                                                <b-button disabled variant = "light" style="font-size : small; width : 80px"><b>
-                                                    {{problem.type}}</b>
-                                                </b-button>
-                                            </li>
-                                        </ul>
-                                    </b-col>
-                                </b-row>
-                                <b-button v-if="creditos > 0" style="margin-top : 10px" href="#" pill variant="light" @click="showModalProblem (problem.idx)">Go problem</b-button>
-                            </b-card>
-                        </div>
-                    </b-card-body>
+                    <b-container> 
+                        <!--Card for problems-->
+                        <b-card class="mt-2" v-for="(problem, index) of filtrar" v-bind:key = "index" >
+                            <b-button disabled size="sm" variant="light" class="float-right"><small class="pull-right">{{problem.score}}</small></b-button>
+                            <b-card-title>{{problem.title}}</b-card-title>
+                            <b-card-sub-title><small><strong>Tags: </strong></small><small v-for="(tag, index) of problem.topicsString" v-bind:key="index"> | {{tag}}</small></b-card-sub-title>
+                            <b-button squared v-if="creditos > 0" size="sm" variant="light" class="mt-2 float-md-left" @click="showModalProblem (problem.idx)">Select</b-button>
+                            <b-card-text><small class="float-right">{{dicty[problem.type]}}</small></b-card-text>
+                        </b-card>
+                    </b-container>
                 </b-card>
             </b-col>
         </b-row>
@@ -364,6 +345,7 @@ export default {
         mdbIcon
     },
     data :  () => ({
+            dicty : {'SA' : 'Short Answer', 'LA' : 'Long Answer', 'MC' : 'Multiple Choice' , 'TF' : 'True or False'},
             solutionshow :  [],
             showDismissibleAlert: false,
             form_select : {
