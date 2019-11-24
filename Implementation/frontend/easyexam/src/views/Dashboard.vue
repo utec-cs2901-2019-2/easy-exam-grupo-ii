@@ -269,7 +269,6 @@
                                         {{ty.name}}
                                     </b-button>
                                     <b-button :pressed.sync=ty.state v-else @click="selectType(ty.name)" variant="light" style="border:0px; width:100%; heigth: 100%" align-h="between">
-
                                         <b-row align-h="between">
                                             <b-col cols="9">{{ty.name}}</b-col>
                                             <b-col cols="3"><b-badge variant="dark" pill>X</b-badge></b-col>
@@ -400,7 +399,8 @@ export default {
                         {'name' : 'Algorithms', 'state' : true},
                         {'name' : 'Maths', 'state' :true}],
             types : {'SA' : 'Short Answer', 'LA' : 'Long Answer', 'MC' : 'Multiple Choice', 'TF': 'True or False'},
-            typeSelected : '',
+            selectedTypes:[],
+            typeSelected:'',
             commentsInfo : [],
             idsProblems : []
     }),
@@ -547,12 +547,27 @@ export default {
         },
 
         selectType (Type) {
-            if (this.typeSelected === Type)
-                this.typeSelected = ''
-            else
-                this.typeSelected = Type
-        },
+            if (Type=='Short Answer (SA)'){
+                Type='SA'
+            }
+            if (Type=='Multiple Choise (MC)'){
+                Type='MC'
+            }
+            if (Type=='Long Answer (SA)'){
+                Type='LA'
+            }
+            if (Type=='True or False (TF)'){
+                Type='TF'
+            }
+            let intFind = this.selectedTypes.indexOf(Type)
+            if (intFind >= 0){
+                this.selectedTypes.splice(intFind, 1)
+            }
+            else{
+                this.selectedTypes.push (Type)
+            }
 
+        },
 
     },
 
@@ -596,20 +611,20 @@ export default {
                     if (!this.idsProblems.includes(problem.id)) {
                         if (this.selectedSubjects.length === 0) {
                             if (this.keyToSearch === '') {
-                                    if (this.typeSelected === '' || this.typeSelected === problem.type)
-                                            res.push (problem)
-                                }
+                                if (this.typeSelected === '' || this.typeSelected === problem.type)
+                                    res.push (problem)
+                            }
                             else {
-                                    let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
-                                    if (stringToSearch.includes (this.keyToSearch.toLowerCase())) {
-                                        if (this.typeSelected === '' || this.typeSelected === problem.type)
-                                            res.push (problem)
-                                    }}}
+                                let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
+                                if (stringToSearch.includes (this.keyToSearch.toLowerCase())) {
+                                    if (this.typeSelected === '' || this.typeSelected === problem.type)
+                                        res.push (problem)
+                                }}}
                         else {
                             if (problem.topicsString.filter(value => this.selectedSubjects.includes (value.toLowerCase())).length) {
                                 if (this.keyToSearch === '') {
                                     if (this.typeSelected === '' || this.typeSelected === problem.type)
-                                            res.push (problem)
+                                        res.push (problem)
                                 }
                                 else {
                                     let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
