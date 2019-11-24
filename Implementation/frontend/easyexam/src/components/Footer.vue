@@ -4,7 +4,7 @@
         <hr />
         <div class="footer-copyright text-center py-3">
             <mdb-container fluid>
-                &copy; 2019 EasyExam
+                &copy; 2019 EasyExam. Made with &hearts; for you
             </mdb-container>
         </div>
         <hr />
