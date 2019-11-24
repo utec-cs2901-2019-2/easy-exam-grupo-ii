@@ -38,7 +38,4 @@ public class SuggestController{
     public void reportProblem(String comment, int idProblem, int idTeacher){
         suggestService.reportProblem(comment, idProblem, idTeacher);
     }
-    
-    
-
 }

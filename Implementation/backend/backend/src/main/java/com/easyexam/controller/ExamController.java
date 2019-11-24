@@ -41,8 +41,9 @@ public class ExamController {
     public ApiResponse<ExamCompleted> register(@Valid @RequestBody ExamCompleted examCompleted) {
         LOG.info("Entro a submit problem");
         LOG.info(examCompleted.getTitle());
-        examService.saveExam(examCompleted);
-        return new ApiResponse<>(200, "success", true);
+        int idExam=examService.saveExam(examCompleted);
+
+        return new ApiResponse<>(200, "success", idExam);
     }
 
     @GetMapping("/generateExam")

@@ -30,7 +30,7 @@ public class ExamServiceImpl implements IExamService {
 
 
     @Override
-    public Boolean saveExam(ExamCompleted exam) {
+    public int saveExam(ExamCompleted exam) {
 
         Exam e=new Exam();
         e.setCreationDate(new Date());
@@ -50,6 +50,6 @@ public class ExamServiceImpl implements IExamService {
             examProblemRepo.save(ep);
         }
         correlativeRepo.updateIdExam();
-        return true;
+        return e.getId();
     }
 }
