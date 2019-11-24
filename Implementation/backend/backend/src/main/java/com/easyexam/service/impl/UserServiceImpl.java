@@ -2,6 +2,7 @@ package com.easyexam.service.impl;
 
 import com.easyexam.model.User;
 import com.easyexam.model.aux.UserCompleted;
+import com.easyexam.repository.ICorrelativeRepo;
 import com.easyexam.repository.ISuggestRepo;
 import com.easyexam.repository.IUserRepo;
 import com.easyexam.service.IUserService;
@@ -29,6 +30,9 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
     @Autowired
     ISuggestRepo suggestRepo;
+
+    @Autowired
+    ICorrelativeRepo correlativeRepo;
 
     @Autowired
     private BCryptPasswordEncoder bcryptEncoder;
@@ -63,9 +67,11 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     @Override
     public User save(User user) {
         User newUser = new User();
+        newUser.setId(correlativeRepo.getIdUser());
         newUser.setEmail(user.getEmail());
         newUser.setPassword(user.getPassword());
         newUser.setActive(user.getActive());
+        correlativeRepo.updateIdUser();
         return userRepo.save(newUser);
     }
 

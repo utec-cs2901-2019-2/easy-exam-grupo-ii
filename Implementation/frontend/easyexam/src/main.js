@@ -16,6 +16,9 @@ Vue.config.productionTip = false;
 import VueSession from 'vue-session'
 Vue.use(VueSession)
 
+import VueSessionStorage from 'vue-sessionstorage'
+Vue.use(VueSessionStorage)
+
 /* No Borrar
 router.beforeEach((to, from, next) => {
   if (to.fullPath == '/' || to.fullPath == '/register' || to.fullPath == '/login' ||

@@ -52,6 +52,14 @@ export default new Vuex.Store({
         { name: "Short Answer", value: "SA"},
         { name: "Long Answer", value: "LA"}
       ]
+    },
+    exam:{ //generate
+      title: '',
+      indications: '',
+      duration: '',
+      teacher: '',
+      institution: '',
+      course: ''
     }
 
   },

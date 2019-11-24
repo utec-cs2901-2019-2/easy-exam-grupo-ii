@@ -5,11 +5,9 @@ import java.util.Date;
 
 @Entity
 @Table(name="exam")
-@SequenceGenerator(name="seq_exam",sequenceName = "seqExam")
 public class Exam {
 
     @Id
-    @GeneratedValue(generator = "seq_exam")
     private int id;
 
     @Column(name="title")

@@ -17,13 +17,13 @@
                                         aria-describedby="input-1-live-feedback"
                                 ></b-form-input>
                                 <b-form-invalid-feedback id="input-1-live-feedback">
-                                    You must need to enter a title of at lest 10 characters.
+                                    You must need to have a problem title.
                                 </b-form-invalid-feedback>
                                 <b-alert 
-                                        :show="dismissCountDownTags" 
+                                        :show="dismissCountDownTitle" 
                                         dismissible 
                                         variant="danger"  
-                                        @dismissed="dismissCountDownTags=0"
+                                        @dismissed="dismissCountDownTitle=0"
                                         @dismiss-count-down="countDownChanged" 
                                         >
                                         You need to enter a title.
@@ -102,8 +102,16 @@
             <b-card>
                 <h1>Preview</h1>
                 <h3> {{problem.title}} </h3>
+               
+
                 <b-card-body v-html="problem_html">
                 </b-card-body>
+                
+                <!--
+                <b-card-body v-html="problem_html">
+                </b-card-body>
+                -->
+                
             </b-card>
         </b-card-group>
 
@@ -111,12 +119,15 @@
     </div>
 </template>
 <script>
+    //import TexVizualizer from "../components/TexVizualizer";
     import { mapState } from 'vuex'
     import Multiselect from "vue-multiselect"
     import axios from "axios"
     import { validationMixin } from 'vuelidate'
     import { minLength, required } from 'vuelidate/lib/validators'
     import { parse, HtmlGenerator } from 'latex.js'
+    import katex from 'katex';
+    import 'katex/dist/katex.min.css';
     export default {
         mixins: [validationMixin],
         data() {
@@ -132,9 +143,12 @@
                 ],
                 input_type: '',
                 problem_html: '',
+                test: ''
             }
         },
         mounted() {
+            window.katex = katex;
+            //TODO change hardcoded path to dynamic
             const tag = axios.get("http://localhost:9898/topics/v1/topics/getTopics");
             tag.then(response => (this.tags = response.data));
         },
@@ -186,20 +200,28 @@
                 evt.preventDefault();
             },
             visualize(){
+                
+               const prob = axios.post('http://' + this.$store.state.clientURL +'/problem/v1/problem/latexToHtmlbyBody',{
+                    body: this.problem.body
+                });
+                prob.then(response => (this.test = response.data));
+                
                 let generator = new HtmlGenerator({ hyphenate: false })
                 let doc = parse(this.problem.body, { generator: generator })
-                this.problem_html = doc.htmlDocument('https://cdn.jsdelivr.net/npm/latex.js@0.11.1/dist/').documentElement.outerHTML
+                this.problem_html = doc.htmlDocument().documentElement.outerHTML
+                
             }
 
         },
         components: {
-            Multiselect
+            Multiselect,
+            //TexVizualizer
         },
         validations: {
             problem: {
                 title: {
                     required,
-                    minLength: minLength(10)
+                    minLength: minLength(1)
                 },
                 body: {
                     required
@@ -212,6 +234,4 @@
     }
 </script>
 <style src="../static/css/vue-multiselect/vue-multiselect.min.css"></style>
-<style src="../static/css/latex2js.css"></style>
-
 

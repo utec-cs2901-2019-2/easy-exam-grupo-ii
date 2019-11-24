@@ -4,9 +4,9 @@ import com.easyexam.model.aux.ApiResponse;
 import com.easyexam.model.aux.ExamCompleted;
 import com.easyexam.service.IExamService;
 import com.easyexam.service.impl.ProblemServiceImpl;
-import de.nixosoft.jlr.JLRConverter;
+/*import de.nixosoft.jlr.JLRConverter;
 import de.nixosoft.jlr.JLRGenerator;
-import de.nixosoft.jlr.JLROpener;
+import de.nixosoft.jlr.JLROpener;*/
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ import java.util.HashMap;
 public class ExamController {
 
 
-    private static Logger LOG= LoggerFactory.getLogger(ProblemServiceImpl.class);
+    private static Logger LOG= LoggerFactory.getLogger(ExamController.class);
 
     @Autowired
     IExamService examService;
@@ -45,7 +45,7 @@ public class ExamController {
         return new ApiResponse<>(200, "success", true);
     }
 
-    @GetMapping("/generateExam")
+    /*@GetMapping("/generateExam")
     public void generateExam(HttpServletResponse response) throws IOException {
         LOG.info("Entro a generate Exam");
         String name="prueba.tex";
@@ -56,6 +56,7 @@ public class ExamController {
 
         response.setHeader("Content-Disposition","attachment;filename="+path+separator+"prueba.pdf");
         response.setHeader("Content-Transfer-Enconding","binary");
+
         try{
             BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
             FileInputStream fis = new FileInputStream(path+separator+"prueba.pdf");
@@ -72,14 +73,16 @@ public class ExamController {
         }
 
     }
-
+*/
 
     private void generateLatex(String name) throws IOException {
-
-        String documentclass = "\\documentclass{article}";
-        String begin = "\\begin{document}";
-        String data = "Helloworld";
-        String end = "\\end{document}";
+        LOG.info("entro a generate Latex");
+        String documentclass = "\\documentclass{article} \n";
+        String title = "\\title{NewTitle} \n";
+        String begin = "\\begin{document} \n";
+        String maketitle = "\\maketitle \n";
+        String problem = "Helloworld \n";
+        String end = "\\end{document} \n";
 
         String path="./src/main/java/com/easyexam/files";
         String separator="/";
@@ -87,13 +90,16 @@ public class ExamController {
         FileOutputStream out = new FileOutputStream(path+separator+name);
 
         out.write(documentclass.getBytes());
+        out.write(title.getBytes());
         out.write(begin.getBytes());
-        out.write(data.getBytes());
+        out.write(maketitle.getBytes());
+        out.write(problem.getBytes());
         out.write(end.getBytes());
         out.close();
+        LOG.info("acabo a generate Latex");
     }
 
-    private void generatePDF(String name,String fileLatex) throws IOException {
+    /*private void generatePDF(String name,String fileLatex) throws IOException {
 
         String path="./src/main/java/com/easyexam/files";
         String separator="/";
@@ -103,8 +109,6 @@ public class ExamController {
 
         File template = new File(workingDirectory.getAbsolutePath() + separator + fileLatex);
 
-        //File tempDir = new File(workingDirectory.getAbsolutePath() + File.separator + "temp");
-
         JLRGenerator pdfGen = new JLRGenerator();
         pdfGen.deleteTempFiles(false,false,false);
 
@@ -113,6 +117,6 @@ public class ExamController {
         }
         //JLROpener.open(pdfGen.getPDF());
 
-    }
+    }*/
 
 }

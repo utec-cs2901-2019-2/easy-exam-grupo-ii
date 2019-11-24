@@ -1,5 +1,152 @@
 <template>
     <div class="mt-5 mx-5">
+                <!-- START MODAL FOR PROBLEM -->
+
+        <b-modal ref="modal-problem" size = "xl" >
+            <template v-slot:modal-title>
+                <b>{{modal_titleProblem}}</b>
+            </template>
+            <b-row>
+                <b-col cols = "10">
+                    <b-button variant = "info" pill style="margin:3px" v-for="(tag, index) of modal_tagsProblem" v-bind:key = "index">
+                    {{tag}}
+                    </b-button>
+                </b-col>
+                <b-col cols = "2">
+                    <b-button disabled style="width:100%">
+                        {{types[modal_selectProblem ['type']]}}
+                    </b-button>
+                </b-col>
+            </b-row>
+            <b-row align-h="around" >
+                <b-col cols="9">
+                    <b-card no-header style = "width: 95%; margin: 10px; position:relative; overflow-y:scroll">
+                        <b-card-body v-html="modal_desProblem">
+                        </b-card-body>
+                    </b-card>
+                    <b-button disabled style="background : #6c757d">
+                        Comments
+                    </b-button>
+                    
+                    <ul class="list-unstyled" style="width: 90%; height:200px;position: relative; overflow-y:scroll">
+                        <b-media v-for="(com, key) of commentsInfo" v-bind:key = "key" tag="li" style="margin : 10px; width: 90%" >
+                            <b-card>
+                                <h4><b>{{com.nameTeacher}}</b></h4>
+                                <b-card-text>
+                                    {{com.description}}
+                                </b-card-text>
+                            </b-card>
+                        </b-media>
+                    </ul>
+                </b-col>
+                <b-col cols="3">
+                    <br>
+                    <center>
+                        <h3>
+                            <b style="margin-left: 10px; margin-right: 10px">Score</b>
+                        </h3>
+                        <b-button variant="success" style="width : 50px; height: 50px; font-size : x-large">
+                            {{modal_selectProblem ['score']}}
+                        </b-button>
+                        <p>
+                            {{modal_selectProblem['qualifiers']}} views
+                        </p>
+                        <b-button-group v-if="ifscore <= 0">
+                            <b-button v-for="(btn, idx) in stars"
+                                :key="idx"
+                                :pressed.sync = "btn.state"
+                                variant = "outline-dark"
+                                @mouseover= "upstars (idx)"
+                                @mouseleave="downstars"
+                                @click="updateScore (idx + 1)"
+                                pill
+                            >
+                            <mdb-icon icon="star" />
+                            </b-button>
+                        </b-button-group>
+                        <b-button-group v-else>
+                            <b-button v-for="n in ifscore"
+                                :key="n"
+                                pressed
+                                variant = "outline-dark"
+                                pill
+                            >
+                            <mdb-icon icon="star" />
+                            </b-button>
+                            <b-button v-for="n in (5 - ifscore)"
+                                :key="n + ifscore"
+                                disabled
+                                variant = "outline-dark"
+                                pill
+                            >
+                            <mdb-icon icon="star" />
+                            </b-button>
+                        </b-button-group>
+                    </center>
+
+                </b-col>
+            </b-row>
+            
+
+            <template v-slot:modal-footer>
+                <b-row style="width : 100%">
+                    <b-col cols = "4">
+                        <center>
+                            <b-button variant = "outline-warning" @click="showSol()">
+                                <b>See Solution</b>
+                            </b-button>
+                        </center>
+                    </b-col>
+                    <b-col cols = "4">
+                    <center>
+                        <b-button variant="outline-info" @click="showComment()"><b>Comment</b></b-button>
+                    </center>
+                    </b-col>
+                    <b-col cols = "4">
+                    <center>
+                        <b-button variant="outline-danger" @click="cancel()"><b>Done</b></b-button>
+                    </center>
+                    </b-col>
+                </b-row>
+            </template>
+        </b-modal>
+
+        <!-- END MODAL FOR PROBLEM-->
+        <!-- START MODAL FOR COMMENTS -->
+
+        <b-modal ref="ModalComment" title="New Comment" hide-footer>
+            <b-form @submit="onSubmit" @reset="onReset" >
+                <b-form-group
+                    id="input-group-1"
+                    label="Write your new comment:"
+                    label-for="input-1"
+                >
+                    <b-form-textarea
+                    id="textarea-state"
+                    v-model="newcomment"
+                    :state="newcomment.length <= 500"
+                    placeholder="Enter a maximun of 500 characters"
+                    rows="5"
+                    ></b-form-textarea>
+
+                </b-form-group>
+                    <b-button type="submit" variant="primary">Submit</b-button>
+                    <!--b-button type="reset" variant="danger">Reset</b-button-->
+            </b-form>
+        </b-modal>
+
+        <!--END MODAL FOR COMMENTS -->
+
+        <!-- START MODAL FOR SOLUTION-->
+
+        <b-modal ref="ModalSol" title="Solution " hide-footer>
+            <div v-html="solutionshow">
+
+            </div>
+        </b-modal>
+
+        <!-- END MODAL FOR SOLUTION -->
+
         <div class="mx-5">
             <b-row>
                 <b-col cols="6" md="4">
@@ -58,78 +205,90 @@
                             </b-tab-->
                             <b-tab class="p-4 h-100" title="Problems Submited">
                                 <b-row align-h="between" style="margin:auto">
-                                    <b-form-input style="width:80%" type="text" v-model="keyToSearch"></b-form-input>
-                                    <b-form-select style="width:10%"
-                                    id="input-3"
-                                    v-model="form_select.tsort"
-                                    :options="form_select.sorts"
-                                    required
-                                    ></b-form-select>
-                                    <b-button style="width:10%" variant="info">Filtrar</b-button>
+                                    <b-col cols="12" lg="8" class="p-0">
+                                        <b-form-input class="w-100" type="text" v-model="keyToSearch"></b-form-input>
+                                    </b-col>
+                                    <b-col cols="12" lg="2" class="p-0">
+                                        <b-form-select class="w-100"
+                                        id="input-3"
+                                        v-model="form_select.tsort"
+                                        :options="form_select.sorts"
+                                        required
+                                        ></b-form-select>
+                                    </b-col>
+                                    <b-col cols="12" lg="2" class="p-0">
+                                        <b-button class="w-100" variant="info">Search</b-button>
+                                    </b-col>
                                 </b-row>
 
                                 <b-card style = "margin:20px; background: #d4d4d4" class="mb-1" v-for="(problem, index) of filtrar" v-bind:key = "index">
                                     <b-card-title><b>{{problem.title}}</b></b-card-title>
-                                    <b-row style="height :70px">
-                                        <b-col cols = "10" style="height:100%">
+                                    <b-row style="min-height :70px">
+                                        <b-col cols = "12" xl="10" class="h-100">
                                             <div style="margin-top : 10px">
                                                 <b-button variant="info" style = "margin:5px" v-for="(tag, index) of problem.topicsString" v-bind:key="index">{{tag}}</b-button>
                                             </div>
                                         </b-col>
-                                        <b-col cols = "2" style="height:100%">
+                                        <b-col cols = "12" xl="2" class="h-100">
                                             <ul class="list-unstyled">
                                                 <li>
-                                                    <b-button disabled style="width : 50%">
+                                                    <b-button disabled style="width : 80px">
                                                         {{problem.score}}
                                                     </b-button>
                                                 </li>
                                                 <li>
-                                                    <b-button disabled variant = "light" style="font-size : small; width : 50%"><b>
+                                                    <b-button disabled variant = "light" style="font-size : small; width : 80px"><b>
                                                         {{problem.type}}</b>
                                                     </b-button>
                                                 </li>
                                             </ul>
                                         </b-col>
                                     </b-row>
-                                    <b-button style="margin-top : 10px" href="#" pill variant="light" @click="showModalProblem (problem.idx)">Go problem</b-button>
+                                    <b-button style="margin-top : 10px" href="#" pill variant="light" @click="showModalProblem1 (problem.idx)">Go problem</b-button>
                                 </b-card>
                             </b-tab>
                             <b-tab class="p-4 h-100" title="Problems Obtained">
                                 <b-row align-h="between" style="margin:auto" fixed>
-                                    <b-form-input style="width:80%" type="text" v-model="keyToSearch2"></b-form-input>
-                                    <b-form-select style="width:10%"
-                                    id="input-3"
-                                    v-model="form_select.tsort"
-                                    :options="form_select.sorts"
-                                    required
-                                    ></b-form-select>
-                                    <b-button style="width:10%" variant="info">Filtrar</b-button>
+                                    <b-col cols="12" lg="8" class="p-0">
+                                        <b-form-input class="w-100" type="text" v-model="keyToSearch2"></b-form-input>
+                                    </b-col>
+                                    <b-col cols="12" lg="2" class="p-0">
+                                        <b-form-select class="w-100"
+                                        id="input-3"
+                                        v-model="form_select.tsort"
+                                        :options="form_select.sorts"
+                                        required
+                                        ></b-form-select>
+                                    </b-col>
+                                    <b-col cols="12" lg="2" class="p-0">
+                                        <b-button class="w-100" variant="info">Search</b-button>
+                                    </b-col>
                                 </b-row>
 
                                 <b-card style = "margin:20px; background: #d4d4d4" class="mb-1" v-for="(problem, index) of filtrar2" v-bind:key = "index">
                                     <b-card-title><b>{{problem.title}}</b></b-card-title>
-                                    <b-row style="height :70px">
-                                        <b-col cols = "10" style="height:100%">
+                                    <b-row style="min-height :70px">
+                                        <b-col cols = "12" xl="10" class="h-100">
                                             <div style="margin-top : 10px">
                                                 <b-button variant="info" style = "margin:5px" v-for="(tag, index) of problem.topicsString" v-bind:key="index">{{tag}}</b-button>
                                             </div>
                                         </b-col>
-                                        <b-col cols = "2" style="height:100%">
+                                        <b-col cols = "12" xl="2" class="h-100">
                                             <ul class="list-unstyled">
                                                 <li>
-                                                    <b-button disabled style="width : 50%">
+                                                    <b-button disabled style="width : 80px">
                                                         {{problem.score}}
                                                     </b-button>
                                                 </li>
                                                 <li>
-                                                    <b-button disabled variant = "light" style="font-size : small; width : 50%"><b>
+                                                    <b-button disabled variant = "light" style="font-size : small; width : 80px"><b>
                                                         {{problem.type}}</b>
                                                     </b-button>
                                                 </li>
                                             </ul>
                                         </b-col>
                                     </b-row>
-                                    <b-button style="margin-top : 10px" href="#" pill variant="light" @click="showModalProblem (problem.idx)">Go problem</b-button>
+                                    <b-button style="margin-top : 10px" href="#" pill variant="light" @click="showModalProblem2 (problem.idx)">Go problem</b-button>
                                 </b-card>
                             </b-tab>
                             <b-tab class="p-4" title="Exams">
@@ -216,16 +375,22 @@
 
 <script>
 import axios from 'axios'
+import { mdbIcon } from 'mdbvue';
 
 export default {
     created(){
-        this.items = JSON.parse(sessionStorage.getItem('items'))
+        this.items = JSON.parse(localStorage.getItem('items'))
         this.$store.state.user.username = this.items.map(items =>items.username).toString()
         this.$store.state.user.token = this.items.map(items =>items.token).toString()
         this.$store.state.user.credits = parseInt(this.items.map(items =>items.credits))
         this.$store.state.user.id = parseInt(this.items.map(items => items.id))
         this.$store.state.isLogged = true;
         },
+
+
+    components : {
+        mdbIcon
+    },
 
 
     data() {
@@ -252,7 +417,36 @@ export default {
                         email : ''
                     }
                 }
-            }
+            },
+
+            modal_titleProblem : '',
+
+            modal_desProblem : '',
+
+            modal_tagsProblem : [],
+
+            modal_selectProblem : {},
+
+            modal_solution : '',
+
+            ifscore : -1,
+
+            solutionshow :  [],
+
+            commentsInfo : [],
+
+            newcomment : '',
+
+            types : {'SA' : 'Short Answer', 'LA' : 'Long Answer', 'MC' : 'Multiple Choice', 'TF': 'True or False'},
+            typeSelected : '',
+
+            stars : [
+                {state : false},
+                {state : false},
+                {state : false},
+                {state : false},
+                {state : false}
+            ],
 
         }
     },
@@ -355,6 +549,109 @@ export default {
         },
     },
     methods: {
+        checkIfCheck () {
+            axios.get("http://" + this.$store.state.clientURL + "/problem/v1/problem/getProblemsScore?idProblem="+
+            this.modal_selectProblem.id + "&idTeacher="+ this.$store.state.user.id)
+            .then (response => this.ifscore = response.data)
+
+        },
+        showModalProblem1(index) {
+            this.modal_titleProblem = this.infoproblems [index].title
+            this.modal_desProblem = this.infoproblems [index].body
+            this.modal_tagsProblem = this.infoproblems [index].topicsString
+            this.modal_selectProblem = this.infoproblems [index]
+            this.solutionshow = ''
+            axios.get("http://" + this.$store.state.clientURL + "/problem/v1/problem/latexToHtml?idProblem=" + this.modal_selectProblem.id)
+            .then(response => {this.modal_desProblem = (response.data)})
+            axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getSolutionProblem?idProblem=' + this.modal_selectProblem.id)
+            .then(response => (this.solutionshow = (response.data.body)))
+            this.modal_solution = this.infoproblems [index].body
+            this.checkIfCheck ()
+            
+                this.$refs['modal-problem'].show()
+                axios.get("http://" + this.$store.state.clientURL + "/comment/v1/comment/getCommentByProblem?idProb=" + this.modal_selectProblem.id)
+                .then (response => (this.commentsInfo = (response.data)))
+        },
+
+        showModalProblem2(index) {
+            this.modal_titleProblem = this.obproblems [index].title
+            this.modal_desProblem = this.obproblems [index].body
+            this.modal_tagsProblem = this.obproblems [index].topicsString
+            this.modal_selectProblem = this.obproblems [index]
+            this.solutionshow = ''
+            axios.get("http://" + this.$store.state.clientURL + "/problem/v1/problem/latexToHtml?idProblem=" + this.modal_selectProblem.id)
+            .then(response => {this.modal_desProblem = (response.data)})
+            axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getSolutionProblem?idProblem=' + this.modal_selectProblem.id)
+            .then(response => (this.solutionshow = (response.data.body)))
+            this.modal_solution = this.obproblems [index].body
+            this.checkIfCheck ()
+            
+                this.$refs['modal-problem'].show()
+                axios.get("http://" + this.$store.state.clientURL + "/comment/v1/comment/getCommentByProblem?idProb=" + this.modal_selectProblem.id)
+                .then (response => (this.commentsInfo = (response.data)))
+        },
+
+        updateScore (val) {
+            
+            if (this.ifscore <= 0)
+            {
+                let new_score = this.modal_selectProblem['score']
+                new_score = new_score * this.modal_selectProblem ['qualifiers']
+                new_score = new_score + val
+                new_score = new_score/(this.modal_selectProblem ['qualifiers'] + 1)
+                new_score = Math.round (new_score * 10) / 10
+                this.modal_selectProblem['qualifiers']++
+                this.modal_selectProblem ['score'] = new_score
+                axios.post("http://" + this.$store.state.clientURL + "/problem/v1/problem/saveTeacherScore",
+                 {id : this.modal_selectProblem.id, idTeacher : this.$store.state.user.id , scoreInteger : val} )
+                axios.post("http://" + this.$store.state.clientURL + "/problem/v1/updateProblemRatio?idProblem=" + this.modal_selectProblem.id +
+                "&rate=" + val)
+                this.ifscore = val
+            }
+        },
+
+        upstars (idx) {
+            for (let i = 0; i < idx; i++){
+                this.stars[i].state = true
+            }
+        },
+
+        downstars () {
+            for (let i = 0; i < 5; i++){
+                this.stars[i].state = false
+            }
+        },
+
+        showComment (){
+            this.$refs['ModalComment'].show()
+        },
+        showSol () {
+
+
+            axios.post('http://' + this.$store.state.clientURL + '/problem/v1/problem/latexToHtmlbyBody', {
+                body: this.solutionshow
+            })
+            .then(response => (this.solutionshow = (response.data)))
+
+            this.$refs['ModalSol'].show()
+        },
+        onSubmit(evt) {
+            evt.preventDefault()
+            let co = {'idTeacher' : this.$store.state.user.id,  'nameTeacher' : this.$store.state.user.username, 'description' : this.newcomment, 'idProblem' : this.modal_selectProblem.id}
+            this.commentsInfo.push(co)
+            axios.post ('http://' + this.$store.state.clientURL + '/comment/v1/submitComment', co)
+            this.$refs['ModalComment'].hide()
+        },
+        onReset(evt) {
+            evt.preventDefault()
+            
+            this.$refs['ModalComment'].hide()
+        },
+
+        cancel () {
+            this.$refs['modal-problem'].hide()
+        },
+
     },
 }
 </script>

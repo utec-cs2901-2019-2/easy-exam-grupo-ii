@@ -9,6 +9,8 @@ public class ExamProblemId implements Serializable {
     int idProblem;
     int idExam;
 
+    public ExamProblemId() {}
+
     public ExamProblemId(int idProblem, int idExam) {
         this.idProblem = idProblem;
         this.idExam = idExam;

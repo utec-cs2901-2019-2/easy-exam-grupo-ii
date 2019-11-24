@@ -3,26 +3,30 @@
     <div class="site-wrapper">
 
       <div class="site-wrapper-inner">
-
-
           <div class="inner cover text-center">
+
             <div class="container inner">
-              <h1 class="cover-heading">Welcome To EasyExam!</h1>
-              <p class="lead"> <small>Your smartest exam generation tool!</small></p>
+                <h1 class="cover-heading" style="font: oblique bold 350% cursive;">Welcome To EasyExam!</h1>
+              <p class="lead" style="font: oblique bold 150% cursive;"> <small>Your smartest exam generation tool!</small></p>
             </div>
-              <HomeCarrousel/>
-              <b-card class="text-center">
-              <div class="inner cover text-center">
+              <hr width="95%" size=200 color="#2f3135">
+              <b-row>
+                  <b-col md="6">
+              <div class="inner cover text-center" style="margin: 3%">
                 <p class="lead">EasyExam is an online platform aiming to help teachers to generate problems for the exams that they wish to take their students. EasyExam works on a 3x1 system in which each the user sends 1 problem for every 3 they will recieve, it is in order to encourage the collaboration within the platform. The users can download the generated exams in PDF-Latex format.</p>
                 <p class="lead text-center">
-                    <b-button variant="primary" href="/login">Get Started</b-button>
-                    <b-button variant="primary" href="/pruebahtml">PruebaHtml</b-button>
-                    <b-button class="m-2" variant="primary" href="#Learn-More">Learn More</b-button>
+                    <b-button variant="dark" href="/login" style="background-color: black">Get Started</b-button>
+                    <b-button class="m-2" variant="dark" href="#Learn-More">Learn More</b-button>
                 </p>
               </div>
-              </b-card>
+                  </b-col>
+                  <b-col md="6">
+              <HomeCarrousel style="margin: 3%"></HomeCarrousel>
+                  </b-col>
+              </b-row>
         </div>
-          <div id="Learn-More">
+          <hr width="95%" size=200 color="#2f3135">
+          <div id="Learn-More" style="margin-top: 3%">
               <b-embed
                       type="iframe"
                       aspect="16by9"
@@ -30,6 +34,7 @@
                       allowfullscreen
               ></b-embed>
           </div>
+          <Footer/>
 
       </div>
 
@@ -41,11 +46,12 @@
 
 // @ is an alias to /src
 import HomeCarrousel from "../components/HomeCarrousel";
+import Footer from "../components/Footer";
 
 
 export default {
   created(){
-        this.items = JSON.parse(sessionStorage.getItem('items'))
+        this.items = JSON.parse(localStorage.getItem('items'))
         this.$store.state.user.username = this.items.map(items =>items.username).toString()
         this.$store.state.user.token = this.items.map(items =>items.token).toString()
         this.$store.state.user.credits = parseInt(this.items.map(items =>items.credits))
@@ -55,11 +61,11 @@ export default {
 
   name: 'home',
   components: {
+      Footer,
       HomeCarrousel
   }
 }
 </script>
-
 <style scoped>
 @import url('https://fonts.googleapis.com/css?family=Hind+Madurai|Jomolhari&display=swap');
 /* Links */

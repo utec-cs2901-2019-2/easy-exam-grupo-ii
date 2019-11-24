@@ -4,11 +4,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="topics")
-@SequenceGenerator(sequenceName = "seqTopic",name="seq_topic")
 public class Topic {
 
     @Id
-    @GeneratedValue(generator = "seq_topic")
     private int id;
 
     @Column(name="name")
