@@ -314,8 +314,6 @@ export default {
                     }
                     break;
                 }
-                case 3:
-                    break;
                 default:
                     this.tabIndex++;
             }
