@@ -147,9 +147,9 @@
 
         <!-- END MODAL FOR SOLUTION -->
             <b-row>
-                <b-card style="min-width: max-content; max-width: max-content">
+                <b-card style="min-width: max-content; max-width: max-content; border-radius: 40px" bg-variant="light">
                     <center>
-                            <h2><b>  {{user.information.firstname}} {{user.information.lastname}}</b></h2>
+                            <h1><b>  {{user.information.firstname}} {{user.information.lastname}}</b></h1>
                             <h6 style="color: #6c757d">{{user.information.user.email}}</h6>
 
                             <br>
