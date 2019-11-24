@@ -8,4 +8,6 @@ public interface IRoleService {
     Role findById(int id);
 
     List<Role> getAllRoles();
+
+    Role save(Role role);
 }
