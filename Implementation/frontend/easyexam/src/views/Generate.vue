@@ -262,7 +262,7 @@ export default {
                 id = id + 1
                 if (this.keyFromAll === '')
                 {
-                    return res;
+                    res.push(problem);
                 }
                 else
                 {

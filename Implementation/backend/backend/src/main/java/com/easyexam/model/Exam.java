@@ -16,11 +16,24 @@ public class Exam {
     @Column(name="creation_date")
     private Date creationDate;
 
+    @Column(name="indications",columnDefinition="TEXT")
+    private String indications;
+
+    @Column(name="duration")
+    private String duration;
+
+    @Column(name="course")
+    private String course;
+
     public Exam() { }
 
-    public Exam(String title, Date creationDate) {
+    public Exam(int id, String title, Date creationDate, String indications, String duration, String course) {
+        this.id = id;
         this.title = title;
         this.creationDate = creationDate;
+        this.indications = indications;
+        this.duration = duration;
+        this.course = course;
     }
 
     public int getId() {
@@ -45,5 +58,31 @@ public class Exam {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+
+
+    public String getIndications() {
+        return indications;
+    }
+
+    public void setIndications(String indications) {
+        this.indications = indications;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
     }
 }
