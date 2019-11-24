@@ -84,14 +84,14 @@ export default {
   },
   created: function(){
 	this.view()
-	this.localData()
-	this.items = JSON.parse('items', localStorage.getItem('items'))
+	this.sessionData()
+	this.items = JSON.parse('items', sessionStorage.getItem('items'))
 	},
 
 	methods:{
-	localData: function(){
+	sessionData: function(){
 	let parsed = JSON.stringify(this.items)
-	localStorage.setItem('items', parsed)
+	sessionStorage.setItem('items', parsed)
 	},
 
 	view: function(){
@@ -126,7 +126,7 @@ export default {
 					this.$router.push('/dashboard')
 
 
-					this.localData()
+					this.sessionData()
 	
                 } else {
                     this.dismissCountDown = this.dismissSecs

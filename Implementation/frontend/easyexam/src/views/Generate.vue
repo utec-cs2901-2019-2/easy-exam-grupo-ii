@@ -193,7 +193,7 @@ import {mapState} from 'vuex'
 import axios from 'axios'
 export default {
     created(){
-        this.items = JSON.parse(localStorage.getItem('items'))
+        this.items = JSON.parse(sessionStorage.getItem('items'))
         this.$store.state.user.username = this.items.map(items =>items.username).toString()
         this.$store.state.user.token = this.items.map(items =>items.token).toString()
         this.$store.state.user.credits = parseInt(this.items.map(items =>items.credits))
