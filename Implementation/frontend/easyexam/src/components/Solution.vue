@@ -143,7 +143,7 @@
                    let new_credit = this.$store.state.user.credits + 3
 
                    var newItems = JSON.parse(localStorage.items)
-                    newItems[4] +=3
+                    newItems[0].credits +=3
                     localStorage.setItem('items', JSON.stringify(newItems))
                     alert("Your problem has been submited! You get +3 credits as reward!")
 
