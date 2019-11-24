@@ -309,7 +309,7 @@
                                 ></b-form-select>
                             </b-col>
                             <b-col cols="12" lg="2" class="p-0">
-                                <b-button class="w-100" variant="info">Search</b-button>
+                                <b-button class="w-100" squared variant="outline-secondary">Search</b-button>
                             </b-col>
                         </b-row>
                     </template>
