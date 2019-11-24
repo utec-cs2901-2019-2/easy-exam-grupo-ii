@@ -1,127 +1,72 @@
 <template>
     <div class="md-6 mt-2">
-        <div>        
-            <center>
-            <h1>
-                <b v-if="currentPage===1">
-                    Select Problems
-                </b>
-                <b v-else-if="currentPage===2">
-                    Exam Details!
-                </b>
-                <b v-else-if="currentPage===3">
-                    Exam Preview
-                </b>
-
+        <h1 class="text-center">Generate an Exam</h1>
+        {{tabIndex}}
+        <b-alert v-model="problemSelectCheck" variant="danger" dismissible>
+            You must select at lest one problem for your exam!
+        </b-alert>
+        <b-alert v-model="richMaximunProblem" variant="warning" dismissible>
+            You can select eight problem as maximum for your exam!
+        </b-alert>
+        <b-alert v-model="examDetailsCheck" variant="danger" dismissible>
+            You must enter the required exam details for your exam!
+        </b-alert>
+        <b-tabs content-class="mt-3" v-model="tabIndex" align="center" fill justified>
+            <b-tab title="Select Problems" title-item-class="disabledTab">
+                <b-container class="mb-2" style="max-width: 400px;  min-height: 400px;"> 
+                    <b-form-input class="w-100" placeholder="Search a problem for your exam" type="text" v-model="keyFromAll"></b-form-input>                
+                    <!--Card for problems-->
+                    <b-card class="mt-2" v-for="(prob, index) of filtrarAll" v-bind:key = "index" >
+                        <b-card-title>{{prob.title}}</b-card-title>
+                        <b-card-sub-title><small><strong>Tags: </strong></small><small v-for="(tag, index) of prob.topicsString" v-bind:key="index"> | {{tag}}</small></b-card-sub-title>
+                        <b-button squared size="sm" variant="light" class="mt-2 float-md-left" @click="selectProblem(prob.id)">Select</b-button>
+                        <b-button squared size="sm" variant="light" class="mt-2 float-md-left">View</b-button>
+                        <b-card-text><small class="float-right">{{dicty[prob.type]}}</small></b-card-text>
+                    </b-card>
+                </b-container>
                 
-                
-            </h1>
-        </center> 
-        </div>
- 
-       
-        <b-card-group deck v-if="currentPage===1" align-h="around">
-        <b-card header="Your Problems">
-            <b-form-input placeholder="Search a problem for your exam" type="text" v-model="keyFromAll">
-            </b-form-input>
-            <b-card style="margin:20px; background:#d4d4d4" class="mb-1" v-for="(prob, index) of filtrarAll" v-bind:key = "index">
-            <b-card-title>
-                <b>
-                    {{prob.title}}
-                </b>
-            </b-card-title>
-            <b-row class="justify-content-md-center">
-                <b-col cols="10">
-                    <div style="margin-top:10px">
-                        <b-button disabled variant="light" style="margin:5px" v-for="(tag, index) of prob.topicsString" v-bind:key="index">
-                            {{tag}}
-                        </b-button>
-                    </div>
-
-                </b-col>
-                <b-col cols="2" style="height:100%">
-                    <b-button disabled variant = "light" style=" width : 70px; height:70px"><b>
-                        {{prob.type}}</b>
-                    </b-button>
-                </b-col>
-                <b-button style="margin-top : 10px; width:90%"  pill variant="info" @click="SelectProblem(prob.id)">
-                    Select Problem
-                </b-button>
-            </b-row>
-        </b-card>
-        </b-card>
-        <b-card header="Problems Selected">
-            <b-form-input style="width:100%" type="text" v-model="keyFromSel" >
-            </b-form-input>
-            <b-card style="margin:20px; background:#d4d4d4" class="mb-1" v-for="(prob, index) of filtrarSel" v-bind:key = "index">
-            <b-card-title>
-                <b>
-                    {{prob.title}}
-                </b>
-            </b-card-title>
-            <b-row class="justify-content-md-center">
-                <b-row style="width:90%">
-                <b-col cols="10">
-                    <div style="margin-top:10px">
-                        <b-button disabled variant="light" style="margin:5px" v-for="(tag, index) of prob.topicsString" v-bind:key="index">
-                            {{tag}}
-                        </b-button>
-                    </div>
-
-                </b-col>
-                <b-col cols="2" >
-                    <b-form-input  placeholder="a" type="number"></b-form-input>
-                </b-col>
-                </b-row>
-                <b-row style="width:90%">
-                    <b-col cols="9">
-                        <b-button style="margin-top : 10px ;width:100%" pill variant="info" @click="SaveProblem(prob.id)">
-                            Save Problem
-                        </b-button>
-                    </b-col>
-                    <b-col cols="3">
-                        <b-button disabled variant = "light" style="margin-top : 10px ; width : 100%"><b>
-                            {{prob.type}}</b>
-                        </b-button>
-                    </b-col>
-                </b-row>
-                
-                
-            </b-row>
-        </b-card>
-        </b-card>
-        </b-card-group>    
-        <b-card-group deck v-else-if="currentPage===2" >
-            <div class="container md-4 w-50 align-center mt-2">            <b-card >
-                <small><font color="red">Obligatory *</font> </small>
-                <b-form>
-                    <b-form-group>
+            </b-tab>
+            <b-tab title="Exam Details" title-item-class="disabledTab">
+                <b-container class="mb-2" style="max-width: 600px;">
+                    <small><font color="red">Obligatory *</font> </small>
+                    <b-form>
+                    <b-form-group label = "Title: *">
                         <b-form-input
                         v-model="$v.exam.title.$model"
-                        placeholder="Title *"
+                        placeholder="Title"
                         :state= "$v.exam.title.$dirty ? !$v.exam.title.$error : null"
+                        aria-describedby="input-1-live-feedback"
                         >
                         </b-form-input>
-                        <b-form-invalid-feedback id="input-2-live-feedback">
-                            You must need to enter an exam title.
+                        <b-form-invalid-feedback id="input-1-live-feedback">
+                            You must need to enter your exam title.
                         </b-form-invalid-feedback>
                     </b-form-group>
-                    <b-form-group>
+                    <b-form-group label="Indications:">
                         <b-form-textarea
                         v-model="$v.exam.indications.$model"
                         :state= "$v.exam.indications.$dirty ? !$v.exam.indications.$error : null"
-                        placeholder="Indications *"
-                        rows="6">
-
+                        placeholder="Indications"
+                        rows="6"
+                        aria-describedby="input-2-live-feedback"
+                        >
                         </b-form-textarea>
+                        <b-form-invalid-feedback id="input-2-live-feedback">
+                            You must need to enter your exam details.
+                        </b-form-invalid-feedback>
                     </b-form-group>
                     <b-row>
                         <b-col cols="6">
-                            Time:
-                            <b-form-input v-model="$v.exam.time.$model"
-                            :state= "$v.exam.time.$dirty ? !$v.exam.time.$error : null"
+                            Duration: *
+                            <b-form-input v-model="$v.exam.duration.$model"
+                            :state= "$v.exam.duration.$dirty ? !$v.exam.duration.$error : null"
+                            aria-describedby="input-3-live-feedback"
                             >
                             </b-form-input>
+                            <b-form-invalid-feedback id="input-3-live-feedback">
+                            You must need to enter your exam details.
+                        </b-form-invalid-feedback>
+                            
                         </b-col>
                         <b-col cols="6">
                             Institution:
@@ -142,23 +87,30 @@
                         </b-col>
                     </b-row>
                 </b-form>
-                </b-card>
-            <b-button variant="light" class="mx-1 float-right " @click="submit()" ><i class="fas fa-angle-double-right fa-1x" style="color:  #2f3135 ;"></i></b-button>
-        </div>
-</b-card-group>
-        <b-card-group deck v-else-if="currentPage===3" class="justify-content-md-center">
-            <b-card>
-                <b-embed
-                type="iframe"
-                aspect="16by9"
-                src=" "
-                allowfullscreen
-                >
-            </b-embed>
-            </b-card>
-
-        </b-card-group>
-        <b-pagination v-model="currentPage" :total-rows="3" :per-page="1" use-router align="fill" hide-goto-end-buttons></b-pagination>
+                    <b-card squared class="mt-2" v-for="(prob, index) of filtrarSel" v-bind:key = "index">
+                        <b-button-close squared size="sm" variant="light" class="mt-2 float-md-right" @click="deselectProblem(prob.id)"></b-button-close>
+                        <b-card-title>{{prob.title}}</b-card-title>
+                        <b-card-text><small class="float-md-right">{{dicty[prob.type]}}</small></b-card-text>
+                        <b-form-input style="width: 10px" label="hola"></b-form-input>
+                    </b-card>
+                </b-container>
+            </b-tab>
+            <b-tab title="Exam Preview"  title-item-class="disabledTab">
+                <b-container style="height: 400px; max-height: 600px;">
+                    <b-embed
+                    type="iframe"
+                    aspect="16by9"
+                    src=" "
+                    allowfullscreen
+                    >
+                    </b-embed>
+                </b-container>
+            </b-tab>
+            <b-button squared size="sm" variant="light" class="w-50" @click="tabIndex--">Prev</b-button>
+            <b-button class="w-50" squared size="sm" variant="light" @click="goNext">Next</b-button>
+            <b-progress height="2px" :value="tabIndex+1" :max=3></b-progress>
+            
+        </b-tabs>
     </div>
 </template>
 <script>
@@ -168,61 +120,57 @@ import { validationMixin } from 'vuelidate'
 import axios from 'axios'
 export default {
     mixins: [validationMixin],
-    data : () => ({
-        currentPage : 1,
-        keyFromAll : '',
-        keyFromSel : '',
-        problemsAll : [],
-        problemsSelected : [],
-        problemsSub : [], 
-        componentLoaded: false,
-    }),
+    data(){
+        return {
+            tabIndex : 0,
+            keyFromAll : '',
+            keyFromSel : '',
+            problemsAll : [],
+            problemsSelected : [],
+            problemsSub : [], 
+            selectOne: false,
+            problemSelectCheck: false,
+            richMaximunProblem: false,
+            examDetailsCheck: false,
+            maxNumberProblems: 8,
+            dicty : {'SA' : 'Short Answer', 'LA' : 'Long Answer', 'MC' : 'Multiple Choice' , 'TF' : 'True or False'},
+        }
+    },
     mounted() {
         axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSubmitedByUser?idUser=' + this.$store.state.user.id)
-        .then(response => (this.problemsSub = response.data))
+        .then(response => (this.problemsAll = this.problemsAll.concat(response.data)))
         axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSelected?id=' + this.$store.state.user.id)
-        .then(response => (this.problemsAll = response.data))
-        
-        console.log("b");
-        console.log(this.problemsAll.length);
-        console.log(this.problemsSub.length);
-        
+        .then(response => (this.problemsAll = this.problemsAll.concat(response.data)))
+       
     },
     computed: {
         
         ...mapState ({
+            exam: state=>state.exam,
             //problemsSelected : state=>state.problemsSelected,
             //problemsAll : state=>state.myProblems
         }),
         filtrarAll : function () {
-            console.log(this.componentLoaded)
-            if(!this.componentLoaded)
-                return null;
-            console.log("a");
-            console.log(this.problemsAll.length);
-            console.log(this.problemsSub.length);
-            this.$store.commit ('viewProblems')
-            this.MergeSelect();
             let res = []
-            let id = 0 
+            let id = 0
+            for (let problem of this.problemsAll) {
                 problem["id"] = id
                 id = id + 1
                 if (this.keyFromAll === '')
                 {
-                    res.push (problem)
+                    return res;
                 }
                 else
                 {
                     let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
-                    if (stringToSearch.includes (this.keyFromAll.toLowerCase()))
+                    if (stringToSearch.includes (this.keyFromAll.toLowerCase()) && res.length<4)
                     {
                         res.push (problem)
                     }
                 }
             }
-            
-
             return res
+            
         },
 
         filtrarSel : function () {
@@ -231,14 +179,14 @@ export default {
             for (let problem of this.problemsSelected) {
                 problem["id"] = id
                 id = id + 1
-                if (this.keyFromSel === '')
+                if (this.keyFromSel === '' )
                 {
                     res.push (problem)
                 }
                 else
                 {
                     let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
-                    if (stringToSearch.includes (this.keyFromSel.toLowerCase()))
+                    if (stringToSearch.includes (this.keyFromSel.toLowerCase()) )
                     {
                         res.push (problem)
                     }
@@ -249,19 +197,37 @@ export default {
     },
 
     methods: {
-        SelectProblem : function (index) {
-            if (this.problemsSelected.length < 8){
+        goNext(){
+            switch(this.tabIndex){
+                case 0:
+                    if (this.problemsSelected.length >= 1){
+                        this.tabIndex++;
+                    }else{
+                        this.problemSelectCheck = true;
+                    }
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                default:
+                    this.tabIndex++;
+            }
+        },
+        selectProblem : function (index) {
+            if (this.problemsSelected.length < this.maxNumberProblems){
                 this.problemsSelected.push (this.problemsAll[index])
                 this.problemsAll.splice(index, 1)
+            } else{
+                this.richMaximunProblem = true;
             }
         },
 
-        SaveProblem : function (index) {
+        deselectProblem : function (index) {
             this.problemsAll.push (this.problemsSelected[index])
             this.problemsSelected.splice(index, 1)
         },
-        MergeSelect(){
-        }
+
     },
     validations: {
     exam: {
@@ -269,9 +235,10 @@ export default {
             required
         },
         indications: {
-            minLength: minLength(0)
+            required,
+            minLength: minLength(20)
         },
-        time: {
+        duration: {
             required
         },
         institution: {
@@ -288,5 +255,10 @@ export default {
 }
 }
 </script>
+<style>
+  .disabledTab{
+      pointer-events: none;
+  }
+</style>
 
 
