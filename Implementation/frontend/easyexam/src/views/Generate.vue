@@ -87,25 +87,25 @@
                                 @dismiss-count-down="countDownChanged" 
                                 variant="danger" dismissible>
                                 You must enter the title for your exam!
-                            </b-alert>
-                            
+                            </b-alert>   
                         </b-col>
                         <b-col cols="6">
-                            Institution:
-                            <b-form-input v-model="$v.exam.institution.$model" :state= "$v.exam.institution.$dirty ? !$v.exam.institution.$error : null">
+                            Course:*
+                            <b-form-input v-model="$v.exam.course.$model"
+                            :state= "$v.exam.course.$dirty ? !$v.exam.course.$error : null"
+                            aria-describedby="input-4-live-feedback"
+                            >
                             </b-form-input>
-                        </b-col>
-                    </b-row>
-                    <b-row>
-                        <b-col cols="6">
-                            Teacher:
-                            <b-form-input v-model="$v.exam.teacher.$model" :state= "$v.exam.teacher.$dirty ? !$v.exam.teacher.$error : null">
-                            </b-form-input>
-                        </b-col>
-                        <b-col cols="6">
-                            Course:
-                            <b-form-input v-model="$v.exam.course.$model" :state= "$v.exam.course.$dirty ? !$v.exam.course.$error : null">
-                            </b-form-input>
+                            <b-form-invalid-feedback id="input-4-live-feedback">
+                            You must need to enter your exam details.
+                            </b-form-invalid-feedback>
+                            <b-alert 
+                                :show="dismissCountDownCourse"
+                                @dismissed="dismissCountDownCourse=0"
+                                @dismiss-count-down="countDownChanged" 
+                                variant="danger" dismissible>
+                                You must enter the course for your exam!
+                            </b-alert> 
                         </b-col>
                     </b-row>
                     <b-form-group label = "Add your problems score:" class="mt-2">                   
@@ -130,17 +130,16 @@
                         </template>
 
                         
-                        <template v-slot:cell(actions)="row">
+                        <template v-slot:cell(problem)="row">
                             <b-button variant="light" size="sm" @click="row.toggleDetails">
                             {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
                             </b-button>
                         </template>
 
                         <template v-slot:row-details="row">
-                            {{row}}
                             <b-card>
                                 <b-button variant="light" @click="visualize(row.item.body)"><i class="fas fa-play-circle"></i></b-button>
-                                <b-card-body v-html="problem_html">
+                                <b-card-body v-html="visualize(row.item.body)">
                                 </b-card-body>
                             </b-card>
                         </template>
@@ -179,14 +178,14 @@
                 id="examSubmitModal"
                 ok-only
             >
-            Are you sure you want to generate this exam?
+            Are you sure you want to submit this exam?
             <template v-slot:modal-footer>
                 <b-button
                     variant="primary"
                     size="sm"
                     class="float-right"
                     type="submit"
-                    @click="onSubmit($event.target)"
+                    @click="submitExam($event.target)"
                 >
                 Yes
                 </b-button>
@@ -216,6 +215,7 @@ export default {
         return {
             dismissSecs: 5,
             dismissCountDownDuration: 0,
+            dismissCountDownCourse: 0,
             dismissCountDownIndications: 0,
             dismissCountDownSelect: 0,
             dismissCountDownTitle: 0,
@@ -224,6 +224,7 @@ export default {
             keyFromSel : '',
             problemsAll : [],
             problemsSelected : [],
+            problemsSelectedCompleted: [],
             problemsSub : [], 
             selectOne: false,
             richMaximunProblem: false,
@@ -234,7 +235,7 @@ export default {
                 {key: 'title', label:'Title'},
                 {key: 'type', label: 'Type'},
                 {key: 'score', label: 'Score'},
-                {key: 'actions', label: 'Actions'},
+                {key: 'problem', label: 'Problem'},
                 {key: 'deselect', label: 'Deselect'}
             ]
         }
@@ -251,6 +252,7 @@ export default {
         
         ...mapState ({
             exam: state=>state.exam,
+            user: state=>state.user,
             //problemsSelected : state=>state.problemsSelected,
             //problemsAll : state=>state.myProblems
         }),
@@ -279,13 +281,28 @@ export default {
     },
 
     methods: {
+        hideInfo(button){
+            this.$root.$emit('bv::hide::modal', 'examSubmitModal', button)
+        },
         visualize(body){
             let generator = new HtmlGenerator({ hyphenate: false })
             let doc = parse(body, { generator: generator })
-            this.problem_html = doc.htmlDocument().documentElement.outerHTML
+            return doc.htmlDocument().documentElement.outerHTML
         },
-        submitExam(){
+        submitExam(evt){
 
+            const p_post = axios.post('http://' + this.$store.state.clientURL +'/exam/v1/submitExam', {
+                idTeacher: this.user.id,
+                title: this.exam.title,
+                listProblems: this.problemsSelected
+            });
+            p_post.then(resp => {
+                console.log(resp.data)
+            });
+            p_post.catch(error => {
+                console.log(error)
+            });
+            this.hideInfo(evt);
             this.tabIndex++;
         },
         goNext(){
@@ -302,7 +319,8 @@ export default {
                     let valTitle = this.exam.title.length>0;
                     let valDuration = this.exam.duration.length>0;
                     let valIndications = this.exam.indications.length>=20;
-                    if (valTitle && valDuration && valIndications){
+                    let valCourse = this.exam.course.length>0;
+                    if (valTitle && valDuration && valIndications && valCourse){
                         this.$bvModal.show('examSubmitModal');
                     }else{
                     if (!valIndications){
@@ -311,7 +329,9 @@ export default {
                         this.showAlertDurationMissing();
                     }if (!valTitle){
                         this.showAlertTitleMissing();
-                        }
+                    }if (!valCourse){
+                        this.showAlertCourseMissing();
+                    }
                     }
                     break;
                 }
@@ -320,16 +340,25 @@ export default {
             }
         },
         selectProblem : function (index) {
-            if (this.problemsSelected.length < this.maxNumberProblems){
-                this.problemsSelected.push (this.problemsAll[index])
+            if (this.problemsSelectedCompleted.length < this.maxNumberProblems){
+                let newProblem = {
+                    id: this.problemsAll[index].id,
+                    type: this.problemsAll[index].type,
+                    score: 0,
+                    title: this.problemsAll[index].title,
+                    body: this.problemsAll[index].body,
+                }
+                this.problemsSelectedCompleted.push (this.problemsAll[index])
+                this.problemsSelected.push (newProblem)
                 this.problemsAll.splice(index, 1)
             } else{
                 this.richMaximunProblem = true;
             }
         },
         deselectProblem : function (index) {
-            this.problemsAll.push (this.problemsSelected[index])
+            this.problemsAll.push (this.problemsSelectedCompleted[index])
             this.problemsSelected.splice(index, 1)
+            this.problemsSelectedCompleted.splice(index, 1)
         },
         countDownChanged(dismissCountDown) {
                 this.dismissCountDown = dismissCountDown
@@ -346,6 +375,9 @@ export default {
         showAlertDurationMissing() {
             this.dismissCountDownDuration = this.dismissSecs
         },
+        showAlertCourseMissing() {
+            this.dismissCountDownCourse = this.dismissSecs
+        },
     },
     validations: {
     exam: {
@@ -359,14 +391,8 @@ export default {
         duration: {
             required
         },
-        institution: {
-            minLength: minLength(0)
-        },
         course: {
             required
-        },
-        teacher: {
-            minLength: minLength(0)
         }
 
     }

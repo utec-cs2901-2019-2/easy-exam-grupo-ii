@@ -4,57 +4,32 @@
 
         <!-- START MODAL FOR PROBLEM -->
 
-        <b-modal v-if="available" ref="modal-problem" size = "xl" >
+        <b-modal v-if="available" ref="modal-problem" size="lg" >
             <template v-slot:modal-title>
                 <b>{{modal_titleProblem}}</b>
             </template>
+            <b-container>
+                <b-row>
+                    <b-col><b-card-sub-title><small><strong>Tags: </strong></small><small v-for="(tag, index) of modal_tagsProblem" v-bind:key="index"> | {{tag}}</small></b-card-sub-title></b-col>
+                    <b-col><b-card-sub-title><small class="float-right"><strong>Type: </strong>{{types[modal_selectProblem ['type']]}}</small></b-card-sub-title></b-col>
+                </b-row>
+            </b-container>  
+            <b-card-body v-html="modal_desProblem"></b-card-body>
             <b-row>
-                <b-col cols = "10">
-                    <b-button variant = "info" pill style="margin:3px" v-for="(tag, index) of modal_tagsProblem" v-bind:key = "index">
-                    {{tag}}
-                    </b-button>
-                </b-col>
-                <b-col cols = "2">
-                    <b-button disabled style="width:100%">
-                        {{types[modal_selectProblem ['type']]}}
-                    </b-button>
-                </b-col>
-            </b-row>
-            <b-row align-h="around" >
-                <b-col cols="9">
-                    <b-card no-header style = "width: 95%; margin: 10px; position:relative; overflow-y:scroll">
-                        <b-card-body v-html="modal_desProblem">
-                        </b-card-body>
+                <b-col cols="6" sm="8"><b-card header="Comments">
+                    <b-card v-for="(com, key) of commentsInfo" v-bind:key ="key">
+                        <b-card-sub-title>{{com.nameTeacher}}</b-card-sub-title>
+                        <b-card-text>{{com.description}}</b-card-text>
                     </b-card>
-                    <b-button disabled style="background : #6c757d">
-                        Comments
-                    </b-button>
-                    
-                    <ul class="list-unstyled" style="width: 90%; height:200px;position: relative; overflow-y:scroll">
-                        <b-media v-for="(com, key) of commentsInfo" v-bind:key = "key" tag="li" style="margin : 10px; width: 90%" >
-                            <b-card>
-                                <h4><b>{{com.nameTeacher}}</b></h4>
-                                <b-card-text>
-                                    {{com.description}}
-                                </b-card-text>
-                            </b-card>
-                        </b-media>
-                    </ul>
-                </b-col>
-                <b-col cols="3">
-                    <br>
-                    <center>
-                        <h3>
-                            <b style="margin-left: 10px; margin-right: 10px">Score</b>
-                        </h3>
-                        <b-button variant="success" style="width : 50px; height: 50px; font-size : x-large">
-                            {{modal_selectProblem ['score']}}
-                        </b-button>
-                        <p>
-                            {{modal_selectProblem['qualifiers']}} views
-                        </p>
+                </b-card></b-col>
+                <b-col cols="6" sm="4">
+                    <b-container class="float-right border border-light">
+                        <div class="text-center">Score<br><b-button disabled class="pull-right">{{modal_selectProblem ['score']}}</b-button></div>
+                        <br>
+                        <div class="text-center"><strong>{{modal_selectProblem['qualifiers']}} </strong>qualifiers</div>
+                        <center>
                         <b-button-group v-if="ifscore <= 0">
-                            <b-button v-for="(btn, idx) in stars"
+                            <b-button size="sm" v-for="(btn, idx) in stars"
                                 :key="idx"
                                 :pressed.sync = "btn.state"
                                 variant = "outline-dark"
@@ -67,7 +42,7 @@
                             </b-button>
                         </b-button-group>
                         <b-button-group v-else>
-                            <b-button v-for="n in ifscore"
+                            <b-button size="sm" v-for="n in ifscore"
                                 :key="n"
                                 pressed
                                 variant = "outline-dark"
@@ -75,7 +50,7 @@
                             >
                             <mdb-icon icon="star" />
                             </b-button>
-                            <b-button v-for="n in (5 - ifscore)"
+                            <b-button size="sm" v-for="n in (5 - ifscore)"
                                 :key="n + ifscore"
                                 disabled
                                 variant = "outline-dark"
@@ -84,12 +59,10 @@
                             <mdb-icon icon="star" />
                             </b-button>
                         </b-button-group>
-                    </center>
-
+                        </center>
+                    </b-container>                  
                 </b-col>
             </b-row>
-            
-
             <template v-slot:modal-footer>
                 <b-row style="width : 100%">
                     <b-col cols = "4">
@@ -115,57 +88,32 @@
 
         <!-- MODAL IF YOU DONT HAVE -->
 
-        <b-modal v-else ref="modal-problem" size = "xl" >
+        <b-modal v-else ref="modal-problem">
             <template v-slot:modal-title>
                 <b>{{modal_titleProblem}}</b>
             </template>
-
+            <b-container>
+                <b-row>
+                    <b-col><b-card-sub-title><small><strong>Tags: </strong></small><small v-for="(tag, index) of modal_tagsProblem" v-bind:key="index"> | {{tag}}</small></b-card-sub-title></b-col>
+                    <b-col><b-card-sub-title><small class="float-right"><strong>Type: </strong>{{types[modal_selectProblem ['type']]}}</small></b-card-sub-title></b-col>
+                </b-row>
+            </b-container>  
+            <b-card-body v-html="modal_desProblem"></b-card-body>
             <b-row>
-                <b-col cols = "10">
-                    <b-button variant = "info" pill style="margin:3px" v-for="(tag, index) of modal_tagsProblem" v-bind:key = "index">
-                    {{tag}}
-                    </b-button>
-                </b-col>
-                <b-col cols = "2">
-                    <b-button disabled style="width:100%">
-                        {{types[modal_selectProblem ['type']]}}
-                    </b-button>
-                </b-col>
-            </b-row>
-            <br>
-            <b-row align-h="around">
-                <b-col cols="10">
-                    <b-button disabled style="background : #6c757d">
-                        Comments
-                    </b-button>
-                    
-                    <ul class="list-unstyled" style="width: 90%; height:200px;position: relative; overflow-y:scroll">
-                        <b-media v-for="(com, key) of commentsInfo" v-bind:key = "key" tag="li" style="margin : 10px; width: 90%" >
-                            <b-card>
-                                <h4><b>{{com.nameTeacher}}</b></h4>
-                                <b-card-text>
-                                    {{com.description}}
-                                </b-card-text>
-                            </b-card>
-                        </b-media>
-                    </ul>
-                </b-col>
-                <b-col cols="2">
-                    <br>
-                    <center>
-                        <h3>
-                            <b style="margin-left: 10px; margin-right: 10px">Score</b>
-                        </h3>
-                        <b-button variant="success" style="width : 50px; height: 50px; font-size : x-large">
-                            {{modal_selectProblem ['score']}}
-                        </b-button>
-                        <p>
-                            {{modal_selectProblem['qualifiers']}} views
-                        </p>
-                    </center>
+                <b-col cols="6" sm="8"><b-card header="Comments">
+                    <b-card v-for="(com, key) of commentsInfo" v-bind:key ="key">
+                        <b-card-sub-title>{{com.nameTeacher}}</b-card-sub-title>
+                        <b-card-text>{{com.description}}</b-card-text>
+                    </b-card>
+                </b-card></b-col>
+                <b-col cols="6" sm="4">
+                    <b-container class="float-right border border-light">
+                        <div class="text-center">Score<br><b-button disabled class="pull-right">{{modal_selectProblem ['score']}}</b-button></div>
+                        <br>
+                        <div class="text-center"><strong>{{modal_selectProblem['qualifiers']}} </strong>qualifiers</div>
+                    </b-container>                  
                 </b-col>
             </b-row>
-
             <template v-slot:modal-footer>
                 <b-row style="width : 100%">
                     <b-col cols = "6">
@@ -316,7 +264,7 @@
                     <b-container> 
                         <!--Card for problems-->
                         <b-card class="mt-2 shadow-sm" v-for="(problem, index) of filtrar" v-bind:key = "index" >
-                            <b-button disabled size="sm" variant="light" class="float-right"><small class="pull-right">{{problem.score}}</small></b-button>
+                            <b-button disabled size="sm" variant="light" class="float-right"><small><strong>Score</strong></small><br><small class="pull-right">{{problem.score}}</small></b-button>
                             <b-card-title>{{problem.title}}</b-card-title>
                             <b-card-sub-title><small><strong>Tags: </strong></small><small v-for="(tag, index) of problem.topicsString" v-bind:key="index"> | {{tag}}</small></b-card-sub-title>
                             <b-button squared v-if="creditos > 0" size="sm" variant="light" class="mt-2 float-md-left" @click="showModalProblem (problem.idx)">Select</b-button>
