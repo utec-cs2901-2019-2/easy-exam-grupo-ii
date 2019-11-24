@@ -103,121 +103,130 @@
     import { parse, HtmlGenerator } from 'latex.js'
 
     export default {
-        mixins: [validationMixin],
+        created(){
+            this.items = JSON.parse(localStorage.getItem('items'))
+                this.$store.state.user.username = this.items.map(items =>items.username).toString()
+                this.$store.state.user.token = this.items.map(items =>items.token).toString()
+                this.$store.state.user.credits = parseInt(this.items.map(items =>items.credits))
+                this.$store.state.user.id = parseInt(this.items.map(items => items.id))
+                this.$store.state.isLogged = true;
+        },
+
+mixins: [validationMixin],
         name: "Solution",
         data() {
             return {
-                dismissSecs: 5,
-                dismissCountDownDescrip: 0,
-                dismissCountDownPropType: 0,
-                tags: [],
-                dicty : {'Short Answer' : 'SA', 'Long Answer' : 'LA', 'Multiple Choice' : 'MC' , 'True or False' : 'TF'},
-                solution_html: ''
+dismissSecs: 5,
+             dismissCountDownDescrip: 0,
+             dismissCountDownPropType: 0,
+             tags: [],
+             dicty : {'Short Answer' : 'SA', 'Long Answer' : 'LA', 'Multiple Choice' : 'MC' , 'True or False' : 'TF'},
+             solution_html: ''
             }
         },
-        methods: {
+methods: {
              hideInfo(button){
-                this.$root.$emit('bv::hide::modal', 'modalPopover', button)
-            },
-            onSubmit(evt) {
-                let valDescrip = this.solution.description.length > 0 ? true : false;
+                 this.$root.$emit('bv::hide::modal', 'modalPopover', button)
+             },
+             onSubmit(evt) {
+                 let valDescrip = this.solution.description.length > 0 ? true : false;
                  if (valDescrip){
-                    const p_post = axios.post("http://localhost:9898/problem/v1/submitProblem", {
-                        idTeacher: this.user.id,
-                        title: this.problem.title,
-                        type: this.problem.type.value,
-                        body: this.problem.body,
-                        topics: this.problem.topics_id,
-                        rutaImage: this.problem.image,
-                        descriptionSolution: this.solution.description,
-                        pathImageSolution: this.solution.image
-                    });
-                    p_post.then(resp => {
-                        console.log(resp.data)
-                    });
-                    p_post.catch(error => {
-                        console.log(error)
-                   });
-                   this.hideInfo(evt);
-                   this.$router.push('/dashboard');
-                   let new_credit = this.$store.state.user.credits + 3
+                     const p_post = axios.post("http://localhost:9898/problem/v1/submitProblem", {
+idTeacher: this.user.id,
+title: this.problem.title,
+type: this.problem.type.value,
+body: this.problem.body,
+topics: this.problem.topics_id,
+rutaImage: this.problem.image,
+descriptionSolution: this.solution.description,
+pathImageSolution: this.solution.image
+});
+p_post.then(resp => {
+        console.log(resp.data)
+        });
+p_post.catch(error => {
+        console.log(error)
+        });
+this.hideInfo(evt);
+this.$router.push('/dashboard');
+let new_credit = this.$store.state.user.credits + 3
 
-                   var newItems = JSON.parse(localStorage.items)
-                    newItems[0].credits +=3
-                    localStorage.setItem('items', JSON.stringify(newItems))
-                    alert("Your problem has been submited! You get +3 credits as reward!")
+var newItems = JSON.parse(localStorage.items)
+    newItems[0].credits +=3
+    localStorage.setItem('items', JSON.stringify(newItems))
+    alert("Your problem has been submited! You get +3 credits as reward!")
 
 
-                    this.$store.state.user.credits += 3;
-                    axios.post('http://' + this.$store.state.clientURL + '/teacher/v1/teacher/updateBonus',{
-                        id : this.$store.state.user.id,
-                        bonus : new_credit
-                    });
-                    this.ResetAllFields();
-                    this.goBack();
-                } else{
-                    this.showAlertDescription()
-                }
+    this.$store.state.user.credits += 3;
+    axios.post('http://' + this.$store.state.clientURL + '/teacher/v1/teacher/updateBonus',{
+id : this.$store.state.user.id,
+bonus : new_credit
+});
+this.ResetAllFields();
+this.goBack();
+} else{
+    this.showAlertDescription()
+}
+
+},
+    onReset(evt) {
+        evt.preventDefault();
+        this.solution.description = '';
+        this.problem.type = '';
+    },
+    goBack () {
+        this.$store.commit('updateViewBack')
+    },
+    countDownChanged(dismissCountDown) {
+        this.dismissCountDown = dismissCountDown
+    },
+    showAlertDescription() {
+        this.dismissCountDownDescrip = this.dismissSecs
+    },
+    showAlertProbType() {
+        this.dismissCountDownPropType = this.dismissSecs
+    },
+    ResetAllFields(){
+        this.solution.description = '';
+        this.problem.type = '';
+        this.problem.title = '';
+        this.problem.body = '';
+        this.problem.image = null;
+        this.problem.topics_id = []
+    },
+    visualize(){
+        let generator = new HtmlGenerator({ hyphenate: false })
+            let doc = parse(this.solution.description, { generator: generator })
+            this.solution_html = doc.htmlDocument().documentElement.outerHTML
+    }
+},
+    mounted() {
+        const tag = axios.get("http://" + this.$store.state.clientURL + "/topics/v1/topics/getTopics");
+        tag.then(response => (this.tags = response.data));
+    },
+computed: {
+              ...mapState ({
+problem: state => state.submit.form.problem,
+solution: state => state.submit.form.solution,
+types: state => state.submit.types,
+user: state => state.user,
+}),
+              validatImg() {
+                  return (Boolean(this.problem.image)==true? true: null)
+              }
+},
+components: {
+                Multiselect
 
             },
-            onReset(evt) {
-                evt.preventDefault();
-                this.solution.description = '';
-                this.problem.type = '';
-            },
-            goBack () {
-                this.$store.commit('updateViewBack')
-            },
-            countDownChanged(dismissCountDown) {
-                this.dismissCountDown = dismissCountDown
-            },
-            showAlertDescription() {
-                this.dismissCountDownDescrip = this.dismissSecs
-            },
-            showAlertProbType() {
-                this.dismissCountDownPropType = this.dismissSecs
-            },
-            ResetAllFields(){
-                this.solution.description = '';
-                this.problem.type = '';
-                this.problem.title = '';
-                this.problem.body = '';
-                this.problem.image = null;
-                this.problem.topics_id = []
-            },
-            visualize(){
-                let generator = new HtmlGenerator({ hyphenate: false })
-                let doc = parse(this.solution.description, { generator: generator })
-                this.solution_html = doc.htmlDocument().documentElement.outerHTML
-            }
-        },
-        mounted() {
-            const tag = axios.get("http://" + this.$store.state.clientURL + "/topics/v1/topics/getTopics");
-            tag.then(response => (this.tags = response.data));
-        },
-        computed: {
-            ...mapState ({
-                problem: state => state.submit.form.problem,
-                solution: state => state.submit.form.solution,
-                types: state => state.submit.types,
-                user: state => state.user,
-            }),
-            validatImg() {
-                return (Boolean(this.problem.image)==true? true: null)
-            }
-        },
-        components: {
-            Multiselect
-
-        },
-        validations: {
-            solution: {
-                description: {
-                    required,
-                    minLength: minLength(1)
-                }
-            }
-        }
+validations: {
+solution: {
+description: {
+                 required,
+                 minLength: minLength(1)
+             }
+          }
+             }
     }
 </script>
 
