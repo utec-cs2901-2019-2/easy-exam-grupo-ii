@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5 mx-5">
+    <div class="mt-5 mx-5" >
                 <!-- START MODAL FOR PROBLEM -->
 
         <b-modal ref="modal-problem" size = "xl" >
@@ -146,90 +146,64 @@
         </b-modal>
 
         <!-- END MODAL FOR SOLUTION -->
-
-        <div class="mx-5">
             <b-row>
-                <b-col cols="6" md="4">
-                    <b-card class="w-100 p-3">
-                        <!--b-img class="w-100 mb-5" src="https://picsum.photos/600/300/?image=25"></b-img-->
-                        <h4><b>{{user.information.firstname}}</b></h4>
-                        <h4><b>{{user.information.lastname}}</b></h4>
-                        <h4>{{user.information.user.email}}</h4>
-                        <br>
-                        <h5>
-                            <b>Problems Submited</b>
-                        </h5>
-                        <h5>
-                            {{infoproblems.length}}
-                        </h5>
-                        <h5>
-                            <b>Problems Obtained</b>
-                        </h5>
-                        <h5>
-                            {{obproblems.length}}
-                        </h5>
-                        <!--h5>
-                            <b>Comments</b>
-                        </h5>
-                        <h5>
-                            {{user.stats.numberOfComments}}
-                        </h5-->
-                        <h5>
-                            <b>Institution</b>
-                        </h5>
-                        <h5>
-                            {{user.information.institution}}
-                        </h5>
-                        <h5>
-                            <b>Country</b>
-                        </h5>
-                        <h5>
-                            {{user.information.country}}
-                        </h5>
-                        <h5>
-                            <b>Date of Birth</b>
-                        </h5>
-                        <h5>
-                            {{user.information.date_birth.slice(0,10)}}
-                        </h5>
-                        <!--b-button class="w-100" variant="dark">
-                            Edit Proffile
-                        </b-button-->
-                    </b-card>
-                </b-col>
-                <b-col cols="12" md="8">
-                    <div class="w-100 h-100">
-                        <b-tabs justified>
-                            <!--b-tab class="p-4" title="Overview" active>
+                <b-card style="min-width: max-content; max-width: max-content">
+                    <center>
+                            <h2><b>  {{user.information.firstname}} {{user.information.lastname}}</b></h2>
+                            <h6 style="color: #6c757d">{{user.information.user.email}}</h6>
 
-                            </b-tab-->
-                            <b-tab class="p-4 h-100" title="Problems Submited">
-                                <b-row align-h="between" style="margin:auto">
-                                    <b-col cols="12" lg="8" class="p-0">
-                                        <b-form-input class="w-100" type="text" v-model="keyToSearch"></b-form-input>
+                            <br>
+                        <h4> <b>Problems</b> </h4>
+                    <b-row>
+                        <b-col style="width: 50%">
+                            <h5> <b>Submited</b> </h5>
+                            <h4 >{{infoproblems.length}}</h4>
+                        </b-col>
+                        <b-col style="width: 50%">
+                            <h5><b>Obtained</b></h5>
+                            <h4>{{obproblems.length}}</h4>
+                        </b-col>
+                    </b-row>
+                    </center>
+                    <br>
+                    <br>
+
+                            <h5><b>Institution</b></h5>
+                            <h5>{{user.information.institution}}</h5>
+                            <h5><b>Country</b></h5>
+                            <h5>{{user.information.country}}</h5>
+                            <h5><b>Date of Birth</b></h5>
+                            <h5>{{user.information.date_birth.slice(0,10)}}</h5>
+                        </b-card>
+                    <b-card style="min-width: 70%; margin-left:20px; margin-right: 20px ">
+                        <b-tabs>
+                            <b-tab title="Problems Submited" >
+                                <b-row align-h="between" style="margin-top:20px; margin-bottom: 20px; margin-left: 10px">
+                                    <b-col >
+                                        <b-form-input type="text" v-model="keyToSearch"></b-form-input>
                                     </b-col>
-                                    <b-col cols="12" lg="2" class="p-0">
-                                        <b-form-select class="w-100"
+                                    <b-col>
+                                        <b-form-select
                                         id="input-3"
                                         v-model="form_select.tsort"
                                         :options="form_select.sorts"
                                         required
                                         ></b-form-select>
                                     </b-col>
-                                    <b-col cols="12" lg="2" class="p-0">
-                                        <b-button class="w-100" variant="info">Search</b-button>
+                                    <b-col >
+                                        <b-button  variant="info">Search</b-button>
                                     </b-col>
                                 </b-row>
 
                                 <b-card style = "margin:20px; background: #d4d4d4" class="mb-1" v-for="(problem, index) of filtrar" v-bind:key = "index">
                                     <b-card-title><b>{{problem.title}}</b></b-card-title>
                                     <b-row style="min-height :70px">
-                                        <b-col cols = "12" xl="10" class="h-100">
+                                        <b-col >
                                             <div style="margin-top : 10px">
                                                 <b-button variant="info" style = "margin:5px" v-for="(tag, index) of problem.topicsString" v-bind:key="index">{{tag}}</b-button>
                                             </div>
                                         </b-col>
-                                        <b-col cols = "12" xl="2" class="h-100">
+                                        <b-col>
                                             <ul class="list-unstyled">
                                                 <li>
                                                     <b-button disabled style="width : 80px">
@@ -247,33 +221,34 @@
                                     <b-button style="margin-top : 10px" href="#" pill variant="light" @click="showModalProblem1 (problem.idx)">Go problem</b-button>
                                 </b-card>
                             </b-tab>
-                            <b-tab class="p-4 h-100" title="Problems Obtained">
-                                <b-row align-h="between" style="margin:auto" fixed>
-                                    <b-col cols="12" lg="8" class="p-0">
-                                        <b-form-input class="w-100" type="text" v-model="keyToSearch2"></b-form-input>
+
+                            <b-tab title="Problems Submited" >
+                                <b-row align-h="between" style="margin-top:20px; margin-bottom: 20px; margin-left: 10px">
+                                    <b-col >
+                                        <b-form-input  type="text" v-model="keyToSearch2"></b-form-input>
                                     </b-col>
-                                    <b-col cols="12" lg="2" class="p-0">
-                                        <b-form-select class="w-100"
+                                    <b-col >
+                                        <b-form-select
                                         id="input-3"
                                         v-model="form_select.tsort"
                                         :options="form_select.sorts"
                                         required
                                         ></b-form-select>
                                     </b-col>
-                                    <b-col cols="12" lg="2" class="p-0">
-                                        <b-button class="w-100" variant="info">Search</b-button>
+                                    <b-col >
+                                        <b-button variant="info">Search</b-button>
                                     </b-col>
                                 </b-row>
 
                                 <b-card style = "margin:20px; background: #d4d4d4" class="mb-1" v-for="(problem, index) of filtrar2" v-bind:key = "index">
                                     <b-card-title><b>{{problem.title}}</b></b-card-title>
                                     <b-row style="min-height :70px">
-                                        <b-col cols = "12" xl="10" class="h-100">
+                                        <b-col >
                                             <div style="margin-top : 10px">
                                                 <b-button variant="info" style = "margin:5px" v-for="(tag, index) of problem.topicsString" v-bind:key="index">{{tag}}</b-button>
                                             </div>
                                         </b-col>
-                                        <b-col cols = "12" xl="2" class="h-100">
+                                        <b-col>
                                             <ul class="list-unstyled">
                                                 <li>
                                                     <b-button disabled style="width : 80px">
@@ -291,45 +266,36 @@
                                     <b-button style="margin-top : 10px" href="#" pill variant="light" @click="showModalProblem2 (problem.idx)">Go problem</b-button>
                                 </b-card>
                             </b-tab>
-                            <b-tab class="p-4" title="Exams">
-
-                                <b-container>
-                                    <center>
-                                    <b-row style="width:80%" align-self="center">
-                                        <b-col sm=5>
-                                            <b-button variant="outline-dark" class="w-100 mx-3">
+                            <b-tab title="Exams Generated"  >
+                                <b-row align-h="between" style="margin:auto; border-color: white" >
+                                    <b-col sm="5">
+                                            <b-button variant="outline-dark" >
                                                 <h4><b>Title Exam</b></h4>
                                                 <h5># problems</h5>
                                                 <h5>
                                                     date
                                                 </h5>
                                             </b-button>
-                                        </b-col>
-                                        <b-col sm=2></b-col>
-                                        <b-col sm=5>
-                                            <b-button variant="outline-dark" class="w-100 mx-3">
+                                    </b-col>
+                                    <b-col sm="5">
+                                            <b-button variant="outline-dark" >
                                                 <h4><b>Title Exam</b></h4>
                                                 <h5># problems</h5>
-                                                <h5>
-                                                    date
-                                                </h5>
+                                                <h5>date</h5>
                                             </b-button>
-                                        </b-col>
-                                    </b-row>
+                                    </b-col>
+                                </b-row>
                                     <br>
-                                    <b-row style="width:80%" align-self="center">
-                                        <b-col sm=5>
-                                            <b-button variant="outline-dark" class="w-100 mx-3">
+                                <b-row align-h="between" style="margin:auto">
+                                        <b-col>
+                                            <b-button variant="outline-dark" >
                                                 <h4><b>Title Exam</b></h4>
                                                 <h5># problems</h5>
-                                                <h5>
-                                                    date
-                                                </h5>
+                                                <h5>date</h5>
                                             </b-button>
                                         </b-col>
-                                        <b-col sm=2></b-col>
-                                        <b-col sm=5>
-                                            <b-button variant="outline-dark" class="w-100 mx-3">
+                                        <b-col sm="5">
+                                            <b-button variant="outline-dark" >
                                                 <h4><b>Title Exam</b></h4>
                                                 <h5># problems</h5>
                                                 <h5>
@@ -340,9 +306,10 @@
                                     </b-row>
                                     <br>
 
-                                    <b-row style="width:80%" align-self="center">
+
+                                <b-row align-h="between" style="margin:auto">
                                         <b-col sm=5>
-                                            <b-button variant="outline-dark" class="w-100 mx-3">
+                                            <b-button variant="outline-dark" >
                                                 <h4><b>Title Exam</b></h4>
                                                 <h5># problems</h5>
                                                 <h5>
@@ -350,9 +317,9 @@
                                                 </h5>
                                             </b-button>
                                         </b-col>
-                                        <b-col sm=2></b-col>
+                                        <b-col></b-col>
                                         <b-col sm=5>
-                                            <b-button variant="outline-dark" class="w-100 mx-3">
+                                            <b-button variant="outline-dark" >
                                                 <h4><b>Title Exam</b></h4>
                                                 <h5># problems</h5>
                                                 <h5>
@@ -361,15 +328,10 @@
                                             </b-button>
                                         </b-col>
                                     </b-row>
-                                    </center>
-                                </b-container>
-
                             </b-tab>
                         </b-tabs>
-                    </div>
-                </b-col>
+                    </b-card>
             </b-row>
-        </div>
     </div>
 </template>
 
