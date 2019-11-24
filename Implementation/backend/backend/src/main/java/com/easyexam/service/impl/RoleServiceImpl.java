@@ -26,4 +26,10 @@ public class RoleServiceImpl implements IRoleService {
         return roleRepo.findAll();
     }
 
+    @Override
+    public Role save(Role role) {
+        return roleRepo.save(role);
+    }
+
+
 }

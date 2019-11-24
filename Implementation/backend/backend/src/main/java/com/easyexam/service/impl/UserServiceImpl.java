@@ -71,6 +71,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
         newUser.setEmail(user.getEmail());
         newUser.setPassword(user.getPassword());
         newUser.setActive(user.getActive());
+        newUser.setRole(user.getRole());
         correlativeRepo.updateIdUser();
         return userRepo.save(newUser);
     }

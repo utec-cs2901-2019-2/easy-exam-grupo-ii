@@ -1,6 +1,5 @@
 package com.easyexam.model.aux;
 
-import java.util.Date;
 import java.util.List;
 
 public class ExamCompleted {
@@ -9,7 +8,11 @@ public class ExamCompleted {
 
     private String title;
 
-    //private Date creationDate;
+    private String indications;
+
+    private String duration;
+
+    private String course;
 
     private List<ProblemCompleted> listProblems;
 
@@ -36,5 +39,29 @@ public class ExamCompleted {
 
     public void setListProblems(List<ProblemCompleted> listProblems) {
         this.listProblems = listProblems;
+    }
+
+    public String getIndications() {
+        return indications;
+    }
+
+    public void setIndications(String indications) {
+        this.indications = indications;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
     }
 }

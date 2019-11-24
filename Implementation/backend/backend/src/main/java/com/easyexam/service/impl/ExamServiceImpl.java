@@ -30,12 +30,15 @@ public class ExamServiceImpl implements IExamService {
 
 
     @Override
-    public Boolean saveExam(ExamCompleted exam) {
+    public int saveExam(ExamCompleted exam) {
 
         Exam e=new Exam();
         e.setCreationDate(new Date());
         e.setTitle(exam.getTitle());
         e.setId(correlativeRepo.getIdExam());
+        e.setIndications(exam.getIndications());
+        e.setCourse(exam.getCourse());
+        e.setDuration(exam.getDuration());
         examRepo.save(e);
 
         System.out.println("Entro a idexam");
@@ -47,6 +50,6 @@ public class ExamServiceImpl implements IExamService {
             examProblemRepo.save(ep);
         }
         correlativeRepo.updateIdExam();
-        return true;
+        return e.getId();
     }
 }
