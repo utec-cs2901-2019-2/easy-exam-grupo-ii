@@ -47,8 +47,9 @@ public class ExamController {
     }
 
     @GetMapping("/generateExam")
-    public void generateExam(HttpServletResponse response) throws IOException {
+    public void generateExam(int idExam,HttpServletResponse response) throws IOException {
         LOG.info("Entro a generate Exam");
+        LOG.info(Integer.toString(idExam));
         String name="prueba.tex";
         String namePDF="prueba.pdf";
         generateLatex(name);
