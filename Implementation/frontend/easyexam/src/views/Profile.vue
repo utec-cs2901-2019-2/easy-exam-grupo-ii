@@ -147,35 +147,31 @@
 
         <!-- END MODAL FOR SOLUTION -->
             <b-row>
-                <b-card style="min-width: max-content; max-width: max-content; border-radius: 40px" bg-variant="light">
+                <b-card style="min-width: max-content; max-width: max-content; border-radius: 20px; height: max-content" bg-variant="light">
                     <center>
-                            <h1><b>  {{user.information.firstname}} {{user.information.lastname}}</b></h1>
-                            <h6 style="color: #6c757d">{{user.information.user.email}}</h6>
+                        <br>
+                            <h2><b>  {{user.information.firstname}} {{user.information.lastname}}</b></h2>
 
-                            <br>
+                            <h6 style="color: #6c757d">{{user.information.user.email}}</h6>
+                        <h6 style="color: #6c757d">{{user.information.institution}} - {{user.information.country}}</h6>
+                        <br><br><br><br>
+                        <br>
                         <h4> <b>Problems</b> </h4>
                     <b-row>
                         <b-col style="width: 50%">
-                            <h5> <b>Submited</b> </h5>
-                            <h4 >{{infoproblems.length}}</h4>
+                            <h6 style="min-width: max-content"> <b>Submited</b> </h6>
+                            <h5 >{{infoproblems.length}}</h5>
                         </b-col>
                         <b-col style="width: 50%">
-                            <h5><b>Obtained</b></h5>
-                            <h4>{{obproblems.length}}</h4>
+                            <h6 style="min-width: max-content"><b>Obtained</b></h6>
+                            <h5>{{obproblems.length}}</h5>
                         </b-col>
                     </b-row>
-                    </center>
-                    <br>
-                    <br>
 
-                            <h5><b>Institution</b></h5>
-                            <h5>{{user.information.institution}}</h5>
-                            <h5><b>Country</b></h5>
-                            <h5>{{user.information.country}}</h5>
-                            <h5><b>Date of Birth</b></h5>
-                            <h5>{{user.information.date_birth.slice(0,10)}}</h5>
+                    </center>
+
                         </b-card>
-                    <b-card style="min-width: 70%; margin-left:20px; margin-right: 20px ">
+                    <b-card style="min-width: 70%; margin-left:20px; margin-right: 20px;border-radius: 10px">
                         <b-tabs>
                             <b-tab title="Problems Submited" >
                                 <b-row align-h="between" style="margin-top:20px; margin-bottom: 20px; margin-left: 10px">
