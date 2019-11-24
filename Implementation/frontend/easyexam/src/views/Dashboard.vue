@@ -316,7 +316,7 @@
 
                     <b-container> 
                         <!--Card for problems-->
-                        <b-card class="mt-2" v-for="(problem, index) of filtrar" v-bind:key = "index" >
+                        <b-card class="mt-2 shadow-sm" v-for="(problem, index) of filtrar" v-bind:key = "index" >
                             <b-button disabled size="sm" variant="light" class="float-right"><small class="pull-right">{{problem.score}}</small></b-button>
                             <b-card-title>{{problem.title}}</b-card-title>
                             <b-card-sub-title><small><strong>Tags: </strong></small><small v-for="(tag, index) of problem.topicsString" v-bind:key="index"> | {{tag}}</small></b-card-sub-title>

@@ -17,7 +17,7 @@
                 <b-container class="mb-2" style="max-width: 600px;  min-height: 400px;"> 
                     <b-form-input class="w-100" placeholder="Search a problem for your exam" type="text" v-model="keyFromAll"></b-form-input>                
                     <!--Card for problems-->
-                    <b-card class="mt-2" v-for="(prob, index) of filtrarAll" v-bind:key = "index" >
+                    <b-card class="mt-2 shadow-sm" v-for="(prob, index) of filtrarAll" v-bind:key = "index" >
                         <b-card-title>{{prob.title}}</b-card-title>
                         <b-card-sub-title><small><strong>Tags: </strong></small><small v-for="(tag, index) of prob.topicsString" v-bind:key="index"> | {{tag}}</small></b-card-sub-title>
                         <b-button squared size="sm" variant="light" class="mt-2 float-md-left" @click="selectProblem(prob.id)">Select</b-button>
