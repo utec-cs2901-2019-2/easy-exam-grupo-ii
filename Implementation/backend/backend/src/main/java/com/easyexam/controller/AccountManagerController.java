@@ -32,6 +32,7 @@ import com.easyexam.service.implOthers.EmailService;
 import com.easyexam.service.implOthers.PasswordTokenService;
 import com.easyexam.service.ITeacherService;
 import com.easyexam.model.aux.PasswordResetToken;
+import com.easyexam.model.Role;
 import com.easyexam.model.Teacher;
 
 
@@ -72,7 +73,7 @@ public class AccountManagerController {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUser.getEmail(), loginUser.getPassword()));
         final String token = jwtTokenUtil.generateToken(user);
         final Teacher teacher = teacherService.findOneByUser(user);
-        return new ApiResponse<>(200, "success",new AuthToken(token, user.getId(), user.getEmail(), teacher.getBonus()));
+        return new ApiResponse<>(200, "success",new AuthToken(token, user.getId(), user.getEmail(), teacher.getBonus(), user.getRole()));
     }
 
     @PostMapping("/register")
@@ -84,7 +85,14 @@ public class AccountManagerController {
         }
 
         userDetail.setActive(true);
-        //userDetail.setRole(roleService.findById(1)); // Teacher 1 - Admin 0
+        if (roleService.getAllRoles().size() == 0) {
+            Role teacher = new Role(1, "Teacher");
+            Role admin = new Role(0, "Admin");
+
+            roleService.save(teacher);
+            roleService.save(admin);
+        }
+        userDetail.setRole(roleService.findById(1)); // Teacher 1 - Admin 0
 
         User user = userService.save(userDetail);
         teacherDetail.setUser(user);
