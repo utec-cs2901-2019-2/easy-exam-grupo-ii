@@ -8,12 +8,9 @@
         <b-alert v-model="richMaximunProblem" variant="warning" dismissible>
             You can select eight problem as maximum for your exam!
         </b-alert>
-        <b-alert v-model="examDetailsCheck" variant="danger" dismissible>
-            You must enter the required exam details for your exam!
-        </b-alert>
         <b-tabs content-class="mt-3" v-model="tabIndex" align="center" fill justified>
             <b-tab title="Select Problems" title-item-class="disabledTab">
-                <b-container class="mb-2" style="max-width: 400px;  min-height: 400px;"> 
+                <b-container class="mb-2" style="max-width: 600px;  min-height: 400px;"> 
                     <b-form-input class="w-100" placeholder="Search a problem for your exam" type="text" v-model="keyFromAll"></b-form-input>                
                     <!--Card for problems-->
                     <b-card class="mt-2" v-for="(prob, index) of filtrarAll" v-bind:key = "index" >
@@ -41,8 +38,11 @@
                         <b-form-invalid-feedback id="input-1-live-feedback">
                             You must need to enter your exam title.
                         </b-form-invalid-feedback>
+                        <b-alert v-model="examTitleMissing" variant="danger" dismissible>
+                            You must enter the title for your exam!
+                        </b-alert>
                     </b-form-group>
-                    <b-form-group label="Indications:">
+                    <b-form-group label="Indications: *">
                         <b-form-textarea
                         v-model="$v.exam.indications.$model"
                         :state= "$v.exam.indications.$dirty ? !$v.exam.indications.$error : null"
@@ -52,8 +52,11 @@
                         >
                         </b-form-textarea>
                         <b-form-invalid-feedback id="input-2-live-feedback">
-                            You must need to enter your exam details.
+                            You must need to enter your exam indications.
                         </b-form-invalid-feedback>
+                        <b-alert v-model="examIndicationsMissing" variant="danger" dismissible>
+                            You must enter the indications for your exam!
+                        </b-alert>
                     </b-form-group>
                     <b-row>
                         <b-col cols="6">
@@ -65,7 +68,10 @@
                             </b-form-input>
                             <b-form-invalid-feedback id="input-3-live-feedback">
                             You must need to enter your exam details.
-                        </b-form-invalid-feedback>
+                            </b-form-invalid-feedback>
+                            <b-alert v-model="examDurationMissing" variant="danger" dismissible>
+                                You must enter the title for your exam!
+                            </b-alert>
                             
                         </b-col>
                         <b-col cols="6">
@@ -86,13 +92,48 @@
                             </b-form-input>
                         </b-col>
                     </b-row>
+                    <b-form-group label = "Add your problems score:" class="mt-2">                   
+                    <b-container fluid>
+                        <!-- Main table element -->
+                        <b-table
+                        show-empty
+                        small
+                        stacked="md"
+                        :items="problemsSelected"
+                        :fields="fields"      
+                        >
+                        <template v-slot:cell(type)="row">
+                            {{ dicty[row.value] }}
+                        </template>
+                        <template v-slot:cell(deselect)="row">
+                            <b-button-close squared size="sm" variant="light" class="mt-2 float-md-right" @click="deselectProblem(row.item.id)"></b-button-close>
+                        </template>
+
+                        <template v-slot:cell(score)="row">
+                            <input style="width: 30px;" v-model="row.value" placeholder="edit me">
+                        </template>
+
+                        
+                        <template v-slot:cell(actions)="row">
+                            <b-button variant="light" size="sm" @click="row.toggleDetails">
+                            {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
+                            </b-button>
+                        </template>
+
+                        <template v-slot:row-details="row">
+                            {{row}}
+                            <b-card>
+                                <b-button variant="light" @click="visualize(row.item.body)"><i class="fas fa-play-circle"></i></b-button>
+                                <b-card-body v-html="problem_html">
+                                </b-card-body>
+                            </b-card>
+                        </template>
+                        </b-table>
+
+                    </b-container>
+                    </b-form-group>
                 </b-form>
-                    <b-card squared class="mt-2" v-for="(prob, index) of filtrarSel" v-bind:key = "index">
-                        <b-button-close squared size="sm" variant="light" class="mt-2 float-md-right" @click="deselectProblem(prob.id)"></b-button-close>
-                        <b-card-title>{{prob.title}}</b-card-title>
-                        <b-card-text><small class="float-md-right">{{dicty[prob.type]}}</small></b-card-text>
-                        <b-form-input style="width: 10px" label="hola"></b-form-input>
-                    </b-card>
+                    
                 </b-container>
             </b-tab>
             <b-tab title="Exam Preview"  title-item-class="disabledTab">
@@ -111,17 +152,49 @@
             <b-progress height="2px" :value="tabIndex+1" :max=3></b-progress>
             
         </b-tabs>
+        <b-modal 
+                title="Submit status"
+                id="examSubmitModal"
+                ok-only
+            >
+            Are you sure you want to generate this exam?
+            <template v-slot:modal-footer>
+                <b-button
+                    variant="primary"
+                    size="sm"
+                    class="float-right"
+                    type="submit"
+                    @click="onSubmit($event.target)"
+                >
+                Yes
+                </b-button>
+                <b-button
+                    variant="danger"
+                    size="sm"
+                    class="float-left"
+                    @click="hideInfo($event.target)"
+                >
+                Cancel
+                </b-button>
+            </template>
+            </b-modal>
     </div>
 </template>
 <script>
 import { minLength, required } from 'vuelidate/lib/validators'
 import {mapState} from 'vuex'
 import { validationMixin } from 'vuelidate'
+import { parse, HtmlGenerator } from 'latex.js'
+import katex from 'katex';
+import 'katex/dist/katex.min.css';
 import axios from 'axios'
 export default {
     mixins: [validationMixin],
     data(){
         return {
+            examIndicationsMissing: false,
+            examDurationMissing: false,
+            examTitleMissing: false,
             tabIndex : 0,
             keyFromAll : '',
             keyFromSel : '',
@@ -131,12 +204,20 @@ export default {
             selectOne: false,
             problemSelectCheck: false,
             richMaximunProblem: false,
-            examDetailsCheck: false,
             maxNumberProblems: 8,
+            problem_html: '',
             dicty : {'SA' : 'Short Answer', 'LA' : 'Long Answer', 'MC' : 'Multiple Choice' , 'TF' : 'True or False'},
+            fields: [
+                {key: 'title', label:'Title'},
+                {key: 'type', label: 'Type'},
+                {key: 'score', label: 'Score'},
+                {key: 'actions', label: 'Actions'},
+                {key: 'deselect', label: 'Deselect'}
+            ]
         }
     },
     mounted() {
+        window.katex = katex;
         axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSubmitedByUser?idUser=' + this.$store.state.user.id)
         .then(response => (this.problemsAll = this.problemsAll.concat(response.data)))
         axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSelected?id=' + this.$store.state.user.id)
@@ -197,17 +278,42 @@ export default {
     },
 
     methods: {
+        visualize(body){
+            let generator = new HtmlGenerator({ hyphenate: false })
+            let doc = parse(body, { generator: generator })
+            this.problem_html = doc.htmlDocument().documentElement.outerHTML
+        },
+        submitExam(){
+
+            this.tabIndex++;
+        },
         goNext(){
             switch(this.tabIndex){
-                case 0:
+                case 0:{
                     if (this.problemsSelected.length >= 1){
                         this.tabIndex++;
                     }else{
                         this.problemSelectCheck = true;
                     }
                     break;
-                case 2:
+                }
+                case 1:{
+                    let valTitle = this.exam.title.length>0;
+                    let valDuration = this.exam.duration.length>0;
+                    let valIndications = this.exam.indications.length>=20;
+                    if (valTitle && valDuration && valIndications){
+                        this.$bvModal.show('examSubmitModal');
+                    }else{
+                    if (!valIndications){
+                        this.examIndicationsMissing = true;
+                    }if (!valDuration){
+                        this.examDurationMissing = true;
+                    }if (!valTitle){
+                        this.examTitleMissing = true;
+                        }
+                    }
                     break;
+                }
                 case 3:
                     break;
                 default:
@@ -222,7 +328,6 @@ export default {
                 this.richMaximunProblem = true;
             }
         },
-
         deselectProblem : function (index) {
             this.problemsAll.push (this.problemsSelected[index])
             this.problemsSelected.splice(index, 1)
