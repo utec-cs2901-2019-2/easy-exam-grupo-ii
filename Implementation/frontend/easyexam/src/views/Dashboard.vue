@@ -513,6 +513,10 @@ export default {
             })
             let new_credit = this.$store.state.user.credits - 1
             this.$store.state.user.credits -= 1;
+			var newItems = JSON.parse(localStorage.items)
+			newItems[4] -=1
+			localStorage.setItem('items', JSON.stringify(newItems))
+
             axios.post('http://' + this.$store.state.clientURL + '/teacher/v1/teacher/updateBonus',{
                 id : this.$store.state.user.id,
                 bonus : new_credit
