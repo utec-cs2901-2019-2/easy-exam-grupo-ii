@@ -45,16 +45,15 @@ public class FileServiceImpl implements IFileService {
         Teacher t=teacherRepo.findTeacherById(idTeacher);
 
         String documentclass = "\\documentclass{article} \n";
-        String title = "\\title{\n";
+        String title = "\\title{";
         String begin = "\\begin{document} \n";
         String maketitle = "\\maketitle \n";
-        //String problem = "Helloworld \n";
 
         String section = "\\section{ ";
         String endBracket=" } \n";
         String subsection = "\\subsection{SubProblem} \n";
         String end = "\\end{document} \n";
-        String endl="\\break";
+        String endl=" \\newline \n";
 
         String path="./src/main/java/com/easyexam/files";
         String separator="/";
@@ -73,18 +72,22 @@ public class FileServiceImpl implements IFileService {
         String author="Author: "+t.getFirstname()+ " "+t.getLastname()+endl;
         out.write(author.getBytes());
 
-        String courseENdl="Course : "+e.getCourse()+"\\hspace{1cm} Duration: "+e.getDuration()+endl;
+
+        String courseENdl="Course : "+e.getCourse()+"$                                              $ Duration: "+e.getDuration()+endl;
         out.write(courseENdl.getBytes());
 
-        String indicaciontTitle="Indicactions: \n";
+        String indicaciontTitle="Indicactions: \n"+endl;
         out.write(indicaciontTitle.getBytes());
 
         String indicationEndl=e.getIndications()+endl;
         out.write(indicationEndl.getBytes());
 
+        String nameStudent="Name: "+endl;
+        out.write(nameStudent.getBytes());
+
         for(ExamProblem ep:examP){
             Problem p=problemRepo.findProblemById(ep.getExamProblemId().getIdProblem());
-            String tmp=section+p.getTitle()+ep.getScore()+endBracket;
+            String tmp=section+p.getTitle()+" $("+Integer.toString(ep.getScore())+" points)$"+endBracket;
             out.write(tmp.getBytes());
             out.write(p.getBody().getBytes());
         }

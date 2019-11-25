@@ -81,6 +81,32 @@ public class ExamController {
 
     }
 
+    @GetMapping("/generateExamLatex")
+    public void generateExam(HttpServletResponse response) throws IOException {
+        LOG.info("Entro a generate Exam");
+
+        response.setContentType("application/tex");
+
+        response.setHeader("Content-Disposition","attachment;filename="+path+separator+"prueba.tex");
+        response.setHeader("Content-Transfer-Enconding","binary");
+
+        try{
+            BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
+            FileInputStream fis = new FileInputStream(path+separator+"prueba.tex");
+            int len;
+            byte[] buf = new byte[1024];
+            while((len = fis.read(buf)) > 0) {
+                bos.write(buf,0,len);
+            }
+            bos.close();
+            response.flushBuffer();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
 
 
 }
