@@ -21,7 +21,7 @@
                         <b-card-title>{{prob.title}}</b-card-title>
                         <b-card-sub-title><small><strong>Tags: </strong></small><small v-for="(tag, index) of prob.topicsString" v-bind:key="index"> | {{tag}}</small></b-card-sub-title>
                         <b-button squared size="sm" variant="light" class="mt-2 float-md-left" @click="selectProblem(prob.id)">Select</b-button>
-                        <b-button squared size="sm" variant="light" class="mt-2 float-md-left" @click="visualize(prob.body);$bvModal.show('problemVisualizador');">View</b-button>
+                        <b-button squared size="sm" variant="light" class="mt-2 float-md-left" @click="visualizeModal(prob.body);$bvModal.show('problemVisualizador');">View</b-button>
                         <b-card-text><small class="float-right">{{dicty[prob.type]}}</small></b-card-text>
                     </b-card>
                 </b-container>
@@ -138,8 +138,7 @@
 
                         <template v-slot:row-details="row">
                             <b-card>
-                                <b-button variant="light" @click="visualize(row.item.body)"><i class="fas fa-play-circle"></i></b-button>
-                                <b-card-body v-html="visualize(row.item.body)">
+                                <b-card-body v-html="visualizeCard(row.item.body)">
                                 </b-card-body>
                             </b-card>
                         </template>
@@ -161,6 +160,7 @@
                     >
                     </b-embed>
                 </b-container>
+                <b-button @click="generateExam">Generate Exam</b-button>
             </b-tab>
             <b-button squared size="sm" variant="light" class="w-50" @click="tabIndex--">Prev</b-button>
             <b-button class="w-50" squared size="sm" variant="light" @click="goNext">Next</b-button>
@@ -284,17 +284,26 @@ export default {
         hideInfo(button){
             this.$root.$emit('bv::hide::modal', 'examSubmitModal', button)
         },
-        visualize(body){
+        visualizeCard(body){
             let generator = new HtmlGenerator({ hyphenate: false })
             let doc = parse(body, { generator: generator })
+           // this.problem_html = doc.htmlDocument().documentElement.outerHTML;
             return doc.htmlDocument().documentElement.outerHTML
+        },
+        visualizeModal(body){
+            let generator = new HtmlGenerator({ hyphenate: false })
+            let doc = parse(body, { generator: generator })
+            this.problem_html = doc.htmlDocument().documentElement.outerHTML;
         },
         submitExam(evt){
 
             const p_post = axios.post('http://' + this.$store.state.clientURL +'/exam/v1/submitExam', {
                 idTeacher: this.user.id,
                 title: this.exam.title,
-                listProblems: this.problemsSelected
+                course: this.exam.course,
+                listProblems: this.problemsSelected,
+                duration: this.exam.duration,
+                indications: this.exam.indications
             });
             p_post.then(resp => {
                 console.log(resp.data)
@@ -304,6 +313,20 @@ export default {
             });
             this.hideInfo(evt);
             this.tabIndex++;
+        },
+        generateExam(){
+            axios({
+                url: 'http://' + this.$store.state.clientURL +'/exam/v1/generateExam?idExam=1&idTeacher=1',
+                method: 'GET',
+                responseType: 'blob',
+            }).then((response) => {
+                var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                var fileLink = document.createElement('a');              
+                fileLink.href = fileURL;
+                fileLink.setAttribute('download', 'easyexam.pdf');
+                document.body.appendChild(fileLink);
+                fileLink.click();
+            });
         },
         goNext(){
             switch(this.tabIndex){
