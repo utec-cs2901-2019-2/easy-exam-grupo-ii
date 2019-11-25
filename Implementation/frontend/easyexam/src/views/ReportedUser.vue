@@ -56,6 +56,7 @@
       </template>
 
       <template v-slot:cell(actions)="row">
+        <!--
         <b-button
           size="sm"
           @click="info(row.item, row.index, $event.target)"
@@ -63,12 +64,13 @@
         >
           Info modal
         </b-button>
+        -->
         <b-button size="sm"
           class="mr-1"
-          @click="row.toggleDetails"
+          @click="suspend(row.item, row.index, $event.target)"
           variant="danger"
         >
-          Delete
+          Suspend
         </b-button>
         <b-button
           size="sm"
@@ -109,13 +111,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      items: [
-        {
-          isActive: true,
-          age: 40,
-          name: { first: "Dickerson", last: "Macdonald" }
-        },
-      ],
+      items: [],
       fields: [
         {
           key: "id",
@@ -124,20 +120,26 @@ export default {
           sortDirection: "desc"
         },
         {
-          key: "name",
-          label: "Name",
+          key: "first_name",
+          label: "First Name",
           sortable: true,
           class: "text-center"
         },
         {
-          key: "timesReported",
+          key: "last_name",
+          label: "Last Name",
+          sortable: true,
+          class: "text-center"
+        },
+        {
+          key: "count",
           label: "Times Reported",
           sortable: true,
           class: "text-center"
         },
         {
-          key: "timesReported",
-          label: "Times Reported",
+          key: "email",
+          label: "Email",
           sortable: true,
           class: "text-center"
         },
@@ -173,17 +175,13 @@ export default {
     // Set the initial number of items
     this.totalRows = this.items.length;
 
-    var url = 'http://'+ this.$store.state.clientURL + '/problems'
+    var url = 'http://'+ this.$store.state.clientURL + '/user/v1/user/getReportedUsers'
     axios.get(url).then(response => {
-        console.log(response)
+        console.log(response.data)
+        this.items = response.data
     }).catch(e => console.log(e))
   },
   methods: {
-    info(item, index, button) {
-      this.infoModal.title = `Row index: ${index}`;
-      this.infoModal.content = JSON.stringify(item, null, 2);
-      this.$root.$emit("bv::show::modal", this.infoModal.id, button);
-    },
     resetInfoModal() {
       this.infoModal.title = "";
       this.infoModal.content = "";
@@ -192,9 +190,21 @@ export default {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
-    delete(item, index, button) {
-      console.log(item, index, button)
-      axios.delete('http://'+ this.$store.state.clientURL + '/problems/' + item.id)
+    suspend(item, index, button) {
+      console.log(item.id, index, button)
+      axios.put('http://'+ this.$store.state.clientURL + '/user/v1/suspend?idUser=' + item.id).then(response => {
+        console.log(response)
+        var url = 'http://'+ this.$store.state.clientURL + '/user/v1/user/getReportedUsers'
+        axios.get(url).then(response => {
+        this.items = response.data
+    }).catch(e => console.log(e))
+      })
+    },
+    reactivate(item, index, button) {
+      console.log(item.id, index, button)
+      axios.put('http://'+ this.$store.state.clientURL + '/user/v1/reactivate?idUser=' + item.id).then(response => {
+        console.log(response)
+      })
     }
   }
 };

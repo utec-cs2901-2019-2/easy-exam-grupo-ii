@@ -18,6 +18,8 @@ public class Suggest {
     @Column(name="isReported")
     private boolean isReported;
 
+    public Suggest() {}
+
     public Suggest(SuggestId suggestId, String description, boolean isReported) {
         this.suggestId = suggestId;
         this.description = description;

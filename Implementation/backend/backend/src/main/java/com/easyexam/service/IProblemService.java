@@ -33,4 +33,8 @@ public interface IProblemService {
     SolutionProblem getSolutionOfProblem(int idProblem);
 
     List<ProblemCompleted> getListProblemCompletedSubmitedByUser(int idUser);
+
+    List<Problem> getReportedProblems();
+
+    void delete(int idProblem);
 }

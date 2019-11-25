@@ -45,6 +45,9 @@ public class ProblemServiceImpl implements IProblemService {
     @Autowired
     ICorrelativeRepo correlativeRepo;
 
+    @Autowired
+    ISuggestRepo suggestRepo;
+
     @Override
     public Boolean save(ProblemCompleted p) {
 
@@ -198,6 +201,26 @@ public class ProblemServiceImpl implements IProblemService {
             list.add(pc);
         }
         return list;
+    }
+
+    @Override
+    public List<Problem> getReportedProblems() {
+        List<Problem> problems = new ArrayList<>();
+        for (int p : suggestRepo.getReportedProblems()) {
+            problems.add(findProblemById(p));
+        }
+        return problems;
+    }
+
+    @Override
+    public void delete(int idProblem) {
+        for (Suggest s : suggestRepo.findAll()) {
+            if (s.getSuggestId().getIdProblem() == idProblem) {
+                suggestRepo.delete(s);
+            }
+        }
+        Problem problem = problemRepo.findById(idProblem).get();
+        problemRepo.delete(problem);
     }
 
 }

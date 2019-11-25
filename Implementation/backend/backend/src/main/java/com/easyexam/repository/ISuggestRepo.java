@@ -28,9 +28,20 @@ public interface ISuggestRepo extends JpaRepository<Suggest,SuggestId> {
     @Query(value = "SELECT * FROM problem p where p.",nativeQuery = true)
     int max();
 
-    @Query(value = "  select id_teacher, count(*) as cantidad \n" +
+    @Query(value =  "  select count(*) \n" +
+                    "  from suggest s\n" +
+                    "  where s.id_teacher = :id ;",nativeQuery = true)
+    int getCountByTeacherId(@Param("id")int id);
+
+    @Query(value = "  select id_teacher \n" +
             "  from suggest s\n" +
+            "  where is_reported = true \n" +
             "  group by(s.id_teacher)\t\n" +
             "  having count(*)>3;",nativeQuery = true)
-    List<UserCompleted> getSuggest();
+    List<Integer> getSuggest();
+
+    @Query(value = "  select id_problem \n" +
+            "  from suggest s\n" +
+            "  where is_reported = true ;",nativeQuery = true)
+    List<Integer> getReportedProblems();
 }

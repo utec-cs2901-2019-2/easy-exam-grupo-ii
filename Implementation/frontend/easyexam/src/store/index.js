@@ -28,7 +28,7 @@ export default new Vuex.Store({
       credits: 0,
       role: {
         id : null,
-        name = null
+        name : null
       }
     },
     submit: {
