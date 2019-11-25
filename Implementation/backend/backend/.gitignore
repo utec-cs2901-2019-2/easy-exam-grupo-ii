@@ -29,3 +29,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### PDF Generator ###
+
+src/main/java/com/easyexam/files
