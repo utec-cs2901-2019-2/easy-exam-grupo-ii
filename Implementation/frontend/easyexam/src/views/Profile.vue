@@ -1,58 +1,32 @@
 <template>
     <div class="mt-5 mx-5">
-                <!-- START MODAL FOR PROBLEM -->
-
-        <b-modal ref="modal-problem" size = "xl" >
+      <!-- START MODAL FOR PROBLEM -->
+        <b-modal ref="modal-problem" size="lg" >
             <template v-slot:modal-title>
                 <b>{{modal_titleProblem}}</b>
             </template>
+            <b-container>
+                <b-row>
+                    <b-col><b-card-sub-title><small><strong>Tags: </strong></small><small v-for="(tag, index) of modal_tagsProblem" v-bind:key="index"> | {{tag}}</small></b-card-sub-title></b-col>
+                    <b-col><b-card-sub-title><small class="float-right"><strong>Type: </strong>{{types[modal_selectProblem ['type']]}}</small></b-card-sub-title></b-col>
+                </b-row>
+            </b-container>  
+            <b-card-body v-html="modal_desProblem"></b-card-body>
             <b-row>
-                <b-col cols = "10">
-                    <b-button variant = "info" pill style="margin:3px" v-for="(tag, index) of modal_tagsProblem" v-bind:key = "index">
-                    {{tag}}
-                    </b-button>
-                </b-col>
-                <b-col cols = "2">
-                    <b-button disabled style="width:100%">
-                        {{types[modal_selectProblem ['type']]}}
-                    </b-button>
-                </b-col>
-            </b-row>
-            <b-row align-h="around" >
-                <b-col cols="9">
-                    <b-card no-header style = "width: 95%; margin: 10px; position:relative; overflow-y:scroll">
-                        <b-card-body v-html="modal_desProblem">
-                        </b-card-body>
+                <b-col cols="6" sm="8"><b-card header="Comments">
+                    <b-card v-for="(com, key) of commentsInfo" v-bind:key ="key">
+                        <b-card-sub-title>{{com.nameTeacher}}</b-card-sub-title>
+                        <b-card-text>{{com.description}}</b-card-text>
                     </b-card>
-                    <b-button disabled style="background : #6c757d">
-                        Comments
-                    </b-button>
-                    
-                    <ul class="list-unstyled" style="width: 90%; height:200px;position: relative; overflow-y:scroll">
-                        <b-media v-for="(com, key) of commentsInfo" v-bind:key = "key" tag="li" style="margin : 10px; width: 90%" >
-                            <b-card>
-                                <h4><b>{{com.nameTeacher}}</b></h4>
-                                <b-card-text>
-                                    {{com.description}}
-                                </b-card-text>
-                            </b-card>
-                        </b-media>
-                    </ul>
-                </b-col>
-                <b-col cols="3">
-                    <br>
-                    <center>
-                        <h3>
-                            <b style="margin-left: 10px; margin-right: 10px">Score</b>
-                        </h3>
-                        <b-button variant="success" style="width : 50px; height: 50px; font-size : x-large">
-                            {{modal_selectProblem ['score']}}
-                        </b-button>
-                        <p>
-                            {{modal_selectProblem['qualifiers']}} views
-                        </p>
+                </b-card></b-col>
+                <b-col cols="6" sm="4">
+                    <b-container class="float-right border border-light">
+                        <div class="text-center">Score<br><b-button disabled class="pull-right">{{modal_selectProblem ['score']}}</b-button></div>
+                        <br>
+                        <div class="text-center"><strong>{{modal_selectProblem['qualifiers']}} </strong>qualifiers</div>
+                        <center>
                         <b-button-group v-if="ifscore <= 0">
-                            <b-button v-for="(btn, idx) in stars"
+                            <b-button size="sm" v-for="(btn, idx) in stars"
                                 :key="idx"
                                 :pressed.sync = "btn.state"
                                 variant = "outline-dark"
@@ -65,7 +39,7 @@
                             </b-button>
                         </b-button-group>
                         <b-button-group v-else>
-                            <b-button v-for="n in ifscore"
+                            <b-button size="sm" v-for="n in ifscore"
                                 :key="n"
                                 pressed
                                 variant = "outline-dark"
@@ -73,7 +47,7 @@
                             >
                             <mdb-icon icon="star" />
                             </b-button>
-                            <b-button v-for="n in (5 - ifscore)"
+                            <b-button size="sm" v-for="n in (5 - ifscore)"
                                 :key="n + ifscore"
                                 disabled
                                 variant = "outline-dark"
@@ -82,17 +56,15 @@
                             <mdb-icon icon="star" />
                             </b-button>
                         </b-button-group>
-                    </center>
-
+                        </center>
+                    </b-container>                  
                 </b-col>
             </b-row>
-            
-
             <template v-slot:modal-footer>
                 <b-row style="width : 100%">
                     <b-col cols = "4">
                         <center>
-                            <b-button variant = "outline-warning" @click="showSol()">
+                            <b-button @click="showSol()">
                                 <b>See Solution</b>
                             </b-button>
                         </center>
@@ -110,6 +82,7 @@
                 </b-row>
             </template>
         </b-modal>
+
 
         <!-- END MODAL FOR PROBLEM-->
         <!-- START MODAL FOR COMMENTS -->
@@ -217,35 +190,19 @@
                                         ></b-form-select>
                                     </b-col>
                                     <b-col cols="12" lg="2" class="p-0">
-                                        <b-button class="w-100" variant="info">Search</b-button>
+                                        <b-button class="w-100">Search</b-button>
                                     </b-col>
                                 </b-row>
-
-                                <b-card style = "margin:20px; background: #d4d4d4" class="mb-1" v-for="(problem, index) of filtrar" v-bind:key = "index">
-                                    <b-card-title><b>{{problem.title}}</b></b-card-title>
-                                    <b-row style="min-height :70px">
-                                        <b-col cols = "12" xl="10" class="h-100">
-                                            <div style="margin-top : 10px">
-                                                <b-button variant="info" style = "margin:5px" v-for="(tag, index) of problem.topicsString" v-bind:key="index">{{tag}}</b-button>
-                                            </div>
-                                        </b-col>
-                                        <b-col cols = "12" xl="2" class="h-100">
-                                            <ul class="list-unstyled">
-                                                <li>
-                                                    <b-button disabled style="width : 80px">
-                                                        {{problem.score}}
-                                                    </b-button>
-                                                </li>
-                                                <li>
-                                                    <b-button disabled variant = "light" style="font-size : small; width : 80px"><b>
-                                                        {{problem.type}}</b>
-                                                    </b-button>
-                                                </li>
-                                            </ul>
-                                        </b-col>
-                                    </b-row>
-                                    <b-button style="margin-top : 10px" href="#" pill variant="light" @click="showModalProblem1 (problem.idx)">Go problem</b-button>
-                                </b-card>
+                                <b-container> 
+                                    <!--Card for problems-->
+                                    <b-card class="mt-2 shadow-sm" v-for="(problem, index) of filtrar" v-bind:key = "index" >
+                                        <b-button disabled size="sm" variant="light" class="float-right"><small><strong>Score</strong></small><br><small class="pull-right">{{problem.score}}</small></b-button>
+                                        <b-card-title>{{problem.title}}</b-card-title>
+                                        <b-card-sub-title><small><strong>Tags: </strong></small><small v-for="(tag, index) of problem.topicsString" v-bind:key="index"> | {{tag}}</small></b-card-sub-title>
+                                        <b-button size="sm" variant="light" class="mt-2 float-md-left" @click="showModalProblem1 (problem.idx)">View</b-button>
+                                        <b-card-text><small class="float-right">{{dicty[problem.type]}}</small></b-card-text>
+                                    </b-card>
+                                </b-container>
                             </b-tab>
                             <b-tab class="p-4 h-100" title="Problems Obtained">
                                 <b-row align-h="between" style="margin:auto" fixed>
@@ -261,35 +218,20 @@
                                         ></b-form-select>
                                     </b-col>
                                     <b-col cols="12" lg="2" class="p-0">
-                                        <b-button class="w-100" variant="info">Search</b-button>
+                                        <b-button class="w-100">Search</b-button>
                                     </b-col>
                                 </b-row>
 
-                                <b-card style = "margin:20px; background: #d4d4d4" class="mb-1" v-for="(problem, index) of filtrar2" v-bind:key = "index">
-                                    <b-card-title><b>{{problem.title}}</b></b-card-title>
-                                    <b-row style="min-height :70px">
-                                        <b-col cols = "12" xl="10" class="h-100">
-                                            <div style="margin-top : 10px">
-                                                <b-button variant="info" style = "margin:5px" v-for="(tag, index) of problem.topicsString" v-bind:key="index">{{tag}}</b-button>
-                                            </div>
-                                        </b-col>
-                                        <b-col cols = "12" xl="2" class="h-100">
-                                            <ul class="list-unstyled">
-                                                <li>
-                                                    <b-button disabled style="width : 80px">
-                                                        {{problem.score}}
-                                                    </b-button>
-                                                </li>
-                                                <li>
-                                                    <b-button disabled variant = "light" style="font-size : small; width : 80px"><b>
-                                                        {{problem.type}}</b>
-                                                    </b-button>
-                                                </li>
-                                            </ul>
-                                        </b-col>
-                                    </b-row>
-                                    <b-button style="margin-top : 10px" href="#" pill variant="light" @click="showModalProblem2 (problem.idx)">Go problem</b-button>
-                                </b-card>
+                                <b-container> 
+                                    <!--Card for problems-->
+                                    <b-card class="mt-2 shadow-sm" v-for="(problem, index) of filtrar2" v-bind:key = "index" >
+                                        <b-button disabled size="sm" variant="light" class="float-right"><small><strong>Score</strong></small><br><small class="pull-right">{{problem.score}}</small></b-button>
+                                        <b-card-title>{{problem.title}}</b-card-title>
+                                        <b-card-sub-title><small><strong>Tags: </strong></small><small v-for="(tag, index) of problem.topicsString" v-bind:key="index"> | {{tag}}</small></b-card-sub-title>
+                                        <b-button size="sm" variant="light" class="mt-2 float-md-left" @click="showModalProblem2 (problem.idx)">View</b-button>
+                                        <b-card-text><small class="float-right">{{dicty[problem.type]}}</small></b-card-text>
+                                    </b-card>
+                                </b-container>
                             </b-tab>
                             <b-tab class="p-4" title="Exams">
 
@@ -376,6 +318,9 @@
 <script>
 import axios from 'axios'
 import { mdbIcon } from 'mdbvue';
+import { parse, HtmlGenerator } from 'latex.js'
+import katex from 'katex';
+import 'katex/dist/katex.min.css';
 
 export default {
 
@@ -396,6 +341,7 @@ export default {
             keyToSearch : '',
             keyToSearch2 : '',
             show : true,
+            dicty : {'SA' : 'Short Answer', 'LA' : 'Long Answer', 'MC' : 'Multiple Choice' , 'TF' : 'True or False'},
             user: {
                 stats:{
                     submitedProb: 12,
@@ -442,6 +388,7 @@ export default {
         }
     },
     mounted() {
+        window.katex = katex;
         axios.get("http://" + this.$store.state.clientURL +  "/problem/v1/problem/getProblemsSubmitedByUser?idUser=" + this.$store.state.user.id)
         .then(response => (this.infoproblems = response.data));
         axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSelected?id=' + this.$store.state.user.id)
@@ -552,8 +499,11 @@ export default {
             this.modal_tagsProblem = this.infoproblems [index].topicsString
             this.modal_selectProblem = this.infoproblems [index]
             this.solutionshow = ''
-            axios.get("http://" + this.$store.state.clientURL + "/problem/v1/problem/latexToHtml?idProblem=" + this.modal_selectProblem.id)
-            .then(response => {this.modal_desProblem = (response.data)})
+            
+            let generator = new HtmlGenerator({ hyphenate: false })
+            let doc = parse(this.infoproblems [index].body, { generator: generator })
+            this.modal_desProblem = doc.htmlDocument().documentElement.outerHTML;
+
             axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getSolutionProblem?idProblem=' + this.modal_selectProblem.id)
             .then(response => (this.solutionshow = (response.data.body)))
             this.modal_solution = this.infoproblems [index].body
@@ -570,8 +520,11 @@ export default {
             this.modal_tagsProblem = this.obproblems [index].topicsString
             this.modal_selectProblem = this.obproblems [index]
             this.solutionshow = ''
-            axios.get("http://" + this.$store.state.clientURL + "/problem/v1/problem/latexToHtml?idProblem=" + this.modal_selectProblem.id)
-            .then(response => {this.modal_desProblem = (response.data)})
+
+            let generator = new HtmlGenerator({ hyphenate: false })
+            let doc = parse(this.obproblems [index].body, { generator: generator })
+            this.modal_desProblem = doc.htmlDocument().documentElement.outerHTML;
+
             axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getSolutionProblem?idProblem=' + this.modal_selectProblem.id)
             .then(response => (this.solutionshow = (response.data.body)))
             this.modal_solution = this.obproblems [index].body
@@ -617,13 +570,9 @@ export default {
             this.$refs['ModalComment'].show()
         },
         showSol () {
-
-
-            axios.post('http://' + this.$store.state.clientURL + '/problem/v1/problem/latexToHtmlbyBody', {
-                body: this.solutionshow
-            })
-            .then(response => (this.solutionshow = (response.data)))
-
+            let generator = new HtmlGenerator({ hyphenate: false })
+            let doc = parse(this.solutionshow, { generator: generator })
+            this.solutionshow = doc.htmlDocument().documentElement.outerHTML;
             this.$refs['ModalSol'].show()
         },
         onSubmit(evt) {

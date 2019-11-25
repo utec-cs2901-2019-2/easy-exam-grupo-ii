@@ -12,6 +12,9 @@
         <b-alert v-model="richMaximunProblem" variant="warning" dismissible>
             You can select eight problem as maximum for your exam!
         </b-alert>
+        <b-button squared size="sm" variant="light" class="w-50" @click="tabIndex--"><i class="fas fa-angle-double-left fa-1x" style="color:  #2f3135 ;"></i></b-button>
+            <b-button class="w-50" squared size="sm" variant="light" @click="goNext"><i class="fas fa-angle-double-right fa-1x" style="color:  #2f3135 ;"></i></b-button> 
+            <b-progress height="2px" :value="tabIndex+1" :max=3></b-progress>
         <b-tabs content-class="mt-3" v-model="tabIndex" align="center" fill justified>
             <b-tab title="Select Problems" title-item-class="disabledTab">
                 <b-container class="mb-2" style="max-width: 600px;  min-height: 400px;"> 
@@ -20,7 +23,7 @@
                     <b-card class="mt-2 shadow-sm" v-for="(prob, index) of filtrarAll" v-bind:key = "index" >
                         <b-card-title>{{prob.title}}</b-card-title>
                         <b-card-sub-title><small><strong>Tags: </strong></small><small v-for="(tag, index) of prob.topicsString" v-bind:key="index"> | {{tag}}</small></b-card-sub-title>
-                        <b-button squared size="sm" variant="light" class="mt-2 float-md-left" @click="selectProblem(prob.id)">Select</b-button>
+                        <b-button squared size="sm" variant="light" class="mt-2 float-md-left" @click="selectProblem(prob.idx)">Select</b-button>
                         <b-button squared size="sm" variant="light" class="mt-2 float-md-left" @click="visualizeModal(prob.body);$bvModal.show('problemVisualizador');">View</b-button>
                         <b-card-text><small class="float-right">{{dicty[prob.type]}}</small></b-card-text>
                     </b-card>
@@ -118,21 +121,22 @@
                         :items="problemsSelected"
                         :fields="fields"      
                         >
+                        {
                         <template v-slot:cell(type)="row">
                             {{ dicty[row.value] }}
                         </template>
                         <template v-slot:cell(deselect)="row">
-                            <b-button-close squared size="sm" variant="light" class="mt-2 float-md-right" @click="deselectProblem(row.item.id)"></b-button-close>
+                            <b-button-close squared size="sm" variant="light" class="mt-2 float-md-right" @click="deselectProblem(row.item.idx)"></b-button-close>
                         </template>
 
                         <template v-slot:cell(score)="row">
-                            <input style="width: 30px;" v-model="row.value" placeholder="edit me">
+                            <input style="width: 30px;" v-model="row.value" v-on:keyup.enter="updateScore(row.item.id, row.value)" placeholder="edit me">
                         </template>
 
                         
                         <template v-slot:cell(problem)="row">
                             <b-button variant="light" size="sm" @click="row.toggleDetails">
-                            {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
+                            {{ row.detailsShowing ? 'Hide' : 'Show' }} Problem
                             </b-button>
                         </template>
 
@@ -162,9 +166,7 @@
                 </b-container>
                 <b-button @click="generateExam">Generate Exam</b-button>
             </b-tab>
-            <b-button squared size="sm" variant="light" class="w-50" @click="tabIndex--">Prev</b-button>
-            <b-button class="w-50" squared size="sm" variant="light" @click="goNext">Next</b-button>
-            <b-progress height="2px" :value="tabIndex+1" :max=3></b-progress>
+            
             
         </b-tabs>
 
@@ -260,16 +262,13 @@ export default {
             let res = []
             let id = 0
             for (let problem of this.problemsAll) {
-                problem["id"] = id
+                problem["idx"] = id
                 id = id + 1
-                if (this.keyFromAll === '')
-                {
+                if (this.keyFromAll === ''){
                     res.push(problem);
-                }
-                else
-                {
+                }else{
                     let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
-                    if (stringToSearch.includes (this.keyFromAll.toLowerCase()) && res.length<4)
+                    if (stringToSearch.includes (this.keyFromAll.toLowerCase()))
                     {
                         res.push (problem)
                     }
@@ -287,7 +286,6 @@ export default {
         visualizeCard(body){
             let generator = new HtmlGenerator({ hyphenate: false })
             let doc = parse(body, { generator: generator })
-           // this.problem_html = doc.htmlDocument().documentElement.outerHTML;
             return doc.htmlDocument().documentElement.outerHTML
         },
         visualizeModal(body){
@@ -362,7 +360,14 @@ export default {
                     this.tabIndex++;
             }
         },
+        updateScore(index, newScore){
+            console.log("updated")
+            console.log(index)
+            console.log(newScore)
+            this.problemsSelected[index].score = newScore;
+        },
         selectProblem : function (index) {
+            console.log(index)
             if (this.problemsSelectedCompleted.length < this.maxNumberProblems){
                 let newProblem = {
                     id: this.problemsAll[index].id,
@@ -370,6 +375,7 @@ export default {
                     score: 0,
                     title: this.problemsAll[index].title,
                     body: this.problemsAll[index].body,
+                    idx : this.problemsSelected.length
                 }
                 this.problemsSelectedCompleted.push (this.problemsAll[index])
                 this.problemsSelected.push (newProblem)
@@ -379,6 +385,7 @@ export default {
             }
         },
         deselectProblem : function (index) {
+            console.log(index)
             this.problemsAll.push (this.problemsSelectedCompleted[index])
             this.problemsSelected.splice(index, 1)
             this.problemsSelectedCompleted.splice(index, 1)
