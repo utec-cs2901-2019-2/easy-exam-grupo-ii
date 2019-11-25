@@ -51,12 +51,12 @@ public class ExamController {
     }
 
     @GetMapping("/generateExam")
-    public void generateExam(int idExam,HttpServletResponse response) throws IOException {
+    public void generateExam(int idExam,int idTeacher,HttpServletResponse response) throws IOException {
         LOG.info("Entro a generate Exam");
         LOG.info(Integer.toString(idExam));
         String name="prueba.tex";
         String namePDF="prueba.pdf";
-        fileService.generateLatex(name,idExam);
+        fileService.generateLatex(name,idExam,idTeacher);
         fileService.generatePDF(namePDF,name);
 
         response.setContentType("application/pdf");

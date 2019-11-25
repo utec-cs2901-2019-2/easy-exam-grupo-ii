@@ -1,13 +1,8 @@
 package com.easyexam.service.impl;
 
 import com.easyexam.controller.ExamController;
-import com.easyexam.model.Exam;
-import com.easyexam.model.ExamProblem;
-import com.easyexam.model.Problem;
-import com.easyexam.repository.IExamProblemRepo;
-import com.easyexam.repository.IExamRepo;
-import com.easyexam.repository.IExamTeacherRepo;
-import com.easyexam.repository.IProblemRepo;
+import com.easyexam.model.*;
+import com.easyexam.repository.*;
 import com.easyexam.service.implOthers.IFileService;
 import de.nixosoft.jlr.JLRGenerator;
 import net.bytebuddy.asm.Advice;
@@ -40,11 +35,17 @@ public class FileServiceImpl implements IFileService {
     @Autowired
     IExamRepo examRepo;
 
-    public void generateLatex(String name,int idExam) throws IOException {
+    @Autowired
+    ITeacherRepo teacherRepo;
+
+    public void generateLatex(String name,int idExam,int idTeacher) throws IOException {
         LOG.info("entro a generate Latex");
+        Exam e=examRepo.findExamById(idExam);
+
+        Teacher t=teacherRepo.findTeacherById(idTeacher);
 
         String documentclass = "\\documentclass{article} \n";
-        String title = "\\title{NewTitle} \n";
+        String title = "\\title{\n";
         String begin = "\\begin{document} \n";
         String maketitle = "\\maketitle \n";
         //String problem = "Helloworld \n";
@@ -53,7 +54,7 @@ public class FileServiceImpl implements IFileService {
         String endBracket=" } \n";
         String subsection = "\\subsection{SubProblem} \n";
         String end = "\\end{document} \n";
-        String endl="\n";
+        String endl="\\break";
 
         String path="./src/main/java/com/easyexam/files";
         String separator="/";
@@ -63,13 +64,16 @@ public class FileServiceImpl implements IFileService {
         FileOutputStream out = new FileOutputStream(path+separator+name);
 
         out.write(documentclass.getBytes());
+        title=title+e.getTitle()+endBracket;
         out.write(title.getBytes());
         out.write(begin.getBytes());
         out.write(maketitle.getBytes());
 
-        Exam e=examRepo.findExamById(idExam);
 
-        String courseENdl="Course : "+e.getCourse()+endl;
+        String author="Author: "+t.getFirstname()+ " "+t.getLastname()+endl;
+        out.write(author.getBytes());
+
+        String courseENdl="Course : "+e.getCourse()+"\\hspace{1cm} Duration: "+e.getDuration()+endl;
         out.write(courseENdl.getBytes());
 
         String indicaciontTitle="Indicactions: \n";
