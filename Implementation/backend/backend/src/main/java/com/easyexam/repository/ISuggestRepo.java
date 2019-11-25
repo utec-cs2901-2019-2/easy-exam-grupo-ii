@@ -24,7 +24,6 @@ public interface ISuggestRepo extends JpaRepository<Suggest,SuggestId> {
     @Query(value="insert into suggest values (:idProblem, :idTeacher, :comment, true)", nativeQuery=true)
     int reportProblem(@Param("comment") String comment, @Param("idProblem")int idProblem, @Param("idTeacher")int idTeacher);
 
-
     @Query(value = "SELECT * FROM problem p where p.",nativeQuery = true)
     int max();
 

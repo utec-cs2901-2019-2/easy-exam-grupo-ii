@@ -7,23 +7,32 @@ public class UserCompleted {
     private String email;
 
     private int count;
+    private int cantidad;
 
     private String first_name;
     private String last_name;
 
-    public UserCompleted() { }
-
-    public UserCompleted(int id, int bonus, String email) {
-        this.id = id;
-        this.bonus = bonus;
-        this.email = email;
+    public int getCantidad() {
+        return cantidad;
     }
 
-    public UserCompleted(int id, int bonus, String email, int count, String first_name, String last_name) {
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public UserCompleted() { }
+
+    public UserCompleted(int id, int cantidad) {
+        this.id = id;
+        this.cantidad = cantidad;
+    }
+
+    public UserCompleted(int id, int bonus, String email, int count, int cantidad, String first_name, String last_name) {
         this.id = id;
         this.bonus = bonus;
         this.email = email;
         this.count = count;
+        this.cantidad = cantidad;
         this.first_name = first_name;
         this.last_name = last_name;
     }
@@ -42,14 +51,6 @@ public class UserCompleted {
 
     public void setCount(int count) {
         this.count = count;
-    }
-
-    public UserCompleted(int id, int bonus, String email, String first_name, String last_name) {
-        this.id = id;
-        this.bonus = bonus;
-        this.email = email;
-        this.first_name = first_name;
-        this.last_name = last_name;
     }
 
     public String getFirst_name() {
