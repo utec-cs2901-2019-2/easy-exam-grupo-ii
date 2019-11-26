@@ -58,6 +58,11 @@ const routes = [
     path: '/reported-user',
     name: 'reported-user',
     component: () => import('../views/ReportedUser.vue')
+  },
+  {
+    path: '/admin-creator',
+    name: 'admin-creator',
+    component: () => import('../views/AdminCreator.vue')
   }
 ];
 
