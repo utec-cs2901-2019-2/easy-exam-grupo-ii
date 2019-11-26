@@ -156,16 +156,12 @@
                 </b-container>
             </b-tab>
             <b-tab title="Exam Preview"  title-item-class="disabledTab">
-                <b-container style="height: 400px; max-height: 600px;">
-                    <b-embed
-                    type="iframe"
-                    aspect="16by9"
-                    src=" "
-                    allowfullscreen
-                    >
-                    </b-embed>
+                <b-container style="height: 400px; max-height: 600px;" class="text-center">
+                 Your exam was successfully generated! You can download the pdf or source code below:
+                <b-button style ="position: relative; top: 50%; transform: translateY(-50%);" variant="light" @click="downloadGenerateExam">Download Exam</b-button>
+                <b-button style ="position: relative; top: 50%; transform: translateY(-50%);" variant="light" >Download Source Code</b-button>    
                 </b-container>
-                <b-button @click="generateExam">Generate Exam</b-button>
+                
             </b-tab>
             
             
@@ -230,6 +226,7 @@ export default {
             richMaximunProblem: false,
             maxNumberProblems: 8,
             problem_html: '',
+            pdfGeneratedURL: '',
             dicty : {'SA' : 'Short Answer', 'LA' : 'Long Answer', 'MC' : 'Multiple Choice' , 'TF' : 'True or False'},
             fields: [
                 {key: 'title', label:'Title'},
@@ -270,11 +267,11 @@ export default {
             //problemsSelected : state=>state.problemsSelected,
             //problemsAll : state=>state.myProblems
         }),
-        filtrarAll : function () {
+        filtrarAll() {
             let result = []
             for (let problem of this.problemList) {
-                problem["points"] = 0;
-                if (this.problemQuery){
+                problem["points"] = 0
+                if (this.problemQuery ===''){
                     result.push(problem);
                 }else{
                     let titleCond = problem.title.toLowerCase().indexOf(this.problemQuery.toLowerCase()) >= 0;
@@ -321,6 +318,7 @@ export default {
                 this.problemsSelected = [],
                 this.exam.duration = '',
                 this.exam.indications = '',
+                this.showGenerateExam()
                 console.log(this.idxExamGenerated)            
             });
             p_post.catch(error => {
@@ -329,19 +327,23 @@ export default {
             this.hideInfo(evt);
             this.tabIndex++;
         },
-        generateExam(){
+        showGenerateExam(){
             axios({
                 url: 'http://' + this.$store.state.clientURL +'/exam/v1/generateExam?idExam='+this.idxExamGenerated+'&idTeacher='+this.user.id,
                 method: 'GET',
                 responseType: 'blob',
             }).then((response) => {
-                var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-                var fileLink = document.createElement('a');              
-                fileLink.href = fileURL;
-                fileLink.setAttribute('download', 'easyexam.pdf');
-                document.body.appendChild(fileLink);
-                fileLink.click();
+                let newBlob = new Blob([response.data], {type: "application/pdf"})        
+                this.pdfGeneratedURL = URL.createObjectURL(newBlob);
+                window.open(this.pdfGeneratedURL)
             });
+        },
+        downloadGenerateExam(){
+            var fileLink = document.createElement('a');
+            fileLink.href = this.pdfGeneratedURL;
+            fileLink.setAttribute('download', 'easyExam.pdf');
+            document.body.appendChild(fileLink)
+            fileLink.click();
         },
         goNext(){
             switch(this.tabIndex){
@@ -431,10 +433,11 @@ export default {
             required
         }
 
-    }
-}
+        }
+    },
 }
 </script>
+
 <style>
   .disabledTab{
       pointer-events: none;
