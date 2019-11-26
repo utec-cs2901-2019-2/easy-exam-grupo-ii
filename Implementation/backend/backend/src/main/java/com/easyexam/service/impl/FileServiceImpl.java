@@ -44,16 +44,36 @@ public class FileServiceImpl implements IFileService {
 
         Teacher t=teacherRepo.findTeacherById(idTeacher);
 
-        String documentclass = "\\documentclass{article} \n";
-        String title = "\\title{";
-        String begin = "\\begin{document} \n";
-        String maketitle = "\\maketitle \n";
+        String documentClass = "\\documentclass[11pt,addpoints]{exam} \n";
+        String usePackage = "\\usepackage{amsfonts,amssymb,amsmath, amsthm} \n";
+        String usePackage2 = "\\usepackage{graphicx} \n";
+        String usePackage3 = "\\usepackage{systeme} \n";
+        String usePackage4 = "\\usepackage{pgf,tikz,pgfplots} \n";
+        String usePackage5 = "\\pgfplotsset{compat=1.15} \n";
+        String usePackage6 = "\\usepgfplotslibrary{fillbetween} \n";
+        String usePackage7 = "\\usepackage{mathrsfs} \n";
+        String usePackage8 = "\\usetikzlibrary{arrows} \n";
+        String usePackage9 = "\\usetikzlibrary{calc} \n";
 
-        String section = "\\section{ ";
+        String pageStyle = "\\pagestyle{headandfoot} \n";
+        String pageHeader = "\\firstpageheader{";
+        String points = " (\\numpoints\\ points) \\newline ";
+        String today = " \\newline \\today }{}{Name: \\underline{\\hspace{2.5in}}} \n";
+
+
+        String beginDocument = "\\begin{document} \n";
+        String center = "\\begin{center} \n";
+        String prevIndications = "\\fbox{\\fbox{\\parbox{6in}{\\centering \\textbf{Indications: } \n";
+        String endCenter = "\\end{center} \n";
+        String beginQuestion = "\\begin{questions} \n";
+        String prevQuestion = "\\question[";
+        String endSqrBracket = "] \t";
+        String label = "\\label{DisplayModeExample} \n";
+
+        String subsection = "\\subsection*{";
+        String endQuestion = "\\end{questions} \n";
         String endBracket=" } \n";
-        String subsection = "\\subsection{SubProblem} \n";
-        String end = "\\end{document} \n";
-        String endl=" \\newline \n";
+        String endDocument = "\\end{document} \n";
 
         String path="./src/main/java/com/easyexam/files";
         String separator="/";
@@ -62,37 +82,45 @@ public class FileServiceImpl implements IFileService {
 
         FileOutputStream out = new FileOutputStream(path+separator+name);
 
-        out.write(documentclass.getBytes());
-        title=title+e.getTitle()+endBracket;
-        out.write(title.getBytes());
-        out.write(begin.getBytes());
-        out.write(maketitle.getBytes());
+        out.write(documentClass.getBytes());
+        out.write(usePackage.getBytes());
+        out.write(usePackage2.getBytes());
+        out.write(usePackage3.getBytes());
+        out.write(usePackage4.getBytes());
+        out.write(usePackage5.getBytes());
+        out.write(usePackage6.getBytes());
+        out.write(usePackage7.getBytes());
+        out.write(usePackage8.getBytes());
+        out.write(usePackage9.getBytes());
 
+        out.write(pageStyle.getBytes());
+        String header = pageHeader + e.getTitle() + points + e.getCourse()+today;
+        out.write(header.getBytes());
+        out.write(beginDocument.getBytes());
 
-        String author="Author: "+t.getFirstname()+ " "+t.getLastname()+endl;
+        String author="\\textbf{Professor: }" + t.getFirstname() + " "+t.getLastname()+" \\newline \n";
         out.write(author.getBytes());
+        String duration="\\textbf{Duration: }" + e.getDuration() + " \\newline \n";
+        out.write(duration.getBytes());
 
+        out.write(center.getBytes());
+        String indications = prevIndications +  e.getIndications() + endBracket + endBracket + endBracket;
+        out.write(indications.getBytes());
+        out.write(endCenter.getBytes());
 
-        String courseENdl="Course : "+e.getCourse()+"$                                              $ Duration: "+e.getDuration()+endl;
-        out.write(courseENdl.getBytes());
-
-        String indicaciontTitle="Indicactions: \n"+endl;
-        out.write(indicaciontTitle.getBytes());
-
-        String indicationEndl=e.getIndications()+endl;
-        out.write(indicationEndl.getBytes());
-
-        String nameStudent="Name: "+endl;
-        out.write(nameStudent.getBytes());
+        out.write(beginQuestion.getBytes());
 
         for(ExamProblem ep:examP){
+            String question = prevQuestion+Integer.toString(ep.getScore())+endSqrBracket+label;
+            out.write(question.getBytes());
             Problem p=problemRepo.findProblemById(ep.getExamProblemId().getIdProblem());
-            String tmp=section+p.getTitle()+" $("+Integer.toString(ep.getScore())+" points)$"+endBracket;
-            out.write(tmp.getBytes());
+            String pTitle = subsection + p.getTitle() + endBracket;
+            out.write(pTitle.getBytes());
             out.write(p.getBody().getBytes());
-        }
 
-        out.write(end.getBytes());
+        }
+        out.write(endQuestion.getBytes());
+        out.write(endDocument.getBytes());
         out.close();
         LOG.info("acabo a generate Latex");
 
