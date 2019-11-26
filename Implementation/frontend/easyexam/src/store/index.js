@@ -26,7 +26,10 @@ export default new Vuex.Store({
       username: null,
       token: null,
       credits: 0,
-      role: null
+      role: {
+        id : null,
+        name : null
+      }
     },
     submit: {
       show: {
@@ -106,6 +109,9 @@ export default new Vuex.Store({
   getters:{
     getIsLogged(state){
       return state.isLogged;
+    },
+    gerRole(state){
+      return state.user.role.id;
     }
   }
 })

@@ -37,6 +37,14 @@ public class UserCompleted {
         this.last_name = last_name;
     }
 
+    public UserCompleted(int id, String email, int count, String first_name, String last_name) {
+        this.id = id;
+        this.email = email;
+        this.count = count;
+        this.first_name = first_name;
+        this.last_name = last_name;
+    }
+
     public int getCount() {
         return count;
     }

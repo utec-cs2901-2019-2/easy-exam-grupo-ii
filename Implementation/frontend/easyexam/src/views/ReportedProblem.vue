@@ -61,22 +61,14 @@
           @click="info(row.item, row.index, $event.target)"
           class="mr-1"
         >
-          Info modal
+          Info
         </b-button>
         <b-button size="sm"
           class="mr-1"
-          @click="row.toggleDetails"
+          @click="deletep(row.item, row.index, $event.target)"
           variant="danger"
         >
           Delete
-        </b-button>
-        <b-button
-          size="sm"
-          class="mr-1"
-          @click="row.toggleDetails"
-          variant="success"
-        >
-          Reset
         </b-button>
       </template>
 
@@ -124,20 +116,20 @@ export default {
           sortDirection: "desc"
         },
         {
-          key: "name",
-          label: "Name",
+          key: "title",
+          label: "Title",
           sortable: true,
           class: "text-center"
         },
         {
-          key: "timesReported",
-          label: "Times Reported",
+          key: "score",
+          label: "Score",
           sortable: true,
           class: "text-center"
         },
         {
-          key: "timesReported",
-          label: "Times Reported",
+          key: "qualifiers",
+          label: "Qualifiers",
           sortable: true,
           class: "text-center"
         },
@@ -173,9 +165,10 @@ export default {
     // Set the initial number of items
     this.totalRows = this.items.length;
 
-    var url = 'http://'+ this.$store.state.clientURL + '/problems'
+    var url = 'http://'+ this.$store.state.clientURL + '/problem/v1/reportedProblems'
     axios.get(url).then(response => {
         console.log(response)
+        this.items = response.data
     }).catch(e => console.log(e))
   },
   methods: {
@@ -192,9 +185,15 @@ export default {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
-    delete(item, index, button) {
+    deletep(item, index, button) {
       console.log(item, index, button)
-      axios.delete('http://'+ this.$store.state.clientURL + '/problems/' + item.id)
+      axios.delete('http://'+ this.$store.state.clientURL + '/problem/v1/deleteProblem?idProblem=' + item.id).then(response => {
+        console.log(response)
+        var url = 'http://'+ this.$store.state.clientURL + '/problem/v1/reportedProblems'
+        axios.get(url).then(response => {
+        this.items = response.data
+    }).catch(e => console.log(e))
+      })
     }
   }
 };

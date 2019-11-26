@@ -29,4 +29,6 @@ public interface IUserService {
     UserCompleted getDates(String email);
 
     List<UserCompleted> getReportedUsers();
+
+    void deleteSuggestById(int id);
 }

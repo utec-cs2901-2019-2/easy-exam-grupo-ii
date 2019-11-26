@@ -66,7 +66,7 @@ public class AccountManagerController {
     public ApiResponse<AuthToken> login(@RequestBody User loginUser) throws AuthenticationException {
         final User user = userService.findByEmail(loginUser.getEmail());
         
-        if (user == null) {
+        if (user == null || user.getActive() == false) {
             return new ApiResponse<>(200, "fail", null);
         }
 

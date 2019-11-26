@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -171,6 +172,17 @@ public class ProblemController {
     @GetMapping("/problem/getProblemsSubmitedByUser")
     public List<ProblemCompleted> getProblemsSubmited(int idUser) {
         return problemService.getListProblemCompletedSubmitedByUser(idUser);
+    }
+
+    @GetMapping("/reportedProblems")
+    public List<Problem> getReportedProblems() {
+        return problemService.getReportedProblems();
+    }
+
+    @DeleteMapping("/deleteProblem")
+    public String deleteProblems(int idProblem){
+        problemService.delete(idProblem);
+        return "deleted";
     }
 
 //    @GetMapping("/roles")

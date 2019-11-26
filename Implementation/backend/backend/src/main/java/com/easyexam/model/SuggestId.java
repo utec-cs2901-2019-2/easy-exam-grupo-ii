@@ -9,6 +9,8 @@ public class SuggestId implements Serializable {
     int idProblem;
     int idTeacher;
 
+    public SuggestId() {}
+
     public SuggestId(int idProblem, int idTeacher) {
         this.idProblem = idProblem;
         this.idTeacher = idTeacher;

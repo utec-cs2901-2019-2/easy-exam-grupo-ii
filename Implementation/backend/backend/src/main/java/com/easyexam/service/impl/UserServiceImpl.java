@@ -1,10 +1,12 @@
 package com.easyexam.service.impl;
 
+import com.easyexam.model.Teacher;
 import com.easyexam.model.User;
 import com.easyexam.model.aux.UserCompleted;
 import com.easyexam.repository.ICorrelativeRepo;
 import com.easyexam.repository.ISuggestRepo;
 import com.easyexam.repository.IUserRepo;
+import com.easyexam.repository.ITeacherRepo;
 import com.easyexam.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +38,9 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
     @Autowired
     private BCryptPasswordEncoder bcryptEncoder;
+
+    @Autowired
+    private ITeacherRepo teacherRepo;
 
     private static Logger LOG= LoggerFactory.getLogger(ProblemServiceImpl.class);
 
@@ -124,8 +129,19 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
     @Override
     public List<UserCompleted> getReportedUsers() {
-        return suggestRepo.getSuggest();
+        List<UserCompleted> users = new ArrayList<>();
+        for (int i : suggestRepo.getSuggest()) {
+            Teacher teacher = teacherRepo.findTeacherById(i);
+            if (teacher.getUser().getActive()){
+                users.add(new UserCompleted(teacher.getId(), teacher.getUser().getEmail(), suggestRepo.getCountByTeacherId(i),teacher.getFirstname(), teacher.getLastname()));
+            }
+        }
+        return users;
     }
 
+    @Override
+    public void deleteSuggestById(int id) {
+            
+    }
 
 }

@@ -22,7 +22,6 @@ public class Admin {
 
     @OneToOne
     @MapsId
-    @JsonIgnore
     private User user;
 
     public Admin() { }
