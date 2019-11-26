@@ -18,16 +18,17 @@
         <b-tabs content-class="mt-3" v-model="tabIndex" align="center" fill justified>
             <b-tab title="Select Problems" title-item-class="disabledTab">
                 <b-container class="mb-2" style="max-width: 600px;  min-height: 400px;"> 
-                    <b-form-input class="w-100" placeholder="Search a problem for your exam" type="text" v-model="keyFromAll"></b-form-input>                
+                    <b-form-input class="w-100" placeholder="Search a problem for your examk" type="text" v-model="problemQuery"></b-form-input>                
                     <!--Card for problems-->
-                    <b-card class="mt-2 shadow-sm" v-for="(prob, index) of filtrarAll" v-bind:key = "index" >
-                        <b-card-title>{{prob.title}}</b-card-title>
-                        <b-card-sub-title><small><strong>Tags: </strong></small><small v-for="(tag, index) of prob.topicsString" v-bind:key="index"> | {{tag}}</small></b-card-sub-title>
-                        <b-button squared size="sm" variant="light" class="mt-2 float-md-left" @click="selectProblem(prob.idx)">Select</b-button>
-                        <b-button squared size="sm" variant="light" class="mt-2 float-md-left" @click="visualizeModal(prob.body);$bvModal.show('problemVisualizador');">View</b-button>
-                        <b-card-text><small class="float-right">{{dicty[prob.type]}}</small></b-card-text>
+                    <b-card class="mt-2 shadow-sm" v-for="(problem, index) of filtrarAll" :key = "index" >
+                        <b-card-title>{{problem.title}}</b-card-title>
+                        <b-card-sub-title><small><strong>Tags: </strong></small><small v-for="(tag, index) of problem.topicsString" :key="index"> | {{tag}}</small></b-card-sub-title>
+                        <b-button squared size="sm" variant="light" class="mt-2 float-md-left" @click="selectProblem(index)">Select</b-button>
+                        <b-button squared size="sm" variant="light" class="mt-2 float-md-left" @click="visualizeModal(problem.body);$bvModal.show('problemVisualizador');">View</b-button>
+                        <b-card-text><small class="float-right">{{dicty[problem.type]}}</small></b-card-text>
                     </b-card>
                 </b-container>
+                
                 
             </b-tab>
             <b-tab title="Exam Details" title-item-class="disabledTab">
@@ -121,12 +122,12 @@
                         :items="problemsSelected"
                         :fields="fields"      
                         >
-                        {
+                        
                         <template v-slot:cell(type)="row">
                             {{ dicty[row.value] }}
                         </template>
                         <template v-slot:cell(deselect)="row">
-                            <b-button-close squared size="sm" variant="light" class="mt-2 float-md-right" @click="deselectProblem(row.item.idx)"></b-button-close>
+                            <b-button-close squared size="sm" variant="light" class="mt-2 float-md-right" @click="deselectProblem(row.index)"></b-button-close>
                         </template>
 
                         <template v-slot:cell(score)="row">
@@ -224,9 +225,10 @@ export default {
             tabIndex : 0,
             keyFromAll : '',
             keyFromSel : '',
+            problemList: [],
             problemsAll : [],
             problemsSelected : [],
-            problemsSelectedCompleted: [],
+            problemQuery: '',
             problemsSub : [], 
             selectOne: false,
             richMaximunProblem: false,
@@ -242,13 +244,27 @@ export default {
             ]
         }
     },
+    beforeMount(){
+        let linkProblemsSelected = 'http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSubmitedByUser?idUser=' + this.$store.state.user.id
+        let linkProblemsSubmited = 'http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSelected?id=' + this.$store.state.user.id
+
+        const requestSelected = axios.get(linkProblemsSelected);
+        const requestSubmited = axios.get(linkProblemsSubmited);
+
+        axios.all([requestSelected, requestSubmited]).then(axios.spread((...responses) => {
+        const responseSelected = responses[0];
+        const responseSubmited = responses[1];
+        this.problemList = responseSelected.data.concat(responseSubmited.data)
+        console.log(responseSelected.data);
+        console.log(responseSubmited.data);
+        console.log(this.problemList)
+        })).catch(errors => {
+        console.error(errors);
+        })
+
+    },
     mounted() {
-        window.katex = katex;
-        axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSubmitedByUser?idUser=' + this.$store.state.user.id)
-        .then(response => (this.problemsAll = this.problemsAll.concat(response.data)))
-        axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSelected?id=' + this.$store.state.user.id)
-        .then(response => (this.problemsAll = this.problemsAll.concat(response.data)))
-       
+        window.katex = katex;      
     },
     computed: {
         
@@ -259,22 +275,23 @@ export default {
             //problemsAll : state=>state.myProblems
         }),
         filtrarAll : function () {
-            let res = []
-            let id = 0
-            for (let problem of this.problemsAll) {
-                problem["idx"] = id
-                id = id + 1
-                if (this.keyFromAll === ''){
-                    res.push(problem);
+            let result = []
+            let i = 0
+            for (let problem of this.problemList) {
+                problem["idx"] = i;
+                problem["points"] = 0;
+                i = i + 1;
+                if (this.problemQuery){
+                    result.push(problem);
                 }else{
-                    let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
-                    if (stringToSearch.includes (this.keyFromAll.toLowerCase()))
-                    {
-                        res.push (problem)
+                    let titleCond = problem.title.toLowerCase().indexOf(this.problemQuery.toLowerCase()) >= 0;
+                    let bodyCond = problem.body.toLowerCase().indexOf(this.problemQuery.toLowerCase()) >= 0;
+                    if (titleCond || bodyCond){
+                        result.push (problem)
                     }
                 }
             }
-            return res
+            return result
             
         },
     },
@@ -366,29 +383,18 @@ export default {
             console.log(newScore)
             this.problemsSelected[index].score = newScore;
         },
-        selectProblem : function (index) {
-            console.log(index)
-            if (this.problemsSelectedCompleted.length < this.maxNumberProblems){
-                let newProblem = {
-                    id: this.problemsAll[index].id,
-                    type: this.problemsAll[index].type,
-                    score: 0,
-                    title: this.problemsAll[index].title,
-                    body: this.problemsAll[index].body,
-                    idx : this.problemsSelected.length
-                }
-                this.problemsSelectedCompleted.push (this.problemsAll[index])
-                this.problemsSelected.push (newProblem)
-                this.problemsAll.splice(index, 1)
+        selectProblem (index) {
+
+            if (this.problemsSelected.length < this.maxNumberProblems){
+                this.problemsSelected.push (this.problemList[index])
+                this.problemList.splice(index, 1)
             } else{
                 this.richMaximunProblem = true;
             }
         },
-        deselectProblem : function (index) {
-            console.log(index)
-            this.problemsAll.push (this.problemsSelectedCompleted[index])
+        deselectProblem (index) {
+            this.problemList.push (this.problemsSelected[index])
             this.problemsSelected.splice(index, 1)
-            this.problemsSelectedCompleted.splice(index, 1)
         },
         countDownChanged(dismissCountDown) {
                 this.dismissCountDown = dismissCountDown
