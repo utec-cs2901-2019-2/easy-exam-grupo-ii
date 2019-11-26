@@ -130,8 +130,8 @@
                             <b-button-close squared size="sm" variant="light" class="mt-2 float-md-right" @click="deselectProblem(row.index)"></b-button-close>
                         </template>
 
-                        <template v-slot:cell(score)="row">
-                            <input style="width: 30px;" v-model="row.value" v-on:keyup.enter="updateScore(row.item.id, row.value)" placeholder="edit me">
+                        <template v-slot:cell(points)="row">
+                            <input style="width: 30px;" v-model="row.value" v-on:keyup.enter="updateScore(row.index, row.value)" placeholder="edit me">
                         </template>
 
                         
@@ -223,14 +223,10 @@ export default {
             dismissCountDownSelect: 0,
             dismissCountDownTitle: 0,
             tabIndex : 0,
-            keyFromAll : '',
-            keyFromSel : '',
             problemList: [],
-            problemsAll : [],
             problemsSelected : [],
             problemQuery: '',
-            problemsSub : [], 
-            selectOne: false,
+            idxExamGenerated: '',
             richMaximunProblem: false,
             maxNumberProblems: 8,
             problem_html: '',
@@ -238,7 +234,7 @@ export default {
             fields: [
                 {key: 'title', label:'Title'},
                 {key: 'type', label: 'Type'},
-                {key: 'score', label: 'Score'},
+                {key: 'points', label: 'Score'},
                 {key: 'problem', label: 'Problem'},
                 {key: 'deselect', label: 'Deselect'}
             ]
@@ -276,11 +272,8 @@ export default {
         }),
         filtrarAll : function () {
             let result = []
-            let i = 0
             for (let problem of this.problemList) {
-                problem["idx"] = i;
                 problem["points"] = 0;
-                i = i + 1;
                 if (this.problemQuery){
                     result.push(problem);
                 }else{
@@ -321,7 +314,14 @@ export default {
                 indications: this.exam.indications
             });
             p_post.then(resp => {
-                console.log(resp.data)
+                this.idxExamGenerated = resp.data.result
+                this.exam.title = '',
+                this.exam.course = '',
+                this.problemList = this.problemList.concat(this.problemsSelected),
+                this.problemsSelected = [],
+                this.exam.duration = '',
+                this.exam.indications = '',
+                console.log(this.idxExamGenerated)            
             });
             p_post.catch(error => {
                 console.log(error)
@@ -331,7 +331,7 @@ export default {
         },
         generateExam(){
             axios({
-                url: 'http://' + this.$store.state.clientURL +'/exam/v1/generateExam?idExam=1&idTeacher=1',
+                url: 'http://' + this.$store.state.clientURL +'/exam/v1/generateExam?idExam='+this.idxExamGenerated+'&idTeacher='+this.user.id,
                 method: 'GET',
                 responseType: 'blob',
             }).then((response) => {
@@ -381,7 +381,7 @@ export default {
             console.log("updated")
             console.log(index)
             console.log(newScore)
-            this.problemsSelected[index].score = newScore;
+            this.problemsSelected[index].points = newScore;
         },
         selectProblem (index) {
 
