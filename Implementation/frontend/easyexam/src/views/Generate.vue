@@ -156,8 +156,10 @@
                 </b-container>
             </b-tab>
             <b-tab title="Exam Preview"  title-item-class="disabledTab">
+                <b-card class="text-center">
+                    Your exam was successfully generated! You can download the pdf or source code below:
+                </b-card>
                 <b-container style="height: 400px; max-height: 600px;" class="text-center">
-                 Your exam was successfully generated! You can download the pdf or source code below:
                 <b-button style ="position: relative; top: 50%; transform: translateY(-50%);" variant="light" @click="downloadGenerateExam">Download Exam</b-button>
                 <b-button style ="position: relative; top: 50%; transform: translateY(-50%);" variant="light" >Download Source Code</b-button>    
                 </b-container>
@@ -248,9 +250,6 @@ export default {
         const responseSelected = responses[0];
         const responseSubmited = responses[1];
         this.problemList = responseSelected.data.concat(responseSubmited.data)
-        console.log(responseSelected.data);
-        console.log(responseSubmited.data);
-        console.log(this.problemList)
         })).catch(errors => {
         console.error(errors);
         })
@@ -318,11 +317,10 @@ export default {
                 this.problemsSelected = [],
                 this.exam.duration = '',
                 this.exam.indications = '',
-                this.showGenerateExam()
-                console.log(this.idxExamGenerated)            
+                this.showGenerateExam()       
             });
             p_post.catch(error => {
-                console.log(error)
+                console.error(error)
             });
             this.hideInfo(evt);
             this.tabIndex++;
@@ -380,10 +378,8 @@ export default {
             }
         },
         updateScore(index, newScore){
-            console.log("updated")
-            console.log(index)
-            console.log(newScore)
             this.problemsSelected[index].points = newScore;
+            this.problemsSelected[index].scoreInteger = newScore;
         },
         selectProblem (index) {
 
