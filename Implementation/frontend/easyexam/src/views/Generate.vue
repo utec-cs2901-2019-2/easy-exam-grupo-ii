@@ -310,6 +310,7 @@ export default {
                 indications: this.exam.indications
             });
             p_post.then(resp => {
+                console.log(resp.data)
                 this.idxExamGenerated = resp.data.result
                 this.exam.title = '',
                 this.exam.course = '',
