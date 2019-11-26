@@ -1,5 +1,6 @@
 package com.easyexam.controller;
 
+import com.easyexam.model.Exam;
 import com.easyexam.model.aux.ApiResponse;
 import com.easyexam.model.aux.ExamCompleted;
 import com.easyexam.service.IExamService;
@@ -17,12 +18,14 @@ import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.*;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -107,6 +110,10 @@ public class ExamController {
 
     }
 
+    @GetMapping("/exam/getExams")
+    public List<Exam> getExams(int idTeacher) throws AuthenticationException{
+        return examService.getExamsByTeacher(idTeacher);
+    }
 
 
 }
