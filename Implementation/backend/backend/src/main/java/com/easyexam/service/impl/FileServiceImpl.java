@@ -116,7 +116,8 @@ public class FileServiceImpl implements IFileService {
             Problem p=problemRepo.findProblemById(ep.getExamProblemId().getIdProblem());
             String pTitle = subsection + p.getTitle() + endBracket;
             out.write(pTitle.getBytes());
-            out.write(p.getBody().getBytes());
+            String body = p.getBody() + " \n";
+            out.write(body.getBytes());
 
         }
         out.write(endQuestion.getBytes());

@@ -233,77 +233,14 @@
                                     </b-card>
                                 </b-container>
                             </b-tab>
-                            <b-tab class="p-4" title="Exams">
+                            <b-tab class="p-4" title="Exams" @click="getExamsGenerated">
 
                                 <b-container>
-                                    <center>
-                                    <b-row style="width:80%" align-self="center">
-                                        <b-col sm=5>
-                                            <b-button variant="outline-dark" class="w-100 mx-3">
-                                                <h4><b>Title Exam</b></h4>
-                                                <h5># problems</h5>
-                                                <h5>
-                                                    date
-                                                </h5>
-                                            </b-button>
-                                        </b-col>
-                                        <b-col sm=2></b-col>
-                                        <b-col sm=5>
-                                            <b-button variant="outline-dark" class="w-100 mx-3">
-                                                <h4><b>Title Exam</b></h4>
-                                                <h5># problems</h5>
-                                                <h5>
-                                                    date
-                                                </h5>
-                                            </b-button>
-                                        </b-col>
-                                    </b-row>
-                                    <br>
-                                    <b-row style="width:80%" align-self="center">
-                                        <b-col sm=5>
-                                            <b-button variant="outline-dark" class="w-100 mx-3">
-                                                <h4><b>Title Exam</b></h4>
-                                                <h5># problems</h5>
-                                                <h5>
-                                                    date
-                                                </h5>
-                                            </b-button>
-                                        </b-col>
-                                        <b-col sm=2></b-col>
-                                        <b-col sm=5>
-                                            <b-button variant="outline-dark" class="w-100 mx-3">
-                                                <h4><b>Title Exam</b></h4>
-                                                <h5># problems</h5>
-                                                <h5>
-                                                    date
-                                                </h5>
-                                            </b-button>
-                                        </b-col>
-                                    </b-row>
-                                    <br>
-
-                                    <b-row style="width:80%" align-self="center">
-                                        <b-col sm=5>
-                                            <b-button variant="outline-dark" class="w-100 mx-3">
-                                                <h4><b>Title Exam</b></h4>
-                                                <h5># problems</h5>
-                                                <h5>
-                                                    date
-                                                </h5>
-                                            </b-button>
-                                        </b-col>
-                                        <b-col sm=2></b-col>
-                                        <b-col sm=5>
-                                            <b-button variant="outline-dark" class="w-100 mx-3">
-                                                <h4><b>Title Exam</b></h4>
-                                                <h5># problems</h5>
-                                                <h5>
-                                                    date
-                                                </h5>
-                                            </b-button>
-                                        </b-col>
-                                    </b-row>
-                                    </center>
+                                    <b-card class="mt-2 shadow-sm" v-for="exam in examList" v-bind:key = "exam.id" >
+                                        <b-button disabled size="sm" variant="light" class="float-right"><small><strong>Date</strong></small><br><small class="pull-right">{{exam.creationDate}}</small></b-button>
+                                        <b-card-title>{{exam.title}}</b-card-title>
+                                        <b-card-sub-title><small><strong>Course: </strong></small><small>{{exam.course}}</small></b-card-sub-title>
+                                    </b-card>
                                 </b-container>
 
                             </b-tab>
@@ -336,6 +273,7 @@ export default {
                 tsort : null,
                 sorts : [{ text: 'Order by', value: null }, 'Title', 'Score', 'qualifiers'],
             },
+            examList: [],
             infoproblems : [],
             obproblems : [],
             keyToSearch : '',
@@ -355,28 +293,17 @@ export default {
                     }
                 }
             },
-
             modal_titleProblem : '',
-
             modal_desProblem : '',
-
             modal_tagsProblem : [],
-
             modal_selectProblem : {},
-
             modal_solution : '',
-
             ifscore : -1,
-
             solutionshow :  [],
-
             commentsInfo : [],
-
             newcomment : '',
-
             types : {'SA' : 'Short Answer', 'LA' : 'Long Answer', 'MC' : 'Multiple Choice', 'TF': 'True or False'},
             typeSelected : '',
-
             stars : [
                 {state : false},
                 {state : false},
@@ -492,6 +419,13 @@ export default {
             this.modal_selectProblem.id + "&idTeacher="+ this.$store.state.user.id)
             .then (response => this.ifscore = response.data)
 
+        },
+        getExamsGenerated(){
+            axios.get("http://" + this.$store.state.clientURL + "/exam/v1/exam/getExams?idTeacher=" + this.$store.state.user.id)
+            .then (response => {
+                this.examList = response.data
+                
+            })
         },
         showModalProblem1(index) {
             this.modal_titleProblem = this.infoproblems [index].title
