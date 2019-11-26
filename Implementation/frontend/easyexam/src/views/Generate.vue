@@ -161,7 +161,7 @@
                 </b-card>
                 <b-container style="height: 400px; max-height: 600px;" class="text-center">
                 <b-button style ="position: relative; top: 50%; transform: translateY(-50%);" variant="light" @click="downloadGenerateExam">Download Exam</b-button>
-                <b-button style ="position: relative; top: 50%; transform: translateY(-50%);" variant="light" >Download Source Code</b-button>    
+                <b-button style ="position: relative; top: 50%; transform: translateY(-50%);" variant="light" @click="downloadGenerateExamLatex">Download Source Code</b-button>    
                 </b-container>
                 
             </b-tab>
@@ -229,6 +229,7 @@ export default {
             maxNumberProblems: 8,
             problem_html: '',
             pdfGeneratedURL: '',
+            latexGeneratedURL: '',
             dicty : {'SA' : 'Short Answer', 'LA' : 'Long Answer', 'MC' : 'Multiple Choice' , 'TF' : 'True or False'},
             fields: [
                 {key: 'title', label:'Title'},
@@ -335,6 +336,21 @@ export default {
                 let newBlob = new Blob([response.data], {type: "application/pdf"})        
                 this.pdfGeneratedURL = URL.createObjectURL(newBlob);
                 window.open(this.pdfGeneratedURL)
+            });
+        },
+        downloadGenerateExamLatex(){
+            axios({
+                url: 'http://' + this.$store.state.clientURL +'/exam/v1/generateExamLatex?idExam='+this.idxExamGenerated+'&idTeacher='+this.user.id,
+                method: 'GET',
+                responseType: 'blob',
+            }).then((response) => {
+                let newBlob = new Blob([response.data], {type: "application/tex"})        
+                this.latexGeneratedURL = URL.createObjectURL(newBlob);
+                var fileLink = document.createElement('a');
+                fileLink.href = this.latexGeneratedURL;
+                fileLink.setAttribute('download', 'easyExam.tex');
+                document.body.appendChild(fileLink)
+                fileLink.click();
             });
         },
         downloadGenerateExam(){
