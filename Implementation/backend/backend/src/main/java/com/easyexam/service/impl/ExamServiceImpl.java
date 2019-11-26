@@ -11,7 +11,9 @@ import com.easyexam.service.IExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ExamServiceImpl implements IExamService {
@@ -51,5 +53,17 @@ public class ExamServiceImpl implements IExamService {
         }
         correlativeRepo.updateIdExam();
         return e.getId();
+    }
+
+    @Override
+    public List<Exam> getExamsByTeacher(int idTeacher) {
+        List<Exam> exams=new ArrayList<>();
+        List<ExamTeacher> ets=examTeacherRepo.findAllByExamTeacherId_IdTeacher(idTeacher);
+
+        for(ExamTeacher et:ets){
+            Exam e=examRepo.findExamById(et.getExamTeacherId().getIdExam());
+            exams.add(e);
+        }
+        return exams;
     }
 }
