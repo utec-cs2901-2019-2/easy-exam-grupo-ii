@@ -67,7 +67,7 @@
                 <b-row style="width : 100%">
                     <b-col cols = "4">
                         <center>
-                            <b-button variant = "outline-warning" @click="showSol()">
+                            <b-button @click="showSol()">
                                 <b>See Solution</b>
                             </b-button>
                         </center>
@@ -88,7 +88,7 @@
 
         <!-- MODAL IF YOU DONT HAVE -->
 
-        <b-modal v-else ref="modal-problem">
+        <b-modal v-else ref="modal-problem" size="lg">
             <template v-slot:modal-title>
                 <b>{{modal_titleProblem}}</b>
             </template>
@@ -118,7 +118,7 @@
                 <b-row style="width : 100%">
                     <b-col cols = "6">
                     <center>
-                        <b-button variant="outline-warning" @click="hideModalProblem"><b>Get Problem</b></b-button>
+                        <b-button @click="hideModalProblem"><b>Get Problem</b></b-button>
                     </center>
                     </b-col>
                     <b-col cols = "6">
@@ -286,6 +286,9 @@
 import axios from 'axios'
 import {mapState} from 'vuex'
 import { mdbIcon } from 'mdbvue';
+import { parse, HtmlGenerator } from 'latex.js'
+import katex from 'katex';
+import 'katex/dist/katex.min.css';
 
 
 export default {
@@ -332,7 +335,8 @@ export default {
             selectedTypes:[],
             typeSelected:'',
             commentsInfo : [],
-            idsProblems : []
+            idsProblems : [],
+            problem_html: ''
     }),
 
     methods: {
@@ -380,12 +384,9 @@ export default {
         },
         showSol () {
 
-
-            axios.post('http://' + this.$store.state.clientURL + '/problem/v1/problem/latexToHtmlbyBody', {
-                body: this.solutionshow
-            })
-            .then(response => (this.solutionshow = (response.data)))
-
+            let generator = new HtmlGenerator({ hyphenate: false })
+            let doc = parse(this.solutionshow, { generator: generator })
+            this.solutionshow = doc.htmlDocument().documentElement.outerHTML;
             this.$refs['ModalSol'].show()
         },
         onSubmit(evt) {
@@ -413,8 +414,11 @@ export default {
             this.modal_tagsProblem = this.infoproblems [index].topicsString
             this.modal_selectProblem = this.infoproblems [index]
             this.solutionshow = ''
-            axios.get("http://" + this.$store.state.clientURL + "/problem/v1/problem/latexToHtml?idProblem=" + this.modal_selectProblem.id)
-            .then(response => {this.modal_desProblem = (response.data)})
+
+            let generator = new HtmlGenerator({ hyphenate: false })
+            let doc = parse(this.infoproblems[index].body, { generator: generator })
+            this.modal_desProblem = doc.htmlDocument().documentElement.outerHTML;
+            
             axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getSolutionProblem?idProblem=' + this.modal_selectProblem.id)
             .then(response => (this.solutionshow = (response.data.body)))
             this.modal_solution = this.infoproblems [index].body
@@ -502,6 +506,7 @@ export default {
     },
 
     mounted () {
+        window.katex = katex;
         axios.get('http://' + this.$store.state.clientURL + '/problem/v1/problem/getProblemsSelected?id=' + this.$store.state.user.id)
         .then(response => {
             this.mp = response.data

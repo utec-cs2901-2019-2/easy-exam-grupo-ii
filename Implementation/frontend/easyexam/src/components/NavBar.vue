@@ -1,14 +1,14 @@
 <template>
     <div>
         <b-navbar toggleable="lg" v-if="getIsLogged" type="dark" variant="dark">
-            <b-navbar-brand href="/" style="font-family: italic; font-size: x-large; margin-left: 7%; margin-right: 7% ">EasyExam</b-navbar-brand>
+            <b-navbar-brand ><router-link to="/" style="font-family: italic; font-size: x-large; margin-left: 7%; margin-right: 7%; color: white;">EasyExam</router-link></b-navbar-brand>
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
             <b-collapse id="nav-collapse" is-nav style="margin-left: 1%">
                 <b-navbar-nav style="font-size: medium">
-
-                    <b-nav-item><router-link to="/dashboard" style="color: white; margin-right: 15px"> Home </router-link></b-nav-item>
+                    <!-- <i class="fas fa-home fa-1x" style="color:  white;"></i> -->
+                    <b-nav-item><router-link to="/dashboard" style="color: white; margin-right: 15px">Home</router-link></b-nav-item>
                     <b-nav-item><router-link to = "/submit" style="color: white; margin-right: 15px">Submit</router-link></b-nav-item>
                     <b-nav-item><router-link to = "/generate" style="color: white; margin-right: 15px">Generate</router-link></b-nav-item>
                 </b-navbar-nav>
