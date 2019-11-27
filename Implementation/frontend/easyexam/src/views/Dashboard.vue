@@ -28,7 +28,19 @@
                         <br>
                         <div class="text-center"><strong>{{modal_selectProblem['qualifiers']}} </strong>qualifiers</div>
                         <center>
-                        <b-button-group v-if="ifscore <= 0">
+                        <b-button-group v-if="tempscore > 0">
+                            <b-button size="sm" v-for="(btn, idx) in stars"
+                                :key="idx"
+                                :pressed.sync = "btn.state"
+                                variant = "outline-dark"
+                                @click="updateScore (idx + 1)"
+                                pill
+                                v-b-popover.hover.top="'You can changehola'"
+                            >
+                            <mdb-icon icon="star" />
+                            </b-button>
+                        </b-button-group>
+                        <b-button-group v-else-if="ifscore <= 0">
                             <b-button size="sm" v-for="(btn, idx) in stars"
                                 :key="idx"
                                 :pressed.sync = "btn.state"
@@ -37,6 +49,7 @@
                                 @mouseleave="downstars"
                                 @click="updateScore (idx + 1)"
                                 pill
+                                v-b-popover.hover.top="'You can change your rate until press Done'"
                             >
                             <mdb-icon icon="star" />
                             </b-button>
@@ -65,19 +78,26 @@
             </b-row>
             <template v-slot:modal-footer>
                 <b-row style="width : 100%">
-                    <b-col cols = "4">
+                    <b-col cols = "3">
                         <center>
                             <b-button @click="showSol()">
                                 <b>See Solution</b>
                             </b-button>
                         </center>
                     </b-col>
-                    <b-col cols = "4">
+                    <b-col cols = "3">
                     <center>
                         <b-button variant="outline-info" @click="showComment()"><b>Comment</b></b-button>
                     </center>
                     </b-col>
-                    <b-col cols = "4">
+                    <b-col cols = "3">
+                        <center>
+                            <b-button variant="outline-danger" @click="reportProblem()">
+                                <b>Report</b>
+                            </b-button>
+                        </center>
+                    </b-col>
+                    <b-col cols = "3">
                     <center>
                         <b-button variant="outline-danger" @click="cancel()"><b>Done</b></b-button>
                     </center>
@@ -155,6 +175,31 @@
         </b-modal>
 
         <!--END MODAL FOR COMMENTS -->
+
+        <!-- START MODAL FOR REPORT -->
+
+        <b-modal ref="ModalReport" title="Report" hide-footer>
+            <b-form @submit="reportSubmit">
+                <b-form-group
+                    id="input-group-1"
+                    label="Write a comment:"
+                    label-for="input-1"
+                >
+                    <b-form-textarea
+                    id="textarea-state"
+                    v-model="reportcomment"
+                    :state="reportcomment.length <= 500"
+                    placeholder="Enter a maximun of 500 characters"
+                    rows="5"
+                    ></b-form-textarea>
+
+                </b-form-group>
+                    <b-button type="submit" variant="danger">Submit</b-button>
+                    <!--b-button type="reset" variant="danger">Reset</b-button-->
+            </b-form>
+        </b-modal>
+
+        <!-- END MODAL FOR REPORT -->
 
         <!-- START MODAL FOR SOLUTION-->
 
@@ -336,7 +381,9 @@ export default {
             typeSelected:'',
             commentsInfo : [],
             idsProblems : [],
-            problem_html: ''
+            problem_html: '',
+            reportcomment : '',
+            tempscore : -1
     }),
 
     methods: {
@@ -352,7 +399,10 @@ export default {
             
             if (this.ifscore <= 0)
             {
-                let new_score = this.modal_selectProblem['score']
+                this.downstars ()
+                this.upstars (val)
+                this.tempscore = val
+                /*let new_score = this.modal_selectProblem['score']
                 new_score = new_score * this.modal_selectProblem ['qualifiers']
                 new_score = new_score + val
                 new_score = new_score/(this.modal_selectProblem ['qualifiers'] + 1)
@@ -363,7 +413,7 @@ export default {
                  {id : this.modal_selectProblem.id, idTeacher : this.$store.state.user.id , scoreInteger : val} )
                 axios.post("http://" + this.$store.state.clientURL + "/problem/v1/updateProblemRatio?idProblem=" + this.modal_selectProblem.id +
                 "&rate=" + val)
-                this.ifscore = val
+                this.ifscore = val*/
             }
         },
 
@@ -382,6 +432,12 @@ export default {
         showComment (){
             this.$refs['ModalComment'].show()
         },
+
+        reportProblem (){
+            this.$refs['ModalReport'].show()
+        },
+
+
         showSol () {
 
             let generator = new HtmlGenerator({ hyphenate: false })
@@ -395,12 +451,24 @@ export default {
             this.commentsInfo.push(co)
             axios.post ('http://' + this.$store.state.clientURL + '/comment/v1/submitComment', co)
             this.$refs['ModalComment'].hide()
+
+            this.newcomment = ''
         },
         onReset(evt) {
             evt.preventDefault()
             
             this.$refs['ModalComment'].hide()
         },
+
+        reportSubmit (evt){
+            evt.preventDefault()
+            axios.post ('http://' + this.$store.state.clientURL + '/suggest/v1/reportProblem?comment=' + this.reportcomment + '&idProblem=' + 
+            this.modal_selectProblem.id + '&idTeacher=' + this.$store.state.user.id)
+            this.$refs['ModalReport'].hide()
+            this.reportcomment = ''
+        },
+
+
         imprimir : function() {
             for (let problem of this.infoproblems){
                 let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase()
@@ -414,6 +482,7 @@ export default {
             this.modal_tagsProblem = this.infoproblems [index].topicsString
             this.modal_selectProblem = this.infoproblems [index]
             this.solutionshow = ''
+            this.tempscore = -1
 
             let generator = new HtmlGenerator({ hyphenate: false })
             let doc = parse(this.infoproblems[index].body, { generator: generator })
@@ -467,6 +536,22 @@ export default {
         },
 
         cancel () {
+            if (this.tempscore > 0){
+                let val = this.tempscore
+                let new_score = this.modal_selectProblem['score']
+                new_score = new_score * this.modal_selectProblem ['qualifiers']
+                new_score = new_score + val
+                new_score = new_score/(this.modal_selectProblem ['qualifiers'] + 1)
+                new_score = Math.round (new_score * 10) / 10
+                this.modal_selectProblem['qualifiers']++
+                this.modal_selectProblem ['score'] = new_score
+                axios.post("http://" + this.$store.state.clientURL + "/problem/v1/problem/saveTeacherScore",
+                {id : this.modal_selectProblem.id, idTeacher : this.$store.state.user.id , scoreInteger : val} )
+                axios.post("http://" + this.$store.state.clientURL + "/problem/v1/updateProblemRatio?idProblem=" + this.modal_selectProblem.id +
+                "&rate=" + val)
+                this.ifscore = val
+            }
+            this.tempscore = -1
             this.$refs['modal-problem'].hide()
         },
 
