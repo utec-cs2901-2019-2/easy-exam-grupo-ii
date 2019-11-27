@@ -35,7 +35,7 @@
                                 variant = "outline-dark"
                                 @click="updateScore (idx + 1)"
                                 pill
-                                v-b-popover.hover.top="'You can changehola'"
+                                v-b-popover.hover.top="'You can change the rating until you press Done'"
                             >
                             <mdb-icon icon="star" />
                             </b-button>
@@ -49,7 +49,7 @@
                                 @mouseleave="downstars"
                                 @click="updateScore (idx + 1)"
                                 pill
-                                v-b-popover.hover.top="'You can change your rate until press Done'"
+                                v-b-popover.hover.top="'You can change the rating until you press Done'"
                             >
                             <mdb-icon icon="star" />
                             </b-button>

@@ -18,7 +18,7 @@
         <b-tabs content-class="mt-3" v-model="tabIndex" align="center" fill justified>
             <b-tab title="Select Problems" title-item-class="disabledTab">
                 <b-container class="mb-2" style="max-width: 600px;  min-height: 400px;"> 
-                    <b-form-input class="w-100" placeholder="Search a problem for your examk" type="text" v-model="problemQuery"></b-form-input>                
+                    <b-form-input class="w-100" placeholder="Search a problem for your exam" type="text" v-model="problemQuery"></b-form-input>
                     <!--Card for problems-->
                     <b-card class="mt-2 shadow-sm" v-for="(problem, index) of filtrarAll" :key = "index" >
                         <b-card-title>{{problem.title}}</b-card-title>
