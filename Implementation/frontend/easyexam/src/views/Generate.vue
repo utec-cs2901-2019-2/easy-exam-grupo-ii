@@ -112,7 +112,10 @@
                             </b-alert> 
                         </b-col>
                     </b-row>
-                    <b-form-group label = "Add your problems score:" class="mt-2">                   
+                    <b-form-group label = "Add your problems score:" class="mt-2">
+
+                        <b-alert show><small>NOTE: Press 'enter' after writing a note</small></b-alert>
+
                     <b-container fluid>
                         <!-- Main table element -->
                         <b-table
