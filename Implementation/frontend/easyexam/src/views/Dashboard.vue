@@ -481,18 +481,6 @@ export default {
         },
 
         selectType (Type) {
-            if (Type=='Short Answer (SA)'){
-                Type='SA'
-            }
-            if (Type=='Multiple Choise (MC)'){
-                Type='MC'
-            }
-            if (Type=='Long Answer (SA)'){
-                Type='LA'
-            }
-            if (Type=='True or False (TF)'){
-                Type='TF'
-            }
             let intFind = this.selectedTypes.indexOf(Type)
             if (intFind >= 0){
                 this.selectedTypes.splice(intFind, 1)
@@ -546,26 +534,98 @@ export default {
                     if (!this.idsProblems.includes(problem.id)) {
                         if (this.selectedSubjects.length === 0) {
                             if (this.keyToSearch === '') {
-                                if (this.typeSelected === '' || this.typeSelected === problem.type)
+                                if (this.selectedTypes.length===0)
                                     res.push (problem)
+                                else{
+                                    let newproty='';
+                                    if (problem.type==='SA'){
+                                        newproty= 'Short Answer (SA)'
+                                    }
+                                    if (problem.type==='LA'){
+                                        newproty= 'Long Answer (LA)'
+                                    }
+                                    if (problem.type==='MC'){
+                                        newproty= 'Multiple Choice (MC)'
+                                    }
+                                    if (problem.type==='TF'){
+                                        newproty= 'True or False (TF)'
+                                    }
+                                    if (this.selectedTypes.includes (newproty)) {
+                                        res.push(problem)
+                                    }
+                                }
                             }
                             else {
                                 let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
                                 if (stringToSearch.includes (this.keyToSearch.toLowerCase())) {
-                                    if (this.typeSelected === '' || this.typeSelected === problem.type)
+                                    if (this.selectedTypes.length===0)
                                         res.push (problem)
+                                    else{
+                                        let newproty='';
+                                        if (problem.type==='SA'){
+                                            newproty= 'Short Answer (SA)'
+                                        }
+                                        if (problem.type==='LA'){
+                                            newproty= 'Long Answer (LA)'
+                                        }
+                                        if (problem.type==='MC'){
+                                            newproty= 'Multiple Choice (MC)'
+                                        }
+                                        if (problem.type==='TF'){
+                                            newproty= 'True or False (TF)'
+                                        }
+                                        if (this.selectedTypes.includes (newproty)) {
+                                            res.push(problem)
+                                        }
+                                    }
                                 }}}
                         else {
                             if (problem.topicsString.filter(value => this.selectedSubjects.includes (value.toLowerCase())).length) {
                                 if (this.keyToSearch === '') {
-                                    if (this.typeSelected === '' || this.typeSelected === problem.type)
+                                    if (this.selectedTypes.length===0)
                                         res.push (problem)
+                                    else{
+                                        let newproty='';
+                                        if (problem.type==='SA'){
+                                            newproty= 'Short Answer (SA)'
+                                        }
+                                        if (problem.type==='LA'){
+                                            newproty= 'Long Answer (LA)'
+                                        }
+                                        if (problem.type==='MC'){
+                                            newproty= 'Multiple Choice (MC)'
+                                        }
+                                        if (problem.type==='TF'){
+                                            newproty= 'True or False (TF)'
+                                        }
+                                        if (this.selectedTypes.includes (newproty)) {
+                                            res.push(problem)
+                                        }
+                                    }
                                 }
                                 else {
                                     let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
                                     if (stringToSearch.includes (this.keyToSearch.toLowerCase())) {
-                                        if (this.typeSelected === '' || this.typeSelected === problem.type)
+                                        if (this.selectedTypes.length===0)
                                             res.push (problem)
+                                        else{
+                                            let newproty='';
+                                            if (problem.type==='SA'){
+                                                newproty= 'Short Answer (SA)'
+                                            }
+                                            if (problem.type==='LA'){
+                                                newproty= 'Long Answer (LA)'
+                                            }
+                                            if (problem.type==='MC'){
+                                                newproty= 'Multiple Choice (MC)'
+                                            }
+                                            if (problem.type==='TF'){
+                                                newproty= 'True or False (TF)'
+                                            }
+                                            if (this.selectedTypes.includes (newproty)) {
+                                                res.push(problem)
+                                            }
+                                        }
                                     }
                                 }
                             }
