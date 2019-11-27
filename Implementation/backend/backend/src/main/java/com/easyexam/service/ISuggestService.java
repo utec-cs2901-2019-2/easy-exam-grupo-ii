@@ -9,4 +9,6 @@ public interface ISuggestService {
     
     int reportProblem(String comment, int idProb, int idTeacher);
 
+    Boolean findReport(int idProblem,int idTeacher);
+
 }

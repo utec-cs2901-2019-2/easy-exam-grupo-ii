@@ -43,4 +43,6 @@ public interface ISuggestRepo extends JpaRepository<Suggest,SuggestId> {
             "  from suggest s\n" +
             "  where is_reported = true ;",nativeQuery = true)
     List<Integer> getReportedProblems();
+
+    Suggest findBySuggestId(SuggestId suggestId);
 }

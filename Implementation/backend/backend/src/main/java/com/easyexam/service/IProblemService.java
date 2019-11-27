@@ -37,4 +37,5 @@ public interface IProblemService {
     List<Problem> getReportedProblems();
 
     void delete(int idProblem);
+
 }

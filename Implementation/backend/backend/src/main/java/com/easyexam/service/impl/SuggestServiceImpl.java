@@ -1,5 +1,7 @@
 package com.easyexam.service.impl;
 
+import com.easyexam.model.Suggest;
+import com.easyexam.model.SuggestId;
 import com.easyexam.repository.ISuggestRepo;
 import com.easyexam.service.ISuggestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,4 +25,13 @@ public class SuggestServiceImpl implements ISuggestService {
         return suggestRepo.reportProblem(comment, idProblem, idTeacher);
     }
 
+    @Override
+    public Boolean findReport(int idProblem, int idTeacher) {
+            Suggest suggest=suggestRepo.findBySuggestId(new SuggestId(idProblem,idTeacher));
+            if(suggest==null)
+                return false;
+            else
+                return true;
+
+    }
 }
