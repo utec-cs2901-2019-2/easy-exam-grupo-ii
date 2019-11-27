@@ -26,14 +26,6 @@
               </b-row>
         </div>
           <hr width="95%" size=200 color="#2f3135">
-          <div id="Learn-More" style="margin-top: 3%">
-              <b-embed
-                      type="iframe"
-                      aspect="16by9"
-                      src="https://www.youtube.com/embed/fL308_-Kbt0?rel=0"
-                      allowfullscreen
-              ></b-embed>
-          </div>
           <Footer/>
 
       </div>
