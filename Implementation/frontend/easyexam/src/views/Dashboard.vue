@@ -77,7 +77,7 @@
                 </b-col>
             </b-row>
             <template v-slot:modal-footer>
-                <b-row style="width : 100%">
+                <b-row v-if="!isReport" style="width : 100%">
                     <b-col cols = "3">
                         <center>
                             <b-button @click="showSol()">
@@ -98,6 +98,25 @@
                         </center>
                     </b-col>
                     <b-col cols = "3">
+                    <center>
+                        <b-button variant="outline-danger" @click="cancel()"><b>Done</b></b-button>
+                    </center>
+                    </b-col>
+                </b-row>
+                <b-row v-else style="width : 100%">
+                    <b-col cols = "4">
+                        <center>
+                            <b-button @click="showSol()">
+                                <b>See Solution</b>
+                            </b-button>
+                        </center>
+                    </b-col>
+                    <b-col cols = "4">
+                    <center>
+                        <b-button variant="outline-info" @click="showComment()"><b>Comment</b></b-button>
+                    </center>
+                    </b-col>
+                    <b-col cols = "4">
                     <center>
                         <b-button variant="outline-danger" @click="cancel()"><b>Done</b></b-button>
                     </center>
@@ -383,7 +402,8 @@ export default {
             idsProblems : [],
             problem_html: '',
             reportcomment : '',
-            tempscore : -1
+            tempscore : -1,
+            isReport : false,
     }),
 
     methods: {
@@ -393,6 +413,13 @@ export default {
             this.modal_selectProblem.id + "&idTeacher="+ this.$store.state.user.id)
             .then (response => this.ifscore = response.data)
 
+        },
+        checkIsReported () {
+            axios.get ('http://' + this.$store.state.clientURL + '/suggest/v1/isReported?idProblem=' + this.modal_selectProblem.id
+            + '&idTeacher=' + this.$store.state.user.id)
+            .then (response => {
+                this.isReport = response.data
+            })
         },
 
         updateScore (val) {
@@ -466,6 +493,7 @@ export default {
             this.modal_selectProblem.id + '&idTeacher=' + this.$store.state.user.id)
             this.$refs['ModalReport'].hide()
             this.reportcomment = ''
+            this.isReport = true
         },
 
 
@@ -483,6 +511,7 @@ export default {
             this.modal_selectProblem = this.infoproblems [index]
             this.solutionshow = ''
             this.tempscore = -1
+            this.checkIsReported()
 
             let generator = new HtmlGenerator({ hyphenate: false })
             let doc = parse(this.infoproblems[index].body, { generator: generator })
@@ -552,6 +581,7 @@ export default {
                 this.ifscore = val
             }
             this.tempscore = -1
+            this.isReport = false
             this.$refs['modal-problem'].hide()
         },
 
