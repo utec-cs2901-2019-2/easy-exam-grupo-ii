@@ -593,26 +593,46 @@ export default {
                     if (!this.idsProblems.includes(problem.id)) {
                         if (this.selectedSubjects.length === 0) {
                             if (this.keyToSearch === '') {
-                                if (this.typeSelected === '' || this.typeSelected === problem.type)
+                                if (this.selectedTypes.length===0)
                                     res.push (problem)
+                                else{
+                                    if (problem.topicsString.filter(value => this.selectedTypes.includes (value)).length) {
+                                        res.push(problem)
+                                    }
+                                }
                             }
                             else {
                                 let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
                                 if (stringToSearch.includes (this.keyToSearch.toLowerCase())) {
-                                    if (this.typeSelected === '' || this.typeSelected === problem.type)
+                                    if (this.selectedTypes.length===0)
                                         res.push (problem)
+                                    else{
+                                        if (problem.topicsString.filter(value => this.selectedTypes.includes (value)).length) {
+                                            res.push(problem)
+                                        }
+                                    }
                                 }}}
                         else {
                             if (problem.topicsString.filter(value => this.selectedSubjects.includes (value.toLowerCase())).length) {
                                 if (this.keyToSearch === '') {
-                                    if (this.typeSelected === '' || this.typeSelected === problem.type)
+                                    if (this.selectedTypes.length===0)
                                         res.push (problem)
+                                    else{
+                                        if (problem.topicsString.filter(value => this.selectedTypes.includes (value)).length) {
+                                            res.push(problem)
+                                        }
+                                    }
                                 }
                                 else {
                                     let stringToSearch = problem.topicsString.toString().concat (" ", problem.body, " ", problem.title).toLowerCase ()
                                     if (stringToSearch.includes (this.keyToSearch.toLowerCase())) {
-                                        if (this.typeSelected === '' || this.typeSelected === problem.type)
+                                        if (this.selectedTypes.length===0)
                                             res.push (problem)
+                                        else{
+                                            if (problem.topicsString.filter(value => this.selectedTypes.includes (value)).length) {
+                                                res.push(problem)
+                                            }
+                                        }
                                     }
                                 }
                             }
