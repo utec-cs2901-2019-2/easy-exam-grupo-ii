@@ -122,54 +122,31 @@
 
         <div class="mx-5">
             <b-row>
-                <b-col cols="6" md="4">
-                    <b-card class="w-100 p-3">
-                        <!--b-img class="w-100 mb-5" src="https://picsum.photos/600/300/?image=25"></b-img-->
-                        <h4><b>{{user.information.firstname}}</b></h4>
-                        <h4><b>{{user.information.lastname}}</b></h4>
-                        <h4>{{user.information.user.email}}</h4>
+                <b-card style="min-width: max-content; max-width: max-content; border-radius: 15px; height: max-content" bg-variant="light">
+                    <center> 
                         <br>
-                        <h5>
-                            <b>Problems Submited</b>
-                        </h5>
-                        <h5>
-                            {{infoproblems.length}}
-                        </h5>
-                        <h5>
-                            <b>Problems Obtained</b>
-                        </h5>
-                        <h5>
-                            {{obproblems.length}}
-                        </h5>
-                        <!--h5>
-                            <b>Comments</b>
-                        </h5>
-                        <h5>
-                            {{user.stats.numberOfComments}}
-                        </h5-->
-                        <h5>
-                            <b>Institution</b>
-                        </h5>
-                        <h5>
-                            {{user.information.institution}}
-                        </h5>
-                        <h5>
-                            <b>Country</b>
-                        </h5>
-                        <h5>
-                            {{user.information.country}}
-                        </h5>
-                        <h5>
-                            <b>Date of Birth</b>
-                        </h5>
-                        <h5>
-                            {{user.information.date_birth.slice(0,10)}}
-                        </h5>
-                        <!--b-button class="w-100" variant="dark">
-                            Edit Proffile
-                        </b-button-->
-                    </b-card>
-                </b-col>
+                        <h2><b>  {{user.information.firstname}} {{user.information.lastname}}</b></h2>
+
+                        <h6 style="color: #6c757d">{{user.information.user.email}}</h6>
+                        <h6 style="color: #6c757d">{{user.information.institution}} - {{user.information.country}}</h6>
+                        <br><br><br><br>
+                        <br>
+                        <h4> <b>Problems</b> </h4>
+                        <b-row>
+                            <b-col style="width: 50%">
+                                <h6 style="min-width: max-content"> <b>Submited</b> </h6>
+                                <h5 >{{infoproblems.length}}</h5>
+                            </b-col>
+                            <b-col style="width: 50%">
+                                <h6 style="min-width: max-content"><b>Obtained</b></h6>
+                                <h5>{{obproblems.length}}</h5>
+                            </b-col>
+                        </b-row>
+
+                    </center>
+
+                </b-card>
+
                 <b-col cols="12" md="8">
                     <div class="w-100 h-100">
                         <b-tabs justified>
