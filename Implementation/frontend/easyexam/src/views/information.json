@@ -1,0 +1,82 @@
+[
+    {
+        "name": "Divide and Conquer", 
+        "description": "---",
+        "date": "01/01/2019", 
+        "dif":"Hard",
+        "score":"6", 
+        "type":"SA",
+        "tags": ["supertag1", "divide and conquer","c++","ada","algorithms"]
+    },
+    {
+        "name": "Knapsack",
+        "description": "---",
+        "fecha": "01/01/2019",
+        "dif":"Easy",
+        "score":"4", 
+        "type":"LA",
+        "tags": ["supertag1", "knapsack","divide and conquer","c++","ada","algorithms"]
+    },
+    {
+        "name": "Master Theorem",
+        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "fecha": "01/01/2019",
+        "dif":"Medium",
+        "score":"8", 
+        "type":"MC",
+        "tags": ["supertag1", "master theorem","ada","algorithms","maths"]
+    },
+    {
+        "name": "c++",
+        "description": "---",
+        "fecha": "01/01/2019",
+        "dif":"Hard",
+        "score":"5", 
+        "type":"TF",
+        "tags": ["supertag1", "c++"]
+    },
+    {
+        "name": "Problem a",
+        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "fecha": "01/01/2019",
+        "dif":"Hard",
+        "score":"6", 
+        "type":"SC",
+        "tags": ["supertag2", "divide and conquer","tag1", "tag2"]
+    },
+    {
+        "name": "Problem b",
+        "description": "---",
+        "fecha": "01/01/2019",
+        "dif":"Easy",
+        "score":"6", 
+        "type":"SA",
+        "tags": ["supertag2", "knapsack","tag3"]
+    },
+    {
+        "name": "Problem c", "description": "---",
+        "fecha": "01/01/2019",
+        "dif":"Medium",
+        "score":"4", 
+        "type":"MC",
+        "tags": ["supertag3", "tag2", "tag1", "tag3"]
+    },
+    {
+        "name": "Problem d",
+        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "fecha": "01/01/2019",
+        "dif":"Hard",
+        "score":"6", 
+        "type":"LA",
+        "tags": ["supertag3", "tag2", "tag3"]
+    },
+    {
+        "name": "Problem e",
+        "description": "---",
+        "fecha": "01/01/2019",
+        "dif":"Hard",
+        "score":"9", 
+        "type":"TF",
+        "tags": ["supertag4", "tag1", "tag3"]
+    }
+] 

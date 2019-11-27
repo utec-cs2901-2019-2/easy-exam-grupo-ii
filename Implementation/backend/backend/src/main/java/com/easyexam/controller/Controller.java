@@ -1,4 +1,4 @@
-package com.easyexam.backend;
+package com.easyexam.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
