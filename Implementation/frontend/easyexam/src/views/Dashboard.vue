@@ -243,7 +243,31 @@
                         </b-card-body>
                     </b-card>
 
-                    <b-card no-body style="margin-top: 0px; border-color: white; padding: 0">
+                    <b-card no-body style="margin-top: 0px; border-color: white">
+                        <b-card-header header-tag="header" class="p-1 bg-secondary" role="tab" align="center" >
+                            <h6 style="color: white">Problem Type</h6>
+                        </b-card-header>
+                        <b-card-body align="center" >
+                            <b-list-group>
+                                <!--<b-list-group-item v-for="(ty, index) of types" v-bind:key = "index" href="#" @click="selectType (index)" style="color: black">{{ty}}</b-list-group-item>-->
+
+                                <b-list-group-item v-for="(ty, index) of getTypes" v-bind:key="index" style="padding:0px" >
+                                    <b-button :pressed.sync=ty.state v-if="ty.state== true" @click="selectType(ty.name)" variant="light" style="border:0px; width:100%; heigth: 100%">
+                                        {{ty.name}}
+                                    </b-button>
+                                    <b-button :pressed.sync=ty.state v-else @click="selectType(ty.name)" variant="light" style="border:0px; width:100%; heigth: 100%" align-h="between">
+                                        <b-row align-h="between">
+                                            <b-col cols="9">{{ty.name}}</b-col>
+                                            <b-col cols="3"><b-badge variant="dark" pill>X</b-badge></b-col>
+                                        </b-row>
+                                    </b-button>
+                                </b-list-group-item>
+
+                            </b-list-group>
+                        </b-card-body>
+                    </b-card>
+
+                    <b-card no-body style="margin-top: 5px; border-color: white; padding: 0">
                         <b-card-header header-tag="header" class="p-1 bg-secondary" role="tab" align="center">
                             <h6 style="color: white">Subjects</h6>
                         </b-card-header>
@@ -262,30 +286,6 @@
                                         </b-button>
                                     </b-list-group-item>
                                 </b-list-group>
-                            </b-card-body>
-                    </b-card>
-
-                    <b-card no-body style="margin-top: 5px; border-color: white">
-                        <b-card-header header-tag="header" class="p-1 bg-secondary" role="tab" align="center" >
-                            <h6 style="color: white">Problem Type</h6>
-                        </b-card-header>
-                            <b-card-body align="center" >
-                            <b-list-group>
-                            <!--<b-list-group-item v-for="(ty, index) of types" v-bind:key = "index" href="#" @click="selectType (index)" style="color: black">{{ty}}</b-list-group-item>-->
-
-                                <b-list-group-item v-for="(ty, index) of getTypes" v-bind:key="index" style="padding:0px" >
-                                    <b-button :pressed.sync=ty.state v-if="ty.state== true" @click="selectType(ty.name)" variant="light" style="border:0px; width:100%; heigth: 100%">
-                                        {{ty.name}}
-                                    </b-button>
-                                    <b-button :pressed.sync=ty.state v-else @click="selectType(ty.name)" variant="light" style="border:0px; width:100%; heigth: 100%" align-h="between">
-                                        <b-row align-h="between">
-                                            <b-col cols="9">{{ty.name}}</b-col>
-                                            <b-col cols="3"><b-badge variant="dark" pill>X</b-badge></b-col>
-                                        </b-row>
-                                    </b-button>
-                                </b-list-group-item>
-
-                            </b-list-group>
                             </b-card-body>
                     </b-card>
                 </div>
@@ -529,18 +529,6 @@ export default {
         },
 
         selectType (Type) {
-            if (Type=='Short Answer (SA)'){
-                Type='SA'
-            }
-            if (Type=='Multiple Choise (MC)'){
-                Type='MC'
-            }
-            if (Type=='Long Answer (SA)'){
-                Type='LA'
-            }
-            if (Type=='True or False (TF)'){
-                Type='TF'
-            }
             let intFind = this.selectedTypes.indexOf(Type)
             if (intFind >= 0){
                 this.selectedTypes.splice(intFind, 1)
@@ -596,7 +584,20 @@ export default {
                                 if (this.selectedTypes.length===0)
                                     res.push (problem)
                                 else{
-                                    if (problem.topicsString.filter(value => this.selectedTypes.includes (value)).length) {
+                                    let newproty='';
+                                    if (problem.type==='SA'){
+                                        newproty= 'Short Answer (SA)'
+                                    }
+                                    if (problem.type==='LA'){
+                                        newproty= 'Long Answer (LA)'
+                                    }
+                                    if (problem.type==='MC'){
+                                        newproty= 'Multiple Choice (MC)'
+                                    }
+                                    if (problem.type==='TF'){
+                                        newproty= 'True or False (TF)'
+                                    }
+                                    if (this.selectedTypes.includes (newproty)) {
                                         res.push(problem)
                                     }
                                 }
@@ -607,7 +608,20 @@ export default {
                                     if (this.selectedTypes.length===0)
                                         res.push (problem)
                                     else{
-                                        if (problem.topicsString.filter(value => this.selectedTypes.includes (value)).length) {
+                                        let newproty='';
+                                        if (problem.type==='SA'){
+                                            newproty= 'Short Answer (SA)'
+                                        }
+                                        if (problem.type==='LA'){
+                                            newproty= 'Long Answer (LA)'
+                                        }
+                                        if (problem.type==='MC'){
+                                            newproty= 'Multiple Choice (MC)'
+                                        }
+                                        if (problem.type==='TF'){
+                                            newproty= 'True or False (TF)'
+                                        }
+                                        if (this.selectedTypes.includes (newproty)) {
                                             res.push(problem)
                                         }
                                     }
@@ -618,7 +632,20 @@ export default {
                                     if (this.selectedTypes.length===0)
                                         res.push (problem)
                                     else{
-                                        if (problem.topicsString.filter(value => this.selectedTypes.includes (value)).length) {
+                                        let newproty='';
+                                        if (problem.type==='SA'){
+                                            newproty= 'Short Answer (SA)'
+                                        }
+                                        if (problem.type==='LA'){
+                                            newproty= 'Long Answer (LA)'
+                                        }
+                                        if (problem.type==='MC'){
+                                            newproty= 'Multiple Choice (MC)'
+                                        }
+                                        if (problem.type==='TF'){
+                                            newproty= 'True or False (TF)'
+                                        }
+                                        if (this.selectedTypes.includes (newproty)) {
                                             res.push(problem)
                                         }
                                     }
@@ -629,7 +656,20 @@ export default {
                                         if (this.selectedTypes.length===0)
                                             res.push (problem)
                                         else{
-                                            if (problem.topicsString.filter(value => this.selectedTypes.includes (value)).length) {
+                                            let newproty='';
+                                            if (problem.type==='SA'){
+                                                newproty= 'Short Answer (SA)'
+                                            }
+                                            if (problem.type==='LA'){
+                                                newproty= 'Long Answer (LA)'
+                                            }
+                                            if (problem.type==='MC'){
+                                                newproty= 'Multiple Choice (MC)'
+                                            }
+                                            if (problem.type==='TF'){
+                                                newproty= 'True or False (TF)'
+                                            }
+                                            if (this.selectedTypes.includes (newproty)) {
                                                 res.push(problem)
                                             }
                                         }
