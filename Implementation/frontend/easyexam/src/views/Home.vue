@@ -14,8 +14,10 @@
                   <b-col md="6">
               <div class="inner cover text-center" style="margin: 3%">
                   <p class="lead">EasyExam is an online platform aiming to help teachers to generate
-                      exams based on problem set and download them as PDF format.
-                      EasyExam provides a 3x1 system. In other words, provide 1 problem to receive in exchange 3 ones. In this way, our plataform encourages the peer collaboration. </p>
+                      exams based on problem set and download them as PDF and Latex format.
+                      EasyExam initially provides 3 problems, then it works with the 3x1 system. 
+                      In other words, provide 1 problem to receive in exchange 3 ones. 
+                      In this way, our plataform encourages the peer collaboration. </p>
                   <p class="lead text-center">
                     <b-button variant="dark" href="/login" style="background-color: black">Get Started</b-button>
                     <b-button class="m-2" variant="dark" href="#Learn-More">Learn More</b-button>
